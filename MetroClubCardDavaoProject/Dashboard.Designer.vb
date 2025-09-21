@@ -56,8 +56,7 @@ Partial Class Dashboard
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
         dgvRegistrations.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        dgvRegistrations.ColumnHeadersHeight = 4
-        dgvRegistrations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
+        dgvRegistrations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = Color.White
         DataGridViewCellStyle3.Font = New Font("Segoe UI", 9F)
@@ -70,6 +69,7 @@ Partial Class Dashboard
         dgvRegistrations.Location = New Point(23, 75)
         dgvRegistrations.Name = "dgvRegistrations"
         dgvRegistrations.RowHeadersVisible = False
+        dgvRegistrations.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         dgvRegistrations.Size = New Size(754, 354)
         dgvRegistrations.TabIndex = 2
         dgvRegistrations.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
@@ -83,7 +83,7 @@ Partial Class Dashboard
         dgvRegistrations.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None
         dgvRegistrations.ThemeStyle.HeaderStyle.Font = New Font("Segoe UI", 9F)
         dgvRegistrations.ThemeStyle.HeaderStyle.ForeColor = Color.White
-        dgvRegistrations.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
+        dgvRegistrations.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvRegistrations.ThemeStyle.HeaderStyle.Height = 4
         dgvRegistrations.ThemeStyle.ReadOnly = False
         dgvRegistrations.ThemeStyle.RowsStyle.BackColor = Color.White
