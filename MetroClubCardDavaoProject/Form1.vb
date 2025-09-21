@@ -34,16 +34,7 @@ Public Class Form1
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
         Try
-            ' 🔹 First, check static admin credentials
-            If tbUsername.Text = "metrocarddavaoadmin" AndAlso tbPassword.Text = "metrocarddavao12345" Then
-                MessageBox.Show("Admin Login Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Dim f2 As New Form2()
-                f2.Show()
-                Me.Hide()
-                Exit Sub
-            End If
-
-            ' 🔹 If not static admin, check SQLite database
+            ' 🔹 Check SQLite database for login
             conn.Open()
             Dim query As String = "SELECT * FROM users WHERE username=@uname AND password=@pword"
             cmd = New SQLiteCommand(query, conn)
