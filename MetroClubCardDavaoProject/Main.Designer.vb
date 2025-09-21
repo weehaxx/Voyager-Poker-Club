@@ -35,7 +35,7 @@ Partial Class Main
         PictureBox1 = New PictureBox()
         btnDashboard = New Guna.UI2.WinForms.Guna2Button()
         btnRegistration = New Guna.UI2.WinForms.Guna2Button()
-        Guna2Button3 = New Guna.UI2.WinForms.Guna2Button()
+        btnReport = New Guna.UI2.WinForms.Guna2Button()
         btnLogout = New Guna.UI2.WinForms.Guna2Button()
         Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
         Panel1 = New Panel()
@@ -57,6 +57,7 @@ Partial Class Main
         ' 
         btnDashboard.BackColor = Color.Transparent
         btnDashboard.BorderRadius = 20
+        btnDashboard.Checked = True
         btnDashboard.CheckedState.FillColor = Color.Black
         btnDashboard.CheckedState.ForeColor = Color.White
         btnDashboard.CustomizableEdges = CustomizableEdges1
@@ -67,12 +68,15 @@ Partial Class Main
         btnDashboard.FillColor = Color.White
         btnDashboard.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnDashboard.ForeColor = Color.Black
+        btnDashboard.HoverState.FillColor = Color.Black
+        btnDashboard.HoverState.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnDashboard.HoverState.ForeColor = Color.White
         btnDashboard.Location = New Point(12, 160)
         btnDashboard.Name = "btnDashboard"
         btnDashboard.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         btnDashboard.Size = New Size(195, 45)
         btnDashboard.TabIndex = 1
-        btnDashboard.Text = "Dashboard"
+        btnDashboard.Text = "Members"
         ' 
         ' btnRegistration
         ' 
@@ -88,6 +92,8 @@ Partial Class Main
         btnRegistration.FillColor = Color.White
         btnRegistration.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnRegistration.ForeColor = Color.Black
+        btnRegistration.HoverState.FillColor = Color.Black
+        btnRegistration.HoverState.ForeColor = Color.White
         btnRegistration.Location = New Point(12, 211)
         btnRegistration.Name = "btnRegistration"
         btnRegistration.ShadowDecoration.CustomizableEdges = CustomizableEdges4
@@ -95,24 +101,26 @@ Partial Class Main
         btnRegistration.TabIndex = 2
         btnRegistration.Text = "Registration"
         ' 
-        ' Guna2Button3
+        ' btnReport
         ' 
-        Guna2Button3.BackColor = Color.Transparent
-        Guna2Button3.BorderRadius = 20
-        Guna2Button3.CustomizableEdges = CustomizableEdges5
-        Guna2Button3.DisabledState.BorderColor = Color.DarkGray
-        Guna2Button3.DisabledState.CustomBorderColor = Color.DarkGray
-        Guna2Button3.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        Guna2Button3.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        Guna2Button3.FillColor = Color.White
-        Guna2Button3.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2Button3.ForeColor = Color.Black
-        Guna2Button3.Location = New Point(12, 262)
-        Guna2Button3.Name = "Guna2Button3"
-        Guna2Button3.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        Guna2Button3.Size = New Size(195, 45)
-        Guna2Button3.TabIndex = 3
-        Guna2Button3.Text = "Report"
+        btnReport.BackColor = Color.Transparent
+        btnReport.BorderRadius = 20
+        btnReport.CustomizableEdges = CustomizableEdges5
+        btnReport.DisabledState.BorderColor = Color.DarkGray
+        btnReport.DisabledState.CustomBorderColor = Color.DarkGray
+        btnReport.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnReport.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnReport.FillColor = Color.White
+        btnReport.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnReport.ForeColor = Color.Black
+        btnReport.HoverState.FillColor = Color.Black
+        btnReport.HoverState.ForeColor = Color.White
+        btnReport.Location = New Point(12, 262)
+        btnReport.Name = "btnReport"
+        btnReport.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        btnReport.Size = New Size(195, 45)
+        btnReport.TabIndex = 3
+        btnReport.Text = "Report"
         ' 
         ' btnLogout
         ' 
@@ -136,7 +144,7 @@ Partial Class Main
         ' Guna2Panel1
         ' 
         Guna2Panel1.Controls.Add(btnLogout)
-        Guna2Panel1.Controls.Add(Guna2Button3)
+        Guna2Panel1.Controls.Add(btnReport)
         Guna2Panel1.Controls.Add(btnRegistration)
         Guna2Panel1.Controls.Add(btnDashboard)
         Guna2Panel1.Controls.Add(PictureBox1)
@@ -152,14 +160,14 @@ Partial Class Main
         ' 
         Panel1.Location = New Point(227, -1)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(852, 635)
+        Panel1.Size = New Size(1041, 635)
         Panel1.TabIndex = 1
         ' 
         ' Main
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1077, 634)
+        ClientSize = New Size(1269, 634)
         Controls.Add(Panel1)
         Controls.Add(Guna2Panel1)
         Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -176,7 +184,7 @@ Partial Class Main
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents btnDashboard As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnRegistration As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents Guna2Button3 As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnReport As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnLogout As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents Panel1 As Panel
