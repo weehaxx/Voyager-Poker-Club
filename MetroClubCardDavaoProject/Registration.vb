@@ -12,6 +12,45 @@ Public Class Registration
         tbRelationshipPol.Enabled = False
     End Sub
 
+    Private Sub ValidateForm()
+        ' List all required fields here
+        Dim requiredFieldsFilled As Boolean =
+        Not String.IsNullOrWhiteSpace(tbLastName.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbFirstName.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbMiddleName.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbPresentAddress.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbPermanentAddress.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbBirthPlace.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbCivilStatus.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbNationality.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbEmail.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbMobileNumber.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbNameEmergency.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbRelationShipEmergency.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(tbContactEmergency.Text) AndAlso
+        (rbSelfEmployed.Checked OrElse rbEmployed.Checked) AndAlso
+        (tbYes.Checked OrElse tbNo.Checked)
+
+        ' If "Yes" is checked, relationship must not be blank
+        If tbYes.Checked Then
+            requiredFieldsFilled = requiredFieldsFilled AndAlso Not String.IsNullOrWhiteSpace(tbRelationshipPol.Text)
+        End If
+
+        btnSave.Enabled = requiredFieldsFilled
+    End Sub
+
+    Private Sub AnyFieldChanged(sender As Object, e As EventArgs) _
+    Handles tbLastName.TextChanged, tbFirstName.TextChanged, tbMiddleName.TextChanged,
+            tbPresentAddress.TextChanged, tbPermanentAddress.TextChanged, tbBirthPlace.TextChanged,
+            tbCivilStatus.TextChanged, tbNationality.TextChanged, tbEmail.TextChanged,
+            tbMobileNumber.TextChanged, tbNameEmergency.TextChanged, tbRelationShipEmergency.TextChanged,
+            tbContactEmergency.TextChanged, tbRelationshipPol.TextChanged,
+            rbSelfEmployed.CheckedChanged, rbEmployed.CheckedChanged,
+            tbYes.CheckedChanged, tbNo.CheckedChanged
+
+        ValidateForm()
+    End Sub
+
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         ' Clear all input fields
         tbLastName.Clear()
@@ -58,7 +97,7 @@ Public Class Registration
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Try
-            ' 🔹 Validation for numeric fields
+            ' Validation for numeric fields
             If Not IsNumeric(tbMobileNumber.Text) OrElse String.IsNullOrWhiteSpace(tbMobileNumber.Text) Then
                 MessageBox.Show("Please enter a valid numeric Mobile Number.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
@@ -69,23 +108,12 @@ Public Class Registration
                 Exit Sub
             End If
 
-            conn.Open()
-
-            ' 🔹 Step 1: Check if a user with the same Full Name exists
-            Dim checkSql As String = "SELECT COUNT(*) FROM registrations WHERE lastname=@lastname AND firstname=@firstname AND middlename=@middlename"
-            cmd = New SQLiteCommand(checkSql, conn)
-            cmd.Parameters.AddWithValue("@lastname", tbLastName.Text)
-            cmd.Parameters.AddWithValue("@firstname", tbFirstName.Text)
-            cmd.Parameters.AddWithValue("@middlename", tbMiddleName.Text)
-
-            Dim exists As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-            If exists > 0 Then
+            ' Step 1: Check if a user with the same Full Name exists
+            If RegistrationExists(tbLastName.Text, tbFirstName.Text, tbMiddleName.Text) Then
                 MessageBox.Show("A registration with the same name already exists.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                conn.Close()
                 Exit Sub
             End If
 
-            ' 🔹 Step 2: Insert if no duplicate
             Dim employmentStatus As String = ""
             If rbSelfEmployed.Checked Then
                 employmentStatus = "Self-Employed"
@@ -100,49 +128,22 @@ Public Class Registration
                 polMember = "No"
             End If
 
-            ' 🔹 Validation: If Yes is checked, Relationship is required
+            ' Validation: If Yes is checked, Relationship is required
             If tbYes.Checked AndAlso String.IsNullOrWhiteSpace(tbRelationshipPol.Text) Then
                 MessageBox.Show("Please enter the relationship for political family member.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                conn.Close()
                 Exit Sub
             End If
 
-            Dim sql As String =
-                "INSERT INTO registrations " &
-                "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency) " &
-                "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency)"
-
-            cmd = New SQLiteCommand(sql, conn)
-            cmd.Parameters.AddWithValue("@lastname", tbLastName.Text)
-            cmd.Parameters.AddWithValue("@firstname", tbFirstName.Text)
-            cmd.Parameters.AddWithValue("@middlename", tbMiddleName.Text)
-            cmd.Parameters.AddWithValue("@alternativename", tbAlternativeName.Text)
-            cmd.Parameters.AddWithValue("@presentaddress", tbPresentAddress.Text)
-            cmd.Parameters.AddWithValue("@permanentaddress", tbPermanentAddress.Text)
-            cmd.Parameters.AddWithValue("@birthday", dtpBirthday.Value.ToString("yyyy-MM-dd"))
-            cmd.Parameters.AddWithValue("@birthplace", tbBirthPlace.Text)
-            cmd.Parameters.AddWithValue("@civilstatus", tbCivilStatus.Text)
-            cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
-            cmd.Parameters.AddWithValue("@email", tbEmail.Text)
-            cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
-            cmd.Parameters.AddWithValue("@employmentstatus", employmentStatus)
-            cmd.Parameters.AddWithValue("@businessname", tnBusinessName.Text)
-            cmd.Parameters.AddWithValue("@employername", tbEmployerName.Text)
-            cmd.Parameters.AddWithValue("@businessnature", tbBusinessNature.Text)
-            cmd.Parameters.AddWithValue("@workname", tnWorkName.Text)
-            cmd.Parameters.AddWithValue("@presentedid", tbPresentedID.Text)
-            cmd.Parameters.AddWithValue("@polmember", polMember)
-            cmd.Parameters.AddWithValue("@relationshippol", tbRelationshipPol.Text)
-            cmd.Parameters.AddWithValue("@nameemergency", tbNameEmergency.Text)
-            cmd.Parameters.AddWithValue("@relationshipemergency", tbRelationShipEmergency.Text)
-            cmd.Parameters.AddWithValue("@contactemergency", tbContactEmergency.Text)
-
-            cmd.ExecuteNonQuery()
-            conn.Close()
+            SaveRegistration(
+            tbLastName.Text, tbFirstName.Text, tbMiddleName.Text, tbAlternativeName.Text,
+            tbPresentAddress.Text, tbPermanentAddress.Text, dtpBirthday.Value, tbBirthPlace.Text,
+            tbCivilStatus.Text, tbNationality.Text, tbEmail.Text, tbMobileNumber.Text,
+            employmentStatus, tnBusinessName.Text, tbEmployerName.Text, tbBusinessNature.Text,
+            tnWorkName.Text, tbPresentedID.Text, polMember, tbRelationshipPol.Text,
+            tbNameEmergency.Text, tbRelationShipEmergency.Text, tbContactEmergency.Text
+        )
 
             MessageBox.Show("Registration saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            ' 🔹 Clear inputs after save
             btnClear_Click(Nothing, Nothing)
 
         Catch ex As Exception
@@ -163,4 +164,19 @@ Public Class Registration
             e.Handled = True
         End If
     End Sub
+
+    Public Function RegistrationExists(lastName As String, firstName As String, middleName As String) As Boolean
+        Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+            conn.Open()
+            Dim sql As String = "SELECT COUNT(*) FROM registrations WHERE lastname=@lastname AND firstname=@firstname AND middlename=@middlename"
+            Using cmd As New SQLiteCommand(sql, conn)
+                cmd.Parameters.AddWithValue("@lastname", lastName)
+                cmd.Parameters.AddWithValue("@firstname", firstName)
+                cmd.Parameters.AddWithValue("@middlename", middleName)
+                Return Convert.ToInt32(cmd.ExecuteScalar()) > 0
+            End Using
+        End Using
+    End Function
+
+
 End Class
