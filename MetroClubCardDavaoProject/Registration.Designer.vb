@@ -122,8 +122,8 @@ Partial Class Registration
         btnSave = New Guna.UI2.WinForms.Guna2Button()
         btnClear = New Guna.UI2.WinForms.Guna2Button()
         Label25 = New Label()
-        Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
-        Guna2Panel1.SuspendLayout()
+        gpPoliticalExpose = New Guna.UI2.WinForms.Guna2Panel()
+        gpPoliticalExpose.SuspendLayout()
         SuspendLayout()
         ' 
         ' tbLastName
@@ -773,7 +773,7 @@ Partial Class Registration
         Label20.BackColor = Color.Transparent
         Label20.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label20.ForeColor = Color.Black
-        Label20.Location = New Point(505, 463)
+        Label20.Location = New Point(509, 463)
         Label20.Name = "Label20"
         Label20.Size = New Size(103, 17)
         Label20.TabIndex = 40
@@ -790,7 +790,7 @@ Partial Class Registration
         tbRelationshipPol.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbRelationshipPol.Font = New Font("Segoe UI", 9F)
         tbRelationshipPol.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbRelationshipPol.Location = New Point(604, 450)
+        tbRelationshipPol.Location = New Point(614, 450)
         tbRelationshipPol.Name = "tbRelationshipPol"
         tbRelationshipPol.PlaceholderText = ""
         tbRelationshipPol.SelectedText = ""
@@ -953,23 +953,23 @@ Partial Class Registration
         Label25.TabIndex = 51
         Label25.Text = "MEMBERSHIP FORM"
         ' 
-        ' Guna2Panel1
+        ' gpPoliticalExpose
         ' 
-        Guna2Panel1.Controls.Add(tbYes)
-        Guna2Panel1.Controls.Add(tbNo)
-        Guna2Panel1.CustomizableEdges = CustomizableEdges47
-        Guna2Panel1.Location = New Point(402, 450)
-        Guna2Panel1.Name = "Guna2Panel1"
-        Guna2Panel1.ShadowDecoration.CustomizableEdges = CustomizableEdges48
-        Guna2Panel1.Size = New Size(109, 35)
-        Guna2Panel1.TabIndex = 53
+        gpPoliticalExpose.Controls.Add(tbYes)
+        gpPoliticalExpose.Controls.Add(tbNo)
+        gpPoliticalExpose.CustomizableEdges = CustomizableEdges47
+        gpPoliticalExpose.Location = New Point(402, 450)
+        gpPoliticalExpose.Name = "gpPoliticalExpose"
+        gpPoliticalExpose.ShadowDecoration.CustomizableEdges = CustomizableEdges48
+        gpPoliticalExpose.Size = New Size(109, 35)
+        gpPoliticalExpose.TabIndex = 53
         ' 
         ' Registration
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ButtonFace
-        Controls.Add(Guna2Panel1)
+        Controls.Add(gpPoliticalExpose)
         Controls.Add(Label25)
         Controls.Add(btnClear)
         Controls.Add(btnSave)
@@ -1022,8 +1022,8 @@ Partial Class Registration
         Controls.Add(Label1)
         Name = "Registration"
         Size = New Size(852, 635)
-        Guna2Panel1.ResumeLayout(False)
-        Guna2Panel1.PerformLayout()
+        gpPoliticalExpose.ResumeLayout(False)
+        gpPoliticalExpose.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -1079,6 +1079,6 @@ Partial Class Registration
     Friend WithEvents btnSave As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnClear As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Label25 As Label
-    Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents gpPoliticalExpose As Guna.UI2.WinForms.Guna2Panel
 
 End Class

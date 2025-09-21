@@ -45,7 +45,7 @@ Public Class Form1
 
             If reader.HasRows Then
                 MessageBox.Show("Login Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Dim f2 As New Form2()
+                Dim f2 As New Main()
                 Main.Show()
                 Me.Hide()
             Else
