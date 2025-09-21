@@ -59,10 +59,10 @@ Partial Class Form1
         ' Guna2HtmlLabel1
         ' 
         Guna2HtmlLabel1.BackColor = Color.Transparent
-        Guna2HtmlLabel1.Font = New Font("Simple Indust Shaded", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(178))
+        Guna2HtmlLabel1.Font = New Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(178))
         Guna2HtmlLabel1.Location = New Point(132, 241)
         Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Guna2HtmlLabel1.Size = New Size(110, 26)
+        Guna2HtmlLabel1.Size = New Size(92, 18)
         Guna2HtmlLabel1.TabIndex = 1
         Guna2HtmlLabel1.Text = "USERNAME:"
         ' 
@@ -79,10 +79,10 @@ Partial Class Form1
         ' Guna2HtmlLabel2
         ' 
         Guna2HtmlLabel2.BackColor = Color.Transparent
-        Guna2HtmlLabel2.Font = New Font("Simple Indust Shaded", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(178))
+        Guna2HtmlLabel2.Font = New Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(178))
         Guna2HtmlLabel2.Location = New Point(132, 295)
         Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
-        Guna2HtmlLabel2.Size = New Size(114, 26)
+        Guna2HtmlLabel2.Size = New Size(94, 18)
         Guna2HtmlLabel2.TabIndex = 3
         Guna2HtmlLabel2.Text = "PASSWORD:"
         ' 
