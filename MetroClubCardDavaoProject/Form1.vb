@@ -38,7 +38,7 @@ Public Class Form1
             If tbUsername.Text = "metrocarddavaoadmin" AndAlso tbPassword.Text = "metrocarddavao12345" Then
                 MessageBox.Show("Admin Login Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Dim f2 As New Form2()
-                Main.Show()
+                f2.Show()
                 Me.Hide()
                 Exit Sub
             End If
