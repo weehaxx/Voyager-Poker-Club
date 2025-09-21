@@ -99,11 +99,12 @@ Partial Class Form1
         tbPassword.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbPassword.Location = New Point(264, 285)
         tbPassword.Name = "tbPassword"
+        tbPassword.PasswordChar = "*"c
         tbPassword.PlaceholderText = ""
         tbPassword.SelectedText = ""
         tbPassword.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         tbPassword.Size = New Size(210, 36)
-        tbPassword.TabIndex = 4
+        tbPassword.TabIndex = 1
         ' 
         ' btnLogin
         ' 
@@ -120,7 +121,7 @@ Partial Class Form1
         btnLogin.Name = "btnLogin"
         btnLogin.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         btnLogin.Size = New Size(180, 45)
-        btnLogin.TabIndex = 5
+        btnLogin.TabIndex = 2
         btnLogin.Text = "LOGIN"
         ' 
         ' Form1
