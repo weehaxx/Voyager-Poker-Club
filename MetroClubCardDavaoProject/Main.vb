@@ -31,4 +31,12 @@
             Me.Close()
         End If
     End Sub
+    Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
+        ' Open the Dashboard form
+        Dim dashboard As New Dashboard()
+        dashboard.Show()
+
+        ' Optionally, hide the current form if you want to switch completely
+        Me.Hide()
+    End Sub
 End Class
