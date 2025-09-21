@@ -32,6 +32,41 @@ Public Class Form1
         conn = New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
     End Sub
 
+    Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
+        Try
+            ' 🔹 First, check static admin credentials
+            If tbUsername.Text = "metrocarddavaoadmin" AndAlso tbPassword.Text = "metrocarddavao12345" Then
+                MessageBox.Show("Admin Login Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Dim f2 As New Form2()
+                Main.Show()
+                Me.Hide()
+                Exit Sub
+            End If
 
+            ' 🔹 If not static admin, check SQLite database
+            conn.Open()
+            Dim query As String = "SELECT * FROM users WHERE username=@uname AND password=@pword"
+            cmd = New SQLiteCommand(query, conn)
+            cmd.Parameters.AddWithValue("@uname", tbUsername.Text)
+            cmd.Parameters.AddWithValue("@pword", tbPassword.Text)
+
+            reader = cmd.ExecuteReader()
+
+            If reader.HasRows Then
+                MessageBox.Show("Login Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Dim f2 As New Form2()
+                Main.Show()
+                Me.Hide()
+            Else
+                MessageBox.Show("Invalid username or password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
+            reader.Close()
+            conn.Close()
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        End Try
+
+    End Sub
 End Class
 
