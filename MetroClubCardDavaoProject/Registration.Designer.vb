@@ -70,6 +70,10 @@ Partial Class Registration
         Dim CustomizableEdges46 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges47 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges48 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges49 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges50 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges51 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges52 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         tbLastName = New Guna.UI2.WinForms.Guna2TextBox()
         Label2 = New Label()
         Label1 = New Label()
@@ -123,7 +127,13 @@ Partial Class Registration
         btnClear = New Guna.UI2.WinForms.Guna2Button()
         Label25 = New Label()
         gpPoliticalExpose = New Guna.UI2.WinForms.Guna2Panel()
+        pbCameraDisplay = New Guna.UI2.WinForms.Guna2PictureBox()
+        btnAddPhoto = New Button()
+        pbIDpresented = New Guna.UI2.WinForms.Guna2PictureBox()
+        btnUploadID = New Button()
         gpPoliticalExpose.SuspendLayout()
+        CType(pbCameraDisplay, ComponentModel.ISupportInitialize).BeginInit()
+        CType(pbIDpresented, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' tbLastName
@@ -135,7 +145,7 @@ Partial Class Registration
         tbLastName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbLastName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbLastName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbLastName.Font = New Font("Segoe UI", 9F)
+        tbLastName.Font = New Font("Segoe UI", 9.0F)
         tbLastName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbLastName.Location = New Point(120, 51)
         tbLastName.Name = "tbLastName"
@@ -179,7 +189,7 @@ Partial Class Registration
         tbFirstName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbFirstName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbFirstName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbFirstName.Font = New Font("Segoe UI", 9F)
+        tbFirstName.Font = New Font("Segoe UI", 9.0F)
         tbFirstName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbFirstName.Location = New Point(369, 51)
         tbFirstName.Name = "tbFirstName"
@@ -210,7 +220,7 @@ Partial Class Registration
         tbMiddleName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMiddleName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMiddleName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMiddleName.Font = New Font("Segoe UI", 9F)
+        tbMiddleName.Font = New Font("Segoe UI", 9.0F)
         tbMiddleName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbMiddleName.Location = New Point(678, 51)
         tbMiddleName.Name = "tbMiddleName"
@@ -241,7 +251,7 @@ Partial Class Registration
         tbAlternativeName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbAlternativeName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbAlternativeName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbAlternativeName.Font = New Font("Segoe UI", 9F)
+        tbAlternativeName.Font = New Font("Segoe UI", 9.0F)
         tbAlternativeName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbAlternativeName.Location = New Point(555, 89)
         tbAlternativeName.Name = "tbAlternativeName"
@@ -272,7 +282,7 @@ Partial Class Registration
         tbPresentAddress.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPresentAddress.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPresentAddress.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPresentAddress.Font = New Font("Segoe UI", 9F)
+        tbPresentAddress.Font = New Font("Segoe UI", 9.0F)
         tbPresentAddress.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbPresentAddress.Location = New Point(161, 128)
         tbPresentAddress.Name = "tbPresentAddress"
@@ -303,7 +313,7 @@ Partial Class Registration
         tbPermanentAddress.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPermanentAddress.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPermanentAddress.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPermanentAddress.Font = New Font("Segoe UI", 9F)
+        tbPermanentAddress.Font = New Font("Segoe UI", 9.0F)
         tbPermanentAddress.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbPermanentAddress.Location = New Point(186, 163)
         tbPermanentAddress.Name = "tbPermanentAddress"
@@ -330,7 +340,7 @@ Partial Class Registration
         dtpBirthday.Checked = True
         dtpBirthday.CustomizableEdges = CustomizableEdges13
         dtpBirthday.FillColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
-        dtpBirthday.Font = New Font("Segoe UI", 9F)
+        dtpBirthday.Font = New Font("Segoe UI", 9.0F)
         dtpBirthday.ForeColor = Color.Black
         dtpBirthday.Format = DateTimePickerFormat.Long
         dtpBirthday.Location = New Point(111, 200)
@@ -363,7 +373,7 @@ Partial Class Registration
         tbBirthPlace.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBirthPlace.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBirthPlace.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbBirthPlace.Font = New Font("Segoe UI", 9F)
+        tbBirthPlace.Font = New Font("Segoe UI", 9.0F)
         tbBirthPlace.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbBirthPlace.Location = New Point(407, 200)
         tbBirthPlace.Name = "tbBirthPlace"
@@ -395,7 +405,7 @@ Partial Class Registration
         tbCivilStatus.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbCivilStatus.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbCivilStatus.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbCivilStatus.Font = New Font("Segoe UI", 9F)
+        tbCivilStatus.Font = New Font("Segoe UI", 9.0F)
         tbCivilStatus.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbCivilStatus.Location = New Point(703, 200)
         tbCivilStatus.Name = "tbCivilStatus"
@@ -426,7 +436,7 @@ Partial Class Registration
         tbNationality.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNationality.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNationality.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbNationality.Font = New Font("Segoe UI", 9F)
+        tbNationality.Font = New Font("Segoe UI", 9.0F)
         tbNationality.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbNationality.Location = New Point(120, 242)
         tbNationality.Name = "tbNationality"
@@ -457,7 +467,7 @@ Partial Class Registration
         tbEmail.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmail.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmail.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbEmail.Font = New Font("Segoe UI", 9F)
+        tbEmail.Font = New Font("Segoe UI", 9.0F)
         tbEmail.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbEmail.Location = New Point(369, 242)
         tbEmail.Name = "tbEmail"
@@ -488,7 +498,7 @@ Partial Class Registration
         tbMobileNumber.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMobileNumber.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMobileNumber.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMobileNumber.Font = New Font("Segoe UI", 9F)
+        tbMobileNumber.Font = New Font("Segoe UI", 9.0F)
         tbMobileNumber.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbMobileNumber.Location = New Point(691, 242)
         tbMobileNumber.Name = "tbMobileNumber"
@@ -575,7 +585,7 @@ Partial Class Registration
         tnBusinessName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnBusinessName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnBusinessName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tnBusinessName.Font = New Font("Segoe UI", 9F)
+        tnBusinessName.Font = New Font("Segoe UI", 9.0F)
         tnBusinessName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tnBusinessName.Location = New Point(179, 349)
         tnBusinessName.Name = "tnBusinessName"
@@ -606,7 +616,7 @@ Partial Class Registration
         tbEmployerName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmployerName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmployerName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbEmployerName.Font = New Font("Segoe UI", 9F)
+        tbEmployerName.Font = New Font("Segoe UI", 9.0F)
         tbEmployerName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbEmployerName.Location = New Point(526, 349)
         tbEmployerName.Name = "tbEmployerName"
@@ -637,7 +647,7 @@ Partial Class Registration
         tbBusinessNature.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBusinessNature.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBusinessNature.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbBusinessNature.Font = New Font("Segoe UI", 9F)
+        tbBusinessNature.Font = New Font("Segoe UI", 9.0F)
         tbBusinessNature.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbBusinessNature.Location = New Point(179, 388)
         tbBusinessNature.Name = "tbBusinessNature"
@@ -656,7 +666,7 @@ Partial Class Registration
         tnWorkName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnWorkName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnWorkName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tnWorkName.Font = New Font("Segoe UI", 9F)
+        tnWorkName.Font = New Font("Segoe UI", 9.0F)
         tnWorkName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tnWorkName.Location = New Point(526, 388)
         tnWorkName.Name = "tnWorkName"
@@ -684,7 +694,7 @@ Partial Class Registration
         Label18.BackColor = Color.Transparent
         Label18.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label18.ForeColor = Color.Black
-        Label18.Location = New Point(30, 425)
+        Label18.Location = New Point(729, 360)
         Label18.Name = "Label18"
         Label18.Size = New Size(108, 17)
         Label18.TabIndex = 35
@@ -699,14 +709,14 @@ Partial Class Registration
         tbPresentedID.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPresentedID.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPresentedID.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPresentedID.Font = New Font("Segoe UI", 9F)
+        tbPresentedID.Font = New Font("Segoe UI", 9.0F)
         tbPresentedID.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPresentedID.Location = New Point(179, 421)
+        tbPresentedID.Location = New Point(843, 351)
         tbPresentedID.Name = "tbPresentedID"
         tbPresentedID.PlaceholderText = ""
         tbPresentedID.SelectedText = ""
         tbPresentedID.ShadowDecoration.CustomizableEdges = CustomizableEdges34
-        tbPresentedID.Size = New Size(191, 26)
+        tbPresentedID.Size = New Size(177, 31)
         tbPresentedID.TabIndex = 36
         ' 
         ' Label19
@@ -788,14 +798,14 @@ Partial Class Registration
         tbRelationshipPol.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationshipPol.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationshipPol.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbRelationshipPol.Font = New Font("Segoe UI", 9F)
+        tbRelationshipPol.Font = New Font("Segoe UI", 9.0F)
         tbRelationshipPol.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbRelationshipPol.Location = New Point(614, 450)
         tbRelationshipPol.Name = "tbRelationshipPol"
         tbRelationshipPol.PlaceholderText = ""
         tbRelationshipPol.SelectedText = ""
         tbRelationshipPol.ShadowDecoration.CustomizableEdges = CustomizableEdges36
-        tbRelationshipPol.Size = New Size(191, 35)
+        tbRelationshipPol.Size = New Size(103, 35)
         tbRelationshipPol.TabIndex = 41
         ' 
         ' Label21
@@ -819,7 +829,7 @@ Partial Class Registration
         tbContactEmergency.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbContactEmergency.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbContactEmergency.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbContactEmergency.Font = New Font("Segoe UI", 9F)
+        tbContactEmergency.Font = New Font("Segoe UI", 9.0F)
         tbContactEmergency.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbContactEmergency.Location = New Point(678, 518)
         tbContactEmergency.Name = "tbContactEmergency"
@@ -850,7 +860,7 @@ Partial Class Registration
         tbRelationShipEmergency.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationShipEmergency.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationShipEmergency.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbRelationShipEmergency.Font = New Font("Segoe UI", 9F)
+        tbRelationShipEmergency.Font = New Font("Segoe UI", 9.0F)
         tbRelationShipEmergency.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbRelationShipEmergency.Location = New Point(412, 518)
         tbRelationShipEmergency.Name = "tbRelationShipEmergency"
@@ -881,7 +891,7 @@ Partial Class Registration
         tbNameEmergency.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNameEmergency.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNameEmergency.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbNameEmergency.Font = New Font("Segoe UI", 9F)
+        tbNameEmergency.Font = New Font("Segoe UI", 9.0F)
         tbNameEmergency.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbNameEmergency.Location = New Point(111, 518)
         tbNameEmergency.Name = "tbNameEmergency"
@@ -913,9 +923,9 @@ Partial Class Registration
         btnSave.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnSave.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnSave.FillColor = Color.FromArgb(CByte(0), CByte(192), CByte(0))
-        btnSave.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnSave.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnSave.ForeColor = Color.White
-        btnSave.Location = New Point(691, 581)
+        btnSave.Location = New Point(874, 581)
         btnSave.Name = "btnSave"
         btnSave.ShadowDecoration.CustomizableEdges = CustomizableEdges44
         btnSave.Size = New Size(146, 36)
@@ -932,9 +942,9 @@ Partial Class Registration
         btnClear.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnClear.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnClear.FillColor = Color.Red
-        btnClear.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnClear.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnClear.ForeColor = Color.White
-        btnClear.Location = New Point(535, 581)
+        btnClear.Location = New Point(30, 581)
         btnClear.Name = "btnClear"
         btnClear.ShadowDecoration.CustomizableEdges = CustomizableEdges46
         btnClear.Size = New Size(146, 36)
@@ -964,11 +974,59 @@ Partial Class Registration
         gpPoliticalExpose.Size = New Size(109, 35)
         gpPoliticalExpose.TabIndex = 53
         ' 
+        ' pbCameraDisplay
+        ' 
+        pbCameraDisplay.CustomizableEdges = CustomizableEdges49
+        pbCameraDisplay.ImageRotate = 0F
+        pbCameraDisplay.Location = New Point(854, 51)
+        pbCameraDisplay.Name = "pbCameraDisplay"
+        pbCameraDisplay.ShadowDecoration.CustomizableEdges = CustomizableEdges50
+        pbCameraDisplay.Size = New Size(166, 161)
+        pbCameraDisplay.SizeMode = PictureBoxSizeMode.StretchImage
+        pbCameraDisplay.TabIndex = 54
+        pbCameraDisplay.TabStop = False
+        ' 
+        ' btnAddPhoto
+        ' 
+        btnAddPhoto.ForeColor = Color.Black
+        btnAddPhoto.Location = New Point(874, 218)
+        btnAddPhoto.Name = "btnAddPhoto"
+        btnAddPhoto.Size = New Size(129, 36)
+        btnAddPhoto.TabIndex = 55
+        btnAddPhoto.Text = "ADD PHOTO"
+        btnAddPhoto.UseVisualStyleBackColor = True
+        ' 
+        ' pbIDpresented
+        ' 
+        pbIDpresented.CustomizableEdges = CustomizableEdges51
+        pbIDpresented.ImageRotate = 0F
+        pbIDpresented.Location = New Point(843, 393)
+        pbIDpresented.Name = "pbIDpresented"
+        pbIDpresented.ShadowDecoration.CustomizableEdges = CustomizableEdges52
+        pbIDpresented.Size = New Size(177, 101)
+        pbIDpresented.SizeMode = PictureBoxSizeMode.StretchImage
+        pbIDpresented.TabIndex = 57
+        pbIDpresented.TabStop = False
+        ' 
+        ' btnUploadID
+        ' 
+        btnUploadID.ForeColor = Color.Black
+        btnUploadID.Location = New Point(729, 393)
+        btnUploadID.Name = "btnUploadID"
+        btnUploadID.Size = New Size(108, 36)
+        btnUploadID.TabIndex = 58
+        btnUploadID.Text = "UPLOAD ID"
+        btnUploadID.UseVisualStyleBackColor = True
+        ' 
         ' Registration
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ButtonFace
+        Controls.Add(btnUploadID)
+        Controls.Add(pbIDpresented)
+        Controls.Add(btnAddPhoto)
+        Controls.Add(pbCameraDisplay)
         Controls.Add(gpPoliticalExpose)
         Controls.Add(Label25)
         Controls.Add(btnClear)
@@ -1021,9 +1079,11 @@ Partial Class Registration
         Controls.Add(tbLastName)
         Controls.Add(Label1)
         Name = "Registration"
-        Size = New Size(852, 635)
+        Size = New Size(1041, 635)
         gpPoliticalExpose.ResumeLayout(False)
         gpPoliticalExpose.PerformLayout()
+        CType(pbCameraDisplay, ComponentModel.ISupportInitialize).EndInit()
+        CType(pbIDpresented, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -1080,5 +1140,9 @@ Partial Class Registration
     Friend WithEvents btnClear As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Label25 As Label
     Friend WithEvents gpPoliticalExpose As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents pbCameraDisplay As Guna.UI2.WinForms.Guna2PictureBox
+    Friend WithEvents btnAddPhoto As Button
+    Friend WithEvents pbIDpresented As Guna.UI2.WinForms.Guna2PictureBox
+    Friend WithEvents btnUploadID As Button
 
 End Class

@@ -1,7 +1,11 @@
 ﻿Public Class Main
 
+
     Private Sub btnRegistration_Click(sender As Object, e As EventArgs) Handles btnRegistration.Click
         ' Clear any existing controls inside Panel1
+        btnDashboard.Checked = False
+        btnRegistration.Checked = True
+        btnReport.Checked = False
         Panel1.Controls.Clear()
 
         ' Create an instance of your Registration UserControl
@@ -13,7 +17,12 @@
     End Sub
 
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-        ' You can leave this empty unless you need custom painting
+        ' Create an instance of your Dashboard UserControl
+        Dim memberUC As New Members()
+        memberUC.Dock = DockStyle.Fill ' Makes it fill the panel
+
+        ' Add the user control to the panel
+        Panel1.Controls.Add(memberUC)
     End Sub
     Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
         ' Ask user to confirm logout (optional)
@@ -21,7 +30,6 @@
                                                  "Logout",
                                                  MessageBoxButtons.YesNo,
                                                  MessageBoxIcon.Question)
-
         If result = DialogResult.Yes Then
             ' Show the login form (Form1)
             Dim loginForm As New Form1()
@@ -32,11 +40,28 @@
         End If
     End Sub
     Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
-        ' Open the Dashboard form
-        Dim dashboard As New Dashboard()
-        dashboard.Show()
+        ' Clear any existing controls inside Panel1
+        btnDashboard.Checked = True
+        btnRegistration.Checked = False
+        btnReport.Checked = False
+        Panel1.Controls.Clear()
 
-        ' Optionally, hide the current form if you want to switch completely
-        Me.Hide()
+        ' Create an instance of your Dashboard UserControl
+        Dim memberUC As New Members()
+        memberUC.Dock = DockStyle.Fill ' Makes it fill the panel
+
+        ' Add the user control to the panel
+        Panel1.Controls.Add(memberUC)
+    End Sub
+
+    Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
+        btnDashboard.Checked = False
+        btnRegistration.Checked = False
+        btnReport.Checked = True
+    End Sub
+
+    Private Sub Guna2Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Guna2Panel1.Paint
+
+
     End Sub
 End Class

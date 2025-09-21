@@ -6,6 +6,7 @@
     <StartupObject>Sub Main</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
+    <ImportedNamespaces>System.Data=False,System.Drawing=False,System.Windows.Forms=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,MetroClubCardDavaoProject=True</ImportedNamespaces>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,15 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
     <PackageReference Include="System.Data.SQLite" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TouchlessLib">
+      <HintPath>bin\Debug\net8.0-windows\touchlesslib.dll</HintPath>
+    </Reference>
+    <Reference Include="WebCamLib">
+      <HintPath>bin\Debug\net8.0-windows\WebCamLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

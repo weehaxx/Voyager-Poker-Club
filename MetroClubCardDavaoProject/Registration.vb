@@ -1,8 +1,11 @@
 ﻿Imports System.Data.SQLite
 
+
 Public Class Registration
     Dim conn As SQLiteConnection
     Dim cmd As SQLiteCommand
+
+
 
     Private Sub Registration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim dbPath As String = "metrocarddavaodb.db"
@@ -28,7 +31,6 @@ Public Class Registration
         Not String.IsNullOrWhiteSpace(tbNameEmergency.Text) AndAlso
         Not String.IsNullOrWhiteSpace(tbRelationShipEmergency.Text) AndAlso
         Not String.IsNullOrWhiteSpace(tbContactEmergency.Text) AndAlso
-        (rbSelfEmployed.Checked OrElse rbEmployed.Checked) AndAlso
         (tbYes.Checked OrElse tbNo.Checked)
 
         ' If "Yes" is checked, relationship must not be blank
@@ -178,5 +180,35 @@ Public Class Registration
         End Using
     End Function
 
+    Private Sub btnAddPhoto_Click(sender As Object, e As EventArgs) Handles btnAddPhoto.Click
+        Using ofd As New OpenFileDialog()
+            ofd.Title = "Select a Photo"
+            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+            If ofd.ShowDialog() = DialogResult.OK Then
+                Try
+                    Dim img As Image = Image.FromFile(ofd.FileName)
+                    pbCameraDisplay.Image = img
+                Catch ex As Exception
+                    MessageBox.Show("Unable to load image: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
+        End Using
+    End Sub
+
+    Private Sub btnUploadID_Click(sender As Object, e As EventArgs) Handles btnUploadID.Click
+        Using ofd As New OpenFileDialog()
+            ofd.Title = "Select an ID Image"
+            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+            If ofd.ShowDialog() = DialogResult.OK Then
+                Try
+                    Dim img As Image = Image.FromFile(ofd.FileName)
+                    pbIDpresented.Image = img
+                    pbIDpresented.SizeMode = PictureBoxSizeMode.StretchImage ' Ensure image fits the box
+                Catch ex As Exception
+                    MessageBox.Show("Unable to load image: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
+        End Using
+    End Sub
 
 End Class
