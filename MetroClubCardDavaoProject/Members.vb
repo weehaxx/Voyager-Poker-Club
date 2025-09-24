@@ -181,18 +181,25 @@ Public Class Members
                 End If
 
                 Dim selectedRow = selectedRowView.Row
-
                 Dim regID = selectedRow("registration_id").ToString()
                 Dim fullName = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
 
-                ' Open BuyInDialog
-                Dim dialog As New PlayerLedger
+                ' ✅ Show overlay *as owned form* so it stays behind the dialog
+                Dim overlay As New OverlayForm(Me.FindForm())
+                overlay.Owner = Me.FindForm
+                overlay.Show()
+
+                ' ✅ Show dialog WITHOUT being a child of the overlay
+                Dim dialog As New PlayerLedger()
                 dialog.RegistrationID = regID
                 dialog.FullName = fullName
 
-                If dialog.ShowDialog = DialogResult.OK Then
+                ' ShowDialog with Members as the owner, not overlay
+                If dialog.ShowDialog(Me) = DialogResult.OK Then
                     MessageBox.Show("Buy-In recorded.")
                 End If
+
+                overlay.Close()
             Else
                 MessageBox.Show("Please select a member first.")
             End If
@@ -200,4 +207,21 @@ Public Class Members
             MessageBox.Show("Error: " & ex.Message)
         End Try
     End Sub
+
+
+
+    Public Class OverlayForm
+        Inherits Form
+
+        Public Sub New(owner As Form)
+            Me.FormBorderStyle = FormBorderStyle.None
+            Me.BackColor = Color.Black
+            Me.Opacity = 0.5 ' Dim effect (50%)
+            Me.ShowInTaskbar = False
+            Me.StartPosition = FormStartPosition.Manual
+            Me.Bounds = owner.Bounds
+            Me.TopMost = False ' ✅ Make sure dialog can appear on top
+        End Sub
+    End Class
+
 End Class

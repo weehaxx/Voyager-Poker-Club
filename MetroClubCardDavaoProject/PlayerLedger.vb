@@ -9,11 +9,11 @@ Public Class PlayerLedger
         lblFullname.Text = FullName
         lblDateToday.Text = DateTime.Now.ToString("yyyy-MM-dd") ' Always today's date
 
-        ' ✅ Setup DateTimePicker for time selection
+        ' ✅ Setup DateTimePicker for 12-hour format with AM/PM
         dtpTime.Format = DateTimePickerFormat.Custom
-        dtpTime.CustomFormat = "HH:mm:ss"
+        dtpTime.CustomFormat = "hh:mm:ss tt"  ' 12-hour format + AM/PM
         dtpTime.ShowUpDown = True
-        dtpTime.Value = DateTime.Now ' default to current time
+        dtpTime.Value = DateTime.Now
 
         ' ✅ Transaction Type dropdown
         cbTransactionType.Items.Clear()
@@ -39,7 +39,7 @@ Public Class PlayerLedger
                 Return
             End If
 
-            Dim transactionType As String = cbTransactionType.SelectedItem.ToString()
+            Dim transactionType = cbTransactionType.SelectedItem.ToString
             Dim amount As Decimal
 
             If Not Decimal.TryParse(tbAmount.Text, amount) Then
@@ -47,12 +47,12 @@ Public Class PlayerLedger
                 Return
             End If
 
-            Dim dbPath As String = "metrocarddavaodb.db"
+            Dim dbPath = "metrocarddavaodb.db"
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
                 ' ✅ Save unified record
-                Dim sql As String = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_today, time_today) 
+                Dim sql = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_today, time_today) 
                                      VALUES (@regid, @type, @amount, @mode, @date, @time)"
 
                 Using cmd As New SQLiteCommand(sql, conn)
@@ -61,17 +61,23 @@ Public Class PlayerLedger
                     cmd.Parameters.AddWithValue("@amount", amount)
                     cmd.Parameters.AddWithValue("@mode", cbPaymentMode.Text)
                     cmd.Parameters.AddWithValue("@date", lblDateToday.Text)
-                    cmd.Parameters.AddWithValue("@time", dtpTime.Value.ToString("HH:mm:ss"))
+                    cmd.Parameters.AddWithValue("@time", dtpTime.Value.ToString("hh:mm:ss tt"))
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
 
             MessageBox.Show(transactionType & " saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Me.DialogResult = DialogResult.OK
-            Me.Close()
+            DialogResult = DialogResult.OK
+            Close()
 
         Catch ex As Exception
             MessageBox.Show("Error saving transaction: " & ex.Message)
         End Try
     End Sub
+
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+        Me.DialogResult = DialogResult.Cancel ' ✅ Notify parent that user canceled
+        Me.Close() ' ✅ Close the dialog
+    End Sub
+
 End Class
