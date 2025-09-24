@@ -154,4 +154,29 @@ Public Class Members
         End Try
     End Sub
 
+    Private Sub gbCashout_Click(sender As Object, e As EventArgs) Handles gbPlayersLedger.Click
+        Try
+            If dgvRegistrations.SelectedRows.Count > 0 Then
+                Dim selectedRowView = DirectCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+                Dim selectedRow = selectedRowView.Row
+
+                Dim regID = Convert.ToInt32(selectedRow("id"))
+                Dim fullName = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
+
+                ' Open BuyInDialog
+                Dim dialog As New PlayerLedger
+                dialog.RegistrationID = regID
+                dialog.FullName = fullName
+
+                If dialog.ShowDialog = DialogResult.OK Then
+                    ' Optional: refresh any grid or summary
+                    MessageBox.Show("Buy-In recorded.")
+                End If
+            Else
+                MessageBox.Show("Please select a member first.")
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        End Try
+    End Sub
 End Class

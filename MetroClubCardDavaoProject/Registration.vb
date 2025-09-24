@@ -140,13 +140,17 @@ Public Class Registration
     ' -------------------- SAVE --------------------
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Try
+            Dim newId As Long
+
             Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
                 conn.Open()
 
+                ' First INSERT without registration_id
                 Dim query As String =
                     "INSERT INTO registrations " &
                     "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
-                    "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo)"
+                    "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
+                    "SELECT last_insert_rowid();"
 
                 Using cmd As New SQLiteCommand(query, conn)
                     ' Text fields
@@ -205,7 +209,17 @@ Public Class Registration
                     End If
                     cmd.Parameters.AddWithValue("@photo", photoBytes)
 
-                    cmd.ExecuteNonQuery()
+                    newId = CLng(cmd.ExecuteScalar()) ' Get auto id
+                End Using
+
+                ' Generate registration_id
+                Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & newId.ToString("D4")
+
+                ' Update the row with registration_id
+                Using updateCmd As New SQLiteCommand("UPDATE registrations SET registration_id=@regid WHERE id=@id", conn)
+                    updateCmd.Parameters.AddWithValue("@regid", regId)
+                    updateCmd.Parameters.AddWithValue("@id", newId)
+                    updateCmd.ExecuteNonQuery()
                 End Using
             End Using
 
