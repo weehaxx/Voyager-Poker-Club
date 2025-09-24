@@ -1,11 +1,13 @@
 ﻿Imports System.Data.SQLite
 Imports System.IO
+Imports Guna.UI2.WinForms
 
 Public Class Members
     Dim conn As SQLiteConnection
     Dim dt As DataTable ' ✅ Keep DataTable global for filtering
 
     Private Sub Members_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        dgvRegistrations.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         Dim dbPath As String = "metrocarddavaodb.db"
         conn = New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
 
@@ -15,22 +17,34 @@ Public Class Members
     Private Sub LoadRegistrations()
         Try
             conn.Open()
-            Dim sql As String = "SELECT lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency FROM registrations"
+            ' Include the columns you need
+            Dim sql As String = "SELECT id, lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, businessnature, employername, workname, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, photo FROM registrations"
+
             Dim da As New SQLiteDataAdapter(sql, conn)
             dt = New DataTable()
             da.Fill(dt)
             dgvRegistrations.DataSource = dt
 
-            ' ✅ Auto-resize columns to fit content and headers
-            dgvRegistrations.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
-            dgvRegistrations.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
-            dgvRegistrations.ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 10, FontStyle.Bold)
+            dgvRegistrations.ColumnHeadersVisible = True
+
+            ' ✅ Only show id, lastname, firstname (hide others)
+            For Each col As DataGridViewColumn In dgvRegistrations.Columns
+                If col.Name <> "id" AndAlso col.Name <> "lastname" AndAlso col.Name <> "firstname" Then
+                    col.Visible = False
+                End If
+            Next
+
+            dgvRegistrations.Refresh()
+            dgvRegistrations.AutoResizeColumns()
+            dgvRegistrations.AutoResizeColumnHeadersHeight()
 
             conn.Close()
         Catch ex As Exception
             MessageBox.Show("Error loading registrations: " & ex.Message)
         End Try
     End Sub
+
+
 
     ' 🔎 Live Search (filters all columns)
     Private Sub tbSearch_TextChanged(sender As Object, e As EventArgs) Handles tbSearch.TextChanged
@@ -39,31 +53,10 @@ Public Class Members
                 Dim dv As New DataView(dt)
                 Dim keyword As String = tbSearch.Text.Replace("'", "''")
 
-                ' ✅ Convert numeric columns to string before filtering
                 dv.RowFilter =
                     $"lastname LIKE '%{keyword}%' OR " &
                     $"firstname LIKE '%{keyword}%' OR " &
-                    $"middlename LIKE '%{keyword}%' OR " &
-                    $"alternativename LIKE '%{keyword}%' OR " &
-                    $"presentaddress LIKE '%{keyword}%' OR " &
-                    $"permanentaddress LIKE '%{keyword}%' OR " &
-                    $"birthday LIKE '%{keyword}%' OR " &
-                    $"birthplace LIKE '%{keyword}%' OR " &
-                    $"civilstatus LIKE '%{keyword}%' OR " &
-                    $"nationality LIKE '%{keyword}%' OR " &
-                    $"email LIKE '%{keyword}%' OR " &
-                    $"CONVERT(mobilenumber, 'System.String') LIKE '%{keyword}%' OR " &
-                    $"employmentstatus LIKE '%{keyword}%' OR " &
-                    $"businessname LIKE '%{keyword}%' OR " &
-                    $"employername LIKE '%{keyword}%' OR " &
-                    $"businessnature LIKE '%{keyword}%' OR " &
-                    $"workname LIKE '%{keyword}%' OR " &
-                    $"presentedid LIKE '%{keyword}%' OR " &
-                    $"polmember LIKE '%{keyword}%' OR " &
-                    $"relationshippol LIKE '%{keyword}%' OR " &
-                    $"nameemergency LIKE '%{keyword}%' OR " &
-                    $"relationshipemergency LIKE '%{keyword}%' OR " &
-                    $"CONVERT(contactemergency, 'System.String') LIKE '%{keyword}%'"
+                    $"middlename LIKE '%{keyword}%'"
 
                 dgvRegistrations.DataSource = dv
             End If
@@ -71,5 +64,98 @@ Public Class Members
             MessageBox.Show("Error searching: " & ex.Message)
         End Try
     End Sub
+
+    Private Sub dgvRegistrations_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRegistrations.CellClick
+        Try
+            If e.RowIndex >= 0 Then
+                ' Get selected row
+                Dim selectedRowView = DirectCast(dgvRegistrations.Rows(e.RowIndex).DataBoundItem, DataRowView)
+                Dim selectedRow = selectedRowView.Row
+
+                ' ✅ Fill textboxes immediately
+                tbLastName.Text = selectedRow("lastname").ToString
+                tbFIrstName.Text = selectedRow("firstname").ToString
+                tbMiddleName.Text = selectedRow("middlename").ToString
+                tbAlternativeName.Text = selectedRow("alternativename").ToString
+                tbPresentAddress.Text = selectedRow("presentaddress").ToString
+                tbPermanentAddress.Text = selectedRow("permanentaddress").ToString
+                tbBirthday.Text = selectedRow("birthday").ToString
+                tbBirthPlace.Text = selectedRow("birthplace").ToString
+                tbCivilStatus.Text = selectedRow("civilstatus").ToString
+                tbNationality.Text = selectedRow("nationality").ToString
+                tbEmail.Text = selectedRow("email").ToString
+                tbMobileNum.Text = selectedRow("mobilenumber").ToString
+
+                ' ✅ Employment Status Handling
+                Dim empStatus As String = selectedRow("employmentstatus").ToString()
+
+                If empStatus = "Self-Employed" Then
+                    rbSelfEmployed.Checked = True
+                    rbEmployed.Checked = False
+
+                    tbBusinessName.Text = selectedRow("businessname").ToString
+                    tbBusinessNature.Text = selectedRow("businessnature").ToString
+
+                    tbEmployerName.Clear()
+                    tbWorkNature.Clear()
+                ElseIf empStatus = "Employed" Then
+                    rbEmployed.Checked = True
+                    rbSelfEmployed.Checked = False
+
+                    tbEmployerName.Text = selectedRow("employername").ToString
+                    tbWorkNature.Text = selectedRow("workname").ToString
+
+                    tbBusinessName.Clear()
+                    tbBusinessNature.Clear()
+                Else
+                    rbSelfEmployed.Checked = False
+                    rbEmployed.Checked = False
+                    tbBusinessName.Clear()
+                    tbBusinessNature.Clear()
+                    tbEmployerName.Clear()
+                    tbWorkNature.Clear()
+                End If
+
+                ' ✅ Load Photo Immediately
+                If Not IsDBNull(selectedRow("photo")) Then
+                    Dim photoData = DirectCast(selectedRow("photo"), Byte())
+                    Using ms As New MemoryStream(photoData)
+                        Guna2PictureBox1.Image = Image.FromStream(ms)
+                    End Using
+                Else
+                    Guna2PictureBox1.Image = Nothing
+                End If
+
+                ' ✅ POLITICAL MEMBER HANDLING
+                Dim polMember As String = selectedRow("polmember").ToString()
+                Dim relPol As String = selectedRow("relationshippol").ToString()
+
+                If polMember = "Yes" Then
+                    rbYes.Checked = True
+                    rbNo.Checked = False
+                    tbRelationshipPol.Text = relPol
+                Else
+                    rbNo.Checked = True
+                    rbYes.Checked = False
+                    tbRelationshipPol.Clear()
+                End If
+
+                ' ✅ EMERGENCY CONTACT INFO
+                tbNameEmergency.Text = selectedRow("nameemergency").ToString()
+                tbRelationShipEmergency.Text = selectedRow("relationshipemergency").ToString()
+                tbContactEmergency.Text = selectedRow("contactemergency").ToString()
+
+
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error loading data: " & ex.Message)
+        End Try
+    End Sub
+
+
+
+
+
+
 
 End Class
