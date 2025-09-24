@@ -1,18 +1,49 @@
 ﻿Imports System.Data.SQLite
 Imports System.IO
+Imports AForge.Video
+Imports AForge.Video.DirectShow
 
 Public Class Registration
     Dim conn As SQLiteConnection
     Dim cmd As SQLiteCommand
+
+    ' Webcam variables
+    Private videoDevices As FilterInfoCollection
+    Private videoSource As VideoCaptureDevice
+    Private isCaptured As Boolean = False ' ✅ track if capture was pressed
 
     Private Sub Registration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim dbPath As String = "metrocarddavaodb.db"
         conn = New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
         tbRelationshipPol.Enabled = False
         btnSave.Enabled = False ' Start disabled
+
+        ' Disable job fields initially
+        tnBusinessName.Enabled = False
+        tbBusinessNature.Enabled = False
+        tbEmployerName.Enabled = False
+        tnWorkName.Enabled = False
+
+        ' Load webcams into ComboBox
+        Try
+            videoDevices = New FilterInfoCollection(FilterCategory.VideoInputDevice)
+            cbCamera.Items.Clear()
+            For Each cam As FilterInfo In videoDevices
+                cbCamera.Items.Add(cam.Name)
+            Next
+            If cbCamera.Items.Count > 0 Then
+                cbCamera.SelectedIndex = 0
+            Else
+                cbCamera.Items.Add("No Camera Found")
+                cbCamera.SelectedIndex = 0
+                btnWebcam.Enabled = False
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error loading cameras: " & ex.Message)
+        End Try
     End Sub
 
-    ' Real-time validation of all fields
+    ' -------------------- VALIDATION --------------------
     Private Sub ValidateForm()
         Dim mobileValid As Boolean = IsNumeric(tbMobileNumber.Text) AndAlso tbMobileNumber.Text.Trim() <> ""
         Dim contactValid As Boolean = IsNumeric(tbContactEmergency.Text) AndAlso tbContactEmergency.Text.Trim() <> ""
@@ -29,11 +60,6 @@ Public Class Registration
             Not String.IsNullOrWhiteSpace(tbNationality.Text) AndAlso
             Not String.IsNullOrWhiteSpace(tbEmail.Text) AndAlso
             mobileValid AndAlso
-            Not String.IsNullOrWhiteSpace(tnBusinessName.Text) AndAlso
-            Not String.IsNullOrWhiteSpace(tbEmployerName.Text) AndAlso
-            Not String.IsNullOrWhiteSpace(tbBusinessNature.Text) AndAlso
-            Not String.IsNullOrWhiteSpace(tnWorkName.Text) AndAlso
-            Not String.IsNullOrWhiteSpace(tbPresentedID.Text) AndAlso
             (rbSelfEmployed.Checked OrElse rbEmployed.Checked) AndAlso
             (tbYes.Checked OrElse tbNo.Checked) AndAlso
             (tbYes.Checked = False OrElse Not String.IsNullOrWhiteSpace(tbRelationshipPol.Text)) AndAlso
@@ -43,24 +69,157 @@ Public Class Registration
             pbCameraDisplay.Image IsNot Nothing AndAlso
             pbIDpresented.Image IsNot Nothing
 
+        If rbSelfEmployed.Checked Then
+            allFieldsFilled = allFieldsFilled AndAlso
+                Not String.IsNullOrWhiteSpace(tnBusinessName.Text) AndAlso
+                Not String.IsNullOrWhiteSpace(tbBusinessNature.Text)
+        ElseIf rbEmployed.Checked Then
+            allFieldsFilled = allFieldsFilled AndAlso
+                Not String.IsNullOrWhiteSpace(tbEmployerName.Text) AndAlso
+                Not String.IsNullOrWhiteSpace(tnWorkName.Text)
+        End If
+
         btnSave.Enabled = allFieldsFilled
     End Sub
 
-    ' Trigger validation on all field changes
     Private Sub AnyFieldChanged(sender As Object, e As EventArgs) _
-    Handles tbLastName.TextChanged, tbFirstName.TextChanged, tbMiddleName.TextChanged,
-            tbAlternativeName.TextChanged, tbPresentAddress.TextChanged, tbPermanentAddress.TextChanged,
-            tbBirthPlace.TextChanged, tbCivilStatus.TextChanged, tbNationality.TextChanged,
-            tbEmail.TextChanged, tbMobileNumber.TextChanged, tnBusinessName.TextChanged,
-            tbEmployerName.TextChanged, tbBusinessNature.TextChanged, tnWorkName.TextChanged,
-            tbPresentedID.TextChanged, tbRelationshipPol.TextChanged, tbNameEmergency.TextChanged,
-            tbRelationShipEmergency.TextChanged, tbContactEmergency.TextChanged,
-            rbSelfEmployed.CheckedChanged, rbEmployed.CheckedChanged,
-            tbYes.CheckedChanged, tbNo.CheckedChanged
+        Handles tbLastName.TextChanged, tbFirstName.TextChanged, tbMiddleName.TextChanged,
+                tbAlternativeName.TextChanged, tbPresentAddress.TextChanged, tbPermanentAddress.TextChanged,
+                tbBirthPlace.TextChanged, tbCivilStatus.TextChanged, tbNationality.TextChanged,
+                tbEmail.TextChanged, tbMobileNumber.TextChanged, tnBusinessName.TextChanged,
+                tbEmployerName.TextChanged, tbBusinessNature.TextChanged, tnWorkName.TextChanged,
+                tbPresentedID.TextChanged, tbRelationshipPol.TextChanged, tbNameEmergency.TextChanged,
+                tbRelationShipEmergency.TextChanged, tbContactEmergency.TextChanged,
+                rbSelfEmployed.CheckedChanged, rbEmployed.CheckedChanged,
+                tbYes.CheckedChanged, tbNo.CheckedChanged
 
         ValidateForm()
     End Sub
 
+    ' -------------------- EMPLOYMENT LOGIC --------------------
+    Private Sub rbSelfEmployed_CheckedChanged(sender As Object, e As EventArgs) Handles rbSelfEmployed.CheckedChanged
+        If rbSelfEmployed.Checked Then
+            tnBusinessName.Enabled = True
+            tbBusinessNature.Enabled = True
+            tbEmployerName.Enabled = False
+            tnWorkName.Enabled = False
+            tbEmployerName.Clear()
+            tnWorkName.Clear()
+        End If
+        ValidateForm()
+    End Sub
+
+    Private Sub rbEmployed_CheckedChanged(sender As Object, e As EventArgs) Handles rbEmployed.CheckedChanged
+        If rbEmployed.Checked Then
+            tbEmployerName.Enabled = True
+            tnWorkName.Enabled = True
+            tnBusinessName.Enabled = False
+            tbBusinessNature.Enabled = False
+            tnBusinessName.Clear()
+            tbBusinessNature.Clear()
+        End If
+        ValidateForm()
+    End Sub
+
+    ' -------------------- POLITICALLY EXPOSED FAMILY --------------------
+    Private Sub tbYes_CheckedChanged(sender As Object, e As EventArgs) Handles tbYes.CheckedChanged
+        If tbYes.Checked Then
+            tbRelationshipPol.Enabled = True
+        End If
+        ValidateForm()
+    End Sub
+
+    Private Sub tbNo_CheckedChanged(sender As Object, e As EventArgs) Handles tbNo.CheckedChanged
+        If tbNo.Checked Then
+            tbRelationshipPol.Enabled = False
+            tbRelationshipPol.Clear()
+        End If
+        ValidateForm()
+    End Sub
+
+    ' -------------------- SAVE --------------------
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        Try
+            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+                conn.Open()
+
+                Dim query As String =
+                    "INSERT INTO registrations " &
+                    "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
+                    "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo)"
+
+                Using cmd As New SQLiteCommand(query, conn)
+                    ' Text fields
+                    cmd.Parameters.AddWithValue("@lastname", tbLastName.Text)
+                    cmd.Parameters.AddWithValue("@firstname", tbFirstName.Text)
+                    cmd.Parameters.AddWithValue("@middlename", tbMiddleName.Text)
+                    cmd.Parameters.AddWithValue("@alternativename", tbAlternativeName.Text)
+                    cmd.Parameters.AddWithValue("@presentaddress", tbPresentAddress.Text)
+                    cmd.Parameters.AddWithValue("@permanentaddress", tbPermanentAddress.Text)
+                    cmd.Parameters.AddWithValue("@birthday", dtpBirthday.Value.ToString("yyyy-MM-dd"))
+                    cmd.Parameters.AddWithValue("@birthplace", tbBirthPlace.Text)
+                    cmd.Parameters.AddWithValue("@civilstatus", tbCivilStatus.Text)
+                    cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
+                    cmd.Parameters.AddWithValue("@email", tbEmail.Text)
+                    cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
+
+                    ' Employment
+                    If rbSelfEmployed.Checked Then
+                        cmd.Parameters.AddWithValue("@employmentstatus", "Self-Employed")
+                    ElseIf rbEmployed.Checked Then
+                        cmd.Parameters.AddWithValue("@employmentstatus", "Employed")
+                    Else
+                        cmd.Parameters.AddWithValue("@employmentstatus", "")
+                    End If
+                    cmd.Parameters.AddWithValue("@businessname", tnBusinessName.Text)
+                    cmd.Parameters.AddWithValue("@employername", tbEmployerName.Text)
+                    cmd.Parameters.AddWithValue("@businessnature", tbBusinessNature.Text)
+                    cmd.Parameters.AddWithValue("@workname", tnWorkName.Text)
+
+                    ' ID & Police
+                    cmd.Parameters.AddWithValue("@presentedid", tbPresentedID.Text)
+                    cmd.Parameters.AddWithValue("@polmember", If(tbYes.Checked, "Yes", "No"))
+                    cmd.Parameters.AddWithValue("@relationshippol", tbRelationshipPol.Text)
+
+                    ' Emergency
+                    cmd.Parameters.AddWithValue("@nameemergency", tbNameEmergency.Text)
+                    cmd.Parameters.AddWithValue("@relationshipemergency", tbRelationShipEmergency.Text)
+                    cmd.Parameters.AddWithValue("@contactemergency", tbContactEmergency.Text)
+
+                    ' Images
+                    Dim idImageBytes() As Byte = Nothing
+                    If pbIDpresented.Image IsNot Nothing Then
+                        Using ms As New MemoryStream()
+                            pbIDpresented.Image.Save(ms, Imaging.ImageFormat.Jpeg)
+                            idImageBytes = ms.ToArray()
+                        End Using
+                    End If
+                    cmd.Parameters.AddWithValue("@idimage", idImageBytes)
+
+                    Dim photoBytes() As Byte = Nothing
+                    If pbCameraDisplay.Image IsNot Nothing Then
+                        Using ms As New MemoryStream()
+                            pbCameraDisplay.Image.Save(ms, Imaging.ImageFormat.Jpeg)
+                            photoBytes = ms.ToArray()
+                        End Using
+                    End If
+                    cmd.Parameters.AddWithValue("@photo", photoBytes)
+
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+
+            MessageBox.Show("Registration saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' ✅ Clear all fields after saving
+            btnClear_Click(Nothing, Nothing)
+
+        Catch ex As Exception
+            MessageBox.Show("Error saving data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ' -------------------- CLEAR FORM --------------------
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         tbLastName.Clear()
         tbFirstName.Clear()
@@ -91,90 +250,21 @@ Public Class Registration
         pbCameraDisplay.Image = Nothing
         pbIDpresented.Image = Nothing
         btnSave.Enabled = False
+
+        tnBusinessName.Enabled = False
+        tbBusinessNature.Enabled = False
+        tbEmployerName.Enabled = False
+        tnWorkName.Enabled = False
     End Sub
 
-    Private Sub tbYes_CheckedChanged(sender As Object, e As EventArgs) Handles tbYes.CheckedChanged
-        tbRelationshipPol.Enabled = tbYes.Checked
-        ValidateForm()
-    End Sub
-
-    Private Sub tbNo_CheckedChanged(sender As Object, e As EventArgs) Handles tbNo.CheckedChanged
-        If tbNo.Checked Then
-            tbRelationshipPol.Clear()
-            tbRelationshipPol.Enabled = False
-        End If
-        ValidateForm()
-    End Sub
-
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Try
-            ' Extra numeric validation
-            If Not IsNumeric(tbMobileNumber.Text) OrElse String.IsNullOrWhiteSpace(tbMobileNumber.Text) Then
-                MessageBox.Show("Please enter a valid numeric Mobile Number.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
-
-            If Not IsNumeric(tbContactEmergency.Text) OrElse String.IsNullOrWhiteSpace(tbContactEmergency.Text) Then
-                MessageBox.Show("Please enter a valid numeric Emergency Contact Number.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
-
-            If RegistrationExists(tbLastName.Text, tbFirstName.Text, tbMiddleName.Text) Then
-                MessageBox.Show("A registration with the same name already exists.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
-
-            Dim employmentStatus As String = If(rbSelfEmployed.Checked, "Self-Employed", If(rbEmployed.Checked, "Employed", ""))
-            Dim polMember As String = If(tbYes.Checked, "Yes", If(tbNo.Checked, "No", ""))
-
-            Dim photoBytes As Byte() = If(pbCameraDisplay.Image IsNot Nothing, ImageToByteArray(pbCameraDisplay.Image), Nothing)
-            Dim idBytes As Byte() = If(pbIDpresented.Image IsNot Nothing, ImageToByteArray(pbIDpresented.Image), Nothing)
-
-            SaveRegistration(
-                tbLastName.Text, tbFirstName.Text, tbMiddleName.Text, tbAlternativeName.Text,
-                tbPresentAddress.Text, tbPermanentAddress.Text, dtpBirthday.Value.ToString("yyyy-MM-dd"), tbBirthPlace.Text,
-                tbCivilStatus.Text, tbNationality.Text, tbEmail.Text, tbMobileNumber.Text,
-                employmentStatus, tnBusinessName.Text, tbEmployerName.Text, tbBusinessNature.Text,
-                tnWorkName.Text, tbPresentedID.Text, polMember, tbRelationshipPol.Text,
-                tbNameEmergency.Text, tbRelationShipEmergency.Text, tbContactEmergency.Text,
-                idBytes, photoBytes
-            )
-
-            MessageBox.Show("Registration saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            btnClear_Click(Nothing, Nothing)
-
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
-    Private Sub tbMobileNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbMobileNumber.KeyPress
-        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then e.Handled = True
-    End Sub
-
-    Private Sub tbContactEmergency_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbContactEmergency.KeyPress
-        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then e.Handled = True
-    End Sub
-
-    Public Function RegistrationExists(lastName As String, firstName As String, middleName As String) As Boolean
-        Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
-            conn.Open()
-            Dim sql As String = "SELECT COUNT(*) FROM registrations WHERE lastname=@lastname AND firstname=@firstname AND middlename=@middlename"
-            Using cmd As New SQLiteCommand(sql, conn)
-                cmd.Parameters.AddWithValue("@lastname", lastName)
-                cmd.Parameters.AddWithValue("@firstname", firstName)
-                cmd.Parameters.AddWithValue("@middlename", middleName)
-                Return Convert.ToInt32(cmd.ExecuteScalar()) > 0
-            End Using
-        End Using
-    End Function
-
+    ' -------------------- PHOTO UPLOAD --------------------
     Private Sub btnAddPhoto_Click(sender As Object, e As EventArgs) Handles btnAddPhoto.Click
-        Using ofd As New OpenFileDialog()
+        Using ofd As New OpenFileDialog
             ofd.Title = "Select a Photo"
             ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
-            If ofd.ShowDialog() = DialogResult.OK Then
+            If ofd.ShowDialog = DialogResult.OK Then
                 pbCameraDisplay.Image = Image.FromFile(ofd.FileName)
+                pbCameraDisplay.SizeMode = PictureBoxSizeMode.StretchImage
                 ValidateForm()
             End If
         End Using
@@ -192,56 +282,83 @@ Public Class Registration
         End Using
     End Sub
 
-    Private Function ImageToByteArray(img As Image) As Byte()
-        Using ms As New MemoryStream()
-            img.Save(ms, img.RawFormat)
-            Return ms.ToArray()
-        End Using
-    End Function
+    ' -------------------- WEBCAM --------------------
+    Private Sub StartWebcam()
+        Try
+            If cbCamera.SelectedIndex < 0 OrElse videoDevices.Count = 0 Then
+                MessageBox.Show("No webcam selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
 
-    Private Sub SaveRegistration(lastName As String, firstName As String, middleName As String,
-                                 altName As String, presentAddr As String, permanentAddr As String,
-                                 birthday As String, birthPlace As String, civilStatus As String,
-                                 nationality As String, email As String, mobile As String,
-                                 employment As String, businessName As String, employerName As String,
-                                 businessNature As String, workName As String, presentedID As String,
-                                 polMember As String, relationshipPol As String,
-                                 nameEmergency As String, relationshipEmergency As String, contactEmergency As String,
-                                 idImage As Byte(), photo As Byte())
-
-        Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
-            conn.Open()
-            Dim sql As String = "INSERT INTO registrations (lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
-                                "VALUES (@lastname,@firstname,@middlename,@alternativename,@presentaddress,@permanentaddress,@birthday,@birthplace,@civilstatus,@nationality,@email,@mobilenumber,@employmentstatus,@businessname,@employername,@businessnature,@workname,@presentedid,@polmember,@relationshippol,@nameemergency,@relationshipemergency,@contactemergency,@idimage,@photo)"
-            Using cmd As New SQLiteCommand(sql, conn)
-                cmd.Parameters.AddWithValue("@lastname", lastName)
-                cmd.Parameters.AddWithValue("@firstname", firstName)
-                cmd.Parameters.AddWithValue("@middlename", middleName)
-                cmd.Parameters.AddWithValue("@alternativename", altName)
-                cmd.Parameters.AddWithValue("@presentaddress", presentAddr)
-                cmd.Parameters.AddWithValue("@permanentaddress", permanentAddr)
-                cmd.Parameters.AddWithValue("@birthday", birthday)
-                cmd.Parameters.AddWithValue("@birthplace", birthPlace)
-                cmd.Parameters.AddWithValue("@civilstatus", civilStatus)
-                cmd.Parameters.AddWithValue("@nationality", nationality)
-                cmd.Parameters.AddWithValue("@email", email)
-                cmd.Parameters.AddWithValue("@mobilenumber", mobile)
-                cmd.Parameters.AddWithValue("@employmentstatus", employment)
-                cmd.Parameters.AddWithValue("@businessname", businessName)
-                cmd.Parameters.AddWithValue("@employername", employerName)
-                cmd.Parameters.AddWithValue("@businessnature", businessNature)
-                cmd.Parameters.AddWithValue("@workname", workName)
-                cmd.Parameters.AddWithValue("@presentedid", presentedID)
-                cmd.Parameters.AddWithValue("@polmember", polMember)
-                cmd.Parameters.AddWithValue("@relationshippol", relationshipPol)
-                cmd.Parameters.AddWithValue("@nameemergency", nameEmergency)
-                cmd.Parameters.AddWithValue("@relationshipemergency", relationshipEmergency)
-                cmd.Parameters.AddWithValue("@contactemergency", contactEmergency)
-                cmd.Parameters.AddWithValue("@idimage", If(idImage IsNot Nothing, idImage, DBNull.Value))
-                cmd.Parameters.AddWithValue("@photo", If(photo IsNot Nothing, photo, DBNull.Value))
-                cmd.ExecuteNonQuery()
-            End Using
-        End Using
+            videoSource = New VideoCaptureDevice(videoDevices(cbCamera.SelectedIndex).MonikerString)
+            AddHandler videoSource.NewFrame, AddressOf VideoSource_NewFrame
+            videoSource.Start()
+            isCaptured = False
+        Catch ex As Exception
+            MessageBox.Show("Error starting webcam: " & ex.Message)
+        End Try
     End Sub
 
+    Private Sub StopWebcam()
+        Try
+            If videoSource IsNot Nothing AndAlso videoSource.IsRunning Then
+                RemoveHandler videoSource.NewFrame, AddressOf VideoSource_NewFrame
+                videoSource.SignalToStop()
+                videoSource.WaitForStop()
+                videoSource = Nothing
+            End If
+        Catch
+        End Try
+    End Sub
+
+    Private Sub VideoSource_NewFrame(sender As Object, eventArgs As NewFrameEventArgs)
+        If isCaptured Then Return
+        Dim bmp As Bitmap = CType(eventArgs.Frame.Clone(), Bitmap)
+        If pbCameraDisplay.InvokeRequired Then
+            pbCameraDisplay.BeginInvoke(New MethodInvoker(Sub()
+                                                              If pbCameraDisplay.Image IsNot Nothing Then
+                                                                  pbCameraDisplay.Image.Dispose()
+                                                              End If
+                                                              pbCameraDisplay.Image = bmp
+                                                              pbCameraDisplay.SizeMode = PictureBoxSizeMode.StretchImage
+                                                          End Sub))
+        Else
+            If pbCameraDisplay.Image IsNot Nothing Then
+                pbCameraDisplay.Image.Dispose()
+            End If
+            pbCameraDisplay.Image = bmp
+            pbCameraDisplay.SizeMode = PictureBoxSizeMode.StretchImage
+        End If
+    End Sub
+
+    Private Sub btnCapture_Click(sender As Object, e As EventArgs) Handles btnCapture.Click
+        If pbCameraDisplay.Image IsNot Nothing Then
+            isCaptured = True
+            MessageBox.Show("Photo captured! Webcam feed is frozen.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ValidateForm()
+        End If
+    End Sub
+
+    Private Sub btnWebcam_Click(sender As Object, e As EventArgs) Handles btnWebcam.Click
+        If videoSource Is Nothing OrElse Not videoSource.IsRunning Then
+            StartWebcam()
+            btnWebcam.Text = "STOP WEBCAM"
+        Else
+            StopWebcam()
+            btnWebcam.Text = "USE WEBCAM"
+        End If
+    End Sub
+
+    Private Sub Registration_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
+        If Not Me.Visible Then
+            StopWebcam()
+        End If
+    End Sub
+
+    Private Sub cbCamera_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbCamera.SelectedIndexChanged
+        If videoSource IsNot Nothing AndAlso videoSource.IsRunning Then
+            StopWebcam()
+            StartWebcam()
+        End If
+    End Sub
 End Class

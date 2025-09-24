@@ -11,6 +11,12 @@ Public Class Members
         Dim dbPath As String = "metrocarddavaodb.db"
         conn = New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
 
+        ' 🔒 Disable changing of radio buttons (view-only mode)
+        rbSelfEmployed.AutoCheck = False
+        rbEmployed.AutoCheck = False
+        rbYes.AutoCheck = False
+        rbNo.AutoCheck = False
+
         LoadRegistrations()
     End Sub
 
@@ -43,8 +49,6 @@ Public Class Members
             MessageBox.Show("Error loading registrations: " & ex.Message)
         End Try
     End Sub
-
-
 
     ' 🔎 Live Search (filters all columns)
     Private Sub tbSearch_TextChanged(sender As Object, e As EventArgs) Handles tbSearch.TextChanged
@@ -144,18 +148,10 @@ Public Class Members
                 tbNameEmergency.Text = selectedRow("nameemergency").ToString()
                 tbRelationShipEmergency.Text = selectedRow("relationshipemergency").ToString()
                 tbContactEmergency.Text = selectedRow("contactemergency").ToString()
-
-
             End If
         Catch ex As Exception
             MessageBox.Show("Error loading data: " & ex.Message)
         End Try
     End Sub
-
-
-
-
-
-
 
 End Class
