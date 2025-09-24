@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SQLite
 
 Public Class PlayerLedger
-    Public Property RegistrationID As Integer
+    Public Property RegistrationID As Long ' ✅ Use Long to avoid overflow
     Public Property FullName As String
 
     Private Sub BuyInDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -28,7 +28,7 @@ Public Class PlayerLedger
 
     Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
         Try
-            ' Validation
+            ' ✅ Validation
             If cbTransactionType.SelectedItem Is Nothing Then
                 MessageBox.Show("Please select a transaction type.")
                 Return
@@ -40,7 +40,12 @@ Public Class PlayerLedger
             End If
 
             Dim transactionType As String = cbTransactionType.SelectedItem.ToString()
-            Dim amount As Decimal = Decimal.Parse(tbAmount.Text)
+            Dim amount As Decimal
+
+            If Not Decimal.TryParse(tbAmount.Text, amount) Then
+                MessageBox.Show("Invalid amount entered.")
+                Return
+            End If
 
             Dim dbPath As String = "metrocarddavaodb.db"
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
@@ -52,11 +57,11 @@ Public Class PlayerLedger
 
                 Using cmd As New SQLiteCommand(sql, conn)
                     cmd.Parameters.AddWithValue("@regid", RegistrationID)
-                    cmd.Parameters.AddWithValue("@type", transactionType) ' BuyIn or CashOut
+                    cmd.Parameters.AddWithValue("@type", transactionType)
                     cmd.Parameters.AddWithValue("@amount", amount)
                     cmd.Parameters.AddWithValue("@mode", cbPaymentMode.Text)
-                    cmd.Parameters.AddWithValue("@date", lblDateToday.Text) ' always today's date
-                    cmd.Parameters.AddWithValue("@time", dtpTime.Value.ToString("HH:mm:ss")) ' chosen time
+                    cmd.Parameters.AddWithValue("@date", lblDateToday.Text)
+                    cmd.Parameters.AddWithValue("@time", dtpTime.Value.ToString("HH:mm:ss"))
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
