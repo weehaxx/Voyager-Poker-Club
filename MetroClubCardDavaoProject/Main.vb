@@ -5,7 +5,7 @@
         ' Clear any existing controls inside Panel1
         btnDashboard.Checked = False
         btnRegistration.Checked = True
-        btnReport.Checked = False
+        btnCashFlow.Checked = False
         Panel1.Controls.Clear()
 
         ' Create an instance of your Registration UserControl
@@ -43,7 +43,7 @@
         ' Clear any existing controls inside Panel1
         btnDashboard.Checked = True
         btnRegistration.Checked = False
-        btnReport.Checked = False
+        btnCashFlow.Checked = False
         Panel1.Controls.Clear()
 
         ' Create an instance of your Dashboard UserControl
@@ -54,10 +54,18 @@
         Panel1.Controls.Add(memberUC)
     End Sub
 
-    Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
+    Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnCashFlow.Click
         btnDashboard.Checked = False
         btnRegistration.Checked = False
-        btnReport.Checked = True
+        btnCashFlow.Checked = True
+        Panel1.Controls.Clear()
+
+        ' Create an instance of your Registration UserControl
+        Dim cashFlowUC As New CashFlow()
+        cashFlowUC.Dock = DockStyle.Fill ' Makes it fill the panel
+
+        ' Add the user control to the panel
+        Panel1.Controls.Add(cashFlowUC)
     End Sub
 
     Private Sub Guna2Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Guna2Panel1.Paint

@@ -35,7 +35,7 @@ Partial Class Main
         PictureBox1 = New PictureBox()
         btnDashboard = New Guna.UI2.WinForms.Guna2Button()
         btnRegistration = New Guna.UI2.WinForms.Guna2Button()
-        btnReport = New Guna.UI2.WinForms.Guna2Button()
+        btnCashFlow = New Guna.UI2.WinForms.Guna2Button()
         btnLogout = New Guna.UI2.WinForms.Guna2Button()
         Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
         Panel1 = New Panel()
@@ -101,26 +101,26 @@ Partial Class Main
         btnRegistration.TabIndex = 2
         btnRegistration.Text = "Registration"
         ' 
-        ' btnReport
+        ' btnCashFlow
         ' 
-        btnReport.BackColor = Color.Transparent
-        btnReport.BorderRadius = 20
-        btnReport.CustomizableEdges = CustomizableEdges5
-        btnReport.DisabledState.BorderColor = Color.DarkGray
-        btnReport.DisabledState.CustomBorderColor = Color.DarkGray
-        btnReport.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        btnReport.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnReport.FillColor = Color.White
-        btnReport.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        btnReport.ForeColor = Color.Black
-        btnReport.HoverState.FillColor = Color.Black
-        btnReport.HoverState.ForeColor = Color.White
-        btnReport.Location = New Point(12, 262)
-        btnReport.Name = "btnReport"
-        btnReport.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        btnReport.Size = New Size(195, 45)
-        btnReport.TabIndex = 3
-        btnReport.Text = "Report"
+        btnCashFlow.BackColor = Color.Transparent
+        btnCashFlow.BorderRadius = 20
+        btnCashFlow.CustomizableEdges = CustomizableEdges5
+        btnCashFlow.DisabledState.BorderColor = Color.DarkGray
+        btnCashFlow.DisabledState.CustomBorderColor = Color.DarkGray
+        btnCashFlow.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnCashFlow.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnCashFlow.FillColor = Color.White
+        btnCashFlow.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnCashFlow.ForeColor = Color.Black
+        btnCashFlow.HoverState.FillColor = Color.Black
+        btnCashFlow.HoverState.ForeColor = Color.White
+        btnCashFlow.Location = New Point(12, 262)
+        btnCashFlow.Name = "btnCashFlow"
+        btnCashFlow.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        btnCashFlow.Size = New Size(195, 45)
+        btnCashFlow.TabIndex = 3
+        btnCashFlow.Text = "Cash Flow"
         ' 
         ' btnLogout
         ' 
@@ -134,7 +134,7 @@ Partial Class Main
         btnLogout.FillColor = Color.White
         btnLogout.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnLogout.ForeColor = Color.Black
-        btnLogout.Location = New Point(12, 578)
+        btnLogout.Location = New Point(12, 782)
         btnLogout.Name = "btnLogout"
         btnLogout.ShadowDecoration.CustomizableEdges = CustomizableEdges8
         btnLogout.Size = New Size(195, 45)
@@ -144,7 +144,7 @@ Partial Class Main
         ' Guna2Panel1
         ' 
         Guna2Panel1.Controls.Add(btnLogout)
-        Guna2Panel1.Controls.Add(btnReport)
+        Guna2Panel1.Controls.Add(btnCashFlow)
         Guna2Panel1.Controls.Add(btnRegistration)
         Guna2Panel1.Controls.Add(btnDashboard)
         Guna2Panel1.Controls.Add(PictureBox1)
@@ -153,21 +153,21 @@ Partial Class Main
         Guna2Panel1.Location = New Point(0, -1)
         Guna2Panel1.Name = "Guna2Panel1"
         Guna2Panel1.ShadowDecoration.CustomizableEdges = CustomizableEdges10
-        Guna2Panel1.Size = New Size(221, 635)
+        Guna2Panel1.Size = New Size(221, 847)
         Guna2Panel1.TabIndex = 0
         ' 
         ' Panel1
         ' 
         Panel1.Location = New Point(227, -1)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(1041, 635)
+        Panel1.Size = New Size(1190, 847)
         Panel1.TabIndex = 1
         ' 
         ' Main
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1269, 634)
+        ClientSize = New Size(1416, 844)
         Controls.Add(Panel1)
         Controls.Add(Guna2Panel1)
         Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -184,7 +184,7 @@ Partial Class Main
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents btnDashboard As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnRegistration As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents btnReport As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnCashFlow As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents btnLogout As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents Panel1 As Panel

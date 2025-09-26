@@ -1,26 +1,23 @@
 ﻿Imports System.Data.SQLite
 
 Public Class PlayerLedger
-    Public Property RegistrationID As Long ' ✅ Use Long to avoid overflow
+    Public Property RegistrationID As Long ' actual integer primary key from registrations.id
     Public Property FullName As String
 
-    Private Sub BuyInDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' ✅ Player info
+    Private Sub PlayerLedger_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblFullname.Text = FullName
-        lblDateToday.Text = DateTime.Now.ToString("yyyy-MM-dd") ' Always today's date
+        lblDateToday.Text = DateTime.Now.ToString("yyyy-MM-dd")
 
-        ' ✅ Setup DateTimePicker for 12-hour format with AM/PM
+        ' ✅ Setup DateTimePicker for time selection
         dtpTime.Format = DateTimePickerFormat.Custom
         dtpTime.CustomFormat = "hh:mm:ss tt"  ' 12-hour format + AM/PM
         dtpTime.ShowUpDown = True
         dtpTime.Value = DateTime.Now
 
-        ' ✅ Transaction Type dropdown
         cbTransactionType.Items.Clear()
         cbTransactionType.Items.AddRange({"Buy-In", "Cash-Out"})
         cbTransactionType.SelectedIndex = 0
 
-        ' ✅ Payment Mode dropdown
         cbPaymentMode.Items.Clear()
         cbPaymentMode.Items.AddRange({"Cash", "GCash", "Bank Transfer", "Credit Card"})
         cbPaymentMode.SelectedIndex = 0
@@ -28,7 +25,6 @@ Public Class PlayerLedger
 
     Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
         Try
-            ' ✅ Validation
             If cbTransactionType.SelectedItem Is Nothing Then
                 MessageBox.Show("Please select a transaction type.")
                 Return
@@ -51,10 +47,12 @@ Public Class PlayerLedger
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
-                ' ✅ Save unified record
-                Dim sql = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_today, time_today) 
-                                     VALUES (@regid, @type, @amount, @mode, @date, @time)"
+                '' ✅ Save unified record
+                'Dim sql As String = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_today, time_today) 
+                '                     VALUES (@regid, @type, @amount, @mode, @date, @time)"
 
+                ' Insert into cashflows; registration_id is the physical integer id (FK)
+                Dim sql As String = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_today, time_today) VALUES (@regid, @type, @amount, @mode, @date, @time)"
                 Using cmd As New SQLiteCommand(sql, conn)
                     cmd.Parameters.AddWithValue("@regid", RegistrationID)
                     cmd.Parameters.AddWithValue("@type", transactionType)
@@ -67,8 +65,8 @@ Public Class PlayerLedger
             End Using
 
             MessageBox.Show(transactionType & " saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            DialogResult = DialogResult.OK
-            Close()
+            Me.DialogResult = DialogResult.OK
+            Me.Close()
 
         Catch ex As Exception
             MessageBox.Show("Error saving transaction: " & ex.Message)
