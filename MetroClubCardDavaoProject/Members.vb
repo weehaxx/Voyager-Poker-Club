@@ -178,36 +178,6 @@ Public Class Members
             If dgvRegistrations.SelectedRows.Count = 0 Then
                 MessageBox.Show("Please select a player first before opening the ledger.", "No Player Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
-=========
-            If dgvRegistrations.SelectedRows.Count > 0 Then
-                Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
-                If selectedRowView Is Nothing Then
-                    MessageBox.Show("Invalid row selected.")
-                    Exit Sub
-                End If
-
-                Dim selectedRow = selectedRowView.Row
-                Dim regID = selectedRow("registration_id").ToString()
-                Dim fullName = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
-
-                ' ✅ Show overlay
-                Dim overlay As New OverlayForm(Me.FindForm)
-                overlay.Show()
-
-                ' ✅ Show modal dialog
-                Dim dialog As New PlayerLedger
-                dialog.RegistrationID = regID
-                dialog.FullName = fullName
-
-                If dialog.ShowDialog() = DialogResult.OK Then
-                    MessageBox.Show("Buy-In recorded.")
-                End If
-
-                ' ✅ Close overlay when dialog is closed
-                overlay.Close()
-            Else
-                MessageBox.Show("Please select a member first.")
->>>>>>>>> Temporary merge branch 2
             End If
 
             Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
@@ -235,12 +205,6 @@ Public Class Members
         End Try
     End Sub
 
-<<<<<<<<< Temporary merge branch 1
-=========
-
-
-
->>>>>>>>> Temporary merge branch 2
     Public Class OverlayForm
         Inherits Form
 
