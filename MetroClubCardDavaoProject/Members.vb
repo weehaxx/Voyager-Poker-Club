@@ -182,20 +182,24 @@ Public Class Members
                 End If
 
                 Dim selectedRow = selectedRowView.Row
-
                 Dim regID = selectedRow("registration_id").ToString()
                 Dim fullName = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
 
-                ' Open BuyInDialog
+                ' ✅ Show overlay
+                Dim overlay As New OverlayForm(Me.FindForm)
+                overlay.Show()
+
+                ' ✅ Show modal dialog
                 Dim dialog As New PlayerLedger
                 dialog.RegistrationID = regID
                 dialog.FullName = fullName
 
-                If dialog.ShowDialog = DialogResult.OK Then
+                If dialog.ShowDialog() = DialogResult.OK Then
                     MessageBox.Show("Buy-In recorded.")
                 End If
 
-
+                ' ✅ Close overlay when dialog is closed
+                overlay.Close()
             Else
                 MessageBox.Show("Please select a member first.")
             End If
@@ -203,6 +207,7 @@ Public Class Members
             MessageBox.Show("Error: " & ex.Message)
         End Try
     End Sub
+
 
 
 

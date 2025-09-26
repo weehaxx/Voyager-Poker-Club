@@ -51,6 +51,7 @@ Partial Class CashFlow
         ' 
         DataGridViewCellStyle1.BackColor = Color.White
         dgvCashFlow.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        dgvCashFlow.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
         dgvCashFlow.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText
         DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = Color.FromArgb(CByte(100), CByte(88), CByte(255))

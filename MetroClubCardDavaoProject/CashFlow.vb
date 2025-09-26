@@ -1,8 +1,12 @@
 ﻿Imports System.Data.SQLite
+Imports Guna.UI2.WinForms
 
 Public Class CashFlow
 
     Private Sub CashFlow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        dgvCashFlow.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+
+
         LoadCashflows()
     End Sub
 
@@ -14,7 +18,7 @@ Public Class CashFlow
                 ' ✅ Only from cashflows table
                 Dim query As String =
                     "SELECT " &
-                    "registration_id AS 'PLAYER MEMBERSHIP ID', " &
+                    "registration_id AS 'PLAYER ID', " &
                     "time_today AS 'TIME', " &
                     "CASE WHEN type = 'Buy-In' THEN '₱' || amount ELSE '' END AS 'BUY-IN', " &
                     "CASE WHEN type = 'Buy-In' THEN payment_mode ELSE '' END AS 'MODE', " &
