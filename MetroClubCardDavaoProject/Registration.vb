@@ -79,6 +79,17 @@ Public Class Registration
                 Not String.IsNullOrWhiteSpace(tnWorkName.Text)
         End If
 
+        Dim isValid As Boolean = True
+
+        If tbMobileNumber.Text.Length <> 11 Then
+            isValid = False
+        End If
+
+        If tbContactEmergency.Text.Length <> 11 Then
+            isValid = False
+        End If
+
+
         btnSave.Enabled = allFieldsFilled
     End Sub
 
@@ -94,6 +105,8 @@ Public Class Registration
                 tbYes.CheckedChanged, tbNo.CheckedChanged
 
         ValidateForm()
+
+
     End Sub
 
     ' -------------------- EMPLOYMENT LOGIC --------------------
@@ -375,4 +388,35 @@ Public Class Registration
             StartWebcam()
         End If
     End Sub
+
+    ' 🔑 Restrict to digits only (numbers + backspace)
+    Private Sub tbMobileNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbMobileNumber.KeyPress
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub tbContactEmergency_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbContactEmergency.KeyPress
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub tbMobileNumber_TextChanged(sender As Object, e As EventArgs) Handles tbMobileNumber.TextChanged
+        If tbMobileNumber.Text.Length > 11 Then
+            tbMobileNumber.Text = tbMobileNumber.Text.Substring(0, 11)
+            tbMobileNumber.SelectionStart = tbMobileNumber.Text.Length
+        End If
+    End Sub
+
+    Private Sub tbContactEmergency_TextChanged(sender As Object, e As EventArgs) Handles tbContactEmergency.TextChanged
+        If tbContactEmergency.Text.Length > 11 Then
+            tbContactEmergency.Text = tbContactEmergency.Text.Substring(0, 11)
+            tbContactEmergency.SelectionStart = tbContactEmergency.Text.Length
+        End If
+    End Sub
+
+
+
+
 End Class

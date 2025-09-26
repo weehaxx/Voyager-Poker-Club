@@ -187,23 +187,32 @@ Public Class Members
             End If
 
             Dim selectedRow = selectedRowView.Row
-
-            Dim regID = selectedRow("id") ' ⚠ Pass actual DB id, not the formatted one
+            Dim regID = selectedRow("id") ' ⚠ Use actual DB id
             Dim fullName = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
 
-            ' Open BuyInDialog
+            ' ✅ Show overlay with blur
+            Dim overlay As New OverlayForm(Me.FindForm)
+            overlay.Show()
+            overlay.Refresh() ' Ensure it draws immediately
+
+            ' Open PlayerLedger as modal
             Dim dialog As New PlayerLedger
             dialog.RegistrationID = Convert.ToInt64(regID)
             dialog.FullName = fullName
 
-            If dialog.ShowDialog = DialogResult.OK Then
+            If dialog.ShowDialog() = DialogResult.OK Then
                 MessageBox.Show("Buy-In/Cash-Out recorded.")
             End If
+
+            ' ✅ Close overlay after dialog closes
+            overlay.Close()
 
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message)
         End Try
     End Sub
+
+ 
 
     Public Class OverlayForm
         Inherits Form
