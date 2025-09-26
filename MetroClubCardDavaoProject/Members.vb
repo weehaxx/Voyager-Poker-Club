@@ -195,7 +195,7 @@ Public Class Members
                     MessageBox.Show("Buy-In recorded.")
                 End If
 
-                overlay.Close()
+
             Else
                 MessageBox.Show("Please select a member first.")
             End If
