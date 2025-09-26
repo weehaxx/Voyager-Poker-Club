@@ -15,10 +15,10 @@ Public Class CashFlow
             Using conn = GetConnection()
                 conn.Open()
 
-                ' ✅ Only from cashflows table
+                ' ✅ Join registrations with cashflows to show player info
                 Dim query As String =
                     "SELECT " &
-                    "registration_id AS 'PLAYER ID', " &
+                    "registration_id AS 'PLAYER MEMBERSHIP ID', " &
                     "time_today AS 'TIME', " &
                     "CASE WHEN type = 'Buy-In' THEN '₱' || amount ELSE '' END AS 'BUY-IN', " &
                     "CASE WHEN type = 'Buy-In' THEN payment_mode ELSE '' END AS 'MODE', " &
@@ -27,29 +27,28 @@ Public Class CashFlow
                     "FROM cashflows " &
                     "ORDER BY date_today DESC, time_today ASC"
 
+                Dim dt As New DataTable()
                 Using cmd As New SQLiteCommand(query, conn)
-                    Using adapter As New SQLiteDataAdapter(cmd)
-                        Dim dt As New DataTable()
-                        adapter.Fill(dt)
-
-                        dgvCashFlow.DataSource = dt
-
-                        ' ✅ Apply Guna2DataGridView styling
-                        With dgvCashFlow
-                            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-                            .ColumnHeadersHeight = 40
-                            .EnableHeadersVisualStyles = False
-                            .ColumnHeadersDefaultCellStyle.BackColor = Color.DodgerBlue
-                            .ColumnHeadersDefaultCellStyle.ForeColor = Color.White
-                            .ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 10, FontStyle.Bold)
-                            .DefaultCellStyle.Font = New Font("Segoe UI", 10)
-                            .DefaultCellStyle.ForeColor = Color.Black
-                            .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
-                            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-                            .ReadOnly = True
-                        End With
-                    End Using
+                    Dim adapter As New SQLiteDataAdapter(cmd)
+                    adapter.Fill(dt)
                 End Using
+
+                dgvCashFlow.DataSource = dt
+
+                ' ✅ Apply Guna2DataGridView styling
+                With dgvCashFlow
+                    .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+                    .ColumnHeadersHeight = 40
+                    .EnableHeadersVisualStyles = False
+                    .ColumnHeadersDefaultCellStyle.BackColor = Color.DodgerBlue
+                    .ColumnHeadersDefaultCellStyle.ForeColor = Color.White
+                    .ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 10, FontStyle.Bold)
+                    .DefaultCellStyle.Font = New Font("Segoe UI", 10)
+                    .DefaultCellStyle.ForeColor = Color.Black
+                    .AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue
+                    .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+                    .ReadOnly = True
+                End With
             End Using
 
         Catch ex As Exception

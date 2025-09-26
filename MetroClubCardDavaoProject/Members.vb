@@ -174,42 +174,36 @@ Public Class Members
     ' Single Players Ledger (Buy-In / Cash-Out) button
     Private Sub gbCashout_Click(sender As Object, e As EventArgs) Handles gbPlayersLedger.Click
         Try
-            If dgvRegistrations.SelectedRows.Count > 0 Then
-                Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
-                If selectedRowView Is Nothing Then
-                    MessageBox.Show("Invalid row selected.")
-                    Exit Sub
-                End If
-
-                Dim selectedRow = selectedRowView.Row
-                Dim regID = selectedRow("registration_id").ToString()
-                Dim fullName = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
-
-                ' ✅ Show overlay
-                Dim overlay As New OverlayForm(Me.FindForm)
-                overlay.Show()
-
-                ' ✅ Show modal dialog
-                Dim dialog As New PlayerLedger
-                dialog.RegistrationID = regID
-                dialog.FullName = fullName
-
-                If dialog.ShowDialog() = DialogResult.OK Then
-                    MessageBox.Show("Buy-In recorded.")
-                End If
-
-                ' ✅ Close overlay when dialog is closed
-                overlay.Close()
-            Else
-                MessageBox.Show("Please select a member first.")
+            ' ✅ Check if user has selected a player
+            If dgvRegistrations.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a player first before opening the ledger.", "No Player Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
             End If
+
+            Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+            If selectedRowView Is Nothing Then
+                MessageBox.Show("Invalid row selected.")
+                Exit Sub
+            End If
+
+            Dim selectedRow = selectedRowView.Row
+
+            Dim regID = selectedRow("id") ' ⚠ Pass actual DB id, not the formatted one
+            Dim fullName = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
+
+            ' Open BuyInDialog
+            Dim dialog As New PlayerLedger
+            dialog.RegistrationID = Convert.ToInt64(regID)
+            dialog.FullName = fullName
+
+            If dialog.ShowDialog = DialogResult.OK Then
+                MessageBox.Show("Buy-In/Cash-Out recorded.")
+            End If
+
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message)
         End Try
     End Sub
-
-
-
 
     Public Class OverlayForm
         Inherits Form
