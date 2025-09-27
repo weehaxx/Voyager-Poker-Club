@@ -212,7 +212,7 @@ Public Class Members
         End Try
     End Sub
 
- 
+
 
     Public Class OverlayForm
         Inherits Form
@@ -227,5 +227,122 @@ Public Class Members
             Me.TopMost = False ' ✅ Make sure dialog can appear on top
         End Sub
     End Class
+
+    Private Sub btnViewAccount_Click(sender As Object, e As EventArgs) Handles btnViewAccount.Click
+        Try
+            ' ✅ Make sure a player is selected
+            If dgvRegistrations.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a player first before viewing the ledger.", "No Player Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+            If selectedRowView Is Nothing Then
+                MessageBox.Show("Invalid row selected.")
+                Exit Sub
+            End If
+
+            Dim selectedRow = selectedRowView.Row
+            Dim regID As Long = Convert.ToInt64(selectedRow("id"))
+            Dim regCode As String = selectedRow("registration_id").ToString()
+            Dim fullName As String = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
+
+            ' ✅ Show overlay
+            Dim overlay As New OverlayForm(Me.FindForm)
+            overlay.Show()
+            overlay.Refresh()
+
+            ' ✅ Create popup window (size 1107x738)
+            Dim popup As New Form With {
+                .FormBorderStyle = FormBorderStyle.None,
+                .StartPosition = FormStartPosition.CenterParent,
+                .Size = New Size(1107, 738),
+                .BackColor = Color.White
+            }
+
+            ' ✅ Add Ledger UserControl
+            Dim ledgerControl As New Ledger()
+            ledgerControl.Dock = DockStyle.Fill
+
+            ' ✅ Pass player data to Ledger (you need Public Properties in Ledger for these)
+            ledgerControl.SelectedRegistrationID = regID
+            ledgerControl.SelectedRegistrationCode = regCode
+            ledgerControl.SelectedFullName = fullName
+
+            popup.Controls.Add(ledgerControl)
+
+            ' ✅ Show popup
+            popup.ShowDialog()
+            overlay.Close()
+
+        Catch ex As Exception
+            MessageBox.Show("Error opening Ledger: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnViewID_Click(sender As Object, e As EventArgs) Handles btnViewID.Click
+        Try
+            ' ✅ Ensure a member is selected
+            If dgvRegistrations.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a member first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+            If selectedRowView Is Nothing Then Exit Sub
+
+            Dim selectedRow = selectedRowView.Row
+            Dim memberID As Integer = selectedRow("id")
+            Dim memberName As String = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
+            Dim registrationID As String = selectedRow("registration_id").ToString()
+
+            ' ✅ Get idimage from DB
+            Dim idImage As Image = Nothing
+            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+                conn.Open()
+
+                Dim query As String = "SELECT idimage FROM registrations WHERE id=@id"
+                Using cmd As New SQLiteCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@id", memberID)
+                    Dim result = cmd.ExecuteScalar()
+
+                    If result IsNot DBNull.Value AndAlso result IsNot Nothing Then
+                        Dim photoData As Byte() = DirectCast(result, Byte())
+                        Using ms As New MemoryStream(photoData)
+                            idImage = Image.FromStream(ms)
+                        End Using
+                    End If
+                End Using
+            End Using
+
+            ' ✅ Show overlay
+            Dim overlay As New OverlayForm(Me.FindForm)
+            overlay.Show()
+            overlay.Refresh()
+
+            ' ✅ Popup Form (1001 x 564)
+            Dim popup As New Form With {
+                .FormBorderStyle = FormBorderStyle.None,
+                .StartPosition = FormStartPosition.CenterScreen,
+                .Size = New Size(1001, 564),
+                .BackColor = Color.White,
+                .TopMost = True
+            }
+
+            ' ✅ Load ViewID user control
+            Dim viewIDControl As New ViewID()
+            viewIDControl.Dock = DockStyle.Fill
+            viewIDControl.IDImage = idImage
+
+            popup.Controls.Add(viewIDControl)
+            popup.ShowDialog()
+
+            overlay.Close()
+
+        Catch ex As Exception
+            MessageBox.Show("Error displaying ID: " & ex.Message)
+        End Try
+    End Sub
+
 
 End Class
