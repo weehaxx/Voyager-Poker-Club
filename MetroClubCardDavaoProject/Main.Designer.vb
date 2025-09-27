@@ -30,6 +30,8 @@ Partial Class Main
         Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         PictureBox1 = New PictureBox()
@@ -38,6 +40,7 @@ Partial Class Main
         btnCashFlow = New Guna.UI2.WinForms.Guna2Button()
         btnLogout = New Guna.UI2.WinForms.Guna2Button()
         Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
+        btnReports = New Guna.UI2.WinForms.Guna2Button()
         Panel1 = New Panel()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Guna2Panel1.SuspendLayout()
@@ -143,18 +146,40 @@ Partial Class Main
         ' 
         ' Guna2Panel1
         ' 
+        Guna2Panel1.Controls.Add(btnReports)
         Guna2Panel1.Controls.Add(btnLogout)
         Guna2Panel1.Controls.Add(btnCashFlow)
         Guna2Panel1.Controls.Add(btnRegistration)
         Guna2Panel1.Controls.Add(btnDashboard)
         Guna2Panel1.Controls.Add(PictureBox1)
-        Guna2Panel1.CustomizableEdges = CustomizableEdges9
+        Guna2Panel1.CustomizableEdges = CustomizableEdges11
         Guna2Panel1.FillColor = Color.White
         Guna2Panel1.Location = New Point(0, -1)
         Guna2Panel1.Name = "Guna2Panel1"
-        Guna2Panel1.ShadowDecoration.CustomizableEdges = CustomizableEdges10
+        Guna2Panel1.ShadowDecoration.CustomizableEdges = CustomizableEdges12
         Guna2Panel1.Size = New Size(221, 847)
         Guna2Panel1.TabIndex = 0
+        ' 
+        ' btnReports
+        ' 
+        btnReports.BackColor = Color.Transparent
+        btnReports.BorderRadius = 20
+        btnReports.CustomizableEdges = CustomizableEdges9
+        btnReports.DisabledState.BorderColor = Color.DarkGray
+        btnReports.DisabledState.CustomBorderColor = Color.DarkGray
+        btnReports.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnReports.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnReports.FillColor = Color.White
+        btnReports.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnReports.ForeColor = Color.Black
+        btnReports.HoverState.FillColor = Color.Black
+        btnReports.HoverState.ForeColor = Color.White
+        btnReports.Location = New Point(3, 313)
+        btnReports.Name = "btnReports"
+        btnReports.ShadowDecoration.CustomizableEdges = CustomizableEdges10
+        btnReports.Size = New Size(195, 45)
+        btnReports.TabIndex = 4
+        btnReports.Text = "Reports"
         ' 
         ' Panel1
         ' 
@@ -188,4 +213,5 @@ Partial Class Main
     Friend WithEvents btnLogout As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents btnReports As Guna.UI2.WinForms.Guna2Button
 End Class

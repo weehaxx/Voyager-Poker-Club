@@ -61,7 +61,7 @@ Public Class PlayerLedger
                     End If
                 End Using
 
-                Dim sql As String = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_today, time_today) " &
+                Dim sql As String = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_created, time_created) " &
                                 "VALUES (@regid, @type, @amount, @mode, @date, @time)"
                 Using cmd As New SQLiteCommand(sql, conn)
                     cmd.Parameters.AddWithValue("@regid", RegistrationID)

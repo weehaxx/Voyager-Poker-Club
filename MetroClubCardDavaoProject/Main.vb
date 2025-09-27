@@ -54,22 +54,40 @@
         Panel1.Controls.Add(memberUC)
     End Sub
 
-    Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnCashFlow.Click
-        btnDashboard.Checked = False
-        btnRegistration.Checked = False
-        btnCashFlow.Checked = True
-        Panel1.Controls.Clear()
-
-        ' Create an instance of your Registration UserControl
-        Dim cashFlowUC As New CashFlow()
-        cashFlowUC.Dock = DockStyle.Fill ' Makes it fill the panel
-
-        ' Add the user control to the panel
-        Panel1.Controls.Add(cashFlowUC)
-    End Sub
 
     Private Sub Guna2Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Guna2Panel1.Paint
 
 
+    End Sub
+
+    Private Sub btnReports_Click(sender As Object, e As EventArgs) Handles btnReports.Click
+        btnDashboard.Checked = False
+        btnRegistration.Checked = False
+        btnCashFlow.Checked = False
+        btnReports.Checked = True
+        Panel1.Controls.Clear()
+
+        ' Create an instance of your Registration UserControl
+        Dim reportsUC As New Reports
+        reportsUC.Dock = DockStyle.Fill ' Makes it fill the panel
+
+        ' Add the user control to the panel
+        Panel1.Controls.Add(reportsUC)
+    End Sub
+
+    Private Sub btnCashFlow_Click(sender As Object, e As EventArgs) Handles btnCashFlow.Click
+        btnDashboard.Checked = False
+        btnRegistration.Checked = False
+        btnCashFlow.Checked = True
+        btnReports.Checked = False
+
+        Panel1.Controls.Clear()
+
+        ' Create an instance of your Registration UserControl
+        Dim cashFlowUC As New CashFlow
+        cashFlowUC.Dock = DockStyle.Fill ' Makes it fill the panel
+
+        ' Add the user control to the panel
+        Panel1.Controls.Add(cashFlowUC)
     End Sub
 End Class

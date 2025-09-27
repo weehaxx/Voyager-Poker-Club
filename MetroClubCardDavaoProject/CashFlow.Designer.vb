@@ -44,7 +44,7 @@ Partial Class CashFlow
         ' Guna2HtmlLabel1
         ' 
         Guna2HtmlLabel1.BackColor = Color.Transparent
-        Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 24.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 24F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel1.Location = New Point(492, 17)
         Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
         Guna2HtmlLabel1.Size = New Size(247, 48)
@@ -59,7 +59,7 @@ Partial Class CashFlow
         dgvCashFlow.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText
         DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = Color.FromArgb(CByte(100), CByte(88), CByte(255))
-        DataGridViewCellStyle2.Font = New Font("Segoe UI", 9.0F)
+        DataGridViewCellStyle2.Font = New Font("Segoe UI", 9F)
         DataGridViewCellStyle2.ForeColor = Color.White
         DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
@@ -92,14 +92,14 @@ Partial Class CashFlow
         dgvCashFlow.ThemeStyle.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
         dgvCashFlow.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(CByte(100), CByte(88), CByte(255))
         dgvCashFlow.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None
-        dgvCashFlow.ThemeStyle.HeaderStyle.Font = New Font("Segoe UI", 9.0F)
+        dgvCashFlow.ThemeStyle.HeaderStyle.Font = New Font("Segoe UI", 9F)
         dgvCashFlow.ThemeStyle.HeaderStyle.ForeColor = Color.White
         dgvCashFlow.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
         dgvCashFlow.ThemeStyle.HeaderStyle.Height = 4
         dgvCashFlow.ThemeStyle.ReadOnly = True
         dgvCashFlow.ThemeStyle.RowsStyle.BackColor = Color.White
         dgvCashFlow.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
-        dgvCashFlow.ThemeStyle.RowsStyle.Font = New Font("Segoe UI", 9.0F)
+        dgvCashFlow.ThemeStyle.RowsStyle.Font = New Font("Segoe UI", 9F)
         dgvCashFlow.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
         dgvCashFlow.ThemeStyle.RowsStyle.Height = 29
         dgvCashFlow.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
@@ -111,10 +111,10 @@ Partial Class CashFlow
         dtpDate.Checked = True
         dtpDate.CustomizableEdges = CustomizableEdges1
         dtpDate.FillColor = Color.Gainsboro
-        dtpDate.Font = New Font("Segoe UI", 9.0F)
+        dtpDate.Font = New Font("Segoe UI", 9F)
         dtpDate.ForeColor = Color.Black
         dtpDate.Format = DateTimePickerFormat.Long
-        dtpDate.Location = New Point(125, 101)
+        dtpDate.Location = New Point(111, 103)
         dtpDate.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         dtpDate.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         dtpDate.Name = "dtpDate"
@@ -126,12 +126,12 @@ Partial Class CashFlow
         ' Guna2HtmlLabel7
         ' 
         Guna2HtmlLabel7.BackColor = Color.Transparent
-        Guna2HtmlLabel7.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel7.Font = New Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel7.ForeColor = Color.Black
-        Guna2HtmlLabel7.Location = New Point(758, 114)
+        Guna2HtmlLabel7.Location = New Point(720, 108)
         Guna2HtmlLabel7.Margin = New Padding(3, 4, 3, 4)
         Guna2HtmlLabel7.Name = "Guna2HtmlLabel7"
-        Guna2HtmlLabel7.Size = New Size(150, 23)
+        Guna2HtmlLabel7.Size = New Size(188, 29)
         Guna2HtmlLabel7.TabIndex = 72
         Guna2HtmlLabel7.Text = "Search Member: "
         ' 
@@ -144,7 +144,7 @@ Partial Class CashFlow
         tbSearchMember.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbSearchMember.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbSearchMember.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbSearchMember.Font = New Font("Segoe UI", 9.0F)
+        tbSearchMember.Font = New Font("Segoe UI", 9F)
         tbSearchMember.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbSearchMember.Location = New Point(914, 103)
         tbSearchMember.Margin = New Padding(3, 4, 3, 4)
@@ -158,12 +158,12 @@ Partial Class CashFlow
         ' Guna2HtmlLabel2
         ' 
         Guna2HtmlLabel2.BackColor = Color.Transparent
-        Guna2HtmlLabel2.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel2.Font = New Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel2.ForeColor = Color.Black
-        Guna2HtmlLabel2.Location = New Point(64, 114)
+        Guna2HtmlLabel2.Location = New Point(42, 108)
         Guna2HtmlLabel2.Margin = New Padding(3, 4, 3, 4)
         Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
-        Guna2HtmlLabel2.Size = New Size(50, 23)
+        Guna2HtmlLabel2.Size = New Size(63, 29)
         Guna2HtmlLabel2.TabIndex = 75
         Guna2HtmlLabel2.Text = "Date: "
         ' 
@@ -175,11 +175,11 @@ Partial Class CashFlow
         btnRefresh.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnRefresh.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnRefresh.FillColor = Color.White
-        btnRefresh.Font = New Font("Segoe UI", 9.0F)
+        btnRefresh.Font = New Font("Segoe UI", 9F)
         btnRefresh.ForeColor = Color.White
         btnRefresh.Image = My.Resources.Resources.refresh1
         btnRefresh.ImageSize = New Size(30, 30)
-        btnRefresh.Location = New Point(381, 101)
+        btnRefresh.Location = New Point(367, 103)
         btnRefresh.Name = "btnRefresh"
         btnRefresh.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         btnRefresh.Size = New Size(49, 45)
@@ -187,7 +187,7 @@ Partial Class CashFlow
         ' 
         ' CashFlow
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         Controls.Add(btnRefresh)
         Controls.Add(Guna2HtmlLabel2)
