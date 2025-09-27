@@ -8,7 +8,9 @@ Public Class PlayerLedger
 
     Private Sub PlayerLedger_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblFullname.Text = FullName
-        lblDateToday.Text = DateTime.Now.ToString("yyyy-MM-dd")
+
+        ' ✅ Match database format exactly: "Saturday, September 27, 2025"
+        lblDateToday.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy")
 
         ' ✅ Setup DateTimePicker for time selection
         dtpTime.Format = DateTimePickerFormat.Custom
@@ -25,9 +27,9 @@ Public Class PlayerLedger
         cbPaymentMode.SelectedIndex = 0
     End Sub
 
+
     Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
         Try
-            ' ✅ Validate inputs
             If cbTransactionType.SelectedItem Is Nothing Then
                 MessageBox.Show("Please select a transaction type.")
                 Return
@@ -49,7 +51,6 @@ Public Class PlayerLedger
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
-                ' ✅ Verify RegistrationID (MUST match the real PK "id")
                 Dim checkSql As String = "SELECT COUNT(*) FROM registrations WHERE id = @id"
                 Using checkCmd As New SQLiteCommand(checkSql, conn)
                     checkCmd.Parameters.AddWithValue("@id", RegistrationID)
@@ -60,15 +61,17 @@ Public Class PlayerLedger
                     End If
                 End Using
 
-                ' ✅ Insert into cashflows using the integer PK (FK reference)
                 Dim sql As String = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_today, time_today) " &
-                                    "VALUES (@regid, @type, @amount, @mode, @date, @time)"
+                                "VALUES (@regid, @type, @amount, @mode, @date, @time)"
                 Using cmd As New SQLiteCommand(sql, conn)
-                    cmd.Parameters.AddWithValue("@regid", RegistrationID) ' This must be registrations.id
+                    cmd.Parameters.AddWithValue("@regid", RegistrationID)
                     cmd.Parameters.AddWithValue("@type", transactionType)
                     cmd.Parameters.AddWithValue("@amount", amount)
                     cmd.Parameters.AddWithValue("@mode", cbPaymentMode.Text)
-                    cmd.Parameters.AddWithValue("@date", lblDateToday.Text)
+
+                    ' ✅ Correct date format to match existing rows
+                    cmd.Parameters.AddWithValue("@date", DateTime.Now.ToString("dddd, MMMM dd, yyyy"))
+
                     cmd.Parameters.AddWithValue("@time", dtpTime.Value.ToString("hh:mm:ss tt"))
                     cmd.ExecuteNonQuery()
                 End Using
@@ -82,6 +85,7 @@ Public Class PlayerLedger
             MessageBox.Show("Error saving transaction: " & ex.Message)
         End Try
     End Sub
+
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.DialogResult = DialogResult.Cancel ' ✅ Notify parent that user canceled

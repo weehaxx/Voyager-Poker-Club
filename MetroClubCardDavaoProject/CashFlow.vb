@@ -5,55 +5,60 @@ Public Class CashFlow
 
     Private Sub CashFlow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         StyleGrid()
-        LoadCashflows() ' Load all records initially
+
+        ' 🟢 Set DateTimePicker to today's date on load
+        dtpDate.Value = Date.Today
+
+        ' 🟢 Load only today's records on startup
+        Dim formattedDate As String = dtpDate.Value.ToString("dddd, MMMM dd, yyyy")
+        LoadCashflows(formattedDate)
     End Sub
 
     Protected Overrides Sub OnVisibleChanged(e As EventArgs)
         MyBase.OnVisibleChanged(e)
         If Me.Visible Then
-            LoadCashflows()
+            dtpDate.Value = Date.Today
+            Dim formattedDate As String = dtpDate.Value.ToString("dddd, MMMM dd, yyyy")
+            LoadCashflows(formattedDate)
         End If
     End Sub
 
-    ' ✅ Modified LoadCashflows: Optional filter by date
-    ' ✅ Modified LoadCashflows: Optional filter by date AND optional search
-    Private Sub LoadCashflows(Optional selectedDate As Date? = Nothing, Optional searchText As String = "")
+    ' ✅ LoadCashflows: always filter by date (and optional search)
+    Private Sub LoadCashflows(Optional selectedDate As String = "", Optional searchText As String = "")
         Try
             Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
                 conn.Open()
 
                 Dim query As String =
-                "SELECT " &
-                "registration_id AS 'PLAYER MEMBERSHIP ID', " &
-                "time_today AS 'TIME', " &
-                "CASE WHEN type = 'Buy-In' THEN '₱' || amount ELSE '' END AS 'BUY-IN', " &
-                "CASE WHEN type = 'Buy-In' THEN payment_mode ELSE '' END AS 'MODE', " &
-                "CASE WHEN type = 'Cash-Out' THEN '₱' || amount ELSE '' END AS 'CASH-OUT', " &
-                "CASE WHEN type = 'Cash-Out' THEN payment_mode ELSE '' END AS 'MODE ' " &
-                "FROM cashflows WHERE 1=1 "
+"SELECT " &
+"r.registration_id AS 'PLAYER ID', " &
+"c.time_today AS 'TIME', " &
+"CASE WHEN c.type = 'Buy-In' THEN '₱' || c.amount ELSE '' END AS 'BUY-IN', " &
+"CASE WHEN c.type = 'Buy-In' THEN c.payment_mode ELSE '' END AS 'MODE', " &
+"CASE WHEN c.type = 'Cash-Out' THEN '₱' || c.amount ELSE '' END AS 'CASH-OUT', " &
+"CASE WHEN c.type = 'Cash-Out' THEN c.payment_mode ELSE '' END AS 'MODE ' " &
+"FROM cashflows c " &
+"INNER JOIN registrations r ON c.registration_id = r.id " &
+"WHERE 1=1 "
 
-                ' ✅ Date filter (if date selected)
-                If selectedDate.HasValue Then
-                    query &= "AND date_today = @selectedDate "
+                ' ✅ Filter by date_today (always required)
+                If Not String.IsNullOrEmpty(selectedDate) Then
+                    query &= "AND c.date_today = @selectedDate "
                 End If
 
-                ' ✅ Search filter (if text entered)
+                ' ✅ Filter by PLAYER ID (registration_id from registrations table)
                 If Not String.IsNullOrWhiteSpace(searchText) Then
-                    query &= "AND registration_id LIKE @searchText "
+                    query &= "AND r.registration_id LIKE @searchText "
                 End If
 
-                query &= "ORDER BY date_today DESC, time_today ASC"
+                query &= "ORDER BY c.date_today DESC, c.time_today ASC"
 
                 Dim dt As New DataTable()
                 Using cmd As New SQLiteCommand(query, conn)
-
-                    If selectedDate.HasValue Then
-                        Dim formattedDate As String = selectedDate.Value.ToString("dddd, dd MMMM yyyy")
-                        cmd.Parameters.AddWithValue("@selectedDate", formattedDate)
+                    If Not String.IsNullOrEmpty(selectedDate) Then
+                        cmd.Parameters.AddWithValue("@selectedDate", selectedDate)
                     End If
-
                     If Not String.IsNullOrWhiteSpace(searchText) Then
-                        ' Allow partial search, e.g. typing "16" shows all IDs starting with 16
                         cmd.Parameters.AddWithValue("@searchText", "%" & searchText & "%")
                     End If
 
@@ -72,8 +77,6 @@ Public Class CashFlow
             MessageBox.Show("Error loading cashflows: " & ex.Message)
         End Try
     End Sub
-
-
 
     Private Sub StyleGrid()
         With dgvCashFlow
@@ -97,13 +100,20 @@ Public Class CashFlow
         ' Optional: handle row clicks
     End Sub
 
-    ' ✅ Reload data when date picker changes
     Private Sub dtpDate_ValueChanged(sender As Object, e As EventArgs) Handles dtpDate.ValueChanged
-        LoadCashflows(dtpDate.Value)
+        Dim formattedDate As String = dtpDate.Value.ToString("dddd, MMMM dd, yyyy")
+        LoadCashflows(formattedDate, tbSearchMember.Text.Trim())
     End Sub
 
     Private Sub tbSearchMember_TextChanged(sender As Object, e As EventArgs) Handles tbSearchMember.TextChanged
-        LoadCashflows(dtpDate.Value, tbSearchMember.Text.Trim())
+        Dim formattedDate As String = dtpDate.Value.ToString("dddd, MMMM dd, yyyy")
+        LoadCashflows(formattedDate, tbSearchMember.Text.Trim())
+    End Sub
+
+    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
+        dtpDate.Value = Date.Today
+        Dim formattedDate As String = dtpDate.Value.ToString("dddd, MMMM dd, yyyy")
+        LoadCashflows(formattedDate, tbSearchMember.Text.Trim())
     End Sub
 
 End Class
