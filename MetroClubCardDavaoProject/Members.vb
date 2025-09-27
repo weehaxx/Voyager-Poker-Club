@@ -245,7 +245,7 @@ Public Class Members
             Dim selectedRow = selectedRowView.Row
             Dim regID As Long = Convert.ToInt64(selectedRow("id"))
             Dim regCode As String = selectedRow("registration_id").ToString()
-            Dim fullName As String = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
+            Dim fullName As String = $"{selectedRow("firstname")} {selectedRow("middlename")} {selectedRow("lastname")}"
 
             ' ✅ Show overlay
             Dim overlay As New OverlayForm(Me.FindForm)

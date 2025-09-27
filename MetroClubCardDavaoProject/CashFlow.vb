@@ -9,11 +9,7 @@ Public Class CashFlow
 
     Private Sub CashFlow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         StyleGrid()
-
-        ' 🟢 Set DateTimePicker to current casino date
         dtpDate.Value = GetCasinoDate()
-
-        ' 🟢 Load records for the casino day
         LoadCashflows(dtpDate.Value)
     End Sub
 
@@ -25,12 +21,10 @@ Public Class CashFlow
         End If
     End Sub
 
-    ' ✅ Function to get the correct "casino date"
+    ' ✅ Casino Date (resets at 6AM)
     Private Function GetCasinoDate() As Date
         Dim now As DateTime = DateTime.Now
         Dim sixAM As DateTime = now.Date.AddHours(6)
-
-        ' If time is between midnight and 6AM, treat as yesterday's casino day
         If now < sixAM Then
             Return now.AddDays(-1).Date
         Else
@@ -41,7 +35,6 @@ Public Class CashFlow
     Private Sub LoadCashflows(Optional baseDate As Date = Nothing, Optional searchText As String = "")
         Try
             If baseDate = Nothing Then baseDate = Date.Today
-
             Dim startDate As DateTime = baseDate.Date
             Dim endDate As DateTime = baseDate.Date.AddDays(1)
 
@@ -68,7 +61,6 @@ Public Class CashFlow
                 finalTable.Columns.Add("MODE")
                 finalTable.Columns.Add("CASH-OUT")
                 finalTable.Columns.Add("MODE ")
-                ' 🟢 Static columns
                 finalTable.Columns.Add("CASHIER'S SIGNATURE")
                 finalTable.Columns.Add("REMARKS")
 
@@ -78,15 +70,15 @@ Public Class CashFlow
                     Dim parsedDate As DateTime
 
                     If DateTime.TryParseExact(dateStr & " " & timeStr,
-                                          {"dddd, MMMM dd, yyyy hh:mm:ss tt", "dddd, MMMM dd, yyyy h:mm tt"},
-                                          CultureInfo.InvariantCulture,
-                                          DateTimeStyles.None,
-                                          parsedDate) Then
+                                              {"dddd, MMMM dd, yyyy hh:mm:ss tt", "dddd, MMMM dd, yyyy h:mm tt"},
+                                              CultureInfo.InvariantCulture,
+                                              DateTimeStyles.None,
+                                              parsedDate) Then
 
                         If parsedDate >= startDate AndAlso parsedDate < endDate Then
                             Dim fullName As String = row("firstname").ToString().Trim() &
-                                                     If(String.IsNullOrWhiteSpace(row("middlename").ToString()), " ", " " & row("middlename").ToString().Trim() & " ") &
-                                                     row("lastname").ToString().Trim()
+                                If(String.IsNullOrWhiteSpace(row("middlename").ToString()), " ", " " & row("middlename").ToString().Trim() & " ") &
+                                row("lastname").ToString().Trim()
 
                             If String.IsNullOrWhiteSpace(searchText) OrElse
                                row("registration_id").ToString().Contains(searchText) OrElse
@@ -120,15 +112,18 @@ Public Class CashFlow
                 view.Sort = "TIME ASC"
                 dgvCashFlow.DataSource = view.ToTable()
 
-                ' 🟢 Make CASHIER'S SIGNATURE column wider in DataGridView
-                If dgvCashFlow.Columns.Contains("CASHIER'S SIGNATURE") Then
-                    dgvCashFlow.Columns("CASHIER'S SIGNATURE").Width = 250
-                End If
+                ' 🟢 Adjust widths
+                If dgvCashFlow.Columns.Contains("PLAYER ID") Then dgvCashFlow.Columns("PLAYER ID").Width = 120
+                If dgvCashFlow.Columns.Contains("FULL NAME") Then dgvCashFlow.Columns("FULL NAME").Width = 200
+                If dgvCashFlow.Columns.Contains("BUY-IN") Then dgvCashFlow.Columns("BUY-IN").Width = 120
+                If dgvCashFlow.Columns.Contains("MODE") Then dgvCashFlow.Columns("MODE").Width = 100
+                If dgvCashFlow.Columns.Contains("CASH-OUT") Then dgvCashFlow.Columns("CASH-OUT").Width = 120
+                If dgvCashFlow.Columns.Contains("MODE ") Then dgvCashFlow.Columns("MODE ").Width = 100
+                If dgvCashFlow.Columns.Contains("CASHIER'S SIGNATURE") Then dgvCashFlow.Columns("CASHIER'S SIGNATURE").Width = 250
+                If dgvCashFlow.Columns.Contains("REMARKS") Then dgvCashFlow.Columns("REMARKS").Width = 80
 
             End Using
 
-        Catch ex As ObjectDisposedException
-            Debug.WriteLine("CashFlow control disposed before reload. Skipping refresh.")
         Catch ex As Exception
             MessageBox.Show("Error loading cashflows: " & ex.Message)
         End Try
@@ -136,7 +131,7 @@ Public Class CashFlow
 
     Private Sub StyleGrid()
         With dgvCashFlow
-            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None ' 🔹 Allow custom widths
             .ColumnHeadersHeight = 40
             .EnableHeadersVisualStyles = False
             .ColumnHeadersDefaultCellStyle.BackColor = Color.DodgerBlue
@@ -150,10 +145,6 @@ Public Class CashFlow
             .ReadOnly = True
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
         End With
-    End Sub
-
-    Private Sub dgvCashFlow_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCashFlow.CellContentClick
-        ' Optional: handle row clicks
     End Sub
 
     Private Sub dtpDate_ValueChanged(sender As Object, e As EventArgs) Handles dtpDate.ValueChanged
@@ -178,7 +169,7 @@ Public Class CashFlow
             saveDialog.FileName = "CashFlow_" & dtpDate.Value.ToString("yyyyMMdd") & ".pdf"
 
             If saveDialog.ShowDialog() = DialogResult.OK Then
-                Dim doc As New Document(PageSize.A4.Rotate(), 40, 40, 40, 40) ' Landscape
+                Dim doc As New Document(PageSize.A4.Rotate(), 40, 40, 40, 40)
                 PdfWriter.GetInstance(doc, New FileStream(saveDialog.FileName, FileMode.Create))
                 doc.Open()
 
@@ -194,17 +185,22 @@ Public Class CashFlow
                 Dim pdfTable As New PdfPTable(dgvCashFlow.Columns.Count)
                 pdfTable.WidthPercentage = 100
 
-                ' 🟢 Set relative widths (signature column wider)
+                ' ✅ Custom column widths for PDF
                 Dim widths(dgvCashFlow.Columns.Count - 1) As Single
                 For i As Integer = 0 To dgvCashFlow.Columns.Count - 1
-                    If dgvCashFlow.Columns(i).HeaderText = "CASHIER'S SIGNATURE" Then
-                        widths(i) = 3.5F ' wider
-                    Else
-                        widths(i) = 1.5F
-                    End If
+                    Select Case dgvCashFlow.Columns(i).HeaderText
+                        Case "PLAYER ID" : widths(i) = 2.2F
+                        Case "FULL NAME" : widths(i) = 3.5F
+                        Case "BUY-IN", "CASH-OUT" : widths(i) = 2.2F
+                        Case "MODE", "MODE " : widths(i) = 1.8F
+                        Case "CASHIER'S SIGNATURE" : widths(i) = 3.5F
+                        Case "REMARKS" : widths(i) = 1.5F
+                        Case Else : widths(i) = 1.5F
+                    End Select
                 Next
                 pdfTable.SetWidths(widths)
 
+                ' Headers
                 For Each col As DataGridViewColumn In dgvCashFlow.Columns
                     Dim cell As New PdfPCell(New Phrase(col.HeaderText, headerFont))
                     cell.BackgroundColor = BaseColor.LIGHT_GRAY
@@ -212,6 +208,7 @@ Public Class CashFlow
                     pdfTable.AddCell(cell)
                 Next
 
+                ' Rows
                 For Each row As DataGridViewRow In dgvCashFlow.Rows
                     If Not row.IsNewRow Then
                         For Each cell As DataGridViewCell In row.Cells
@@ -222,7 +219,6 @@ Public Class CashFlow
 
                 doc.Add(pdfTable)
                 doc.Close()
-
                 MessageBox.Show("PDF exported successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
         Catch ex As Exception
