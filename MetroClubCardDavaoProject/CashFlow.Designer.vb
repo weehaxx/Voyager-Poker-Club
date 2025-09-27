@@ -31,6 +31,8 @@ Partial Class CashFlow
         Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         dgvCashFlow = New Guna.UI2.WinForms.Guna2DataGridView()
         dtpDate = New Guna.UI2.WinForms.Guna2DateTimePicker()
@@ -38,6 +40,7 @@ Partial Class CashFlow
         tbSearchMember = New Guna.UI2.WinForms.Guna2TextBox()
         Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         btnRefresh = New Guna.UI2.WinForms.Guna2Button()
+        btnPrintPDF = New Guna.UI2.WinForms.Guna2Button()
         CType(dgvCashFlow, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -45,9 +48,10 @@ Partial Class CashFlow
         ' 
         Guna2HtmlLabel1.BackColor = Color.Transparent
         Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 24F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel1.Location = New Point(492, 17)
+        Guna2HtmlLabel1.Location = New Point(430, 13)
+        Guna2HtmlLabel1.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Guna2HtmlLabel1.Size = New Size(247, 48)
+        Guna2HtmlLabel1.Size = New Size(196, 39)
         Guna2HtmlLabel1.TabIndex = 0
         Guna2HtmlLabel1.Text = "CASH FLOW" & vbCrLf & vbCrLf
         ' 
@@ -76,12 +80,14 @@ Partial Class CashFlow
         DataGridViewCellStyle3.WrapMode = DataGridViewTriState.False
         dgvCashFlow.DefaultCellStyle = DataGridViewCellStyle3
         dgvCashFlow.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        dgvCashFlow.Location = New Point(42, 166)
+        dgvCashFlow.Location = New Point(37, 124)
+        dgvCashFlow.Margin = New Padding(3, 2, 3, 2)
         dgvCashFlow.Name = "dgvCashFlow"
         dgvCashFlow.ReadOnly = True
         dgvCashFlow.RowHeadersVisible = False
         dgvCashFlow.RowHeadersWidth = 51
-        dgvCashFlow.Size = New Size(1114, 626)
+        dgvCashFlow.RowTemplate.Height = 29
+        dgvCashFlow.Size = New Size(975, 470)
         dgvCashFlow.TabIndex = 70
         dgvCashFlow.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
         dgvCashFlow.ThemeStyle.AlternatingRowsStyle.Font = Nothing
@@ -114,12 +120,13 @@ Partial Class CashFlow
         dtpDate.Font = New Font("Segoe UI", 9F)
         dtpDate.ForeColor = Color.Black
         dtpDate.Format = DateTimePickerFormat.Long
-        dtpDate.Location = New Point(111, 103)
+        dtpDate.Location = New Point(97, 77)
+        dtpDate.Margin = New Padding(3, 2, 3, 2)
         dtpDate.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         dtpDate.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         dtpDate.Name = "dtpDate"
         dtpDate.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        dtpDate.Size = New Size(250, 45)
+        dtpDate.Size = New Size(219, 34)
         dtpDate.TabIndex = 71
         dtpDate.Value = New Date(2025, 9, 25, 0, 58, 37, 566)
         ' 
@@ -128,10 +135,9 @@ Partial Class CashFlow
         Guna2HtmlLabel7.BackColor = Color.Transparent
         Guna2HtmlLabel7.Font = New Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel7.ForeColor = Color.Black
-        Guna2HtmlLabel7.Location = New Point(720, 108)
-        Guna2HtmlLabel7.Margin = New Padding(3, 4, 3, 4)
+        Guna2HtmlLabel7.Location = New Point(388, 81)
         Guna2HtmlLabel7.Name = "Guna2HtmlLabel7"
-        Guna2HtmlLabel7.Size = New Size(188, 29)
+        Guna2HtmlLabel7.Size = New Size(150, 23)
         Guna2HtmlLabel7.TabIndex = 72
         Guna2HtmlLabel7.Text = "Search Member: "
         ' 
@@ -146,13 +152,12 @@ Partial Class CashFlow
         tbSearchMember.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbSearchMember.Font = New Font("Segoe UI", 9F)
         tbSearchMember.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbSearchMember.Location = New Point(914, 103)
-        tbSearchMember.Margin = New Padding(3, 4, 3, 4)
+        tbSearchMember.Location = New Point(544, 77)
         tbSearchMember.Name = "tbSearchMember"
         tbSearchMember.PlaceholderText = ""
         tbSearchMember.SelectedText = ""
         tbSearchMember.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        tbSearchMember.Size = New Size(242, 45)
+        tbSearchMember.Size = New Size(212, 34)
         tbSearchMember.TabIndex = 73
         ' 
         ' Guna2HtmlLabel2
@@ -160,10 +165,9 @@ Partial Class CashFlow
         Guna2HtmlLabel2.BackColor = Color.Transparent
         Guna2HtmlLabel2.Font = New Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel2.ForeColor = Color.Black
-        Guna2HtmlLabel2.Location = New Point(42, 108)
-        Guna2HtmlLabel2.Margin = New Padding(3, 4, 3, 4)
+        Guna2HtmlLabel2.Location = New Point(37, 81)
         Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
-        Guna2HtmlLabel2.Size = New Size(63, 29)
+        Guna2HtmlLabel2.Size = New Size(50, 23)
         Guna2HtmlLabel2.TabIndex = 75
         Guna2HtmlLabel2.Text = "Date: "
         ' 
@@ -179,16 +183,35 @@ Partial Class CashFlow
         btnRefresh.ForeColor = Color.White
         btnRefresh.Image = My.Resources.Resources.refresh1
         btnRefresh.ImageSize = New Size(30, 30)
-        btnRefresh.Location = New Point(367, 103)
+        btnRefresh.Location = New Point(321, 77)
+        btnRefresh.Margin = New Padding(3, 2, 3, 2)
         btnRefresh.Name = "btnRefresh"
         btnRefresh.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        btnRefresh.Size = New Size(49, 45)
+        btnRefresh.Size = New Size(43, 34)
         btnRefresh.TabIndex = 76
+        ' 
+        ' btnPrintPDF
+        ' 
+        btnPrintPDF.CustomizableEdges = CustomizableEdges7
+        btnPrintPDF.DisabledState.BorderColor = Color.DarkGray
+        btnPrintPDF.DisabledState.CustomBorderColor = Color.DarkGray
+        btnPrintPDF.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnPrintPDF.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnPrintPDF.FillColor = Color.Black
+        btnPrintPDF.Font = New Font("Segoe UI", 9F)
+        btnPrintPDF.ForeColor = Color.White
+        btnPrintPDF.Location = New Point(819, 77)
+        btnPrintPDF.Name = "btnPrintPDF"
+        btnPrintPDF.ShadowDecoration.CustomizableEdges = CustomizableEdges8
+        btnPrintPDF.Size = New Size(169, 34)
+        btnPrintPDF.TabIndex = 77
+        btnPrintPDF.Text = "Print CashFlow"
         ' 
         ' CashFlow
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        Controls.Add(btnPrintPDF)
         Controls.Add(btnRefresh)
         Controls.Add(Guna2HtmlLabel2)
         Controls.Add(tbSearchMember)
@@ -196,8 +219,9 @@ Partial Class CashFlow
         Controls.Add(dtpDate)
         Controls.Add(dgvCashFlow)
         Controls.Add(Guna2HtmlLabel1)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "CashFlow"
-        Size = New Size(1190, 847)
+        Size = New Size(1041, 635)
         CType(dgvCashFlow, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -210,5 +234,6 @@ Partial Class CashFlow
     Friend WithEvents tbSearchMember As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel2 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents btnRefresh As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnPrintPDF As Guna.UI2.WinForms.Guna2Button
 
 End Class
