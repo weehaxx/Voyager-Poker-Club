@@ -25,10 +25,13 @@ Partial Class Reports
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         dtpMonthYear = New DateTimePicker()
         dgvReports = New Guna.UI2.WinForms.Guna2DataGridView()
+        btnPrintMonthly = New Guna.UI2.WinForms.Guna2Button()
         CType(dgvReports, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -36,9 +39,10 @@ Partial Class Reports
         ' 
         Guna2HtmlLabel1.BackColor = Color.Transparent
         Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 24F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel1.Location = New Point(83, 16)
+        Guna2HtmlLabel1.Location = New Point(73, 12)
+        Guna2HtmlLabel1.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Guna2HtmlLabel1.Size = New Size(1066, 48)
+        Guna2HtmlLabel1.Size = New Size(848, 39)
         Guna2HtmlLabel1.TabIndex = 1
         Guna2HtmlLabel1.Text = "MONTHLY SUMMAR OF PLAYER/ ACCOUNT LEDGDER"
         ' 
@@ -47,10 +51,9 @@ Partial Class Reports
         Guna2HtmlLabel2.BackColor = Color.Transparent
         Guna2HtmlLabel2.Font = New Font("Arial Rounded MT Bold", 16.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel2.ForeColor = Color.Black
-        Guna2HtmlLabel2.Location = New Point(23, 110)
-        Guna2HtmlLabel2.Margin = New Padding(3, 4, 3, 4)
+        Guna2HtmlLabel2.Location = New Point(20, 82)
         Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
-        Guna2HtmlLabel2.Size = New Size(113, 34)
+        Guna2HtmlLabel2.Size = New Size(93, 28)
         Guna2HtmlLabel2.TabIndex = 76
         Guna2HtmlLabel2.Text = "MONTH:"
         ' 
@@ -58,9 +61,10 @@ Partial Class Reports
         ' 
         dtpMonthYear.CalendarFont = New Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         dtpMonthYear.Font = New Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        dtpMonthYear.Location = New Point(142, 110)
+        dtpMonthYear.Location = New Point(124, 82)
+        dtpMonthYear.Margin = New Padding(3, 2, 3, 2)
         dtpMonthYear.Name = "dtpMonthYear"
-        dtpMonthYear.Size = New Size(235, 38)
+        dtpMonthYear.Size = New Size(206, 32)
         dtpMonthYear.TabIndex = 77
         ' 
         ' dgvReports
@@ -88,12 +92,14 @@ Partial Class Reports
         DataGridViewCellStyle3.WrapMode = DataGridViewTriState.False
         dgvReports.DefaultCellStyle = DataGridViewCellStyle3
         dgvReports.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        dgvReports.Location = New Point(23, 196)
+        dgvReports.Location = New Point(20, 147)
+        dgvReports.Margin = New Padding(3, 2, 3, 2)
         dgvReports.Name = "dgvReports"
         dgvReports.ReadOnly = True
         dgvReports.RowHeadersVisible = False
         dgvReports.RowHeadersWidth = 51
-        dgvReports.Size = New Size(1148, 584)
+        dgvReports.RowTemplate.Height = 29
+        dgvReports.Size = New Size(1004, 438)
         dgvReports.TabIndex = 78
         dgvReports.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
         dgvReports.ThemeStyle.AlternatingRowsStyle.Font = Nothing
@@ -117,16 +123,35 @@ Partial Class Reports
         dgvReports.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
         dgvReports.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
         ' 
+        ' btnPrintMonthly
+        ' 
+        btnPrintMonthly.CustomizableEdges = CustomizableEdges1
+        btnPrintMonthly.DisabledState.BorderColor = Color.DarkGray
+        btnPrintMonthly.DisabledState.CustomBorderColor = Color.DarkGray
+        btnPrintMonthly.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnPrintMonthly.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnPrintMonthly.FillColor = Color.Black
+        btnPrintMonthly.Font = New Font("Segoe UI", 9F)
+        btnPrintMonthly.ForeColor = Color.White
+        btnPrintMonthly.Location = New Point(834, 82)
+        btnPrintMonthly.Name = "btnPrintMonthly"
+        btnPrintMonthly.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        btnPrintMonthly.Size = New Size(168, 32)
+        btnPrintMonthly.TabIndex = 79
+        btnPrintMonthly.Text = "Print"
+        ' 
         ' Reports
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        Controls.Add(btnPrintMonthly)
         Controls.Add(dgvReports)
         Controls.Add(dtpMonthYear)
         Controls.Add(Guna2HtmlLabel2)
         Controls.Add(Guna2HtmlLabel1)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "Reports"
-        Size = New Size(1190, 847)
+        Size = New Size(1041, 635)
         CType(dgvReports, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -136,5 +161,6 @@ Partial Class Reports
     Friend WithEvents Guna2HtmlLabel2 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents dtpMonthYear As DateTimePicker
     Friend WithEvents dgvReports As Guna.UI2.WinForms.Guna2DataGridView
+    Friend WithEvents btnPrintMonthly As Guna.UI2.WinForms.Guna2Button
 
 End Class
