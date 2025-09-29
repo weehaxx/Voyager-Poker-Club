@@ -33,6 +33,10 @@ Public Class EditInfo
                             tbCivilStatus.Text = reader("civilstatus").ToString()
                             tbNationality.Text = reader("nationality").ToString()
 
+                            ' ✅ New fields
+                            tbAlternativeName.Text = reader("alternativename").ToString()
+                            tbPresentedID.Text = reader("presentedid").ToString()
+
                             ' Employment status
                             Dim empStatus As String = reader("employmentstatus").ToString()
                             If empStatus = "Self-Employed" Then
@@ -142,6 +146,7 @@ Public Class EditInfo
                     "presentaddress=@presentaddress, permanentaddress=@permanentaddress, " &
                     "email=@email, mobilenumber=@mobilenumber, birthday=@birthday, " &
                     "birthplace=@birthplace, civilstatus=@civilstatus, nationality=@nationality, " &
+                    "alternativename=@alternativename, presentedid=@presentedid, " & ' ✅ New fields
                     "employmentstatus=@employmentstatus, businessname=@businessname, businessnature=@businessnature, " &
                     "employername=@employername, workname=@workname, polmember=@polmember, relationshippol=@relationshippol, " &
                     "nameemergency=@nameemergency, relationshipemergency=@relationshipemergency, contactemergency=@contactemergency " &
@@ -159,6 +164,10 @@ Public Class EditInfo
                     cmd.Parameters.AddWithValue("@birthplace", tbBirthPlace.Text)
                     cmd.Parameters.AddWithValue("@civilstatus", tbCivilStatus.Text)
                     cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
+
+                    ' ✅ New fields
+                    cmd.Parameters.AddWithValue("@alternativename", tbAlternativeName.Text)
+                    cmd.Parameters.AddWithValue("@presentedid", tbPresentedID.Text)
 
                     ' Employment status
                     Dim empStatus As String = If(rbSelfEmployed.Checked, "Self-Employed",
@@ -210,7 +219,5 @@ Public Class EditInfo
             End If
         End If
     End Sub
-
-
 
 End Class

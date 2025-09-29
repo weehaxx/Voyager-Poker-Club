@@ -354,7 +354,7 @@ Public Class Members
 
             ' ✅ Ask for password first
             Dim password As String = InputBox("Enter password to edit member information:", "Authorization")
-            If password <> "1234" Then ' Static password for now
+            If password <> "Casino2025" Then ' Static password for now
                 MessageBox.Show("Incorrect password.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -398,6 +398,54 @@ Public Class Members
 
         Catch ex As Exception
             MessageBox.Show("Error opening edit form: " & ex.Message)
+        End Try
+    End Sub
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        Try
+            ' ✅ Ensure a member is selected
+            If dgvRegistrations.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a member to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            ' ✅ Confirm password
+            Dim password As String = InputBox("Enter admin password to delete this member:", "Authorization")
+            If password = "" Then
+                MessageBox.Show("Deletion cancelled.", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+            End If
+
+            If password <> "Casino2025" Then
+                MessageBox.Show("Incorrect password. Member not deleted.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            ' ✅ Confirm deletion
+            If MessageBox.Show("Are you sure you want to permanently delete this member?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
+                Exit Sub
+            End If
+
+            ' ✅ Get selected member ID
+            Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+            If selectedRowView Is Nothing Then Exit Sub
+
+            Dim memberID As Integer = selectedRowView.Row("id")
+
+            ' ✅ Delete from database
+            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+                conn.Open()
+                Dim cmd As New SQLiteCommand("DELETE FROM registrations WHERE id=@id", conn)
+                cmd.Parameters.AddWithValue("@id", memberID)
+                cmd.ExecuteNonQuery()
+            End Using
+
+            MessageBox.Show("Member deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' ✅ Refresh list
+            LoadRegistrations()
+
+        Catch ex As Exception
+            MessageBox.Show("Error deleting member: " & ex.Message)
         End Try
     End Sub
 
