@@ -29,9 +29,7 @@ Partial Class Form1
         Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         tbUsername = New Guna.UI2.WinForms.Guna2TextBox()
-        Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         PictureBox1 = New PictureBox()
-        Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         tbPassword = New Guna.UI2.WinForms.Guna2TextBox()
         btnLogin = New Guna.UI2.WinForms.Guna2Button()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
@@ -39,6 +37,7 @@ Partial Class Form1
         ' 
         ' tbUsername
         ' 
+        tbUsername.BorderColor = Color.Black
         tbUsername.CustomizableEdges = CustomizableEdges1
         tbUsername.DefaultText = ""
         tbUsername.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
@@ -47,47 +46,38 @@ Partial Class Form1
         tbUsername.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbUsername.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbUsername.Font = New Font("Segoe UI", 9F)
+        tbUsername.ForeColor = Color.Black
         tbUsername.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbUsername.Location = New Point(264, 231)
+        tbUsername.IconLeft = My.Resources.Resources.user
+        tbUsername.IconLeftOffset = New Point(10, 0)
+        tbUsername.IconLeftSize = New Size(30, 30)
+        tbUsername.Location = New Point(230, 285)
+        tbUsername.Margin = New Padding(3, 5, 3, 5)
         tbUsername.Name = "tbUsername"
-        tbUsername.PlaceholderText = ""
+        tbUsername.PlaceholderForeColor = Color.DarkGray
+        tbUsername.PlaceholderText = "Username"
+        tbUsername.ScrollBars = ScrollBars.Both
         tbUsername.SelectedText = ""
         tbUsername.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        tbUsername.Size = New Size(210, 36)
+        tbUsername.Size = New Size(298, 48)
+        tbUsername.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
         tbUsername.TabIndex = 0
-        ' 
-        ' Guna2HtmlLabel1
-        ' 
-        Guna2HtmlLabel1.BackColor = Color.Transparent
-        Guna2HtmlLabel1.Font = New Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(178))
-        Guna2HtmlLabel1.Location = New Point(132, 241)
-        Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Guna2HtmlLabel1.Size = New Size(92, 18)
-        Guna2HtmlLabel1.TabIndex = 1
-        Guna2HtmlLabel1.Text = "USERNAME:"
+        tbUsername.TextOffset = New Point(10, 0)
         ' 
         ' PictureBox1
         ' 
         PictureBox1.Image = My.Resources.Resources.CasinoLogo
-        PictureBox1.Location = New Point(201, 12)
+        PictureBox1.Location = New Point(230, 13)
+        PictureBox1.Margin = New Padding(3, 4, 3, 4)
         PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(261, 197)
+        PictureBox1.Size = New Size(298, 263)
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
         PictureBox1.TabIndex = 2
         PictureBox1.TabStop = False
         ' 
-        ' Guna2HtmlLabel2
-        ' 
-        Guna2HtmlLabel2.BackColor = Color.Transparent
-        Guna2HtmlLabel2.Font = New Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(178))
-        Guna2HtmlLabel2.Location = New Point(132, 295)
-        Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
-        Guna2HtmlLabel2.Size = New Size(94, 18)
-        Guna2HtmlLabel2.TabIndex = 3
-        Guna2HtmlLabel2.Text = "PASSWORD:"
-        ' 
         ' tbPassword
         ' 
+        tbPassword.BorderColor = Color.Black
         tbPassword.CustomizableEdges = CustomizableEdges3
         tbPassword.DefaultText = ""
         tbPassword.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
@@ -96,15 +86,23 @@ Partial Class Form1
         tbPassword.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPassword.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbPassword.Font = New Font("Segoe UI", 9F)
+        tbPassword.ForeColor = Color.Black
         tbPassword.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPassword.Location = New Point(264, 285)
+        tbPassword.IconLeft = My.Resources.Resources.lock
+        tbPassword.IconLeftOffset = New Point(10, 0)
+        tbPassword.IconLeftSize = New Size(30, 30)
+        tbPassword.Location = New Point(230, 354)
+        tbPassword.Margin = New Padding(3, 5, 3, 5)
         tbPassword.Name = "tbPassword"
         tbPassword.PasswordChar = "*"c
-        tbPassword.PlaceholderText = ""
+        tbPassword.PlaceholderForeColor = Color.DarkGray
+        tbPassword.PlaceholderText = "Password"
         tbPassword.SelectedText = ""
         tbPassword.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        tbPassword.Size = New Size(210, 36)
+        tbPassword.Size = New Size(298, 48)
+        tbPassword.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
         tbPassword.TabIndex = 1
+        tbPassword.TextOffset = New Point(10, 0)
         ' 
         ' btnLogin
         ' 
@@ -114,41 +112,38 @@ Partial Class Form1
         btnLogin.DisabledState.CustomBorderColor = Color.DarkGray
         btnLogin.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnLogin.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnLogin.FillColor = Color.DarkGray
-        btnLogin.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(178))
+        btnLogin.FillColor = Color.Black
+        btnLogin.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnLogin.ForeColor = Color.White
-        btnLogin.Location = New Point(231, 352)
+        btnLogin.Location = New Point(230, 441)
+        btnLogin.Margin = New Padding(3, 4, 3, 4)
         btnLogin.Name = "btnLogin"
         btnLogin.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        btnLogin.Size = New Size(180, 45)
+        btnLogin.Size = New Size(298, 47)
         btnLogin.TabIndex = 2
         btnLogin.Text = "LOGIN"
         ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.White
-        ClientSize = New Size(665, 446)
+        ClientSize = New Size(760, 544)
         Controls.Add(btnLogin)
         Controls.Add(tbPassword)
-        Controls.Add(Guna2HtmlLabel2)
         Controls.Add(PictureBox1)
-        Controls.Add(Guna2HtmlLabel1)
         Controls.Add(tbUsername)
-        FormBorderStyle = FormBorderStyle.None
+        ForeColor = Color.Black
+        FormBorderStyle = FormBorderStyle.FixedToolWindow
+        Margin = New Padding(3, 4, 3, 4)
         Name = "Form1"
         StartPosition = FormStartPosition.CenterScreen
-        Text = "Form1"
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
-        PerformLayout()
     End Sub
 
     Friend WithEvents tbUsername As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents Guna2HtmlLabel2 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents tbPassword As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents btnLogin As Guna.UI2.WinForms.Guna2Button
 

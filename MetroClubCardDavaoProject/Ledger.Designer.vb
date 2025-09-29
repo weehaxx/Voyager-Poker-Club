@@ -47,11 +47,10 @@ Partial Class Ledger
         ' Guna2HtmlLabel1
         ' 
         Guna2HtmlLabel1.BackColor = Color.Transparent
-        Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 24F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel1.Location = New Point(228, 11)
-        Guna2HtmlLabel1.Margin = New Padding(3, 2, 3, 2)
+        Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel1.Location = New Point(25, 17)
         Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Guna2HtmlLabel1.Size = New Size(443, 39)
+        Guna2HtmlLabel1.Size = New Size(459, 40)
         Guna2HtmlLabel1.TabIndex = 1
         Guna2HtmlLabel1.Text = "PLAYER ACCOUNT LEDGER"
         ' 
@@ -60,9 +59,10 @@ Partial Class Ledger
         Guna2HtmlLabel2.BackColor = Color.Transparent
         Guna2HtmlLabel2.Font = New Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel2.ForeColor = Color.Black
-        Guna2HtmlLabel2.Location = New Point(22, 80)
+        Guna2HtmlLabel2.Location = New Point(27, 110)
+        Guna2HtmlLabel2.Margin = New Padding(3, 4, 3, 4)
         Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
-        Guna2HtmlLabel2.Size = New Size(123, 23)
+        Guna2HtmlLabel2.Size = New Size(152, 29)
         Guna2HtmlLabel2.TabIndex = 76
         Guna2HtmlLabel2.Text = "Player Name: "
         ' 
@@ -71,9 +71,10 @@ Partial Class Ledger
         Guna2HtmlLabel3.BackColor = Color.Transparent
         Guna2HtmlLabel3.Font = New Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel3.ForeColor = Color.Black
-        Guna2HtmlLabel3.Location = New Point(22, 135)
+        Guna2HtmlLabel3.Location = New Point(572, 110)
+        Guna2HtmlLabel3.Margin = New Padding(3, 4, 3, 4)
         Guna2HtmlLabel3.Name = "Guna2HtmlLabel3"
-        Guna2HtmlLabel3.Size = New Size(142, 23)
+        Guna2HtmlLabel3.Size = New Size(177, 29)
         Guna2HtmlLabel3.TabIndex = 77
         Guna2HtmlLabel3.Text = "Membership ID: "
         ' 
@@ -87,14 +88,15 @@ Partial Class Ledger
         tbMemeberID.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMemeberID.Enabled = False
         tbMemeberID.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMemeberID.Font = New Font("Segoe UI", 9F)
+        tbMemeberID.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbMemeberID.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMemeberID.Location = New Point(182, 126)
+        tbMemeberID.Location = New Point(755, 107)
+        tbMemeberID.Margin = New Padding(3, 4, 3, 4)
         tbMemeberID.Name = "tbMemeberID"
         tbMemeberID.PlaceholderText = ""
         tbMemeberID.SelectedText = ""
         tbMemeberID.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        tbMemeberID.Size = New Size(250, 38)
+        tbMemeberID.Size = New Size(322, 43)
         tbMemeberID.TabIndex = 79
         ' 
         ' tbPlayerName
@@ -107,14 +109,15 @@ Partial Class Ledger
         tbPlayerName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPlayerName.Enabled = False
         tbPlayerName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPlayerName.Font = New Font("Segoe UI", 9F)
+        tbPlayerName.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbPlayerName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPlayerName.Location = New Point(182, 74)
+        tbPlayerName.Location = New Point(183, 107)
+        tbPlayerName.Margin = New Padding(3, 4, 3, 4)
         tbPlayerName.Name = "tbPlayerName"
         tbPlayerName.PlaceholderText = ""
         tbPlayerName.SelectedText = ""
         tbPlayerName.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        tbPlayerName.Size = New Size(250, 38)
+        tbPlayerName.Size = New Size(274, 43)
         tbPlayerName.TabIndex = 80
         ' 
         ' dgvLedger
@@ -141,13 +144,11 @@ Partial Class Ledger
         DataGridViewCellStyle3.WrapMode = DataGridViewTriState.False
         dgvLedger.DefaultCellStyle = DataGridViewCellStyle3
         dgvLedger.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        dgvLedger.Location = New Point(22, 181)
-        dgvLedger.Margin = New Padding(3, 2, 3, 2)
+        dgvLedger.Location = New Point(25, 160)
         dgvLedger.Name = "dgvLedger"
         dgvLedger.RowHeadersVisible = False
         dgvLedger.RowHeadersWidth = 51
-        dgvLedger.RowTemplate.Height = 29
-        dgvLedger.Size = New Size(931, 329)
+        dgvLedger.Size = New Size(1064, 520)
         dgvLedger.TabIndex = 81
         dgvLedger.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
         dgvLedger.ThemeStyle.AlternatingRowsStyle.Font = Nothing
@@ -182,11 +183,10 @@ Partial Class Ledger
         btnBack.FillColor = Color.Black
         btnBack.Font = New Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnBack.ForeColor = SystemColors.Window
-        btnBack.Location = New Point(22, 514)
-        btnBack.Margin = New Padding(3, 2, 3, 2)
+        btnBack.Location = New Point(25, 685)
         btnBack.Name = "btnBack"
         btnBack.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        btnBack.Size = New Size(124, 28)
+        btnBack.Size = New Size(142, 37)
         btnBack.TabIndex = 82
         btnBack.Text = "Back"
         ' 
@@ -197,18 +197,20 @@ Partial Class Ledger
         btnLedgerPrint.DisabledState.CustomBorderColor = Color.DarkGray
         btnLedgerPrint.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnLedgerPrint.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnLedgerPrint.Font = New Font("Segoe UI", 9F)
+        btnLedgerPrint.FillColor = Color.Black
+        btnLedgerPrint.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnLedgerPrint.ForeColor = Color.White
-        btnLedgerPrint.Location = New Point(636, 74)
+        btnLedgerPrint.Location = New Point(923, 685)
+        btnLedgerPrint.Margin = New Padding(3, 4, 3, 4)
         btnLedgerPrint.Name = "btnLedgerPrint"
         btnLedgerPrint.ShadowDecoration.CustomizableEdges = CustomizableEdges8
-        btnLedgerPrint.Size = New Size(287, 90)
+        btnLedgerPrint.Size = New Size(166, 37)
         btnLedgerPrint.TabIndex = 83
         btnLedgerPrint.Text = "Print Ledger"
         ' 
         ' Ledger
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         Controls.Add(btnLedgerPrint)
         Controls.Add(btnBack)
@@ -218,9 +220,8 @@ Partial Class Ledger
         Controls.Add(Guna2HtmlLabel3)
         Controls.Add(Guna2HtmlLabel2)
         Controls.Add(Guna2HtmlLabel1)
-        Margin = New Padding(3, 2, 3, 2)
         Name = "Ledger"
-        Size = New Size(969, 554)
+        Size = New Size(1107, 739)
         CType(dgvLedger, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()

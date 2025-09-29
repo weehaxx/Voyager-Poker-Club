@@ -219,4 +219,8 @@ Public Class Reports
             MessageBox.Show("Error exporting report: " & ex.Message)
         End Try
     End Sub
+
+    Private Sub dgvReports_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvReports.CellContentClick
+
+    End Sub
 End Class

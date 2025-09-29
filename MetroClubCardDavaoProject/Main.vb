@@ -24,19 +24,19 @@
         ' Add the user control to the panel
         Panel1.Controls.Add(memberUC)
     End Sub
-    Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
+    Private Sub btnLogout_Click(sender As Object, e As EventArgs)
         ' Ask user to confirm logout (optional)
-        Dim result As DialogResult = MessageBox.Show("Are you sure you want to log out?",
+        Dim result = MessageBox.Show("Are you sure you want to log out?",
                                                  "Logout",
                                                  MessageBoxButtons.YesNo,
                                                  MessageBoxIcon.Question)
         If result = DialogResult.Yes Then
             ' Show the login form (Form1)
-            Dim loginForm As New Form1()
+            Dim loginForm As New Form1
             loginForm.Show()
 
             ' Close or hide the current Main form
-            Me.Close()
+            Close()
         End If
     End Sub
     Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
@@ -90,4 +90,6 @@
         ' Add the user control to the panel
         Panel1.Controls.Add(cashFlowUC)
     End Sub
+
+
 End Class

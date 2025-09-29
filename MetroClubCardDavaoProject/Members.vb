@@ -53,7 +53,7 @@ Public Class Members
                 End If
             Next
 
-            dgvRegistrations.Columns("registration_id").HeaderText = "Registration ID"
+            dgvRegistrations.Columns("registration_id").HeaderText = "PLAYER/MEMBERSHIP ID"
 
             dgvRegistrations.Refresh()
             dgvRegistrations.AutoResizeColumns()
@@ -344,5 +344,64 @@ Public Class Members
         End Try
     End Sub
 
+    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+        Try
+            ' ✅ Ensure a member is selected
+            If dgvRegistrations.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a member first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
 
+            ' ✅ Ask for password first
+            Dim password As String = InputBox("Enter password to edit member information:", "Authorization")
+            If password <> "1234" Then ' Static password for now
+                MessageBox.Show("Incorrect password.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            ' ✅ Get selected member data
+            Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+            If selectedRowView Is Nothing Then Exit Sub
+
+            Dim selectedRow = selectedRowView.Row
+            Dim memberID As Integer = selectedRow("id")
+            Dim fullName As String = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
+
+            ' ✅ Show overlay
+            Dim overlay As New OverlayForm(Me.FindForm)
+            overlay.Show()
+            overlay.Refresh()
+
+            ' ✅ Popup Form (1240x847)
+            Dim popup As New Form With {
+                .FormBorderStyle = FormBorderStyle.None,
+                .StartPosition = FormStartPosition.CenterParent,
+                .Size = New Size(1240, 847),
+                .BackColor = Color.White
+            }
+
+            ' ✅ Load editInfo user control
+            Dim editControl As New EditInfo()
+            editControl.Dock = DockStyle.Fill
+            editControl.SelectedMemberID = memberID
+            editControl.SelectedFullName = fullName
+
+            popup.Controls.Add(editControl)
+
+            ' ✅ Wait until user finishes editing
+            popup.ShowDialog()
+
+            ' ✅ Refresh the Members list after closing popup
+            LoadRegistrations()
+
+            overlay.Close()
+
+        Catch ex As Exception
+            MessageBox.Show("Error opening edit form: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub dgvRegistrations_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRegistrations.CellContentClick
+
+    End Sub
 End Class
