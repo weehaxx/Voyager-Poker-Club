@@ -246,7 +246,7 @@ Public Class Registration
                 End Using
 
                 ' Generate registration_id
-                Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & newId.ToString("D4")
+                Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & newId.ToString()
 
                 ' Update the row with registration_id
                 Using updateCmd As New SQLiteCommand("UPDATE registrations SET registration_id=@regid WHERE id=@id", conn)
