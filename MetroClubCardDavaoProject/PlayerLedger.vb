@@ -40,6 +40,11 @@ Public Class PlayerLedger
                 Return
             End If
 
+            If String.IsNullOrWhiteSpace(tbCashierName.Text) Then
+                MessageBox.Show("Please enter the cashier's name.")
+                Return
+            End If
+
             Dim transactionType = cbTransactionType.SelectedItem.ToString()
             Dim amount As Decimal
             If Not Decimal.TryParse(tbAmount.Text, amount) Then
@@ -51,6 +56,7 @@ Public Class PlayerLedger
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
+                ' ✅ Ensure player exists
                 Dim checkSql As String = "SELECT COUNT(*) FROM registrations WHERE id = @id"
                 Using checkCmd As New SQLiteCommand(checkSql, conn)
                     checkCmd.Parameters.AddWithValue("@id", RegistrationID)
@@ -61,18 +67,17 @@ Public Class PlayerLedger
                     End If
                 End Using
 
-                Dim sql As String = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_created, time_created) " &
-                                "VALUES (@regid, @type, @amount, @mode, @date, @time)"
+                ' ✅ Insert with created_by field
+                Dim sql As String = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_created, time_created, created_by) " &
+                                "VALUES (@regid, @type, @amount, @mode, @date, @time, @createdBy)"
                 Using cmd As New SQLiteCommand(sql, conn)
                     cmd.Parameters.AddWithValue("@regid", RegistrationID)
                     cmd.Parameters.AddWithValue("@type", transactionType)
                     cmd.Parameters.AddWithValue("@amount", amount)
                     cmd.Parameters.AddWithValue("@mode", cbPaymentMode.Text)
-
-                    ' ✅ Correct date format to match existing rows
                     cmd.Parameters.AddWithValue("@date", DateTime.Now.ToString("dddd, MMMM dd, yyyy"))
-
                     cmd.Parameters.AddWithValue("@time", dtpTime.Value.ToString("hh:mm:ss tt"))
+                    cmd.Parameters.AddWithValue("@createdBy", tbCashierName.Text.Trim())
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
@@ -85,6 +90,7 @@ Public Class PlayerLedger
             MessageBox.Show("Error saving transaction: " & ex.Message)
         End Try
     End Sub
+
 
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

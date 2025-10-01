@@ -51,7 +51,7 @@ Partial Class Form1
         tbUsername.IconLeft = My.Resources.Resources.user
         tbUsername.IconLeftOffset = New Point(10, 0)
         tbUsername.IconLeftSize = New Size(30, 30)
-        tbUsername.Location = New Point(230, 285)
+        tbUsername.Location = New Point(103, 321)
         tbUsername.Margin = New Padding(3, 5, 3, 5)
         tbUsername.Name = "tbUsername"
         tbUsername.PlaceholderForeColor = Color.DarkGray
@@ -67,10 +67,10 @@ Partial Class Form1
         ' PictureBox1
         ' 
         PictureBox1.Image = My.Resources.Resources.CasinoLogo
-        PictureBox1.Location = New Point(230, 13)
+        PictureBox1.Location = New Point(125, 49)
         PictureBox1.Margin = New Padding(3, 4, 3, 4)
         PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(298, 263)
+        PictureBox1.Size = New Size(250, 250)
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
         PictureBox1.TabIndex = 2
         PictureBox1.TabStop = False
@@ -91,7 +91,7 @@ Partial Class Form1
         tbPassword.IconLeft = My.Resources.Resources.lock
         tbPassword.IconLeftOffset = New Point(10, 0)
         tbPassword.IconLeftSize = New Size(30, 30)
-        tbPassword.Location = New Point(230, 354)
+        tbPassword.Location = New Point(103, 390)
         tbPassword.Margin = New Padding(3, 5, 3, 5)
         tbPassword.Name = "tbPassword"
         tbPassword.PasswordChar = "*"c
@@ -115,7 +115,7 @@ Partial Class Form1
         btnLogin.FillColor = Color.Black
         btnLogin.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnLogin.ForeColor = Color.White
-        btnLogin.Location = New Point(230, 441)
+        btnLogin.Location = New Point(103, 477)
         btnLogin.Margin = New Padding(3, 4, 3, 4)
         btnLogin.Name = "btnLogin"
         btnLogin.ShadowDecoration.CustomizableEdges = CustomizableEdges6
@@ -128,7 +128,7 @@ Partial Class Form1
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.White
-        ClientSize = New Size(760, 544)
+        ClientSize = New Size(501, 607)
         Controls.Add(btnLogin)
         Controls.Add(tbPassword)
         Controls.Add(PictureBox1)

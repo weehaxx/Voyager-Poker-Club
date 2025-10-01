@@ -346,53 +346,71 @@ Public Class Members
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
         Try
-            ' ✅ Ensure a member is selected
             If dgvRegistrations.SelectedRows.Count = 0 Then
                 MessageBox.Show("Please select a member first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            ' ✅ Ask for password first
-            Dim password As String = InputBox("Enter password to edit member information:", "Authorization")
-            If password <> "Casino2025" Then ' Static password for now
-                MessageBox.Show("Incorrect password.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            End If
-
-            ' ✅ Get selected member data
-            Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
-            If selectedRowView Is Nothing Then Exit Sub
-
-            Dim selectedRow = selectedRowView.Row
-            Dim memberID As Integer = selectedRow("id")
-            Dim fullName As String = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
-
-            ' ✅ Show overlay
+            ' ✅ Overlay
             Dim overlay As New OverlayForm(Me.FindForm)
             overlay.Show()
             overlay.Refresh()
 
-            ' ✅ Popup Form (1240x847)
-            Dim popup As New Form With {
+            ' ✅ Authentication popup (145 x 47)
+            Dim authForm As New Form With {
+            .FormBorderStyle = FormBorderStyle.None,
+            .StartPosition = FormStartPosition.CenterParent,
+            .Size = New Size(527, 310),
+            .BackColor = Color.White
+        }
+
+            Dim authControl As New Authentication()
+            authControl.Dock = DockStyle.Fill
+
+            ' ✅ Handle events
+            AddHandler authControl.AuthSuccess,
+            Sub()
+                authForm.DialogResult = DialogResult.OK
+                authForm.Close()
+            End Sub
+
+            AddHandler authControl.AuthCancelled,
+            Sub()
+                authForm.DialogResult = DialogResult.Cancel
+                authForm.Close()
+            End Sub
+
+            authForm.Controls.Add(authControl)
+
+            ' ✅ Show authentication dialog
+            If authForm.ShowDialog() = DialogResult.OK Then
+                ' 🔹 Only continue if authentication passed
+                Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+                If selectedRowView Is Nothing Then Exit Sub
+
+                Dim selectedRow = selectedRowView.Row
+                Dim memberID As Integer = selectedRow("id")
+                Dim fullName As String = $"{selectedRow("lastname")} {selectedRow("firstname")} {selectedRow("middlename")}"
+
+                ' ✅ Now show EditInfo
+                Dim popup As New Form With {
                 .FormBorderStyle = FormBorderStyle.None,
                 .StartPosition = FormStartPosition.CenterParent,
                 .Size = New Size(1240, 847),
                 .BackColor = Color.White
             }
 
-            ' ✅ Load editInfo user control
-            Dim editControl As New EditInfo()
-            editControl.Dock = DockStyle.Fill
-            editControl.SelectedMemberID = memberID
-            editControl.SelectedFullName = fullName
+                Dim editControl As New editInfo()
+                editControl.Dock = DockStyle.Fill
+                editControl.SelectedMemberID = memberID
+                editControl.SelectedFullName = fullName
 
-            popup.Controls.Add(editControl)
+                popup.Controls.Add(editControl)
+                popup.ShowDialog()
 
-            ' ✅ Wait until user finishes editing
-            popup.ShowDialog()
-
-            ' ✅ Refresh the Members list after closing popup
-            LoadRegistrations()
+                ' ✅ Refresh grid
+                LoadRegistrations()
+            End If
 
             overlay.Close()
 
@@ -400,6 +418,8 @@ Public Class Members
             MessageBox.Show("Error opening edit form: " & ex.Message)
         End Try
     End Sub
+
+
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         Try
             ' ✅ Ensure a member is selected
@@ -408,26 +428,56 @@ Public Class Members
                 Exit Sub
             End If
 
-            ' ✅ Confirm password
-            Dim password As String = InputBox("Enter admin password to delete this member:", "Authorization")
-            If password = "" Then
+            ' ✅ Show overlay
+            Dim overlay As New OverlayForm(Me.FindForm)
+            overlay.Show()
+            overlay.Refresh()
+
+            ' ✅ Authentication popup (145 x 47)
+            Dim authForm As New Form With {
+            .FormBorderStyle = FormBorderStyle.None,
+            .StartPosition = FormStartPosition.CenterParent,
+            .Size = New Size(527, 310),
+            .BackColor = Color.White
+        }
+
+            Dim authControl As New Authentication()
+            authControl.Dock = DockStyle.Fill
+
+            ' ✅ Handle events
+            AddHandler authControl.AuthSuccess,
+            Sub()
+                authForm.DialogResult = DialogResult.OK
+                authForm.Close()
+            End Sub
+
+            AddHandler authControl.AuthCancelled,
+            Sub()
+                authForm.DialogResult = DialogResult.Cancel
+                authForm.Close()
+            End Sub
+
+            authForm.Controls.Add(authControl)
+
+            ' ✅ Show authentication dialog
+            If authForm.ShowDialog() <> DialogResult.OK Then
+                overlay.Close()
                 MessageBox.Show("Deletion cancelled.", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Exit Sub
             End If
 
-            If password <> "Casino2025" Then
-                MessageBox.Show("Incorrect password. Member not deleted.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            End If
-
-            ' ✅ Confirm deletion
+            ' ✅ Confirm deletion after password success
             If MessageBox.Show("Are you sure you want to permanently delete this member?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
+                overlay.Close()
                 Exit Sub
             End If
 
             ' ✅ Get selected member ID
             Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
-            If selectedRowView Is Nothing Then Exit Sub
+            If selectedRowView Is Nothing Then
+                overlay.Close()
+                Exit Sub
+            End If
 
             Dim memberID As Integer = selectedRowView.Row("id")
 
@@ -444,10 +494,13 @@ Public Class Members
             ' ✅ Refresh list
             LoadRegistrations()
 
+            overlay.Close()
+
         Catch ex As Exception
             MessageBox.Show("Error deleting member: " & ex.Message)
         End Try
     End Sub
+
 
     Private Sub dgvRegistrations_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRegistrations.CellContentClick
 

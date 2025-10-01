@@ -41,9 +41,9 @@ Partial Class Reports
         Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel1.Location = New Point(23, 19)
         Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Guna2HtmlLabel1.Size = New Size(876, 40)
+        Guna2HtmlLabel1.Size = New Size(897, 40)
         Guna2HtmlLabel1.TabIndex = 1
-        Guna2HtmlLabel1.Text = "MONTHLY SUMMAR OF PLAYER/ ACCOUNT LEDGDER"
+        Guna2HtmlLabel1.Text = "MONTHLY SUMMARY OF PLAYER/ ACCOUNT LEDGDER"
         ' 
         ' Guna2HtmlLabel2
         ' 
@@ -59,7 +59,7 @@ Partial Class Reports
         ' 
         ' dtpMonthYear
         ' 
-        dtpMonthYear.CalendarFont = New Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        dtpMonthYear.CalendarFont = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         dtpMonthYear.Font = New Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         dtpMonthYear.Location = New Point(142, 109)
         dtpMonthYear.Name = "dtpMonthYear"

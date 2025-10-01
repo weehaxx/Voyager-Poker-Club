@@ -196,7 +196,7 @@ Partial Class editInfo
         gpPoliticalExpose.Controls.Add(tbYes)
         gpPoliticalExpose.Controls.Add(tbNo)
         gpPoliticalExpose.CustomizableEdges = CustomizableEdges3
-        gpPoliticalExpose.Location = New Point(480, 577)
+        gpPoliticalExpose.Location = New Point(480, 602)
         gpPoliticalExpose.Margin = New Padding(3, 4, 3, 4)
         gpPoliticalExpose.Name = "gpPoliticalExpose"
         gpPoliticalExpose.ShadowDecoration.CustomizableEdges = CustomizableEdges4
@@ -209,7 +209,7 @@ Partial Class editInfo
         Label25.BackColor = Color.Transparent
         Label25.Font = New Font("Arial Rounded MT Bold", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label25.ForeColor = Color.Black
-        Label25.Location = New Point(453, 9)
+        Label25.Location = New Point(29, 16)
         Label25.Name = "Label25"
         Label25.Size = New Size(327, 32)
         Label25.TabIndex = 115
@@ -233,7 +233,7 @@ Partial Class editInfo
         btnCancel.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         btnCancel.Size = New Size(167, 48)
         btnCancel.TabIndex = 114
-        btnCancel.Text = "Clear"
+        btnCancel.Text = "CANCEL"
         ' 
         ' btnSave
         ' 
@@ -264,15 +264,15 @@ Partial Class editInfo
         tbContactEmergency.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbContactEmergency.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbContactEmergency.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbContactEmergency.Font = New Font("Segoe UI", 9F)
+        tbContactEmergency.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbContactEmergency.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbContactEmergency.Location = New Point(777, 679)
-        tbContactEmergency.Margin = New Padding(3, 5, 3, 5)
+        tbContactEmergency.Location = New Point(777, 704)
+        tbContactEmergency.Margin = New Padding(3, 4, 3, 4)
         tbContactEmergency.Name = "tbContactEmergency"
         tbContactEmergency.PlaceholderText = ""
         tbContactEmergency.SelectedText = ""
         tbContactEmergency.ShadowDecoration.CustomizableEdges = CustomizableEdges10
-        tbContactEmergency.Size = New Size(182, 43)
+        tbContactEmergency.Size = New Size(140, 43)
         tbContactEmergency.TabIndex = 112
         ' 
         ' Label22
@@ -281,7 +281,7 @@ Partial Class editInfo
         Label22.BackColor = Color.Transparent
         Label22.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label22.ForeColor = Color.Black
-        Label22.Location = New Point(668, 692)
+        Label22.Location = New Point(668, 717)
         Label22.Name = "Label22"
         Label22.Size = New Size(103, 22)
         Label22.TabIndex = 111
@@ -296,15 +296,15 @@ Partial Class editInfo
         tbRelationShipEmergency.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationShipEmergency.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationShipEmergency.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbRelationShipEmergency.Font = New Font("Segoe UI", 9F)
+        tbRelationShipEmergency.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbRelationShipEmergency.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbRelationShipEmergency.Location = New Point(461, 679)
-        tbRelationShipEmergency.Margin = New Padding(3, 5, 3, 5)
+        tbRelationShipEmergency.Location = New Point(457, 704)
+        tbRelationShipEmergency.Margin = New Padding(3, 4, 3, 4)
         tbRelationShipEmergency.Name = "tbRelationShipEmergency"
         tbRelationShipEmergency.PlaceholderText = ""
         tbRelationShipEmergency.SelectedText = ""
         tbRelationShipEmergency.ShadowDecoration.CustomizableEdges = CustomizableEdges12
-        tbRelationShipEmergency.Size = New Size(207, 43)
+        tbRelationShipEmergency.Size = New Size(205, 43)
         tbRelationShipEmergency.TabIndex = 110
         ' 
         ' Label23
@@ -313,7 +313,7 @@ Partial Class editInfo
         Label23.BackColor = Color.Transparent
         Label23.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label23.ForeColor = Color.Black
-        Label23.Location = New Point(326, 692)
+        Label23.Location = New Point(326, 717)
         Label23.Name = "Label23"
         Label23.Size = New Size(129, 22)
         Label23.TabIndex = 109
@@ -328,15 +328,15 @@ Partial Class editInfo
         tbNameEmergency.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNameEmergency.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNameEmergency.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbNameEmergency.Font = New Font("Segoe UI", 9F)
+        tbNameEmergency.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbNameEmergency.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbNameEmergency.Location = New Point(101, 679)
-        tbNameEmergency.Margin = New Padding(3, 5, 3, 5)
+        tbNameEmergency.Location = New Point(106, 704)
+        tbNameEmergency.Margin = New Padding(3, 4, 3, 4)
         tbNameEmergency.Name = "tbNameEmergency"
         tbNameEmergency.PlaceholderText = ""
         tbNameEmergency.SelectedText = ""
         tbNameEmergency.ShadowDecoration.CustomizableEdges = CustomizableEdges14
-        tbNameEmergency.Size = New Size(218, 43)
+        tbNameEmergency.Size = New Size(214, 43)
         tbNameEmergency.TabIndex = 108
         ' 
         ' Label24
@@ -345,7 +345,7 @@ Partial Class editInfo
         Label24.BackColor = Color.Transparent
         Label24.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label24.ForeColor = Color.Black
-        Label24.Location = New Point(31, 692)
+        Label24.Location = New Point(31, 717)
         Label24.Name = "Label24"
         Label24.Size = New Size(69, 22)
         Label24.TabIndex = 107
@@ -357,7 +357,7 @@ Partial Class editInfo
         Label21.BackColor = Color.Transparent
         Label21.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label21.ForeColor = Color.Black
-        Label21.Location = New Point(320, 638)
+        Label21.Location = New Point(320, 663)
         Label21.Name = "Label21"
         Label21.Size = New Size(348, 22)
         Label21.TabIndex = 106
@@ -372,15 +372,15 @@ Partial Class editInfo
         tbRelationshipPol.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationshipPol.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationshipPol.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbRelationshipPol.Font = New Font("Segoe UI", 9F)
+        tbRelationshipPol.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbRelationshipPol.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbRelationshipPol.Location = New Point(743, 577)
-        tbRelationshipPol.Margin = New Padding(3, 5, 3, 5)
+        tbRelationshipPol.Location = New Point(743, 609)
+        tbRelationshipPol.Margin = New Padding(3, 4, 3, 4)
         tbRelationshipPol.Name = "tbRelationshipPol"
         tbRelationshipPol.PlaceholderText = ""
         tbRelationshipPol.SelectedText = ""
         tbRelationshipPol.ShadowDecoration.CustomizableEdges = CustomizableEdges16
-        tbRelationshipPol.Size = New Size(155, 47)
+        tbRelationshipPol.Size = New Size(174, 40)
         tbRelationshipPol.TabIndex = 105
         ' 
         ' Label20
@@ -389,7 +389,7 @@ Partial Class editInfo
         Label20.BackColor = Color.Transparent
         Label20.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label20.ForeColor = Color.Black
-        Label20.Location = New Point(608, 594)
+        Label20.Location = New Point(608, 619)
         Label20.Name = "Label20"
         Label20.Size = New Size(129, 22)
         Label20.TabIndex = 104
@@ -401,7 +401,7 @@ Partial Class editInfo
         Label19.BackColor = Color.Transparent
         Label19.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label19.ForeColor = Color.Black
-        Label19.Location = New Point(29, 594)
+        Label19.Location = New Point(29, 619)
         Label19.Name = "Label19"
         Label19.Size = New Size(458, 22)
         Label19.TabIndex = 103
@@ -416,15 +416,15 @@ Partial Class editInfo
         tbPresentedID.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPresentedID.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPresentedID.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPresentedID.Font = New Font("Segoe UI", 9F)
+        tbPresentedID.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbPresentedID.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPresentedID.Location = New Point(987, 476)
-        tbPresentedID.Margin = New Padding(3, 5, 3, 5)
+        tbPresentedID.Location = New Point(987, 483)
+        tbPresentedID.Margin = New Padding(3, 4, 3, 4)
         tbPresentedID.Name = "tbPresentedID"
         tbPresentedID.PlaceholderText = ""
         tbPresentedID.SelectedText = ""
         tbPresentedID.ShadowDecoration.CustomizableEdges = CustomizableEdges18
-        tbPresentedID.Size = New Size(202, 44)
+        tbPresentedID.Size = New Size(207, 37)
         tbPresentedID.TabIndex = 102
         ' 
         ' Label18
@@ -460,15 +460,15 @@ Partial Class editInfo
         tnWorkName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnWorkName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnWorkName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tnWorkName.Font = New Font("Segoe UI", 9F)
+        tnWorkName.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tnWorkName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tnWorkName.Location = New Point(614, 528)
-        tnWorkName.Margin = New Padding(3, 5, 3, 5)
+        tnWorkName.Location = New Point(614, 527)
+        tnWorkName.Margin = New Padding(3, 4, 3, 4)
         tnWorkName.Name = "tnWorkName"
         tnWorkName.PlaceholderText = ""
         tnWorkName.SelectedText = ""
         tnWorkName.ShadowDecoration.CustomizableEdges = CustomizableEdges20
-        tnWorkName.Size = New Size(200, 36)
+        tnWorkName.Size = New Size(225, 38)
         tnWorkName.TabIndex = 99
         ' 
         ' tbBusinessNature
@@ -480,15 +480,15 @@ Partial Class editInfo
         tbBusinessNature.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBusinessNature.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBusinessNature.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbBusinessNature.Font = New Font("Segoe UI", 9F)
+        tbBusinessNature.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbBusinessNature.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbBusinessNature.Location = New Point(223, 528)
-        tbBusinessNature.Margin = New Padding(3, 5, 3, 5)
+        tbBusinessNature.Margin = New Padding(3, 4, 3, 4)
         tbBusinessNature.Name = "tbBusinessNature"
         tbBusinessNature.PlaceholderText = ""
         tbBusinessNature.SelectedText = ""
         tbBusinessNature.ShadowDecoration.CustomizableEdges = CustomizableEdges22
-        tbBusinessNature.Size = New Size(195, 36)
+        tbBusinessNature.Size = New Size(203, 37)
         tbBusinessNature.TabIndex = 98
         ' 
         ' Label16
@@ -512,15 +512,15 @@ Partial Class editInfo
         tbEmployerName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmployerName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmployerName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbEmployerName.Font = New Font("Segoe UI", 9F)
+        tbEmployerName.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbEmployerName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbEmployerName.Location = New Point(614, 476)
-        tbEmployerName.Margin = New Padding(3, 5, 3, 5)
+        tbEmployerName.Location = New Point(614, 483)
+        tbEmployerName.Margin = New Padding(3, 4, 3, 4)
         tbEmployerName.Name = "tbEmployerName"
         tbEmployerName.PlaceholderText = ""
         tbEmployerName.SelectedText = ""
         tbEmployerName.ShadowDecoration.CustomizableEdges = CustomizableEdges24
-        tbEmployerName.Size = New Size(200, 44)
+        tbEmployerName.Size = New Size(225, 37)
         tbEmployerName.TabIndex = 96
         ' 
         ' Label15
@@ -544,15 +544,15 @@ Partial Class editInfo
         tnBusinessName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnBusinessName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnBusinessName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tnBusinessName.Font = New Font("Segoe UI", 9F)
+        tnBusinessName.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tnBusinessName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tnBusinessName.Location = New Point(208, 476)
-        tnBusinessName.Margin = New Padding(3, 5, 3, 5)
+        tnBusinessName.Location = New Point(223, 483)
+        tnBusinessName.Margin = New Padding(3, 4, 3, 4)
         tnBusinessName.Name = "tnBusinessName"
         tnBusinessName.PlaceholderText = ""
         tnBusinessName.SelectedText = ""
         tnBusinessName.ShadowDecoration.CustomizableEdges = CustomizableEdges26
-        tnBusinessName.Size = New Size(210, 44)
+        tnBusinessName.Size = New Size(203, 37)
         tnBusinessName.TabIndex = 94
         ' 
         ' Label14
@@ -619,11 +619,11 @@ Partial Class editInfo
         Label13.BackColor = Color.Transparent
         Label13.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label13.ForeColor = Color.Black
-        Label13.Location = New Point(334, 407)
+        Label13.Location = New Point(322, 401)
         Label13.Name = "Label13"
-        Label13.Size = New Size(153, 22)
+        Label13.Size = New Size(182, 22)
         Label13.TabIndex = 90
-        Label13.Text = "Source of fund: "
+        Label13.Text = "SOURCE OF FUND"
         ' 
         ' tbMobileNumber
         ' 
@@ -634,15 +634,15 @@ Partial Class editInfo
         tbMobileNumber.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMobileNumber.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMobileNumber.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMobileNumber.Font = New Font("Segoe UI", 9F)
+        tbMobileNumber.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbMobileNumber.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMobileNumber.Location = New Point(785, 334)
-        tbMobileNumber.Margin = New Padding(3, 5, 3, 5)
+        tbMobileNumber.Location = New Point(787, 338)
+        tbMobileNumber.Margin = New Padding(3, 4, 3, 4)
         tbMobileNumber.Name = "tbMobileNumber"
         tbMobileNumber.PlaceholderText = ""
         tbMobileNumber.SelectedText = ""
         tbMobileNumber.ShadowDecoration.CustomizableEdges = CustomizableEdges28
-        tbMobileNumber.Size = New Size(167, 45)
+        tbMobileNumber.Size = New Size(166, 38)
         tbMobileNumber.TabIndex = 89
         ' 
         ' Label12
@@ -651,7 +651,7 @@ Partial Class editInfo
         Label12.BackColor = Color.Transparent
         Label12.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label12.ForeColor = Color.Black
-        Label12.Location = New Point(696, 350)
+        Label12.Location = New Point(698, 347)
         Label12.Name = "Label12"
         Label12.Size = New Size(91, 22)
         Label12.TabIndex = 88
@@ -666,15 +666,15 @@ Partial Class editInfo
         tbEmail.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmail.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmail.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbEmail.Font = New Font("Segoe UI", 9F)
+        tbEmail.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbEmail.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbEmail.Location = New Point(417, 334)
-        tbEmail.Margin = New Padding(3, 5, 3, 5)
+        tbEmail.Location = New Point(429, 338)
+        tbEmail.Margin = New Padding(3, 4, 3, 4)
         tbEmail.Name = "tbEmail"
         tbEmail.PlaceholderText = ""
         tbEmail.SelectedText = ""
         tbEmail.ShadowDecoration.CustomizableEdges = CustomizableEdges30
-        tbEmail.Size = New Size(272, 45)
+        tbEmail.Size = New Size(269, 38)
         tbEmail.TabIndex = 87
         ' 
         ' Label11
@@ -683,7 +683,7 @@ Partial Class editInfo
         Label11.BackColor = Color.Transparent
         Label11.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label11.ForeColor = Color.Black
-        Label11.Location = New Point(357, 350)
+        Label11.Location = New Point(359, 347)
         Label11.Name = "Label11"
         Label11.Size = New Size(67, 22)
         Label11.TabIndex = 86
@@ -698,15 +698,15 @@ Partial Class editInfo
         tbNationality.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNationality.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNationality.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbNationality.Font = New Font("Segoe UI", 9F)
+        tbNationality.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbNationality.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbNationality.Location = New Point(143, 334)
-        tbNationality.Margin = New Padding(3, 5, 3, 5)
+        tbNationality.Location = New Point(145, 338)
+        tbNationality.Margin = New Padding(3, 4, 3, 4)
         tbNationality.Name = "tbNationality"
         tbNationality.PlaceholderText = ""
         tbNationality.SelectedText = ""
         tbNationality.ShadowDecoration.CustomizableEdges = CustomizableEdges32
-        tbNationality.Size = New Size(207, 45)
+        tbNationality.Size = New Size(208, 38)
         tbNationality.TabIndex = 85
         ' 
         ' Label10
@@ -715,7 +715,7 @@ Partial Class editInfo
         Label10.BackColor = Color.Transparent
         Label10.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label10.ForeColor = Color.Black
-        Label10.Location = New Point(29, 350)
+        Label10.Location = New Point(31, 347)
         Label10.Name = "Label10"
         Label10.Size = New Size(118, 22)
         Label10.TabIndex = 84
@@ -730,15 +730,15 @@ Partial Class editInfo
         tbCivilStatus.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbCivilStatus.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbCivilStatus.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbCivilStatus.Font = New Font("Segoe UI", 9F)
+        tbCivilStatus.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbCivilStatus.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbCivilStatus.Location = New Point(810, 278)
-        tbCivilStatus.Margin = New Padding(3, 5, 3, 5)
+        tbCivilStatus.Location = New Point(811, 287)
+        tbCivilStatus.Margin = New Padding(3, 4, 3, 4)
         tbCivilStatus.Name = "tbCivilStatus"
         tbCivilStatus.PlaceholderText = ""
         tbCivilStatus.SelectedText = ""
         tbCivilStatus.ShadowDecoration.CustomizableEdges = CustomizableEdges34
-        tbCivilStatus.Size = New Size(141, 41)
+        tbCivilStatus.Size = New Size(141, 35)
         tbCivilStatus.TabIndex = 83
         ' 
         ' Label9
@@ -748,7 +748,7 @@ Partial Class editInfo
         Label9.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label9.ForeColor = Color.Black
         Label9.ImageAlign = ContentAlignment.MiddleLeft
-        Label9.Location = New Point(696, 290)
+        Label9.Location = New Point(696, 293)
         Label9.Name = "Label9"
         Label9.Size = New Size(119, 22)
         Label9.TabIndex = 82
@@ -763,15 +763,15 @@ Partial Class editInfo
         tbBirthPlace.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBirthPlace.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBirthPlace.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbBirthPlace.Font = New Font("Segoe UI", 9F)
+        tbBirthPlace.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbBirthPlace.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbBirthPlace.Location = New Point(480, 278)
-        tbBirthPlace.Margin = New Padding(3, 5, 3, 5)
+        tbBirthPlace.Location = New Point(471, 287)
+        tbBirthPlace.Margin = New Padding(3, 4, 3, 4)
         tbBirthPlace.Name = "tbBirthPlace"
         tbBirthPlace.PlaceholderText = ""
         tbBirthPlace.SelectedText = ""
         tbBirthPlace.ShadowDecoration.CustomizableEdges = CustomizableEdges36
-        tbBirthPlace.Size = New Size(209, 41)
+        tbBirthPlace.Size = New Size(225, 35)
         tbBirthPlace.TabIndex = 81
         ' 
         ' Label8
@@ -780,7 +780,7 @@ Partial Class editInfo
         Label8.BackColor = Color.Transparent
         Label8.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label8.ForeColor = Color.Black
-        Label8.Location = New Point(357, 290)
+        Label8.Location = New Point(357, 293)
         Label8.Name = "Label8"
         Label8.Size = New Size(117, 22)
         Label8.TabIndex = 80
@@ -794,13 +794,13 @@ Partial Class editInfo
         dtpBirthday.Font = New Font("Segoe UI", 9F)
         dtpBirthday.ForeColor = Color.Black
         dtpBirthday.Format = DateTimePickerFormat.Long
-        dtpBirthday.Location = New Point(122, 278)
+        dtpBirthday.Location = New Point(122, 287)
         dtpBirthday.Margin = New Padding(3, 4, 3, 4)
         dtpBirthday.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         dtpBirthday.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         dtpBirthday.Name = "dtpBirthday"
         dtpBirthday.ShadowDecoration.CustomizableEdges = CustomizableEdges38
-        dtpBirthday.Size = New Size(229, 48)
+        dtpBirthday.Size = New Size(229, 35)
         dtpBirthday.TabIndex = 79
         dtpBirthday.Value = New Date(2025, 9, 21, 14, 41, 24, 351)
         ' 
@@ -810,7 +810,7 @@ Partial Class editInfo
         Label7.BackColor = Color.Transparent
         Label7.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label7.ForeColor = Color.Black
-        Label7.Location = New Point(29, 290)
+        Label7.Location = New Point(29, 293)
         Label7.Name = "Label7"
         Label7.Size = New Size(94, 22)
         Label7.TabIndex = 78
@@ -825,26 +825,26 @@ Partial Class editInfo
         tbPermanentAddress.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPermanentAddress.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPermanentAddress.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPermanentAddress.Font = New Font("Segoe UI", 9F)
+        tbPermanentAddress.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbPermanentAddress.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPermanentAddress.Location = New Point(223, 228)
-        tbPermanentAddress.Margin = New Padding(3, 5, 3, 5)
+        tbPermanentAddress.Location = New Point(223, 230)
+        tbPermanentAddress.Margin = New Padding(3, 4, 3, 4)
         tbPermanentAddress.Name = "tbPermanentAddress"
         tbPermanentAddress.PlaceholderText = ""
         tbPermanentAddress.SelectedText = ""
         tbPermanentAddress.ShadowDecoration.CustomizableEdges = CustomizableEdges40
-        tbPermanentAddress.Size = New Size(729, 37)
+        tbPermanentAddress.Size = New Size(729, 38)
         tbPermanentAddress.TabIndex = 77
         ' 
         ' Label6
         ' 
         Label6.AutoSize = True
         Label6.BackColor = Color.Transparent
-        Label6.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label6.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label6.ForeColor = Color.Black
-        Label6.Location = New Point(29, 236)
+        Label6.Location = New Point(29, 240)
         Label6.Name = "Label6"
-        Label6.Size = New Size(198, 22)
+        Label6.Size = New Size(192, 21)
         Label6.TabIndex = 76
         Label6.Text = "Permanent Address:"
         ' 
@@ -857,15 +857,15 @@ Partial Class editInfo
         tbPresentAddress.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPresentAddress.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPresentAddress.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPresentAddress.Font = New Font("Segoe UI", 9F)
+        tbPresentAddress.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbPresentAddress.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPresentAddress.Location = New Point(198, 182)
-        tbPresentAddress.Margin = New Padding(3, 5, 3, 5)
+        tbPresentAddress.Location = New Point(195, 185)
+        tbPresentAddress.Margin = New Padding(3, 4, 3, 4)
         tbPresentAddress.Name = "tbPresentAddress"
         tbPresentAddress.PlaceholderText = ""
         tbPresentAddress.SelectedText = ""
         tbPresentAddress.ShadowDecoration.CustomizableEdges = CustomizableEdges42
-        tbPresentAddress.Size = New Size(754, 39)
+        tbPresentAddress.Size = New Size(756, 33)
         tbPresentAddress.TabIndex = 75
         ' 
         ' Label5
@@ -874,7 +874,7 @@ Partial Class editInfo
         Label5.BackColor = Color.Transparent
         Label5.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label5.ForeColor = Color.Black
-        Label5.Location = New Point(29, 191)
+        Label5.Location = New Point(29, 190)
         Label5.Name = "Label5"
         Label5.Size = New Size(169, 22)
         Label5.TabIndex = 74
@@ -889,15 +889,15 @@ Partial Class editInfo
         tbAlternativeName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbAlternativeName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbAlternativeName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbAlternativeName.Font = New Font("Segoe UI", 9F)
+        tbAlternativeName.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbAlternativeName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbAlternativeName.Location = New Point(696, 130)
-        tbAlternativeName.Margin = New Padding(3, 5, 3, 5)
+        tbAlternativeName.Location = New Point(694, 136)
+        tbAlternativeName.Margin = New Padding(3, 4, 3, 4)
         tbAlternativeName.Name = "tbAlternativeName"
         tbAlternativeName.PlaceholderText = ""
         tbAlternativeName.SelectedText = ""
         tbAlternativeName.ShadowDecoration.CustomizableEdges = CustomizableEdges44
-        tbAlternativeName.Size = New Size(255, 44)
+        tbAlternativeName.Size = New Size(258, 37)
         tbAlternativeName.TabIndex = 73
         ' 
         ' Label4
@@ -921,15 +921,15 @@ Partial Class editInfo
         tbMiddleName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMiddleName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMiddleName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMiddleName.Font = New Font("Segoe UI", 9F)
+        tbMiddleName.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbMiddleName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMiddleName.Location = New Point(785, 79)
-        tbMiddleName.Margin = New Padding(3, 5, 3, 5)
+        tbMiddleName.Location = New Point(785, 85)
+        tbMiddleName.Margin = New Padding(3, 4, 3, 4)
         tbMiddleName.Name = "tbMiddleName"
         tbMiddleName.PlaceholderText = ""
         tbMiddleName.SelectedText = ""
         tbMiddleName.ShadowDecoration.CustomizableEdges = CustomizableEdges46
-        tbMiddleName.Size = New Size(167, 43)
+        tbMiddleName.Size = New Size(167, 37)
         tbMiddleName.TabIndex = 71
         ' 
         ' Label3
@@ -953,15 +953,15 @@ Partial Class editInfo
         tbFirstName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbFirstName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbFirstName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbFirstName.Font = New Font("Segoe UI", 9F)
+        tbFirstName.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbFirstName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbFirstName.Location = New Point(432, 79)
-        tbFirstName.Margin = New Padding(3, 5, 3, 5)
+        tbFirstName.Location = New Point(427, 85)
+        tbFirstName.Margin = New Padding(3, 4, 3, 4)
         tbFirstName.Name = "tbFirstName"
         tbFirstName.PlaceholderText = ""
         tbFirstName.SelectedText = ""
         tbFirstName.ShadowDecoration.CustomizableEdges = CustomizableEdges48
-        tbFirstName.Size = New Size(214, 43)
+        tbFirstName.Size = New Size(215, 37)
         tbFirstName.TabIndex = 69
         ' 
         ' Label2
@@ -985,17 +985,17 @@ Partial Class editInfo
         tbLastName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbLastName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbLastName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbLastName.Font = New Font("Segoe UI", 9F)
+        tbLastName.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbLastName.ForeColor = Color.Black
         tbLastName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbLastName.Location = New Point(148, 79)
-        tbLastName.Margin = New Padding(3, 5, 3, 5)
+        tbLastName.Location = New Point(143, 85)
+        tbLastName.Margin = New Padding(3, 4, 3, 4)
         tbLastName.Name = "tbLastName"
         tbLastName.PlaceholderForeColor = Color.Black
         tbLastName.PlaceholderText = ""
         tbLastName.SelectedText = ""
         tbLastName.ShadowDecoration.CustomizableEdges = CustomizableEdges50
-        tbLastName.Size = New Size(165, 43)
+        tbLastName.Size = New Size(164, 37)
         tbLastName.TabIndex = 67
         ' 
         ' Label1
@@ -1014,6 +1014,7 @@ Partial Class editInfo
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.WhiteSmoke
         Controls.Add(pbCameraDisplay)
         Controls.Add(gpPoliticalExpose)
         Controls.Add(Label25)
@@ -1066,6 +1067,7 @@ Partial Class editInfo
         Controls.Add(Label2)
         Controls.Add(tbLastName)
         Controls.Add(Label1)
+        Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Name = "editInfo"
         Size = New Size(1240, 847)
         CType(pbCameraDisplay, ComponentModel.ISupportInitialize).EndInit()

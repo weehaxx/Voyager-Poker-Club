@@ -51,9 +51,9 @@ Partial Class CashFlow
         Guna2HtmlLabel1.ForeColor = Color.Black
         Guna2HtmlLabel1.Location = New Point(20, 16)
         Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Guna2HtmlLabel1.Size = New Size(203, 40)
+        Guna2HtmlLabel1.Size = New Size(310, 40)
         Guna2HtmlLabel1.TabIndex = 0
-        Guna2HtmlLabel1.Text = "CASH FLOW" & vbCrLf & vbCrLf
+        Guna2HtmlLabel1.Text = "DAILY CASH FLOW" & vbCrLf & vbCrLf
         ' 
         ' dgvCashFlow
         ' 

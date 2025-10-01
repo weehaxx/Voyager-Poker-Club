@@ -37,6 +37,7 @@ Partial Class Main
         btnRegistration = New Guna.UI2.WinForms.Guna2Button()
         btnCashFlow = New Guna.UI2.WinForms.Guna2Button()
         Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
+        Panel2 = New Panel()
         btnReports = New Guna.UI2.WinForms.Guna2Button()
         Panel1 = New Panel()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
@@ -46,7 +47,7 @@ Partial Class Main
         ' PictureBox1
         ' 
         PictureBox1.Image = My.Resources.Resources.CasinoLogo
-        PictureBox1.Location = New Point(52, 13)
+        PictureBox1.Location = New Point(55, 0)
         PictureBox1.Name = "PictureBox1"
         PictureBox1.Size = New Size(110, 110)
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
@@ -71,12 +72,15 @@ Partial Class Main
         btnDashboard.HoverState.FillColor = Color.Black
         btnDashboard.HoverState.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnDashboard.HoverState.ForeColor = Color.White
-        btnDashboard.Location = New Point(12, 160)
+        btnDashboard.Image = My.Resources.Resources.admin
+        btnDashboard.ImageAlign = HorizontalAlignment.Left
+        btnDashboard.ImageSize = New Size(0, 0)
+        btnDashboard.Location = New Point(13, 136)
         btnDashboard.Name = "btnDashboard"
         btnDashboard.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         btnDashboard.Size = New Size(195, 45)
         btnDashboard.TabIndex = 1
-        btnDashboard.Text = "Members"
+        btnDashboard.Text = "MEMBERS"
         ' 
         ' btnRegistration
         ' 
@@ -94,12 +98,12 @@ Partial Class Main
         btnRegistration.ForeColor = Color.Black
         btnRegistration.HoverState.FillColor = Color.Black
         btnRegistration.HoverState.ForeColor = Color.White
-        btnRegistration.Location = New Point(12, 211)
+        btnRegistration.Location = New Point(13, 187)
         btnRegistration.Name = "btnRegistration"
         btnRegistration.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         btnRegistration.Size = New Size(195, 45)
         btnRegistration.TabIndex = 2
-        btnRegistration.Text = "Registration"
+        btnRegistration.Text = "REGISTRATION"
         ' 
         ' btnCashFlow
         ' 
@@ -115,15 +119,16 @@ Partial Class Main
         btnCashFlow.ForeColor = Color.Black
         btnCashFlow.HoverState.FillColor = Color.Black
         btnCashFlow.HoverState.ForeColor = Color.White
-        btnCashFlow.Location = New Point(12, 262)
+        btnCashFlow.Location = New Point(13, 238)
         btnCashFlow.Name = "btnCashFlow"
         btnCashFlow.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         btnCashFlow.Size = New Size(195, 45)
         btnCashFlow.TabIndex = 3
-        btnCashFlow.Text = "Cash Flow"
+        btnCashFlow.Text = "CASH FLOW"
         ' 
         ' Guna2Panel1
         ' 
+        Guna2Panel1.Controls.Add(Panel2)
         Guna2Panel1.Controls.Add(btnReports)
         Guna2Panel1.Controls.Add(btnCashFlow)
         Guna2Panel1.Controls.Add(btnRegistration)
@@ -136,6 +141,15 @@ Partial Class Main
         Guna2Panel1.ShadowDecoration.CustomizableEdges = CustomizableEdges10
         Guna2Panel1.Size = New Size(222, 847)
         Guna2Panel1.TabIndex = 0
+        ' 
+        ' Panel2
+        ' 
+        Panel2.BackColor = Color.Silver
+        Panel2.BorderStyle = BorderStyle.FixedSingle
+        Panel2.Location = New Point(13, 129)
+        Panel2.Name = "Panel2"
+        Panel2.Size = New Size(195, 1)
+        Panel2.TabIndex = 6
         ' 
         ' btnReports
         ' 
@@ -151,12 +165,12 @@ Partial Class Main
         btnReports.ForeColor = Color.Black
         btnReports.HoverState.FillColor = Color.Black
         btnReports.HoverState.ForeColor = Color.White
-        btnReports.Location = New Point(12, 313)
+        btnReports.Location = New Point(13, 289)
         btnReports.Name = "btnReports"
         btnReports.ShadowDecoration.CustomizableEdges = CustomizableEdges8
         btnReports.Size = New Size(195, 45)
         btnReports.TabIndex = 4
-        btnReports.Text = "Reports"
+        btnReports.Text = "REPORTS"
         ' 
         ' Panel1
         ' 
@@ -190,4 +204,5 @@ Partial Class Main
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents Panel1 As Panel
     Friend WithEvents btnReports As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents Panel2 As Panel
 End Class

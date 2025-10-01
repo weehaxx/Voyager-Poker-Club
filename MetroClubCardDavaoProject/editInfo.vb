@@ -220,4 +220,47 @@ Public Class EditInfo
         End If
     End Sub
 
+    Private Sub rbEmployed_CheckedChanged(sender As Object, e As EventArgs) Handles rbEmployed.CheckedChanged
+        If rbEmployed.Checked Then
+            ' Enable Employed fields
+            tbEmployerName.Enabled = True
+            tnWorkName.Enabled = True
+
+            ' Disable + clear Self-employed fields
+            tnBusinessName.Enabled = False
+            tbBusinessNature.Enabled = False
+            tnBusinessName.Clear()
+            tbBusinessNature.Clear()
+        Else
+            ' If unchecked, also clear its own fields
+            tbEmployerName.Clear()
+            tnWorkName.Clear()
+            tbEmployerName.Enabled = False
+            tnWorkName.Enabled = False
+        End If
+
+    End Sub
+
+    Private Sub rbSelfEmployed_CheckedChanged(sender As Object, e As EventArgs) Handles rbSelfEmployed.CheckedChanged
+        If rbSelfEmployed.Checked Then
+            ' Enable Self-employed fields
+            tnBusinessName.Enabled = True
+            tbBusinessNature.Enabled = True
+
+            ' Disable + clear Employed fields
+            tbEmployerName.Enabled = False
+            tnWorkName.Enabled = False
+            tbEmployerName.Clear()
+            tnWorkName.Clear()
+        Else
+            ' If unchecked, also clear its own fields
+            tnBusinessName.Clear()
+            tbBusinessNature.Clear()
+            tnBusinessName.Enabled = False
+            tbBusinessNature.Enabled = False
+        End If
+
+    End Sub
+
+
 End Class
