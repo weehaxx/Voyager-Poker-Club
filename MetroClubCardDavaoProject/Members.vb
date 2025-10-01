@@ -41,7 +41,7 @@ Public Class Members
             For Each row As DataRow In dt.Rows
                 Dim rawId As Integer = Convert.ToInt32(row("id"))
                 ' Build yyyyMMdd + id padded 4 digits (display only)
-                Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & rawId.ToString("D4")
+                Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & rawId.ToString()
                 row("registration_id") = regId
             Next
 

@@ -89,7 +89,6 @@ Public Class Registration
             isValid = False
         End If
 
-
         btnSave.Enabled = allFieldsFilled
     End Sub
 
@@ -105,24 +104,19 @@ Public Class Registration
                 tbYes.CheckedChanged, tbNo.CheckedChanged
 
         ValidateForm()
-
-
     End Sub
 
     ' -------------------- EMPLOYMENT LOGIC --------------------
     Private Sub rbSelfEmployed_CheckedChanged(sender As Object, e As EventArgs) Handles rbSelfEmployed.CheckedChanged
         If rbSelfEmployed.Checked Then
-            ' Enable Self-employed fields
             tnBusinessName.Enabled = True
             tbBusinessNature.Enabled = True
 
-            ' Disable + clear Employed fields
             tbEmployerName.Enabled = False
             tnWorkName.Enabled = False
             tbEmployerName.Clear()
             tnWorkName.Clear()
         Else
-            ' If unchecked, also clear its own fields
             tnBusinessName.Clear()
             tbBusinessNature.Clear()
             tnBusinessName.Enabled = False
@@ -130,21 +124,17 @@ Public Class Registration
         End If
         ValidateForm()
     End Sub
-
 
     Private Sub rbEmployed_CheckedChanged(sender As Object, e As EventArgs) Handles rbEmployed.CheckedChanged
         If rbEmployed.Checked Then
-            ' Enable Employed fields
             tbEmployerName.Enabled = True
             tnWorkName.Enabled = True
 
-            ' Disable + clear Self-employed fields
             tnBusinessName.Enabled = False
             tbBusinessNature.Enabled = False
             tnBusinessName.Clear()
             tbBusinessNature.Clear()
         Else
-            ' If unchecked, also clear its own fields
             tbEmployerName.Clear()
             tnWorkName.Clear()
             tbEmployerName.Enabled = False
@@ -152,7 +142,6 @@ Public Class Registration
         End If
         ValidateForm()
     End Sub
-
 
     ' -------------------- POLITICALLY EXPOSED FAMILY --------------------
     Private Sub tbYes_CheckedChanged(sender As Object, e As EventArgs) Handles tbYes.CheckedChanged
@@ -174,7 +163,7 @@ Public Class Registration
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Try
             Dim newId As Long
-            Dim regId As String = ""
+            Dim regId As String ' ✅ Declare only once
 
             Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
                 conn.Open()
@@ -187,7 +176,7 @@ Public Class Registration
                 "SELECT last_insert_rowid();"
 
                 Using cmd As New SQLiteCommand(query, conn)
-                    ' Text fields
+                    ' (All your parameters are here)
                     cmd.Parameters.AddWithValue("@lastname", tbLastName.Text)
                     cmd.Parameters.AddWithValue("@firstname", tbFirstName.Text)
                     cmd.Parameters.AddWithValue("@middlename", tbMiddleName.Text)
@@ -201,7 +190,6 @@ Public Class Registration
                     cmd.Parameters.AddWithValue("@email", tbEmail.Text)
                     cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
 
-                    ' Employment
                     If rbSelfEmployed.Checked Then
                         cmd.Parameters.AddWithValue("@employmentstatus", "Self-Employed")
                     ElseIf rbEmployed.Checked Then
@@ -209,22 +197,19 @@ Public Class Registration
                     Else
                         cmd.Parameters.AddWithValue("@employmentstatus", "")
                     End If
+
                     cmd.Parameters.AddWithValue("@businessname", tnBusinessName.Text)
                     cmd.Parameters.AddWithValue("@employername", tbEmployerName.Text)
                     cmd.Parameters.AddWithValue("@businessnature", tbBusinessNature.Text)
                     cmd.Parameters.AddWithValue("@workname", tnWorkName.Text)
 
-                    ' ID & Police
                     cmd.Parameters.AddWithValue("@presentedid", tbPresentedID.Text)
                     cmd.Parameters.AddWithValue("@polmember", If(tbYes.Checked, "Yes", "No"))
                     cmd.Parameters.AddWithValue("@relationshippol", tbRelationshipPol.Text)
-
-                    ' Emergency
                     cmd.Parameters.AddWithValue("@nameemergency", tbNameEmergency.Text)
                     cmd.Parameters.AddWithValue("@relationshipemergency", tbRelationShipEmergency.Text)
                     cmd.Parameters.AddWithValue("@contactemergency", tbContactEmergency.Text)
 
-                    ' Images
                     Dim idImageBytes() As Byte = Nothing
                     If pbIDpresented.Image IsNot Nothing Then
                         Using ms As New MemoryStream()
@@ -257,21 +242,24 @@ Public Class Registration
                 End Using
             End Using
 
-            ' ✅ Show success message with full name and ID
+            ' ✅ Show success message
             Dim fullName As String = tbFirstName.Text.Trim() & " " & tbLastName.Text.Trim()
             MessageBox.Show("New member registered successfully!" & vbCrLf &
-                        "Full Name: " & fullName & vbCrLf &
-                        "Member ID: " & regId,
-                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            "Full Name: " & fullName & vbCrLf &
+                            "Member ID: " & regId & vbCrLf &
+                            "(Copied to clipboard)",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' ✅ Clear all fields after saving
+            ' ✅ Auto copy to clipboard
+            Clipboard.SetText(regId)
+
+            ' ✅ Clear all fields
             btnClear_Click(Nothing, Nothing)
 
         Catch ex As Exception
             MessageBox.Show("Error saving data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
 
     ' -------------------- CLEAR FORM --------------------
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
@@ -416,7 +404,7 @@ Public Class Registration
         End If
     End Sub
 
-    ' 🔑 Restrict to digits only (numbers + backspace)
+    ' 🔑 Restrict to digits only
     Private Sub tbMobileNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbMobileNumber.KeyPress
         If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
             e.Handled = True
@@ -442,6 +430,4 @@ Public Class Registration
             tbContactEmergency.SelectionStart = tbContactEmergency.Text.Length
         End If
     End Sub
-
-
 End Class
