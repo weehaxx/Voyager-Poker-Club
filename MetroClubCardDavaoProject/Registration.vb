@@ -174,16 +174,17 @@ Public Class Registration
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Try
             Dim newId As Long
+            Dim regId As String = ""
 
             Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
                 conn.Open()
 
                 ' First INSERT without registration_id
                 Dim query As String =
-                    "INSERT INTO registrations " &
-                    "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
-                    "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
-                    "SELECT last_insert_rowid();"
+                "INSERT INTO registrations " &
+                "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
+                "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
+                "SELECT last_insert_rowid();"
 
                 Using cmd As New SQLiteCommand(query, conn)
                     ' Text fields
@@ -246,7 +247,7 @@ Public Class Registration
                 End Using
 
                 ' Generate registration_id
-                Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & newId.ToString("D4")
+                regId = DateTime.Now.ToString("yyyyMMdd") & newId.ToString("D4")
 
                 ' Update the row with registration_id
                 Using updateCmd As New SQLiteCommand("UPDATE registrations SET registration_id=@regid WHERE id=@id", conn)
@@ -256,7 +257,12 @@ Public Class Registration
                 End Using
             End Using
 
-            MessageBox.Show("Registration saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ' ✅ Show success message with full name and ID
+            Dim fullName As String = tbFirstName.Text.Trim() & " " & tbLastName.Text.Trim()
+            MessageBox.Show("New member registered successfully!" & vbCrLf &
+                        "Full Name: " & fullName & vbCrLf &
+                        "Member ID: " & regId,
+                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             ' ✅ Clear all fields after saving
             btnClear_Click(Nothing, Nothing)
@@ -265,6 +271,7 @@ Public Class Registration
             MessageBox.Show("Error saving data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 
     ' -------------------- CLEAR FORM --------------------
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
