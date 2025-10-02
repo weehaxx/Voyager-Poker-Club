@@ -62,7 +62,7 @@
         btnRegistration.Checked = False
         btnCashFlow.Checked = False
         btnReports.Checked = True
-        Panel1.Controls.Clear()
+        Panel1.Controls.Clear
 
         ' Create an instance of your Registration UserControl
         Dim reportsUC As New Reports
@@ -88,5 +88,7 @@
         Panel1.Controls.Add(cashFlowUC)
     End Sub
 
-
+    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        Application.Exit()
+    End Sub
 End Class

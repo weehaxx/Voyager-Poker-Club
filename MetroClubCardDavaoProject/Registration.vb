@@ -163,20 +163,21 @@ Public Class Registration
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Try
             Dim newId As Long
-            Dim regId As String ' ✅ Declare only once
+            Dim regId As String = ""
+            Dim fullName As String = ""
 
             Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
                 conn.Open()
 
                 ' First INSERT without registration_id
                 Dim query As String =
-                "INSERT INTO registrations " &
-                "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
-                "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
-                "SELECT last_insert_rowid();"
+            "INSERT INTO registrations " &
+            "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
+            "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
+            "SELECT last_insert_rowid();"
 
                 Using cmd As New SQLiteCommand(query, conn)
-                    ' (All your parameters are here)
+                    ' Text fields
                     cmd.Parameters.AddWithValue("@lastname", tbLastName.Text)
                     cmd.Parameters.AddWithValue("@firstname", tbFirstName.Text)
                     cmd.Parameters.AddWithValue("@middlename", tbMiddleName.Text)
@@ -190,6 +191,7 @@ Public Class Registration
                     cmd.Parameters.AddWithValue("@email", tbEmail.Text)
                     cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
 
+                    ' Employment
                     If rbSelfEmployed.Checked Then
                         cmd.Parameters.AddWithValue("@employmentstatus", "Self-Employed")
                     ElseIf rbEmployed.Checked Then
@@ -197,19 +199,22 @@ Public Class Registration
                     Else
                         cmd.Parameters.AddWithValue("@employmentstatus", "")
                     End If
-
                     cmd.Parameters.AddWithValue("@businessname", tnBusinessName.Text)
                     cmd.Parameters.AddWithValue("@employername", tbEmployerName.Text)
                     cmd.Parameters.AddWithValue("@businessnature", tbBusinessNature.Text)
                     cmd.Parameters.AddWithValue("@workname", tnWorkName.Text)
 
+                    ' ID & Police
                     cmd.Parameters.AddWithValue("@presentedid", tbPresentedID.Text)
                     cmd.Parameters.AddWithValue("@polmember", If(tbYes.Checked, "Yes", "No"))
                     cmd.Parameters.AddWithValue("@relationshippol", tbRelationshipPol.Text)
+
+                    ' Emergency
                     cmd.Parameters.AddWithValue("@nameemergency", tbNameEmergency.Text)
                     cmd.Parameters.AddWithValue("@relationshipemergency", tbRelationShipEmergency.Text)
                     cmd.Parameters.AddWithValue("@contactemergency", tbContactEmergency.Text)
 
+                    ' Images
                     Dim idImageBytes() As Byte = Nothing
                     If pbIDpresented.Image IsNot Nothing Then
                         Using ms As New MemoryStream()
@@ -232,7 +237,7 @@ Public Class Registration
                 End Using
 
                 ' Generate registration_id
-                regId = DateTime.Now.ToString("yyyyMMdd") & newId.ToString("D4")
+                regId = DateTime.Now.ToString("yyyyMMdd") & newId.ToString()
 
                 ' Update the row with registration_id
                 Using updateCmd As New SQLiteCommand("UPDATE registrations SET registration_id=@regid WHERE id=@id", conn)
@@ -240,26 +245,27 @@ Public Class Registration
                     updateCmd.Parameters.AddWithValue("@id", newId)
                     updateCmd.ExecuteNonQuery()
                 End Using
+
+                ' Build full name (Lastname, Firstname Middlename)
+                fullName = tbLastName.Text & ", " & tbFirstName.Text & " " & tbMiddleName.Text
             End Using
 
-            ' ✅ Show success message
-            Dim fullName As String = tbFirstName.Text.Trim() & " " & tbLastName.Text.Trim()
-            MessageBox.Show("New member registered successfully!" & vbCrLf &
-                            "Full Name: " & fullName & vbCrLf &
-                            "Member ID: " & regId & vbCrLf &
-                            "(Copied to clipboard)",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ' ✅ Show confirmation with registration_id + full name
+            MessageBox.Show("New Member Registered!" & vbCrLf &
+                        "Registration ID: " & regId & vbCrLf &
+                        "Full Name: " & fullName,
+                        "Registration Successful",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
 
-            ' ✅ Auto copy to clipboard
-            Clipboard.SetText(regId)
-
-            ' ✅ Clear all fields
+            ' ✅ Clear all fields after saving
             btnClear_Click(Nothing, Nothing)
 
         Catch ex As Exception
             MessageBox.Show("Error saving data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 
     ' -------------------- CLEAR FORM --------------------
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
@@ -376,7 +382,7 @@ Public Class Registration
     Private Sub btnCapture_Click(sender As Object, e As EventArgs) Handles btnCapture.Click
         If pbCameraDisplay.Image IsNot Nothing Then
             isCaptured = True
-            MessageBox.Show("Photo captured! Webcam feed is frozen.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Photo captured!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             ValidateForm()
         End If
     End Sub

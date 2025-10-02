@@ -21,13 +21,15 @@ Public Class Members
     End Sub
 
     Private Sub LoadRegistrations()
+        dgvRegistrations.ClearSelection()
+        dgvRegistrations.CurrentCell = Nothing
+
         Try
             conn.Open()
 
-            ' Select all needed columns (we will compute registration_id for display)
             Dim sql As String =
-                "SELECT id, lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, businessnature, employername, workname, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, photo " &
-                "FROM registrations"
+        "SELECT id, lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, businessnature, employername, workname, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, photo " &
+        "FROM registrations"
 
             Dim da As New SQLiteDataAdapter(sql, conn)
             dt = New DataTable()
@@ -40,13 +42,13 @@ Public Class Members
 
             For Each row As DataRow In dt.Rows
                 Dim rawId As Integer = Convert.ToInt32(row("id"))
-                ' Build yyyyMMdd + id padded 4 digits (display only)
                 Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & rawId.ToString()
                 row("registration_id") = regId
             Next
 
-            ' Bind full DataTable but show only registration_id column in the grid
             dgvRegistrations.DataSource = dt
+
+            ' Hide unwanted columns
             For Each col As DataGridViewColumn In dgvRegistrations.Columns
                 If col.Name <> "registration_id" Then
                     col.Visible = False
@@ -59,11 +61,18 @@ Public Class Members
             dgvRegistrations.AutoResizeColumns()
             dgvRegistrations.AutoResizeColumnHeadersHeight()
 
+            ' ✅ Clear auto selection
+            dgvRegistrations.ClearSelection()
+            dgvRegistrations.CurrentCell = Nothing
+            dgvRegistrations.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            dgvRegistrations.MultiSelect = False
+
             conn.Close()
         Catch ex As Exception
             MessageBox.Show("Error loading registrations: " & ex.Message)
         End Try
     End Sub
+
 
     ' Live Search by firstname/lastname/middlename only
     Private Sub tbSearch_TextChanged(sender As Object, e As EventArgs) Handles tbSearch.TextChanged
