@@ -67,43 +67,48 @@ Partial Class PlayerLedger
         Guna2HtmlLabel1.BackColor = Color.Transparent
         Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel1.ForeColor = Color.White
-        Guna2HtmlLabel1.Location = New Point(16, 20)
+        Guna2HtmlLabel1.Location = New Point(159, 13)
+        Guna2HtmlLabel1.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Guna2HtmlLabel1.Size = New Size(282, 40)
+        Guna2HtmlLabel1.Size = New Size(246, 32)
         Guna2HtmlLabel1.TabIndex = 0
-        Guna2HtmlLabel1.Text = "PLAYER LEDGER"
+        Guna2HtmlLabel1.Text = "BUY IN / CASHOUT"
         ' 
         ' lblDateToday
         ' 
-        lblDateToday.BackColor = Color.Transparent
+        lblDateToday.BackColor = Color.White
         lblDateToday.Checked = True
         lblDateToday.CustomizableEdges = CustomizableEdges1
         lblDateToday.Enabled = False
         lblDateToday.FillColor = Color.Transparent
-        lblDateToday.Font = New Font("Segoe UI", 9F)
+        lblDateToday.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         lblDateToday.ForeColor = Color.Black
         lblDateToday.Format = DateTimePickerFormat.Long
-        lblDateToday.Location = New Point(322, 15)
+        lblDateToday.Location = New Point(147, 65)
+        lblDateToday.Margin = New Padding(3, 2, 3, 2)
         lblDateToday.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         lblDateToday.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         lblDateToday.Name = "lblDateToday"
         lblDateToday.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        lblDateToday.Size = New Size(275, 45)
+        lblDateToday.Size = New Size(254, 34)
         lblDateToday.TabIndex = 1
         lblDateToday.Value = New Date(2025, 9, 24, 20, 36, 5, 624)
         ' 
         ' Guna2HtmlLabel2
         ' 
+        Guna2HtmlLabel2.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel2.BackColor = Color.Transparent
-        Guna2HtmlLabel2.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel2.Location = New Point(52, 97)
+        Guna2HtmlLabel2.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel2.Location = New Point(46, 114)
+        Guna2HtmlLabel2.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
-        Guna2HtmlLabel2.Size = New Size(123, 23)
+        Guna2HtmlLabel2.Size = New Size(109, 20)
         Guna2HtmlLabel2.TabIndex = 2
         Guna2HtmlLabel2.Text = "Player Name:"
         ' 
         ' lblFullname
         ' 
+        lblFullname.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         lblFullname.CustomizableEdges = CustomizableEdges3
         lblFullname.DefaultText = ""
         lblFullname.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
@@ -112,19 +117,20 @@ Partial Class PlayerLedger
         lblFullname.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         lblFullname.Enabled = False
         lblFullname.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        lblFullname.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lblFullname.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         lblFullname.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        lblFullname.Location = New Point(52, 126)
-        lblFullname.Margin = New Padding(3, 4, 3, 4)
+        lblFullname.Location = New Point(46, 140)
+        lblFullname.Margin = New Padding(4)
         lblFullname.Name = "lblFullname"
         lblFullname.PlaceholderText = ""
         lblFullname.SelectedText = ""
         lblFullname.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        lblFullname.Size = New Size(273, 37)
+        lblFullname.Size = New Size(254, 34)
         lblFullname.TabIndex = 4
         ' 
         ' tbAmount
         ' 
+        tbAmount.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         tbAmount.CustomizableEdges = CustomizableEdges5
         tbAmount.DefaultText = ""
         tbAmount.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
@@ -132,36 +138,39 @@ Partial Class PlayerLedger
         tbAmount.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbAmount.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbAmount.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbAmount.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbAmount.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbAmount.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbAmount.Location = New Point(374, 206)
-        tbAmount.Margin = New Padding(3, 4, 3, 4)
+        tbAmount.Location = New Point(348, 221)
+        tbAmount.Margin = New Padding(4)
         tbAmount.Name = "tbAmount"
         tbAmount.PlaceholderText = ""
         tbAmount.SelectedText = ""
         tbAmount.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        tbAmount.Size = New Size(168, 36)
+        tbAmount.Size = New Size(164, 35)
         tbAmount.TabIndex = 7
         ' 
         ' cbPaymentMode
         ' 
+        cbPaymentMode.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         cbPaymentMode.BackColor = Color.Transparent
         cbPaymentMode.CustomizableEdges = CustomizableEdges7
         cbPaymentMode.DrawMode = DrawMode.OwnerDrawFixed
         cbPaymentMode.DropDownStyle = ComboBoxStyle.DropDownList
         cbPaymentMode.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         cbPaymentMode.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        cbPaymentMode.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cbPaymentMode.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbPaymentMode.ForeColor = Color.FromArgb(CByte(68), CByte(88), CByte(112))
         cbPaymentMode.ItemHeight = 30
-        cbPaymentMode.Location = New Point(374, 293)
+        cbPaymentMode.Location = New Point(347, 304)
+        cbPaymentMode.Margin = New Padding(3, 2, 3, 2)
         cbPaymentMode.Name = "cbPaymentMode"
         cbPaymentMode.ShadowDecoration.CustomizableEdges = CustomizableEdges8
-        cbPaymentMode.Size = New Size(168, 36)
+        cbPaymentMode.Size = New Size(163, 36)
         cbPaymentMode.TabIndex = 10
         ' 
         ' btnSubmit
         ' 
+        btnSubmit.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         btnSubmit.BorderRadius = 10
         btnSubmit.CustomizableEdges = CustomizableEdges9
         btnSubmit.DisabledState.BorderColor = Color.DarkGray
@@ -171,90 +180,104 @@ Partial Class PlayerLedger
         btnSubmit.FillColor = Color.FromArgb(CByte(0), CByte(192), CByte(0))
         btnSubmit.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnSubmit.ForeColor = Color.White
-        btnSubmit.Location = New Point(379, 361)
+        btnSubmit.Location = New Point(347, 377)
+        btnSubmit.Margin = New Padding(3, 2, 3, 2)
         btnSubmit.Name = "btnSubmit"
         btnSubmit.ShadowDecoration.CustomizableEdges = CustomizableEdges10
-        btnSubmit.Size = New Size(164, 43)
+        btnSubmit.Size = New Size(144, 32)
         btnSubmit.TabIndex = 11
         btnSubmit.Text = "SUBMIT"
         ' 
         ' cbTransactionType
         ' 
+        cbTransactionType.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         cbTransactionType.BackColor = Color.Transparent
         cbTransactionType.CustomizableEdges = CustomizableEdges11
         cbTransactionType.DrawMode = DrawMode.OwnerDrawFixed
         cbTransactionType.DropDownStyle = ComboBoxStyle.DropDownList
         cbTransactionType.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         cbTransactionType.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        cbTransactionType.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cbTransactionType.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbTransactionType.ForeColor = Color.FromArgb(CByte(68), CByte(88), CByte(112))
         cbTransactionType.ItemHeight = 30
-        cbTransactionType.Location = New Point(374, 126)
+        cbTransactionType.Location = New Point(347, 140)
+        cbTransactionType.Margin = New Padding(3, 2, 3, 2)
         cbTransactionType.Name = "cbTransactionType"
         cbTransactionType.ShadowDecoration.CustomizableEdges = CustomizableEdges12
-        cbTransactionType.Size = New Size(168, 36)
+        cbTransactionType.Size = New Size(163, 36)
         cbTransactionType.TabIndex = 13
         ' 
         ' Guna2HtmlLabel8
         ' 
+        Guna2HtmlLabel8.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel8.BackColor = Color.Transparent
-        Guna2HtmlLabel8.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel8.Location = New Point(379, 177)
+        Guna2HtmlLabel8.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel8.Location = New Point(348, 195)
+        Guna2HtmlLabel8.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel8.Name = "Guna2HtmlLabel8"
-        Guna2HtmlLabel8.Size = New Size(77, 23)
+        Guna2HtmlLabel8.Size = New Size(70, 20)
         Guna2HtmlLabel8.TabIndex = 14
         Guna2HtmlLabel8.Text = "Amount:"
         ' 
         ' Guna2HtmlLabel4
         ' 
+        Guna2HtmlLabel4.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel4.BackColor = Color.Transparent
-        Guna2HtmlLabel4.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel4.Location = New Point(52, 264)
+        Guna2HtmlLabel4.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel4.Location = New Point(46, 280)
+        Guna2HtmlLabel4.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel4.Name = "Guna2HtmlLabel4"
-        Guna2HtmlLabel4.Size = New Size(52, 23)
+        Guna2HtmlLabel4.Size = New Size(46, 20)
         Guna2HtmlLabel4.TabIndex = 15
         Guna2HtmlLabel4.Text = "Time:"
         ' 
         ' dtpTime
         ' 
+        dtpTime.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         dtpTime.BackColor = Color.Transparent
         dtpTime.Checked = True
         dtpTime.CustomizableEdges = CustomizableEdges13
         dtpTime.Enabled = False
         dtpTime.FillColor = Color.White
-        dtpTime.Font = New Font("Segoe UI", 9F)
+        dtpTime.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         dtpTime.Format = DateTimePickerFormat.Long
-        dtpTime.Location = New Point(52, 293)
+        dtpTime.Location = New Point(46, 304)
+        dtpTime.Margin = New Padding(3, 2, 3, 2)
         dtpTime.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         dtpTime.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         dtpTime.Name = "dtpTime"
         dtpTime.ShadowDecoration.CustomizableEdges = CustomizableEdges14
-        dtpTime.Size = New Size(273, 36)
+        dtpTime.Size = New Size(254, 36)
         dtpTime.TabIndex = 16
         dtpTime.Value = New Date(2025, 9, 24, 20, 36, 5, 624)
         ' 
         ' Guna2HtmlLabel5
         ' 
+        Guna2HtmlLabel5.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel5.BackColor = Color.Transparent
         Guna2HtmlLabel5.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel5.Location = New Point(374, 97)
+        Guna2HtmlLabel5.Location = New Point(348, 114)
+        Guna2HtmlLabel5.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel5.Name = "Guna2HtmlLabel5"
-        Guna2HtmlLabel5.Size = New Size(163, 23)
+        Guna2HtmlLabel5.Size = New Size(125, 18)
         Guna2HtmlLabel5.TabIndex = 17
         Guna2HtmlLabel5.Text = "Transaction Type:"
         ' 
         ' Guna2HtmlLabel6
         ' 
+        Guna2HtmlLabel6.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel6.BackColor = Color.Transparent
-        Guna2HtmlLabel6.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel6.Location = New Point(374, 264)
+        Guna2HtmlLabel6.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel6.Location = New Point(347, 273)
+        Guna2HtmlLabel6.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel6.Name = "Guna2HtmlLabel6"
-        Guna2HtmlLabel6.Size = New Size(161, 23)
+        Guna2HtmlLabel6.Size = New Size(144, 20)
         Guna2HtmlLabel6.TabIndex = 18
         Guna2HtmlLabel6.Text = "Mode of Payment:"
         ' 
         ' btnCancel
         ' 
+        btnCancel.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         btnCancel.BorderRadius = 10
         btnCancel.CustomizableEdges = CustomizableEdges15
         btnCancel.DisabledState.BorderColor = Color.DarkGray
@@ -264,27 +287,30 @@ Partial Class PlayerLedger
         btnCancel.FillColor = Color.Red
         btnCancel.Font = New Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnCancel.ForeColor = Color.White
-        btnCancel.Location = New Point(52, 361)
+        btnCancel.Location = New Point(46, 377)
+        btnCancel.Margin = New Padding(3, 2, 3, 2)
         btnCancel.Name = "btnCancel"
         btnCancel.ShadowDecoration.CustomizableEdges = CustomizableEdges16
-        btnCancel.Size = New Size(164, 43)
+        btnCancel.Size = New Size(144, 32)
         btnCancel.TabIndex = 19
         btnCancel.Text = "CANCEL"
         ' 
         ' Guna2Panel1
         ' 
+        Guna2Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2Panel1.BackColor = Color.DeepSkyBlue
-        Guna2Panel1.Controls.Add(lblDateToday)
         Guna2Panel1.Controls.Add(Guna2HtmlLabel1)
         Guna2Panel1.CustomizableEdges = CustomizableEdges17
-        Guna2Panel1.Location = New Point(-4, -3)
+        Guna2Panel1.Location = New Point(-4, -2)
+        Guna2Panel1.Margin = New Padding(3, 2, 3, 2)
         Guna2Panel1.Name = "Guna2Panel1"
         Guna2Panel1.ShadowDecoration.CustomizableEdges = CustomizableEdges18
-        Guna2Panel1.Size = New Size(732, 71)
+        Guna2Panel1.Size = New Size(567, 53)
         Guna2Panel1.TabIndex = 20
         ' 
         ' tbCashierName
         ' 
+        tbCashierName.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         tbCashierName.CustomizableEdges = CustomizableEdges19
         tbCashierName.DefaultText = ""
         tbCashierName.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
@@ -292,32 +318,35 @@ Partial Class PlayerLedger
         tbCashierName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbCashierName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbCashierName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbCashierName.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbCashierName.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbCashierName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbCashierName.Location = New Point(52, 205)
-        tbCashierName.Margin = New Padding(3, 4, 3, 4)
+        tbCashierName.Location = New Point(46, 222)
+        tbCashierName.Margin = New Padding(4)
         tbCashierName.Name = "tbCashierName"
         tbCashierName.PlaceholderText = ""
         tbCashierName.SelectedText = ""
         tbCashierName.ShadowDecoration.CustomizableEdges = CustomizableEdges20
-        tbCashierName.Size = New Size(273, 37)
+        tbCashierName.Size = New Size(254, 34)
         tbCashierName.TabIndex = 22
         ' 
         ' Guna2HtmlLabel3
         ' 
+        Guna2HtmlLabel3.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel3.BackColor = Color.Transparent
-        Guna2HtmlLabel3.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel3.Location = New Point(52, 176)
+        Guna2HtmlLabel3.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel3.Location = New Point(46, 195)
+        Guna2HtmlLabel3.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel3.Name = "Guna2HtmlLabel3"
-        Guna2HtmlLabel3.Size = New Size(135, 23)
+        Guna2HtmlLabel3.Size = New Size(120, 20)
         Guna2HtmlLabel3.TabIndex = 21
         Guna2HtmlLabel3.Text = "Cashier Name:"
         ' 
         ' PlayerLedger
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(624, 432)
+        ClientSize = New Size(561, 430)
+        Controls.Add(lblDateToday)
         Controls.Add(tbCashierName)
         Controls.Add(Guna2HtmlLabel3)
         Controls.Add(Guna2Panel1)
@@ -334,6 +363,7 @@ Partial Class PlayerLedger
         Controls.Add(lblFullname)
         Controls.Add(Guna2HtmlLabel2)
         FormBorderStyle = FormBorderStyle.None
+        Margin = New Padding(3, 2, 3, 2)
         Name = "PlayerLedger"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Form2"

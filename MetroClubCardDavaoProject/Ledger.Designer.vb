@@ -22,17 +22,17 @@ Partial Class Ledger
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim DataGridViewCellStyle4 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Guna2HtmlLabel3 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -47,12 +47,14 @@ Partial Class Ledger
         ' 
         ' Guna2HtmlLabel1
         ' 
+        Guna2HtmlLabel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel1.BackColor = Color.DeepSkyBlue
         Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel1.ForeColor = Color.White
-        Guna2HtmlLabel1.Location = New Point(25, 17)
+        Guna2HtmlLabel1.Location = New Point(22, 13)
+        Guna2HtmlLabel1.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Guna2HtmlLabel1.Size = New Size(459, 40)
+        Guna2HtmlLabel1.Size = New Size(364, 32)
         Guna2HtmlLabel1.TabIndex = 1
         Guna2HtmlLabel1.Text = "PLAYER ACCOUNT LEDGER"
         ' 
@@ -61,28 +63,28 @@ Partial Class Ledger
         Guna2HtmlLabel2.BackColor = Color.Transparent
         Guna2HtmlLabel2.Font = New Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel2.ForeColor = Color.Black
-        Guna2HtmlLabel2.Location = New Point(27, 110)
-        Guna2HtmlLabel2.Margin = New Padding(3, 4, 3, 4)
+        Guna2HtmlLabel2.Location = New Point(24, 82)
         Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
-        Guna2HtmlLabel2.Size = New Size(152, 29)
+        Guna2HtmlLabel2.Size = New Size(123, 23)
         Guna2HtmlLabel2.TabIndex = 76
         Guna2HtmlLabel2.Text = "Player Name: "
         ' 
         ' Guna2HtmlLabel3
         ' 
+        Guna2HtmlLabel3.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Guna2HtmlLabel3.BackColor = Color.Transparent
         Guna2HtmlLabel3.Font = New Font("Arial Rounded MT Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel3.ForeColor = Color.Black
-        Guna2HtmlLabel3.Location = New Point(584, 110)
-        Guna2HtmlLabel3.Margin = New Padding(3, 4, 3, 4)
+        Guna2HtmlLabel3.Location = New Point(511, 82)
         Guna2HtmlLabel3.Name = "Guna2HtmlLabel3"
-        Guna2HtmlLabel3.Size = New Size(177, 29)
+        Guna2HtmlLabel3.Size = New Size(142, 23)
         Guna2HtmlLabel3.TabIndex = 77
         Guna2HtmlLabel3.Text = "Membership ID: "
         ' 
         ' tbMemeberID
         ' 
-        tbMemeberID.CustomizableEdges = CustomizableEdges9
+        tbMemeberID.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        tbMemeberID.CustomizableEdges = CustomizableEdges1
         tbMemeberID.DefaultText = ""
         tbMemeberID.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbMemeberID.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -92,18 +94,17 @@ Partial Class Ledger
         tbMemeberID.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbMemeberID.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbMemeberID.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMemeberID.Location = New Point(767, 107)
-        tbMemeberID.Margin = New Padding(3, 4, 3, 4)
+        tbMemeberID.Location = New Point(671, 80)
         tbMemeberID.Name = "tbMemeberID"
         tbMemeberID.PlaceholderText = ""
         tbMemeberID.SelectedText = ""
-        tbMemeberID.ShadowDecoration.CustomizableEdges = CustomizableEdges10
-        tbMemeberID.Size = New Size(322, 43)
+        tbMemeberID.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        tbMemeberID.Size = New Size(282, 32)
         tbMemeberID.TabIndex = 79
         ' 
         ' tbPlayerName
         ' 
-        tbPlayerName.CustomizableEdges = CustomizableEdges11
+        tbPlayerName.CustomizableEdges = CustomizableEdges3
         tbPlayerName.DefaultText = ""
         tbPlayerName.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbPlayerName.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -113,44 +114,46 @@ Partial Class Ledger
         tbPlayerName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbPlayerName.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbPlayerName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPlayerName.Location = New Point(183, 107)
-        tbPlayerName.Margin = New Padding(3, 4, 3, 4)
+        tbPlayerName.Location = New Point(160, 80)
         tbPlayerName.Name = "tbPlayerName"
         tbPlayerName.PlaceholderText = ""
         tbPlayerName.SelectedText = ""
-        tbPlayerName.ShadowDecoration.CustomizableEdges = CustomizableEdges12
-        tbPlayerName.Size = New Size(274, 43)
+        tbPlayerName.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        tbPlayerName.Size = New Size(240, 32)
         tbPlayerName.TabIndex = 80
         ' 
         ' dgvLedger
         ' 
-        DataGridViewCellStyle4.BackColor = Color.White
-        dgvLedger.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.BackColor = Color.White
+        dgvLedger.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        dgvLedger.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         dgvLedger.BorderStyle = BorderStyle.FixedSingle
-        DataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = Color.FromArgb(CByte(100), CByte(88), CByte(255))
-        DataGridViewCellStyle5.Font = New Font("Segoe UI", 9F)
-        DataGridViewCellStyle5.ForeColor = Color.White
-        DataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = DataGridViewTriState.True
-        dgvLedger.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = Color.FromArgb(CByte(100), CByte(88), CByte(255))
+        DataGridViewCellStyle2.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.ForeColor = Color.White
+        DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
+        dgvLedger.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         dgvLedger.ColumnHeadersHeight = 4
         dgvLedger.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
-        DataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = Color.White
-        DataGridViewCellStyle6.Font = New Font("Segoe UI", 9F)
-        DataGridViewCellStyle6.ForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
-        DataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        DataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
-        DataGridViewCellStyle6.WrapMode = DataGridViewTriState.False
-        dgvLedger.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = Color.White
+        DataGridViewCellStyle3.Font = New Font("Segoe UI", 9F)
+        DataGridViewCellStyle3.ForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
+        DataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
+        DataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
+        DataGridViewCellStyle3.WrapMode = DataGridViewTriState.False
+        dgvLedger.DefaultCellStyle = DataGridViewCellStyle3
         dgvLedger.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        dgvLedger.Location = New Point(25, 160)
+        dgvLedger.Location = New Point(22, 120)
+        dgvLedger.Margin = New Padding(3, 2, 3, 2)
         dgvLedger.Name = "dgvLedger"
         dgvLedger.RowHeadersVisible = False
         dgvLedger.RowHeadersWidth = 51
-        dgvLedger.Size = New Size(1064, 520)
+        dgvLedger.RowTemplate.Height = 29
+        dgvLedger.Size = New Size(931, 390)
         dgvLedger.TabIndex = 81
         dgvLedger.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
         dgvLedger.ThemeStyle.AlternatingRowsStyle.Font = Nothing
@@ -176,8 +179,9 @@ Partial Class Ledger
         ' 
         ' btnBack
         ' 
+        btnBack.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         btnBack.BackColor = Color.Transparent
-        btnBack.CustomizableEdges = CustomizableEdges13
+        btnBack.CustomizableEdges = CustomizableEdges5
         btnBack.DisabledState.BorderColor = Color.DarkGray
         btnBack.DisabledState.CustomBorderColor = Color.DarkGray
         btnBack.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -185,16 +189,18 @@ Partial Class Ledger
         btnBack.FillColor = Color.Black
         btnBack.Font = New Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnBack.ForeColor = SystemColors.Window
-        btnBack.Location = New Point(25, 685)
+        btnBack.Location = New Point(22, 514)
+        btnBack.Margin = New Padding(3, 2, 3, 2)
         btnBack.Name = "btnBack"
-        btnBack.ShadowDecoration.CustomizableEdges = CustomizableEdges14
-        btnBack.Size = New Size(142, 37)
+        btnBack.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        btnBack.Size = New Size(124, 28)
         btnBack.TabIndex = 82
         btnBack.Text = "Back"
         ' 
         ' btnLedgerPrint
         ' 
-        btnLedgerPrint.CustomizableEdges = CustomizableEdges15
+        btnLedgerPrint.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        btnLedgerPrint.CustomizableEdges = CustomizableEdges7
         btnLedgerPrint.DisabledState.BorderColor = Color.DarkGray
         btnLedgerPrint.DisabledState.CustomBorderColor = Color.DarkGray
         btnLedgerPrint.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -202,25 +208,26 @@ Partial Class Ledger
         btnLedgerPrint.FillColor = Color.Black
         btnLedgerPrint.Font = New Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnLedgerPrint.ForeColor = Color.White
-        btnLedgerPrint.Location = New Point(923, 685)
-        btnLedgerPrint.Margin = New Padding(3, 4, 3, 4)
+        btnLedgerPrint.Location = New Point(808, 514)
         btnLedgerPrint.Name = "btnLedgerPrint"
-        btnLedgerPrint.ShadowDecoration.CustomizableEdges = CustomizableEdges16
-        btnLedgerPrint.Size = New Size(166, 37)
+        btnLedgerPrint.ShadowDecoration.CustomizableEdges = CustomizableEdges8
+        btnLedgerPrint.Size = New Size(145, 28)
         btnLedgerPrint.TabIndex = 83
         btnLedgerPrint.Text = "Print Ledger"
         ' 
         ' Panel1
         ' 
+        Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Panel1.BackColor = Color.DeepSkyBlue
         Panel1.Location = New Point(0, 0)
+        Panel1.Margin = New Padding(3, 2, 3, 2)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(1107, 78)
+        Panel1.Size = New Size(969, 58)
         Panel1.TabIndex = 84
         ' 
         ' Ledger
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         Controls.Add(btnLedgerPrint)
         Controls.Add(btnBack)
@@ -231,8 +238,9 @@ Partial Class Ledger
         Controls.Add(Guna2HtmlLabel2)
         Controls.Add(Guna2HtmlLabel1)
         Controls.Add(Panel1)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "Ledger"
-        Size = New Size(1107, 739)
+        Size = New Size(969, 554)
         CType(dgvLedger, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()

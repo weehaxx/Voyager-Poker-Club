@@ -40,6 +40,7 @@ Partial Class Authentication
         ' 
         ' btnProceed
         ' 
+        btnProceed.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         btnProceed.BackColor = Color.Transparent
         btnProceed.CustomizableEdges = CustomizableEdges1
         btnProceed.DisabledState.BorderColor = Color.DarkGray
@@ -49,16 +50,16 @@ Partial Class Authentication
         btnProceed.FillColor = Color.Black
         btnProceed.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnProceed.ForeColor = Color.White
-        btnProceed.Location = New Point(364, 235)
-        btnProceed.Margin = New Padding(3, 4, 3, 4)
+        btnProceed.Location = New Point(318, 176)
         btnProceed.Name = "btnProceed"
         btnProceed.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        btnProceed.Size = New Size(145, 47)
+        btnProceed.Size = New Size(127, 35)
         btnProceed.TabIndex = 3
         btnProceed.Text = "PROCEED"
         ' 
         ' btnCancel
         ' 
+        btnCancel.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         btnCancel.BackColor = Color.Transparent
         btnCancel.CustomizableEdges = CustomizableEdges3
         btnCancel.DisabledState.BorderColor = Color.DarkGray
@@ -68,26 +69,28 @@ Partial Class Authentication
         btnCancel.FillColor = Color.Red
         btnCancel.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnCancel.ForeColor = Color.White
-        btnCancel.Location = New Point(23, 235)
-        btnCancel.Margin = New Padding(3, 4, 3, 4)
+        btnCancel.Location = New Point(20, 176)
         btnCancel.Name = "btnCancel"
         btnCancel.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        btnCancel.Size = New Size(145, 47)
+        btnCancel.Size = New Size(127, 35)
         btnCancel.TabIndex = 4
         btnCancel.Text = "CANCEL"
         ' 
         ' PictureBox1
         ' 
+        PictureBox1.Anchor = AnchorStyles.Top
         PictureBox1.Image = My.Resources.Resources.CasinoLogo
-        PictureBox1.Location = New Point(197, 3)
+        PictureBox1.Location = New Point(172, 2)
+        PictureBox1.Margin = New Padding(3, 2, 3, 2)
         PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(124, 112)
+        PictureBox1.Size = New Size(108, 84)
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
         PictureBox1.TabIndex = 5
         PictureBox1.TabStop = False
         ' 
         ' tbPassword
         ' 
+        tbPassword.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         tbPassword.BackColor = Color.Transparent
         tbPassword.BorderColor = Color.Black
         tbPassword.CustomizableEdges = CustomizableEdges5
@@ -103,21 +106,22 @@ Partial Class Authentication
         tbPassword.IconLeft = My.Resources.Resources.admin_lock
         tbPassword.IconLeftOffset = New Point(10, 0)
         tbPassword.IconLeftSize = New Size(30, 30)
-        tbPassword.Location = New Point(111, 146)
-        tbPassword.Margin = New Padding(3, 5, 3, 5)
+        tbPassword.Location = New Point(97, 110)
+        tbPassword.Margin = New Padding(3, 4, 3, 4)
         tbPassword.Name = "tbPassword"
         tbPassword.PlaceholderForeColor = Color.DarkGray
         tbPassword.PlaceholderText = "Enter admin password"
         tbPassword.ScrollBars = ScrollBars.Both
         tbPassword.SelectedText = ""
         tbPassword.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        tbPassword.Size = New Size(271, 48)
+        tbPassword.Size = New Size(237, 36)
         tbPassword.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
         tbPassword.TabIndex = 6
         tbPassword.TextOffset = New Point(10, 0)
         ' 
         ' btnShowPass
         ' 
+        btnShowPass.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         btnShowPass.CustomizableEdges = CustomizableEdges7
         btnShowPass.DisabledState.BorderColor = Color.DarkGray
         btnShowPass.DisabledState.CustomBorderColor = Color.DarkGray
@@ -127,15 +131,16 @@ Partial Class Authentication
         btnShowPass.Font = New Font("Segoe UI", 9F)
         btnShowPass.ForeColor = Color.White
         btnShowPass.Image = My.Resources.Resources.eye
-        btnShowPass.Location = New Point(377, 146)
+        btnShowPass.Location = New Point(330, 110)
+        btnShowPass.Margin = New Padding(3, 2, 3, 2)
         btnShowPass.Name = "btnShowPass"
         btnShowPass.ShadowDecoration.CustomizableEdges = CustomizableEdges8
-        btnShowPass.Size = New Size(54, 48)
+        btnShowPass.Size = New Size(47, 36)
         btnShowPass.TabIndex = 7
         ' 
         ' Authentication
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.White
         Controls.Add(btnShowPass)
@@ -143,8 +148,9 @@ Partial Class Authentication
         Controls.Add(PictureBox1)
         Controls.Add(btnCancel)
         Controls.Add(btnProceed)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "Authentication"
-        Size = New Size(527, 310)
+        Size = New Size(461, 232)
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub

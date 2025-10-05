@@ -31,15 +31,18 @@ Partial Class ViewID
         ' 
         ' PictureBox1
         ' 
-        PictureBox1.Location = New Point(30, 53)
+        PictureBox1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        PictureBox1.Location = New Point(26, 40)
+        PictureBox1.Margin = New Padding(3, 2, 3, 2)
         PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(944, 420)
+        PictureBox1.Size = New Size(826, 315)
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
         PictureBox1.TabIndex = 0
         PictureBox1.TabStop = False
         ' 
         ' btnClose
         ' 
+        btnClose.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         btnClose.BackColor = Color.Transparent
         btnClose.CustomizableEdges = CustomizableEdges1
         btnClose.DisabledState.BorderColor = Color.DarkGray
@@ -49,21 +52,23 @@ Partial Class ViewID
         btnClose.FillColor = Color.Red
         btnClose.Font = New Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnClose.ForeColor = SystemColors.Window
-        btnClose.Location = New Point(832, 497)
+        btnClose.Location = New Point(728, 373)
+        btnClose.Margin = New Padding(3, 2, 3, 2)
         btnClose.Name = "btnClose"
         btnClose.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        btnClose.Size = New Size(142, 37)
+        btnClose.Size = New Size(124, 28)
         btnClose.TabIndex = 83
         btnClose.Text = "Close"
         ' 
         ' ViewID
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         Controls.Add(btnClose)
         Controls.Add(PictureBox1)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "ViewID"
-        Size = New Size(1001, 564)
+        Size = New Size(876, 423)
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub

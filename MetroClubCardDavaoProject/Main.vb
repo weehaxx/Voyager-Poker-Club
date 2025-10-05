@@ -6,14 +6,15 @@
         btnDashboard.Checked = False
         btnRegistration.Checked = True
         btnCashFlow.Checked = False
-        Panel1.Controls.Clear()
+        btnReports.Checked = False
+        Panel3.Controls.Clear()
 
         ' Create an instance of your Registration UserControl
         Dim registrationUC As New Registration()
         registrationUC.Dock = DockStyle.Fill ' Makes it fill the panel
 
         ' Add the user control to the panel
-        Panel1.Controls.Add(registrationUC)
+        Panel3.Controls.Add(registrationUC)
     End Sub
 
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
@@ -22,7 +23,7 @@
         memberUC.Dock = DockStyle.Fill ' Makes it fill the panel
 
         ' Add the user control to the panel
-        Panel1.Controls.Add(memberUC)
+        Panel3.Controls.Add(memberUC)
     End Sub
     Private Sub btnLogout_Click(sender As Object, e As EventArgs)
         ' Ask user to confirm logout (optional)
@@ -44,51 +45,60 @@
         btnDashboard.Checked = True
         btnRegistration.Checked = False
         btnCashFlow.Checked = False
-        Panel1.Controls.Clear()
+        btnReports.Checked = False
+        Panel3.Controls.Clear()
 
         ' Create an instance of your Dashboard UserControl
         Dim memberUC As New Members()
         memberUC.Dock = DockStyle.Fill ' Makes it fill the panel
 
         ' Add the user control to the panel
-        Panel1.Controls.Add(memberUC)
+        Panel3.Controls.Add(memberUC)
     End Sub
 
 
 
 
-    Private Sub btnReports_Click(sender As Object, e As EventArgs) Handles btnReports.Click
-        btnDashboard.Checked = False
-        btnRegistration.Checked = False
-        btnCashFlow.Checked = False
-        btnReports.Checked = True
-        Panel1.Controls.Clear
 
-        ' Create an instance of your Registration UserControl
-        Dim reportsUC As New Reports
-        reportsUC.Dock = DockStyle.Fill ' Makes it fill the panel
+
+
+    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
+        ' Create an instance of your Dashboard UserControl
+        Dim memberUC As New Members()
+        memberUC.Dock = DockStyle.Fill ' Makes it fill the panel
 
         ' Add the user control to the panel
-        Panel1.Controls.Add(reportsUC)
+        Panel3.Controls.Add(memberUC)
     End Sub
 
-    Private Sub btnCashFlow_Click(sender As Object, e As EventArgs) Handles btnCashFlow.Click
+    Private Sub btnCashFlow_Click_1(sender As Object, e As EventArgs) Handles btnCashFlow.Click
         btnDashboard.Checked = False
         btnRegistration.Checked = False
         btnCashFlow.Checked = True
         btnReports.Checked = False
 
-        Panel1.Controls.Clear()
+        Panel3.Controls.Clear()
 
         ' Create an instance of your Registration UserControl
         Dim cashFlowUC As New CashFlow
         cashFlowUC.Dock = DockStyle.Fill ' Makes it fill the panel
 
         ' Add the user control to the panel
-        Panel1.Controls.Add(cashFlowUC)
+        Panel3.Controls.Add(cashFlowUC)
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        Application.Exit()
+    Private Sub btnReports_Click_1(sender As Object, e As EventArgs) Handles btnReports.Click
+        btnDashboard.Checked = False
+        btnRegistration.Checked = False
+        btnCashFlow.Checked = False
+        btnReports.Checked = True
+        Panel3.Controls.Clear()
+
+        ' Create an instance of your Registration UserControl
+        Dim reportsUC As New Reports
+        reportsUC.Dock = DockStyle.Fill ' Makes it fill the panel
+
+        ' Add the user control to the panel
+        Panel3.Controls.Add(reportsUC)
     End Sub
 End Class

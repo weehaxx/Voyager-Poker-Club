@@ -369,7 +369,7 @@ Public Class Members
             Dim authForm As New Form With {
             .FormBorderStyle = FormBorderStyle.None,
             .StartPosition = FormStartPosition.CenterParent,
-            .Size = New Size(527, 310),
+            .Size = New Size(461, 232),
             .BackColor = Color.White
         }
 
@@ -405,7 +405,7 @@ Public Class Members
                 Dim popup As New Form With {
                 .FormBorderStyle = FormBorderStyle.None,
                 .StartPosition = FormStartPosition.CenterParent,
-                .Size = New Size(1240, 847),
+                .Size = New Size(1351, 849),
                 .BackColor = Color.White
             }
 
@@ -514,4 +514,6 @@ Public Class Members
     Private Sub dgvRegistrations_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRegistrations.CellContentClick
 
     End Sub
+
+
 End Class

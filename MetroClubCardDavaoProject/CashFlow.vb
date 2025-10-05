@@ -42,9 +42,11 @@ Public Class CashFlow
                 conn.Open()
 
                 Dim rawQuery As String =
-"SELECT r.registration_id, r.firstname, r.middlename, r.lastname, c.date_created, c.time_created, c.type, c.amount, c.payment_mode " &
-"FROM cashflows c " &
-"INNER JOIN registrations r ON c.registration_id = r.id"
+"SELECT r.registration_id, r.firstname, r.middlename, r.lastname, 
+        c.date_created, c.time_created, c.type, c.amount, 
+        c.payment_mode, c.created_by
+ FROM cashflows c
+ INNER JOIN registrations r ON c.registration_id = r.id"
 
                 Dim rawTable As New DataTable()
                 Using cmd As New SQLiteCommand(rawQuery, conn)
@@ -61,6 +63,7 @@ Public Class CashFlow
                 finalTable.Columns.Add("MODE")
                 finalTable.Columns.Add("CASH-OUT")
                 finalTable.Columns.Add("MODE ")
+                finalTable.Columns.Add("CREATED BY") ' 🔹 New column here
                 finalTable.Columns.Add("CASHIER'S SIGNATURE")
                 finalTable.Columns.Add("REMARKS")
 
@@ -70,21 +73,21 @@ Public Class CashFlow
                     Dim parsedDate As DateTime
 
                     If DateTime.TryParseExact(dateStr & " " & timeStr,
-                                              {"dddd, MMMM dd, yyyy hh:mm:ss tt", "dddd, MMMM dd, yyyy h:mm tt"},
-                                              CultureInfo.InvariantCulture,
-                                              DateTimeStyles.None,
-                                              parsedDate) Then
+                                          {"dddd, MMMM dd, yyyy hh:mm:ss tt", "dddd, MMMM dd, yyyy h:mm tt"},
+                                          CultureInfo.InvariantCulture,
+                                          DateTimeStyles.None,
+                                          parsedDate) Then
 
                         If parsedDate >= startDate AndAlso parsedDate < endDate Then
                             Dim fullName As String = row("firstname").ToString().Trim() &
-                                If(String.IsNullOrWhiteSpace(row("middlename").ToString()), " ", " " & row("middlename").ToString().Trim() & " ") &
-                                row("lastname").ToString().Trim()
+                            If(String.IsNullOrWhiteSpace(row("middlename").ToString()), " ", " " & row("middlename").ToString().Trim() & " ") &
+                            row("lastname").ToString().Trim()
 
                             If String.IsNullOrWhiteSpace(searchText) OrElse
-                               row("registration_id").ToString().Contains(searchText) OrElse
-                               row("firstname").ToString().ToLower().Contains(searchText.ToLower()) OrElse
-                               row("middlename").ToString().ToLower().Contains(searchText.ToLower()) OrElse
-                               row("lastname").ToString().ToLower().Contains(searchText.ToLower()) Then
+                           row("registration_id").ToString().Contains(searchText) OrElse
+                           row("firstname").ToString().ToLower().Contains(searchText.ToLower()) OrElse
+                           row("middlename").ToString().ToLower().Contains(searchText.ToLower()) OrElse
+                           row("lastname").ToString().ToLower().Contains(searchText.ToLower()) Then
 
                                 Dim newRow = finalTable.NewRow()
                                 newRow("PLAYER ID") = row("registration_id").ToString()
@@ -98,6 +101,9 @@ Public Class CashFlow
                                     newRow("CASH-OUT") = "₱" & row("amount").ToString()
                                     newRow("MODE ") = row("payment_mode").ToString()
                                 End If
+
+                                ' 🔹 Add created_by value
+                                newRow("CREATED BY") = row("created_by").ToString()
 
                                 newRow("CASHIER'S SIGNATURE") = ""
                                 newRow("REMARKS") = ""
@@ -119,15 +125,16 @@ Public Class CashFlow
                 If dgvCashFlow.Columns.Contains("MODE") Then dgvCashFlow.Columns("MODE").Width = 100
                 If dgvCashFlow.Columns.Contains("CASH-OUT") Then dgvCashFlow.Columns("CASH-OUT").Width = 120
                 If dgvCashFlow.Columns.Contains("MODE ") Then dgvCashFlow.Columns("MODE ").Width = 100
+                If dgvCashFlow.Columns.Contains("CREATED BY") Then dgvCashFlow.Columns("CREATED BY").Width = 150 ' 🔹 Adjust width
                 If dgvCashFlow.Columns.Contains("CASHIER'S SIGNATURE") Then dgvCashFlow.Columns("CASHIER'S SIGNATURE").Width = 250
                 If dgvCashFlow.Columns.Contains("REMARKS") Then dgvCashFlow.Columns("REMARKS").Width = 80
-
             End Using
 
         Catch ex As Exception
             MessageBox.Show("Error loading cashflows: " & ex.Message)
         End Try
     End Sub
+
 
     Private Sub StyleGrid()
         With dgvCashFlow
@@ -193,10 +200,12 @@ Public Class CashFlow
                         Case "FULL NAME" : widths(i) = 3.5F
                         Case "BUY-IN", "CASH-OUT" : widths(i) = 2.2F
                         Case "MODE", "MODE " : widths(i) = 1.8F
+                        Case "CREATED BY" : widths(i) = 2.5F ' 🔹 New column
                         Case "CASHIER'S SIGNATURE" : widths(i) = 3.5F
                         Case "REMARKS" : widths(i) = 1.5F
                         Case Else : widths(i) = 1.5F
                     End Select
+
                 Next
                 pdfTable.SetWidths(widths)
 

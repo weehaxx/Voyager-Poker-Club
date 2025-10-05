@@ -65,16 +65,16 @@ Public Class Reports
 
             ' 🔹 Query all transactions
             Dim sql As String = "
-                SELECT r.id AS ID,
-                       r.firstname, r.middlename, r.lastname,
-                       c.date_created,
-                       c.type,
-                       c.amount
-                FROM registrations r
-                LEFT JOIN cashflows c ON r.id = c.registration_id
-                WHERE c.date_created IS NOT NULL
-                ORDER BY r.lastname, r.firstname
-            "
+            SELECT r.id AS ID,
+                   r.firstname, r.middlename, r.lastname,
+                   c.date_created,
+                   c.type,
+                   c.amount
+            FROM registrations r
+            LEFT JOIN cashflows c ON r.id = c.registration_id
+            WHERE c.date_created IS NOT NULL
+            ORDER BY r.lastname, r.firstname
+        "
 
             Dim cmd As New SQLiteCommand(sql, conn)
             Dim reader As SQLiteDataReader = cmd.ExecuteReader()
@@ -123,8 +123,10 @@ Public Class Reports
                 For i As Integer = 0 To daysInMonth - 1
                     Dim val As Decimal = days(i)
                     If val <> 0 Then
-                        Dim displayVal As String = Math.Abs(val).ToString("N0")
-                        dgvReports.Rows(rowIndex).Cells(i + 1).Value = displayVal
+                        ' 🔹 Remove negative sign but keep color
+                        dgvReports.Rows(rowIndex).Cells(i + 1).Value = Math.Abs(val).ToString("N0")
+
+                        ' 🔹 Red for loss, Black for win
                         dgvReports.Rows(rowIndex).Cells(i + 1).Style.ForeColor = If(val < 0, Color.Red, Color.Black)
                         dgvReports.Rows(rowIndex).Cells(i + 1).Style.Alignment = DataGridViewContentAlignment.MiddleCenter
 
@@ -133,13 +135,17 @@ Public Class Reports
                     End If
                 Next
 
-                Dim displayTotal As String = Math.Abs(total).ToString("N0")
-                dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Value = displayTotal
+                ' 🔹 Show total without sign but color based on value
+                dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Value = Math.Abs(total).ToString("N0")
                 dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Style.ForeColor = If(total < 0, Color.Red, Color.Black)
                 dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Style.Alignment = DataGridViewContentAlignment.MiddleCenter
 
                 rawValues($"{rowIndex}_{daysInMonth + 1}") = total
             Next
+
+            ' ✅ Remove auto selection
+            dgvReports.ClearSelection()
+            dgvReports.CurrentCell = Nothing
 
         Catch ex As Exception
             MessageBox.Show("Error loading monthly report: " & ex.Message)
@@ -147,6 +153,7 @@ Public Class Reports
             If conn.State = ConnectionState.Open Then conn.Close()
         End Try
     End Sub
+
 
     ' ✅ Reload on date change
     Private Sub dtpMonthYear_ValueChanged(sender As Object, e As EventArgs) Handles dtpMonthYear.ValueChanged
