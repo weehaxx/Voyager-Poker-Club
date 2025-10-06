@@ -174,7 +174,7 @@ Partial Class Members
         tbSearch.Margin = New Padding(5, 7, 5, 7)
         tbSearch.Name = "tbSearch"
         tbSearch.PlaceholderForeColor = Color.Silver
-        tbSearch.PlaceholderText = "Find Player/Member ID"
+        tbSearch.PlaceholderText = "Find Member Name"
         tbSearch.SelectedText = ""
         tbSearch.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         tbSearch.Size = New Size(386, 47)
@@ -852,7 +852,7 @@ Partial Class Members
         DataGridViewCellStyle3.BackColor = Color.FromArgb(CByte(247), CByte(248), CByte(249))
         DataGridViewCellStyle3.Font = New Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         DataGridViewCellStyle3.ForeColor = Color.Black
-        DataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(CByte(64), CByte(0), CByte(64))
+        DataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(CByte(239), CByte(241), CByte(243))
         DataGridViewCellStyle3.SelectionForeColor = Color.Black
         DataGridViewCellStyle3.WrapMode = DataGridViewTriState.False
         dgvRegistrations.DefaultCellStyle = DataGridViewCellStyle3

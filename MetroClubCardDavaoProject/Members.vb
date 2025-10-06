@@ -14,6 +14,42 @@ Public Class Members
     Dim conn As SQLiteConnection
     Dim dt As DataTable ' Keep DataTable global for filtering
 
+    Private Sub ClearMemberDetails()
+        ' Clear all textboxes
+        tbLastName.Clear()
+        tbFIrstName.Clear()
+        tbMiddleName.Clear()
+        tbAlternativeName.Clear()
+        tbPresentAddress.Clear()
+        tbPermanentAddress.Clear()
+        tbBirthday.Clear()
+        tbBirthPlace.Clear()
+        tbCivilStatus.Clear()
+        tbNationality.Clear()
+        tbEmail.Clear()
+        tbMobileNum.Clear()
+        tbBusinessName.Clear()
+        tbBusinessNature.Clear()
+        tbEmployerName.Clear()
+        tbWorkNature.Clear()
+        tbRelationshipPol.Clear()
+        tbNameEmergency.Clear()
+        tbRelationShipEmergency.Clear()
+        tbContactEmergency.Clear()
+
+        ' Clear radio buttons
+        rbSelfEmployed.Checked = False
+        rbEmployed.Checked = False
+        rbYes.Checked = False
+        rbNo.Checked = False
+
+        ' Clear photo
+        Guna2PictureBox1.Image = Nothing
+
+        ' Clear selection in DataGridView
+        dgvRegistrations.ClearSelection()
+        dgvRegistrations.CurrentCell = Nothing
+    End Sub
 
     Private Sub Members_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dgvRegistrations.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
@@ -393,7 +429,7 @@ Public Class Members
             Dim authForm As New Form With {
             .FormBorderStyle = FormBorderStyle.None,
             .StartPosition = FormStartPosition.CenterParent,
-            .Size = New Size(461, 232),
+            .Size = New Size(527, 309),
             .BackColor = Color.White
         }
 
@@ -466,29 +502,28 @@ Public Class Members
             overlay.Show()
             overlay.Refresh()
 
-            ' ✅ Authentication popup (145 x 47)
+            ' ✅ Authentication popup
             Dim authForm As New Form With {
             .FormBorderStyle = FormBorderStyle.None,
             .StartPosition = FormStartPosition.CenterParent,
-            .Size = New Size(527, 310),
+            .Size = New Size(527, 309),
             .BackColor = Color.White
         }
 
             Dim authControl As New Authentication()
             authControl.Dock = DockStyle.Fill
 
-            ' ✅ Handle events
             AddHandler authControl.AuthSuccess,
-            Sub()
-                authForm.DialogResult = DialogResult.OK
-                authForm.Close()
-            End Sub
+        Sub()
+            authForm.DialogResult = DialogResult.OK
+            authForm.Close()
+        End Sub
 
             AddHandler authControl.AuthCancelled,
-            Sub()
-                authForm.DialogResult = DialogResult.Cancel
-                authForm.Close()
-            End Sub
+        Sub()
+            authForm.DialogResult = DialogResult.Cancel
+            authForm.Close()
+        End Sub
 
             authForm.Controls.Add(authControl)
 
@@ -499,8 +534,9 @@ Public Class Members
                 Exit Sub
             End If
 
-            ' ✅ Confirm deletion after password success
-            If MessageBox.Show("Are you sure you want to permanently delete this member?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
+            ' ✅ Confirm deletion
+            If MessageBox.Show("Are you sure you want to permanently delete this member and all their cashflows?",
+                           "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
                 overlay.Close()
                 Exit Sub
             End If
@@ -514,18 +550,35 @@ Public Class Members
 
             Dim memberID As Integer = selectedRowView.Row("id")
 
-            ' ✅ Delete from database
+            ' ✅ Delete from database (cashflows first, then member)
             Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
                 conn.Open()
-                Dim cmd As New SQLiteCommand("DELETE FROM registrations WHERE id=@id", conn)
-                cmd.Parameters.AddWithValue("@id", memberID)
-                cmd.ExecuteNonQuery()
+
+                ' 🔸 Enable foreign key support (good practice)
+                Using pragmaCmd As New SQLiteCommand("PRAGMA foreign_keys = ON;", conn)
+                    pragmaCmd.ExecuteNonQuery()
+                End Using
+
+                ' 🗑 1. Delete related cashflows first
+                Using deleteCashflowsCmd As New SQLiteCommand("DELETE FROM cashflows WHERE registration_id = @id", conn)
+                    deleteCashflowsCmd.Parameters.AddWithValue("@id", memberID)
+                    deleteCashflowsCmd.ExecuteNonQuery()
+                End Using
+
+                ' 🗑 2. Then delete the member
+                Using deleteMemberCmd As New SQLiteCommand("DELETE FROM registrations WHERE id = @id", conn)
+                    deleteMemberCmd.Parameters.AddWithValue("@id", memberID)
+                    deleteMemberCmd.ExecuteNonQuery()
+                End Using
             End Using
 
-            MessageBox.Show("Member deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            ' ✅ Refresh list
+            ' ✅ Refresh list after deletion
             LoadRegistrations()
+
+            ' ✅ Clear all fields and photo
+            ClearMemberDetails()
+
+            MessageBox.Show("Member and all related cashflow records have been deleted.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             overlay.Close()
 
@@ -534,24 +587,6 @@ Public Class Members
         End Try
     End Sub
 
-
-    Private Sub dgvRegistrations_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRegistrations.CellContentClick
-        If e.RowIndex >= 0 Then
-            ' Clear default selection highlight
-            dgvRegistrations.ClearSelection()
-
-            ' Reset all rows to default colors
-            For Each row As DataGridViewRow In dgvRegistrations.Rows
-                row.DefaultCellStyle.BackColor = Color.White
-                row.DefaultCellStyle.ForeColor = Color.Black
-            Next
-
-            ' Apply dark blue to the selected row
-            Dim selectedRow As DataGridViewRow = dgvRegistrations.Rows(e.RowIndex)
-            selectedRow.DefaultCellStyle.BackColor = Color.DarkBlue
-            selectedRow.DefaultCellStyle.ForeColor = Color.White
-        End If
-    End Sub
 
     Private Sub btnPrintMember_Click(sender As Object, e As EventArgs) Handles btnPrintMember.Click
         Try

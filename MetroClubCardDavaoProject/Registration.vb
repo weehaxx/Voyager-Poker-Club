@@ -172,9 +172,9 @@ Public Class Registration
     ' 📌 SAVE BUTTON — Only allows save if webcam capture is done
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Try
-            ' 🚫 Check if photo is captured before saving
-            If Not isCaptured OrElse pbCameraDisplay.Image Is Nothing Then
-                MessageBox.Show("Please capture a photo before saving the registration.",
+            ' ✅ Check if photo is captured OR uploaded before saving
+            If pbCameraDisplay.Image Is Nothing Then
+                MessageBox.Show("Please capture or upload a photo before saving the registration.",
                             "Photo Required",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning)
@@ -189,10 +189,10 @@ Public Class Registration
                 conn.Open()
 
                 Dim query As String =
-                "INSERT INTO registrations " &
-                "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
-                "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
-                "SELECT last_insert_rowid();"
+            "INSERT INTO registrations " &
+            "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
+            "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
+            "SELECT last_insert_rowid();"
 
                 Using cmd As New SQLiteCommand(query, conn)
                     ' Text fields
@@ -242,7 +242,7 @@ Public Class Registration
                     End If
                     cmd.Parameters.AddWithValue("@idimage", idImageBytes)
 
-                    ' Captured Photo
+                    ' ✅ Captured or Uploaded Photo
                     Dim photoBytes() As Byte = Nothing
                     If pbCameraDisplay.Image IsNot Nothing Then
                         Using ms As New MemoryStream()
@@ -282,37 +282,51 @@ Public Class Registration
         End Try
     End Sub
 
-
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-        ' ✅ Clear all TextBoxes
-        For Each ctrl As Control In Me.Controls
-            If TypeOf ctrl Is TextBox Then
-                DirectCast(ctrl, TextBox).Clear()
-            End If
-        Next
-
-        ' ✅ Reset ComboBoxes, EXCEPT cbCamera
-        For Each ctrl As Control In Me.Controls
-            If TypeOf ctrl Is ComboBox AndAlso Not ctrl.Name.Equals("cbCamera") Then
-                DirectCast(ctrl, ComboBox).SelectedIndex = -1
-            End If
-        Next
-
-        ' ✅ Clear image previews properly
-        If pbCameraDisplay.Image IsNot Nothing Then
-            pbCameraDisplay.Image.Dispose()
-            pbCameraDisplay.Image = Nothing
-        End If
-
-        If pbIDpresented.Image IsNot Nothing Then
-            pbIDpresented.Image.Dispose()
-            pbIDpresented.Image = Nothing
-        End If
+        ' 🧼 Clear all controls recursively starting from the form
+        ClearControls(Me)
 
         ' Reset webcam capture state
         isCaptured = False
         btnWebcam.Text = "USE WEBCAM"
+
+        ' Re-validate to disable Save button again after clearing
+        ValidateForm()
     End Sub
+
+    ' 🔁 Recursive method to clear controls inside nested containers
+    Private Sub ClearControls(parent As Control)
+        For Each ctrl As Control In parent.Controls
+            If TypeOf ctrl Is TextBox Then
+                DirectCast(ctrl, TextBox).Clear()
+
+            ElseIf TypeOf ctrl Is ComboBox Then
+                Dim cb As ComboBox = DirectCast(ctrl, ComboBox)
+                If cb.Name <> "cbCamera" Then ' Don't reset camera selection
+                    cb.SelectedIndex = -1
+                    cb.Text = ""
+                End If
+
+            ElseIf TypeOf ctrl Is PictureBox Then
+                Dim pb As PictureBox = DirectCast(ctrl, PictureBox)
+                If pb.Image IsNot Nothing Then
+                    pb.Image.Dispose()
+                    pb.Image = Nothing
+                End If
+
+            ElseIf TypeOf ctrl Is RadioButton Then
+                DirectCast(ctrl, RadioButton).Checked = False
+
+            ElseIf TypeOf ctrl Is CheckBox Then
+                DirectCast(ctrl, CheckBox).Checked = False
+
+            ElseIf ctrl.HasChildren Then
+                ' ✅ Recurse into GroupBox, Panel, TabPage, etc.
+                ClearControls(ctrl)
+            End If
+        Next
+    End Sub
+
 
     Private Sub btnAddPhoto_Click(sender As Object, e As EventArgs) Handles btnAddPhoto.Click
         Using ofd As New OpenFileDialog
