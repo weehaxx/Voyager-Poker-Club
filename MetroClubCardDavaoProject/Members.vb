@@ -14,102 +14,7 @@ Public Class Members
     Dim conn As SQLiteConnection
     Dim dt As DataTable ' Keep DataTable global for filtering
 
-    'Public Sub GenerateBackID(memberID As Integer)
-    '    Dim lastname As String = ""
-    '    Dim firstname As String = ""
-    '    Dim middlename As String = ""
-    '    Dim registrationID As String = ""
-    '    Dim memberPhoto As Image = Nothing
 
-    '    ' 1️⃣ Retrieve data from DB
-    '    Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
-    '        conn.Open()
-    '        Dim sql As String = "SELECT lastname, firstname, middlename, registration_id, photo FROM registrations WHERE id=@id"
-    '        Using cmd As New SQLiteCommand(sql, conn)
-    '            cmd.Parameters.AddWithValue("@id", memberID)
-    '            Using reader = cmd.ExecuteReader()
-    '                If reader.Read() Then
-    '                    lastname = reader("lastname").ToString().Trim().ToUpper()
-    '                    firstname = reader("firstname").ToString().Trim().ToUpper()
-    '                    middlename = reader("middlename").ToString().Trim().ToUpper()
-    '                    registrationID = reader("registration_id").ToString()
-
-    '                    If Not IsDBNull(reader("photo")) Then
-    '                        Dim photoData As Byte() = DirectCast(reader("photo"), Byte())
-    '                        Using ms As New MemoryStream(photoData)
-    '                            memberPhoto = Image.FromStream(ms)
-    '                        End Using
-    '                    End If
-    '                End If
-    '            End Using
-    '        End Using
-    '    End Using
-
-    '    ' 2️⃣ Create blank C80 back layout (1016 x 638 px at 300 dpi)
-    '    Dim width As Integer = 1016
-    '    Dim height As Integer = 638
-    '    Dim background As New Bitmap(width, height)
-    '    background.SetResolution(300, 300)
-
-    '    Using g As Graphics = Graphics.FromImage(background)
-    '        g.SmoothingMode = SmoothingMode.AntiAlias
-    '        g.InterpolationMode = InterpolationMode.HighQualityBicubic
-    '        g.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
-
-    '        ' 🖤 Black background
-    '        g.Clear(Color.Black)
-
-    '        ' 🟠 Orange strip near top (behind name)
-    '        Dim orangeBrush As New SolidBrush(Color.FromArgb(220, 83, 44))
-    '        Dim stripRect As New Rectangle(0, 180, width, 100)
-    '        g.FillRectangle(orangeBrush, stripRect)
-
-    '        ' 🖼 Photo (Top-left)
-    '        If memberPhoto IsNot Nothing Then
-    '            Dim photoRect As New Rectangle(60, 160, 200, 200)
-    '            g.DrawImage(memberPhoto, photoRect)
-    '            g.DrawRectangle(New Pen(Color.White, 3), photoRect)
-    '        End If
-
-    '        ' ✍ Full Name (Top-right on orange strip)
-    '        Dim fullName As String = $"{lastname}, {firstname} {middlename}".Trim()
-    '        Dim fontName As New Font("Arial", 28, FontStyle.Bold)
-    '        Dim whiteBrush As New SolidBrush(Color.White)
-    '        g.DrawString(fullName, fontName, whiteBrush, 300, 200)
-
-    '        ' 📄 Registration ID (Top-right corner)
-    '        Dim fontSmall As New Font("Arial", 14, FontStyle.Regular)
-    '        Dim regSize = g.MeasureString(registrationID, fontSmall)
-    '        g.DrawString(registrationID, fontSmall, whiteBrush, width - regSize.Width - 20, 20)
-
-    '        ' 🌐 Website + Terms (Bottom-left)
-    '        Dim fontBottom As New Font("Arial", 16, FontStyle.Regular)
-    '        g.DrawString("Terms and conditions apply.", fontBottom, whiteBrush, 60, height - 120)
-    '        g.DrawString("www.metrocardclub.com", fontBottom, whiteBrush, 60, height - 90)
-    '        g.DrawString("Customer Service: (+63) 917-532-3063", fontBottom, whiteBrush, 60, height - 60)
-
-    '        ' 🧾 Barcode (Bottom-center on white strip)
-    '        Dim barcodeDraw = BarcodeDrawFactory.Code128WithChecksum
-    '        Dim barcodeImg As Image = barcodeDraw.Draw(registrationID, 50)
-    '        Dim barcodeX As Integer = (width - barcodeImg.Width) \ 2
-    '        Dim barcodeY As Integer = height - barcodeImg.Height - 10
-    '        Dim whiteStripRect As New Rectangle(barcodeX - 10, barcodeY - 5, barcodeImg.Width + 20, barcodeImg.Height + 10)
-    '        g.FillRectangle(Brushes.White, whiteStripRect)
-    '        g.DrawImage(barcodeImg, barcodeX, barcodeY)
-    '    End Using
-
-    '    ' 3️⃣ Let user choose where to save the image
-    '    Using sfd As New SaveFileDialog()
-    '        sfd.Title = "Save Back ID Image"
-    '        sfd.Filter = "PNG Image|*.png"
-    '        sfd.FileName = $"ID_Back_{registrationID}.png"
-
-    '        If sfd.ShowDialog() = DialogResult.OK Then
-    '            background.Save(sfd.FileName, ImageFormat.Png)
-    '            MessageBox.Show($"✅ Back ID saved to: {sfd.FileName}", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
-    '        End If
-    '    End Using
-    'End Sub
     Private Sub Members_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dgvRegistrations.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         Dim dbPath As String = "metrocarddavaodb.db"
@@ -134,34 +39,46 @@ Public Class Members
             conn.Open()
 
             Dim sql As String =
-        "SELECT id, lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, businessnature, employername, workname, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, photo " &
-        "FROM registrations"
+            "SELECT id, lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, businessnature, employername, workname, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, photo " &
+            "FROM registrations"
 
             Dim da As New SQLiteDataAdapter(sql, conn)
             dt = New DataTable()
             da.Fill(dt)
 
-            ' Add computed column registration_id if missing
+            ' ✅ Add computed columns if missing
             If Not dt.Columns.Contains("registration_id") Then
                 dt.Columns.Add("registration_id", GetType(String))
             End If
+            If Not dt.Columns.Contains("fullname") Then
+                dt.Columns.Add("fullname", GetType(String))
+            End If
 
+            ' ✅ Fill computed columns
             For Each row As DataRow In dt.Rows
                 Dim rawId As Integer = Convert.ToInt32(row("id"))
                 Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & rawId.ToString()
                 row("registration_id") = regId
+
+                ' Format full name: LASTNAME, FIRSTNAME MIDDLENAME (UPPERCASE)
+                Dim lname As String = If(IsDBNull(row("lastname")), "", row("lastname").ToString())
+                Dim fname As String = If(IsDBNull(row("firstname")), "", row("firstname").ToString())
+                Dim mname As String = If(IsDBNull(row("middlename")), "", row("middlename").ToString())
+                row("fullname") = $"{lname}, {fname} {mname}".ToUpper().Trim()
             Next
 
+            ' ✅ Only show ID and Name columns
             dgvRegistrations.DataSource = dt
-
-            ' Hide unwanted columns
             For Each col As DataGridViewColumn In dgvRegistrations.Columns
-                If col.Name <> "registration_id" Then
-                    col.Visible = False
-                End If
+                col.Visible = False
             Next
 
-            dgvRegistrations.Columns("registration_id").HeaderText = "PLAYER/MEMBERSHIP ID"
+            dgvRegistrations.Columns("registration_id").Visible = True
+            dgvRegistrations.Columns("fullname").Visible = True
+
+            ' ✅ Set headers
+            dgvRegistrations.Columns("registration_id").HeaderText = "ID"
+            dgvRegistrations.Columns("fullname").HeaderText = "FULL NAME"
 
             dgvRegistrations.Refresh()
             dgvRegistrations.AutoResizeColumns()
@@ -178,6 +95,7 @@ Public Class Members
             MessageBox.Show("Error loading registrations: " & ex.Message)
         End Try
     End Sub
+
 
 
     ' Live Search by firstname/lastname/middlename only
