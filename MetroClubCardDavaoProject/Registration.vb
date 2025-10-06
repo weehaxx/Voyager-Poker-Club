@@ -41,6 +41,33 @@ Public Class Registration
         Catch ex As Exception
             MessageBox.Show("Error loading cameras: " & ex.Message)
         End Try
+
+        ' Load ID options into ComboBox
+        cbIDPresented.Items.Clear()
+        cbIDPresented.Items.AddRange(New String() {
+            "Philippine Passport",
+            "Driver’s License",
+            "SSS ID",
+            "Postal ID",
+            "Voter’s ID",
+            "PRC ID",
+            "National ID",
+            "Company ID",
+            "Senior Citizen ID"
+        })
+        cbIDPresented.SelectedIndex = -1 ' none selected
+
+        cbCivilStatus.Items.Clear()
+        cbCivilStatus.Items.AddRange(New String() {
+            "Single",
+            "Married",
+            "Widowed",
+            "Divorced",
+            "Separated",
+            "Annulled"
+        })
+        cbCivilStatus.SelectedIndex = -1 ' none selected
+
     End Sub
 
     ' -------------------- VALIDATION --------------------
@@ -56,7 +83,7 @@ Public Class Registration
             Not String.IsNullOrWhiteSpace(tbPresentAddress.Text) AndAlso
             Not String.IsNullOrWhiteSpace(tbPermanentAddress.Text) AndAlso
             Not String.IsNullOrWhiteSpace(tbBirthPlace.Text) AndAlso
-            Not String.IsNullOrWhiteSpace(tbCivilStatus.Text) AndAlso
+            Not String.IsNullOrWhiteSpace(cbCivilStatus.Text) AndAlso
             Not String.IsNullOrWhiteSpace(tbNationality.Text) AndAlso
             Not String.IsNullOrWhiteSpace(tbEmail.Text) AndAlso
             mobileValid AndAlso
@@ -67,7 +94,8 @@ Public Class Registration
             Not String.IsNullOrWhiteSpace(tbRelationShipEmergency.Text) AndAlso
             contactValid AndAlso
             pbCameraDisplay.Image IsNot Nothing AndAlso
-            pbIDpresented.Image IsNot Nothing
+            pbIDpresented.Image IsNot Nothing AndAlso
+            cbIDPresented.SelectedIndex <> -1
 
         If rbSelfEmployed.Checked Then
             allFieldsFilled = allFieldsFilled AndAlso
@@ -79,29 +107,14 @@ Public Class Registration
                 Not String.IsNullOrWhiteSpace(tnWorkName.Text)
         End If
 
-        Dim isValid As Boolean = True
-
-        If tbMobileNumber.Text.Length <> 11 Then
-            isValid = False
-        End If
-
-        If tbContactEmergency.Text.Length <> 11 Then
-            isValid = False
-        End If
+        If tbMobileNumber.Text.Length <> 11 Then allFieldsFilled = False
+        If tbContactEmergency.Text.Length <> 11 Then allFieldsFilled = False
 
         btnSave.Enabled = allFieldsFilled
     End Sub
 
     Private Sub AnyFieldChanged(sender As Object, e As EventArgs) _
-        Handles tbLastName.TextChanged, tbFirstName.TextChanged, tbMiddleName.TextChanged,
-                tbAlternativeName.TextChanged, tbPresentAddress.TextChanged, tbPermanentAddress.TextChanged,
-                tbBirthPlace.TextChanged, tbCivilStatus.TextChanged, tbNationality.TextChanged,
-                tbEmail.TextChanged, tbMobileNumber.TextChanged, tnBusinessName.TextChanged,
-                tbEmployerName.TextChanged, tbBusinessNature.TextChanged, tnWorkName.TextChanged,
-                tbPresentedID.TextChanged, tbRelationshipPol.TextChanged, tbNameEmergency.TextChanged,
-                tbRelationShipEmergency.TextChanged, tbContactEmergency.TextChanged,
-                rbSelfEmployed.CheckedChanged, rbEmployed.CheckedChanged,
-                tbYes.CheckedChanged, tbNo.CheckedChanged
+        Handles tbLastName.TextChanged, tbFirstName.TextChanged, tbMiddleName.TextChanged, tbAlternativeName.TextChanged, tbPresentAddress.TextChanged, tbPermanentAddress.TextChanged, tbBirthPlace.TextChanged, tbNationality.TextChanged, tbEmail.TextChanged, tbMobileNumber.TextChanged, tnBusinessName.TextChanged, tbEmployerName.TextChanged, tbBusinessNature.TextChanged, tnWorkName.TextChanged, tbRelationshipPol.TextChanged, tbNameEmergency.TextChanged, tbRelationShipEmergency.TextChanged, tbContactEmergency.TextChanged, rbSelfEmployed.CheckedChanged, rbEmployed.CheckedChanged, tbYes.CheckedChanged, tbNo.CheckedChanged, cbIDPresented.SelectedIndexChanged
 
         ValidateForm()
     End Sub
@@ -111,7 +124,6 @@ Public Class Registration
         If rbSelfEmployed.Checked Then
             tnBusinessName.Enabled = True
             tbBusinessNature.Enabled = True
-
             tbEmployerName.Enabled = False
             tnWorkName.Enabled = False
             tbEmployerName.Clear()
@@ -129,7 +141,6 @@ Public Class Registration
         If rbEmployed.Checked Then
             tbEmployerName.Enabled = True
             tnWorkName.Enabled = True
-
             tnBusinessName.Enabled = False
             tbBusinessNature.Enabled = False
             tnBusinessName.Clear()
@@ -145,9 +156,7 @@ Public Class Registration
 
     ' -------------------- POLITICALLY EXPOSED FAMILY --------------------
     Private Sub tbYes_CheckedChanged(sender As Object, e As EventArgs) Handles tbYes.CheckedChanged
-        If tbYes.Checked Then
-            tbRelationshipPol.Enabled = True
-        End If
+        If tbYes.Checked Then tbRelationshipPol.Enabled = True
         ValidateForm()
     End Sub
 
@@ -169,12 +178,11 @@ Public Class Registration
             Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
                 conn.Open()
 
-                ' First INSERT without registration_id
                 Dim query As String =
-            "INSERT INTO registrations " &
-            "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
-            "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
-            "SELECT last_insert_rowid();"
+                    "INSERT INTO registrations " &
+                    "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
+                    "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
+                    "SELECT last_insert_rowid();"
 
                 Using cmd As New SQLiteCommand(query, conn)
                     ' Text fields
@@ -186,7 +194,7 @@ Public Class Registration
                     cmd.Parameters.AddWithValue("@permanentaddress", tbPermanentAddress.Text)
                     cmd.Parameters.AddWithValue("@birthday", dtpBirthday.Value.ToString("yyyy-MM-dd"))
                     cmd.Parameters.AddWithValue("@birthplace", tbBirthPlace.Text)
-                    cmd.Parameters.AddWithValue("@civilstatus", tbCivilStatus.Text)
+                    cmd.Parameters.AddWithValue("@civilstatus", cbCivilStatus.Text)
                     cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
                     cmd.Parameters.AddWithValue("@email", tbEmail.Text)
                     cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
@@ -205,7 +213,7 @@ Public Class Registration
                     cmd.Parameters.AddWithValue("@workname", tnWorkName.Text)
 
                     ' ID & Police
-                    cmd.Parameters.AddWithValue("@presentedid", tbPresentedID.Text)
+                    cmd.Parameters.AddWithValue("@presentedid", cbIDPresented.Text)
                     cmd.Parameters.AddWithValue("@polmember", If(tbYes.Checked, "Yes", "No"))
                     cmd.Parameters.AddWithValue("@relationshippol", tbRelationshipPol.Text)
 
@@ -233,32 +241,27 @@ Public Class Registration
                     End If
                     cmd.Parameters.AddWithValue("@photo", photoBytes)
 
-                    newId = CLng(cmd.ExecuteScalar()) ' Get auto id
+                    newId = CLng(cmd.ExecuteScalar())
                 End Using
 
-                ' Generate registration_id
                 regId = DateTime.Now.ToString("yyyyMMdd") & newId.ToString()
 
-                ' Update the row with registration_id
                 Using updateCmd As New SQLiteCommand("UPDATE registrations SET registration_id=@regid WHERE id=@id", conn)
                     updateCmd.Parameters.AddWithValue("@regid", regId)
                     updateCmd.Parameters.AddWithValue("@id", newId)
                     updateCmd.ExecuteNonQuery()
                 End Using
 
-                ' Build full name (Lastname, Firstname Middlename)
                 fullName = tbLastName.Text & ", " & tbFirstName.Text & " " & tbMiddleName.Text
             End Using
 
-            ' ✅ Show confirmation with registration_id + full name
-            MessageBox.Show("New Member Registered!" & vbCrLf &
-                        "Registration ID: " & regId & vbCrLf &
-                        "Full Name: " & fullName,
-                        "Registration Successful",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+            MessageBox.Show("NEW MEMBER REGISTERED!" & vbCrLf &
+                            "REGISTRATION ID: " & regId & vbCrLf &
+                            "FULL NAME: " & fullName.ToUpper(),
+                            "REGISTRATION SUCCESSFUL",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
 
-            ' ✅ Clear all fields after saving
             btnClear_Click(Nothing, Nothing)
 
         Catch ex As Exception
@@ -266,46 +269,26 @@ Public Class Registration
         End Try
     End Sub
 
-
-    ' -------------------- CLEAR FORM --------------------
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-        tbLastName.Clear()
-        tbFirstName.Clear()
-        tbMiddleName.Clear()
-        tbAlternativeName.Clear()
-        tbPresentAddress.Clear()
-        tbPermanentAddress.Clear()
-        tbBirthPlace.Clear()
-        tbCivilStatus.Clear()
-        tbNationality.Clear()
-        tbEmail.Clear()
-        tbMobileNumber.Clear()
-        tnBusinessName.Clear()
-        tbEmployerName.Clear()
-        tbBusinessNature.Clear()
-        tnWorkName.Clear()
-        tbPresentedID.Clear()
-        tbRelationshipPol.Clear()
-        tbNameEmergency.Clear()
-        tbRelationShipEmergency.Clear()
-        tbContactEmergency.Clear()
-        rbSelfEmployed.Checked = False
-        rbEmployed.Checked = False
-        tbNo.Checked = False
-        tbYes.Checked = False
-        tbRelationshipPol.Enabled = False
-        dtpBirthday.Value = DateTime.Now
-        pbCameraDisplay.Image = Nothing
-        pbIDpresented.Image = Nothing
-        btnSave.Enabled = False
+        ' ✅ Clear all textboxes
+        For Each ctrl As Control In Me.Controls
+            If TypeOf ctrl Is TextBox Then
+                DirectCast(ctrl, TextBox).Clear()
+            End If
+        Next
 
-        tnBusinessName.Enabled = False
-        tbBusinessNature.Enabled = False
-        tbEmployerName.Enabled = False
-        tnWorkName.Enabled = False
+        ' ✅ Reset combo boxes
+        For Each ctrl As Control In Me.Controls
+            If TypeOf ctrl Is ComboBox Then
+                DirectCast(ctrl, ComboBox).SelectedIndex = -1
+            End If
+        Next
+
+        ' ✅ Clear image preview (if you have a PictureBox for photo)
+        If pbCameraDisplay IsNot Nothing Then
+            pbCameraDisplay = Nothing
+        End If
     End Sub
-
-    ' -------------------- PHOTO UPLOAD --------------------
     Private Sub btnAddPhoto_Click(sender As Object, e As EventArgs) Handles btnAddPhoto.Click
         Using ofd As New OpenFileDialog
             ofd.Title = "Select a Photo"
@@ -410,17 +393,8 @@ Public Class Registration
         End If
     End Sub
 
-    ' 🔑 Restrict to digits only
-    Private Sub tbMobileNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbMobileNumber.KeyPress
-        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
-            e.Handled = True
-        End If
-    End Sub
+    Private Sub cbCivilStatus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbCivilStatus.SelectedIndexChanged
 
-    Private Sub tbContactEmergency_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbContactEmergency.KeyPress
-        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
-            e.Handled = True
-        End If
     End Sub
 
     Private Sub tbMobileNumber_TextChanged(sender As Object, e As EventArgs) Handles tbMobileNumber.TextChanged

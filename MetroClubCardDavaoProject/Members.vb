@@ -122,6 +122,8 @@ Public Class Members
         rbNo.AutoCheck = False
 
         LoadRegistrations()
+        UpdateTotalMembers()
+
     End Sub
 
     Private Sub LoadRegistrations()
@@ -684,10 +686,24 @@ Public Class Members
             MessageBox.Show("Error opening ID Printing: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+    Private Sub UpdateTotalMembers()
+        Try
+            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+                conn.Open()
+
+                Dim cmd As New SQLiteCommand("SELECT COUNT(*) FROM registrations", conn)
+                Dim total As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+                lblTotalMembers.Text = total.ToString()
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error counting members: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
 
 
-
-
-
+    Private Sub lblTotalMembers_Click(sender As Object, e As EventArgs) Handles lblTotalMembers.Click
+        UpdateTotalMembers()
+    End Sub
 End Class
