@@ -133,7 +133,6 @@ Partial Class Registration
         pbIDpresented = New Guna.UI2.WinForms.Guna2PictureBox()
         btnUploadID = New Button()
         btnWebcam = New Button()
-        btnCapture = New Button()
         cbCamera = New ComboBox()
         Label26 = New Label()
         Label13 = New Label()
@@ -159,7 +158,7 @@ Partial Class Registration
         tbLastName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbLastName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbLastName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbLastName.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbLastName.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbLastName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbLastName.Location = New Point(136, 95)
         tbLastName.Margin = New Padding(5)
@@ -175,7 +174,7 @@ Partial Class Registration
         ' 
         Label2.AutoSize = True
         Label2.BackColor = Color.Transparent
-        Label2.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label2.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = Color.Black
         Label2.Location = New Point(387, 107)
         Label2.Name = "Label2"
@@ -187,7 +186,7 @@ Partial Class Registration
         ' 
         Label1.AutoSize = True
         Label1.BackColor = Color.Transparent
-        Label1.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label1.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = Color.Black
         Label1.Location = New Point(16, 107)
         Label1.Name = "Label1"
@@ -204,7 +203,7 @@ Partial Class Registration
         tbFirstName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbFirstName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbFirstName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbFirstName.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbFirstName.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbFirstName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbFirstName.Location = New Point(503, 95)
         tbFirstName.Margin = New Padding(5)
@@ -219,7 +218,7 @@ Partial Class Registration
         ' 
         Label3.AutoSize = True
         Label3.BackColor = Color.Transparent
-        Label3.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label3.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label3.ForeColor = Color.Black
         Label3.Location = New Point(818, 107)
         Label3.Name = "Label3"
@@ -236,7 +235,7 @@ Partial Class Registration
         tbMiddleName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMiddleName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMiddleName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMiddleName.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbMiddleName.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbMiddleName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbMiddleName.Location = New Point(957, 95)
         tbMiddleName.Margin = New Padding(5)
@@ -251,7 +250,7 @@ Partial Class Registration
         ' 
         Label4.AutoSize = True
         Label4.BackColor = Color.Transparent
-        Label4.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label4.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label4.ForeColor = Color.Black
         Label4.Location = New Point(16, 164)
         Label4.Name = "Label4"
@@ -268,7 +267,7 @@ Partial Class Registration
         tbAlternativeName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbAlternativeName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbAlternativeName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbAlternativeName.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbAlternativeName.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbAlternativeName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbAlternativeName.Location = New Point(680, 152)
         tbAlternativeName.Margin = New Padding(5)
@@ -283,7 +282,7 @@ Partial Class Registration
         ' 
         Label5.AutoSize = True
         Label5.BackColor = Color.Transparent
-        Label5.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label5.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label5.ForeColor = Color.Black
         Label5.Location = New Point(16, 216)
         Label5.Name = "Label5"
@@ -300,7 +299,7 @@ Partial Class Registration
         tbPresentAddress.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPresentAddress.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPresentAddress.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPresentAddress.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbPresentAddress.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbPresentAddress.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbPresentAddress.Location = New Point(213, 208)
         tbPresentAddress.Margin = New Padding(5)
@@ -315,7 +314,7 @@ Partial Class Registration
         ' 
         Label6.AutoSize = True
         Label6.BackColor = Color.Transparent
-        Label6.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label6.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label6.ForeColor = Color.Black
         Label6.Location = New Point(17, 276)
         Label6.Name = "Label6"
@@ -332,7 +331,7 @@ Partial Class Registration
         tbPermanentAddress.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPermanentAddress.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbPermanentAddress.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbPermanentAddress.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbPermanentAddress.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbPermanentAddress.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbPermanentAddress.Location = New Point(213, 264)
         tbPermanentAddress.Margin = New Padding(5)
@@ -347,7 +346,7 @@ Partial Class Registration
         ' 
         Label7.AutoSize = True
         Label7.BackColor = Color.Transparent
-        Label7.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label7.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label7.ForeColor = Color.Black
         Label7.Location = New Point(17, 329)
         Label7.Name = "Label7"
@@ -360,7 +359,7 @@ Partial Class Registration
         dtpBirthday.Checked = True
         dtpBirthday.CustomizableEdges = CustomizableEdges13
         dtpBirthday.FillColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
-        dtpBirthday.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        dtpBirthday.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         dtpBirthday.ForeColor = Color.Black
         dtpBirthday.Format = DateTimePickerFormat.Long
         dtpBirthday.Location = New Point(136, 319)
@@ -377,7 +376,7 @@ Partial Class Registration
         ' 
         Label8.AutoSize = True
         Label8.BackColor = Color.Transparent
-        Label8.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label8.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label8.ForeColor = Color.Black
         Label8.Location = New Point(435, 331)
         Label8.Name = "Label8"
@@ -394,7 +393,7 @@ Partial Class Registration
         tbBirthPlace.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBirthPlace.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBirthPlace.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbBirthPlace.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbBirthPlace.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbBirthPlace.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbBirthPlace.Location = New Point(554, 319)
         tbBirthPlace.Margin = New Padding(5)
@@ -409,7 +408,7 @@ Partial Class Registration
         ' 
         Label9.AutoSize = True
         Label9.BackColor = Color.Transparent
-        Label9.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label9.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label9.ForeColor = Color.Black
         Label9.ImageAlign = ContentAlignment.MiddleLeft
         Label9.Location = New Point(875, 332)
@@ -422,7 +421,7 @@ Partial Class Registration
         ' 
         Label10.AutoSize = True
         Label10.BackColor = Color.Transparent
-        Label10.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label10.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label10.ForeColor = Color.Black
         Label10.Location = New Point(17, 387)
         Label10.Name = "Label10"
@@ -439,7 +438,7 @@ Partial Class Registration
         tbNationality.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNationality.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNationality.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbNationality.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbNationality.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbNationality.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbNationality.Location = New Point(136, 376)
         tbNationality.Margin = New Padding(5)
@@ -454,7 +453,7 @@ Partial Class Registration
         ' 
         Label11.AutoSize = True
         Label11.BackColor = Color.Transparent
-        Label11.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label11.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label11.ForeColor = Color.Black
         Label11.Location = New Point(437, 387)
         Label11.Name = "Label11"
@@ -471,7 +470,7 @@ Partial Class Registration
         tbEmail.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmail.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmail.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbEmail.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbEmail.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbEmail.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbEmail.Location = New Point(554, 376)
         tbEmail.Margin = New Padding(5)
@@ -486,7 +485,7 @@ Partial Class Registration
         ' 
         Label12.AutoSize = True
         Label12.BackColor = Color.Transparent
-        Label12.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label12.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label12.ForeColor = Color.Black
         Label12.Location = New Point(875, 388)
         Label12.Name = "Label12"
@@ -503,7 +502,7 @@ Partial Class Registration
         tbMobileNumber.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMobileNumber.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbMobileNumber.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbMobileNumber.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbMobileNumber.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbMobileNumber.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbMobileNumber.Location = New Point(1000, 376)
         tbMobileNumber.Margin = New Padding(5)
@@ -523,7 +522,7 @@ Partial Class Registration
         rbSelfEmployed.CheckedState.FillColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         rbSelfEmployed.CheckedState.InnerColor = Color.White
         rbSelfEmployed.CheckedState.InnerOffset = -4
-        rbSelfEmployed.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        rbSelfEmployed.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         rbSelfEmployed.ForeColor = Color.Black
         rbSelfEmployed.Location = New Point(33, 541)
         rbSelfEmployed.Margin = New Padding(3, 4, 3, 4)
@@ -546,7 +545,7 @@ Partial Class Registration
         rbEmployed.CheckedState.FillColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         rbEmployed.CheckedState.InnerColor = Color.White
         rbEmployed.CheckedState.InnerOffset = -4
-        rbEmployed.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        rbEmployed.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         rbEmployed.ForeColor = Color.Black
         rbEmployed.Location = New Point(558, 541)
         rbEmployed.Margin = New Padding(3, 4, 3, 4)
@@ -564,7 +563,7 @@ Partial Class Registration
         ' 
         Label14.AutoSize = True
         Label14.BackColor = Color.Transparent
-        Label14.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label14.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label14.ForeColor = Color.Black
         Label14.Location = New Point(29, 589)
         Label14.Name = "Label14"
@@ -581,7 +580,7 @@ Partial Class Registration
         tnBusinessName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnBusinessName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnBusinessName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tnBusinessName.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tnBusinessName.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tnBusinessName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tnBusinessName.Location = New Point(215, 580)
         tnBusinessName.Margin = New Padding(5)
@@ -596,7 +595,7 @@ Partial Class Registration
         ' 
         Label15.AutoSize = True
         Label15.BackColor = Color.Transparent
-        Label15.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label15.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label15.ForeColor = Color.Black
         Label15.Location = New Point(558, 591)
         Label15.Name = "Label15"
@@ -613,7 +612,7 @@ Partial Class Registration
         tbEmployerName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmployerName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbEmployerName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbEmployerName.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbEmployerName.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbEmployerName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbEmployerName.Location = New Point(745, 580)
         tbEmployerName.Margin = New Padding(5)
@@ -628,7 +627,7 @@ Partial Class Registration
         ' 
         Label16.AutoSize = True
         Label16.BackColor = Color.Transparent
-        Label16.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label16.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label16.ForeColor = Color.Black
         Label16.Location = New Point(29, 649)
         Label16.Name = "Label16"
@@ -645,7 +644,7 @@ Partial Class Registration
         tbBusinessNature.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBusinessNature.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbBusinessNature.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbBusinessNature.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbBusinessNature.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbBusinessNature.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbBusinessNature.Location = New Point(215, 637)
         tbBusinessNature.Margin = New Padding(5)
@@ -665,7 +664,7 @@ Partial Class Registration
         tnWorkName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnWorkName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tnWorkName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tnWorkName.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tnWorkName.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tnWorkName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tnWorkName.Location = New Point(745, 637)
         tnWorkName.Margin = New Padding(5)
@@ -680,7 +679,7 @@ Partial Class Registration
         ' 
         Label17.AutoSize = True
         Label17.BackColor = Color.Transparent
-        Label17.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label17.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label17.ForeColor = Color.Black
         Label17.Location = New Point(558, 649)
         Label17.Name = "Label17"
@@ -692,7 +691,7 @@ Partial Class Registration
         ' 
         Label18.AutoSize = True
         Label18.BackColor = Color.Transparent
-        Label18.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label18.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label18.ForeColor = Color.Black
         Label18.Location = New Point(1227, 565)
         Label18.Name = "Label18"
@@ -704,7 +703,7 @@ Partial Class Registration
         ' 
         Label19.AutoSize = True
         Label19.BackColor = Color.Transparent
-        Label19.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label19.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label19.ForeColor = Color.Black
         Label19.Location = New Point(29, 760)
         Label19.Name = "Label19"
@@ -722,7 +721,7 @@ Partial Class Registration
         tbNo.CheckedState.FillColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbNo.CheckedState.InnerColor = Color.White
         tbNo.CheckedState.InnerOffset = -4
-        tbNo.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbNo.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbNo.ForeColor = Color.Black
         tbNo.Location = New Point(0, 12)
         tbNo.Margin = New Padding(3, 4, 3, 4)
@@ -746,7 +745,7 @@ Partial Class Registration
         tbYes.CheckedState.FillColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbYes.CheckedState.InnerColor = Color.White
         tbYes.CheckedState.InnerOffset = -4
-        tbYes.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbYes.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbYes.ForeColor = Color.Black
         tbYes.Location = New Point(58, 12)
         tbYes.Margin = New Padding(3, 4, 3, 4)
@@ -764,7 +763,7 @@ Partial Class Registration
         ' 
         Label20.AutoSize = True
         Label20.BackColor = Color.Transparent
-        Label20.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label20.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label20.ForeColor = Color.Black
         Label20.Location = New Point(618, 765)
         Label20.Name = "Label20"
@@ -781,7 +780,7 @@ Partial Class Registration
         tbRelationshipPol.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationshipPol.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationshipPol.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbRelationshipPol.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbRelationshipPol.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbRelationshipPol.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbRelationshipPol.Location = New Point(745, 755)
         tbRelationshipPol.Margin = New Padding(5)
@@ -796,7 +795,7 @@ Partial Class Registration
         ' 
         Label21.AutoSize = True
         Label21.BackColor = Color.Transparent
-        Label21.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label21.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label21.ForeColor = Color.Black
         Label21.Location = New Point(22, 883)
         Label21.Name = "Label21"
@@ -813,7 +812,7 @@ Partial Class Registration
         tbContactEmergency.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbContactEmergency.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbContactEmergency.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbContactEmergency.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbContactEmergency.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbContactEmergency.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbContactEmergency.Location = New Point(984, 929)
         tbContactEmergency.Margin = New Padding(5)
@@ -828,7 +827,7 @@ Partial Class Registration
         ' 
         Label22.AutoSize = True
         Label22.BackColor = Color.Transparent
-        Label22.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label22.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label22.ForeColor = Color.Black
         Label22.Location = New Point(873, 939)
         Label22.Name = "Label22"
@@ -845,7 +844,7 @@ Partial Class Registration
         tbRelationShipEmergency.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationShipEmergency.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbRelationShipEmergency.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbRelationShipEmergency.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbRelationShipEmergency.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbRelationShipEmergency.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbRelationShipEmergency.Location = New Point(569, 929)
         tbRelationShipEmergency.Margin = New Padding(5)
@@ -860,7 +859,7 @@ Partial Class Registration
         ' 
         Label23.AutoSize = True
         Label23.BackColor = Color.Transparent
-        Label23.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label23.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label23.ForeColor = Color.Black
         Label23.Location = New Point(433, 939)
         Label23.Name = "Label23"
@@ -877,7 +876,7 @@ Partial Class Registration
         tbNameEmergency.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNameEmergency.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbNameEmergency.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbNameEmergency.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbNameEmergency.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbNameEmergency.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbNameEmergency.Location = New Point(105, 928)
         tbNameEmergency.Margin = New Padding(5)
@@ -892,7 +891,7 @@ Partial Class Registration
         ' 
         Label24.AutoSize = True
         Label24.BackColor = Color.Transparent
-        Label24.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label24.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label24.ForeColor = Color.Black
         Label24.Location = New Point(33, 939)
         Label24.Name = "Label24"
@@ -911,7 +910,7 @@ Partial Class Registration
         btnSave.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnSave.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnSave.FillColor = Color.FromArgb(CByte(0), CByte(192), CByte(0))
-        btnSave.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnSave.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnSave.ForeColor = Color.White
         btnSave.Location = New Point(1331, 1059)
         btnSave.Margin = New Padding(3, 4, 3, 4)
@@ -932,7 +931,7 @@ Partial Class Registration
         btnClear.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnClear.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnClear.FillColor = Color.Red
-        btnClear.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnClear.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnClear.ForeColor = Color.White
         btnClear.Location = New Point(22, 1059)
         btnClear.Margin = New Padding(3, 4, 3, 4)
@@ -981,7 +980,7 @@ Partial Class Registration
         ' 
         ' btnAddPhoto
         ' 
-        btnAddPhoto.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnAddPhoto.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnAddPhoto.ForeColor = Color.Black
         btnAddPhoto.Location = New Point(1227, 380)
         btnAddPhoto.Margin = New Padding(3, 4, 3, 4)
@@ -1006,7 +1005,7 @@ Partial Class Registration
         ' 
         ' btnUploadID
         ' 
-        btnUploadID.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnUploadID.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnUploadID.ForeColor = Color.Black
         btnUploadID.Location = New Point(1227, 883)
         btnUploadID.Margin = New Padding(3, 4, 3, 4)
@@ -1018,7 +1017,7 @@ Partial Class Registration
         ' 
         ' btnWebcam
         ' 
-        btnWebcam.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnWebcam.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnWebcam.ForeColor = Color.Black
         btnWebcam.Location = New Point(1227, 427)
         btnWebcam.Margin = New Padding(3, 4, 3, 4)
@@ -1028,21 +1027,9 @@ Partial Class Registration
         btnWebcam.Text = "USE WEBCAM"
         btnWebcam.UseVisualStyleBackColor = True
         ' 
-        ' btnCapture
-        ' 
-        btnCapture.Font = New Font("Segoe UI", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        btnCapture.ForeColor = Color.Black
-        btnCapture.Location = New Point(1229, 477)
-        btnCapture.Margin = New Padding(3, 4, 3, 4)
-        btnCapture.Name = "btnCapture"
-        btnCapture.Size = New Size(227, 40)
-        btnCapture.TabIndex = 60
-        btnCapture.Text = "CAPTURE"
-        btnCapture.UseVisualStyleBackColor = True
-        ' 
         ' cbCamera
         ' 
-        cbCamera.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cbCamera.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbCamera.FormattingEnabled = True
         cbCamera.Location = New Point(1277, 51)
         cbCamera.Name = "cbCamera"
@@ -1053,7 +1040,7 @@ Partial Class Registration
         ' 
         Label26.AutoSize = True
         Label26.BackColor = Color.Transparent
-        Label26.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label26.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label26.ForeColor = Color.Black
         Label26.Location = New Point(1277, 24)
         Label26.Name = "Label26"
@@ -1065,7 +1052,7 @@ Partial Class Registration
         ' 
         Label13.AutoSize = True
         Label13.BackColor = Color.Transparent
-        Label13.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label13.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label13.ForeColor = Color.Black
         Label13.Location = New Point(22, 492)
         Label13.Name = "Label13"
@@ -1110,7 +1097,7 @@ Partial Class Registration
         Guna2ComboBox2.DropDownStyle = ComboBoxStyle.DropDownList
         Guna2ComboBox2.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         Guna2ComboBox2.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        Guna2ComboBox2.Font = New Font("Segoe UI", 10.0F)
+        Guna2ComboBox2.Font = New Font("Segoe UI", 10F)
         Guna2ComboBox2.ForeColor = Color.FromArgb(CByte(68), CByte(88), CByte(112))
         Guna2ComboBox2.ItemHeight = 30
         Guna2ComboBox2.Location = New Point(0, 0)
@@ -1127,7 +1114,7 @@ Partial Class Registration
         Guna2ComboBox1.DropDownStyle = ComboBoxStyle.DropDownList
         Guna2ComboBox1.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         Guna2ComboBox1.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        Guna2ComboBox1.Font = New Font("Segoe UI", 10.0F)
+        Guna2ComboBox1.Font = New Font("Segoe UI", 10F)
         Guna2ComboBox1.ForeColor = Color.FromArgb(CByte(68), CByte(88), CByte(112))
         Guna2ComboBox1.ItemHeight = 30
         Guna2ComboBox1.Location = New Point(0, 0)
@@ -1144,7 +1131,7 @@ Partial Class Registration
         cbIDPresented.DropDownStyle = ComboBoxStyle.DropDownList
         cbIDPresented.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         cbIDPresented.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        cbIDPresented.Font = New Font("Segoe UI", 10.0F)
+        cbIDPresented.Font = New Font("Segoe UI", 10F)
         cbIDPresented.ForeColor = Color.FromArgb(CByte(68), CByte(88), CByte(112))
         cbIDPresented.ItemHeight = 30
         cbIDPresented.Location = New Point(1227, 608)
@@ -1161,7 +1148,7 @@ Partial Class Registration
         cbCivilStatus.DropDownStyle = ComboBoxStyle.DropDownList
         cbCivilStatus.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         cbCivilStatus.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        cbCivilStatus.Font = New Font("Segoe UI", 10.0F)
+        cbCivilStatus.Font = New Font("Segoe UI", 10F)
         cbCivilStatus.ForeColor = Color.FromArgb(CByte(68), CByte(88), CByte(112))
         cbCivilStatus.ItemHeight = 30
         cbCivilStatus.Location = New Point(1000, 325)
@@ -1172,7 +1159,7 @@ Partial Class Registration
         ' 
         ' Registration
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ButtonFace
         Controls.Add(cbCivilStatus)
@@ -1184,7 +1171,6 @@ Partial Class Registration
         Controls.Add(btnWebcam)
         Controls.Add(Label26)
         Controls.Add(cbCamera)
-        Controls.Add(btnCapture)
         Controls.Add(btnUploadID)
         Controls.Add(pbIDpresented)
         Controls.Add(btnAddPhoto)
@@ -1303,7 +1289,6 @@ Partial Class Registration
     Friend WithEvents pbIDpresented As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents btnUploadID As Button
     Friend WithEvents btnWebcam As Button
-    Friend WithEvents btnCapture As Button
     Friend WithEvents cbCamera As ComboBox
     Friend WithEvents Label26 As Label
     Friend WithEvents Label13 As Label

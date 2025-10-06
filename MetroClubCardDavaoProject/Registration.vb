@@ -169,8 +169,18 @@ Public Class Registration
     End Sub
 
     ' -------------------- SAVE --------------------
+    ' 📌 SAVE BUTTON — Only allows save if webcam capture is done
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Try
+            ' 🚫 Check if photo is captured before saving
+            If Not isCaptured OrElse pbCameraDisplay.Image Is Nothing Then
+                MessageBox.Show("Please capture a photo before saving the registration.",
+                            "Photo Required",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning)
+                Return
+            End If
+
             Dim newId As Long
             Dim regId As String = ""
             Dim fullName As String = ""
@@ -179,10 +189,10 @@ Public Class Registration
                 conn.Open()
 
                 Dim query As String =
-                    "INSERT INTO registrations " &
-                    "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
-                    "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
-                    "SELECT last_insert_rowid();"
+                "INSERT INTO registrations " &
+                "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
+                "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
+                "SELECT last_insert_rowid();"
 
                 Using cmd As New SQLiteCommand(query, conn)
                     ' Text fields
@@ -222,7 +232,7 @@ Public Class Registration
                     cmd.Parameters.AddWithValue("@relationshipemergency", tbRelationShipEmergency.Text)
                     cmd.Parameters.AddWithValue("@contactemergency", tbContactEmergency.Text)
 
-                    ' Images
+                    ' ID Image
                     Dim idImageBytes() As Byte = Nothing
                     If pbIDpresented.Image IsNot Nothing Then
                         Using ms As New MemoryStream()
@@ -232,6 +242,7 @@ Public Class Registration
                     End If
                     cmd.Parameters.AddWithValue("@idimage", idImageBytes)
 
+                    ' Captured Photo
                     Dim photoBytes() As Byte = Nothing
                     If pbCameraDisplay.Image IsNot Nothing Then
                         Using ms As New MemoryStream()
@@ -244,8 +255,10 @@ Public Class Registration
                     newId = CLng(cmd.ExecuteScalar())
                 End Using
 
+                ' Create registration code
                 regId = DateTime.Now.ToString("yyyyMMdd") & newId.ToString()
 
+                ' Update registration_id
                 Using updateCmd As New SQLiteCommand("UPDATE registrations SET registration_id=@regid WHERE id=@id", conn)
                     updateCmd.Parameters.AddWithValue("@regid", regId)
                     updateCmd.Parameters.AddWithValue("@id", newId)
@@ -256,11 +269,11 @@ Public Class Registration
             End Using
 
             MessageBox.Show("NEW MEMBER REGISTERED!" & vbCrLf &
-                            "REGISTRATION ID: " & regId & vbCrLf &
-                            "FULL NAME: " & fullName.ToUpper(),
-                            "REGISTRATION SUCCESSFUL",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+                        "REGISTRATION ID: " & regId & vbCrLf &
+                        "FULL NAME: " & fullName.ToUpper(),
+                        "REGISTRATION SUCCESSFUL",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
 
             btnClear_Click(Nothing, Nothing)
 
@@ -269,26 +282,38 @@ Public Class Registration
         End Try
     End Sub
 
+
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-        ' ✅ Clear all textboxes
+        ' ✅ Clear all TextBoxes
         For Each ctrl As Control In Me.Controls
             If TypeOf ctrl Is TextBox Then
                 DirectCast(ctrl, TextBox).Clear()
             End If
         Next
 
-        ' ✅ Reset combo boxes
+        ' ✅ Reset ComboBoxes, EXCEPT cbCamera
         For Each ctrl As Control In Me.Controls
-            If TypeOf ctrl Is ComboBox Then
+            If TypeOf ctrl Is ComboBox AndAlso Not ctrl.Name.Equals("cbCamera") Then
                 DirectCast(ctrl, ComboBox).SelectedIndex = -1
             End If
         Next
 
-        ' ✅ Clear image preview (if you have a PictureBox for photo)
-        If pbCameraDisplay IsNot Nothing Then
-            pbCameraDisplay = Nothing
+        ' ✅ Clear image previews properly
+        If pbCameraDisplay.Image IsNot Nothing Then
+            pbCameraDisplay.Image.Dispose()
+            pbCameraDisplay.Image = Nothing
         End If
+
+        If pbIDpresented.Image IsNot Nothing Then
+            pbIDpresented.Image.Dispose()
+            pbIDpresented.Image = Nothing
+        End If
+
+        ' Reset webcam capture state
+        isCaptured = False
+        btnWebcam.Text = "USE WEBCAM"
     End Sub
+
     Private Sub btnAddPhoto_Click(sender As Object, e As EventArgs) Handles btnAddPhoto.Click
         Using ofd As New OpenFileDialog
             ofd.Title = "Select a Photo"
@@ -362,20 +387,37 @@ Public Class Registration
         End If
     End Sub
 
-    Private Sub btnCapture_Click(sender As Object, e As EventArgs) Handles btnCapture.Click
-        If pbCameraDisplay.Image IsNot Nothing Then
+
+    Private Sub btnCapture_Click(sender As Object, e As EventArgs)
+        If pbCameraDisplay.Image IsNot Nothing AndAlso Not isCaptured Then
             isCaptured = True
+            btnWebcam.Text = "STOP WEBCAM"
             MessageBox.Show("Photo captured!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            ValidateForm()
+            ValidateForm
         End If
     End Sub
 
+
     Private Sub btnWebcam_Click(sender As Object, e As EventArgs) Handles btnWebcam.Click
-        If videoSource Is Nothing OrElse Not videoSource.IsRunning Then
+        If btnWebcam.Text = "USE WEBCAM" Then
+            ' 🟢 Start webcam
             StartWebcam()
-            btnWebcam.Text = "STOP WEBCAM"
-        Else
+            btnWebcam.Text = "CAPTURE"
+
+        ElseIf btnWebcam.Text = "CAPTURE" Then
+            ' 📸 Capture current frame (freeze)
+            If pbCameraDisplay.Image IsNot Nothing Then
+                isCaptured = True
+                btnWebcam.Text = "STOP WEBCAM"
+                MessageBox.Show("Photo captured!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ValidateForm()
+            End If
+
+        ElseIf btnWebcam.Text = "STOP WEBCAM" Then
+            ' 🔴 Stop webcam and reset
             StopWebcam()
+            pbCameraDisplay.Image = Nothing
+            isCaptured = False
             btnWebcam.Text = "USE WEBCAM"
         End If
     End Sub
