@@ -10,24 +10,27 @@ Public Class PlayerLedger
     Private Sub PlayerLedger_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblFullname.Text = FullName
 
-        ' ✅ Match database format exactly: "Saturday, September 27, 2025"
-        lblDateToday.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy")
+        ' ✅ DateTimePicker for DATE selection (instead of fixed lblDateToday)
+        dtpDate.Format = DateTimePickerFormat.Custom
+        dtpDate.CustomFormat = "dddd, MMMM dd, yyyy"
+        dtpDate.Value = DateTime.Now
 
-        ' ✅ Setup DateTimePicker for time selection
+        ' ✅ Setup DateTimePicker for TIME selection
         dtpTime.Format = DateTimePickerFormat.Custom
         dtpTime.CustomFormat = "hh:mm:ss tt"  ' 12-hour format + AM/PM
         dtpTime.ShowUpDown = True
         dtpTime.Value = DateTime.Now
 
+        ' ✅ Transaction types
         cbTransactionType.Items.Clear()
         cbTransactionType.Items.AddRange({"Buy-In", "Cash-Out"})
         cbTransactionType.SelectedIndex = 0
 
+        ' ✅ Payment modes
         cbPaymentMode.Items.Clear()
         cbPaymentMode.Items.AddRange({"Cash", "GCash", "Bank Transfer", "Credit Card"})
         cbPaymentMode.SelectedIndex = 0
     End Sub
-
 
     Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
         Try
@@ -53,6 +56,9 @@ Public Class PlayerLedger
                 Return
             End If
 
+            Dim selectedDate As String = dtpDate.Value.ToString("dddd, MMMM dd, yyyy")
+            Dim selectedTime As String = dtpTime.Value.ToString("hh:mm:ss tt")
+
             Dim dbPath = "metrocarddavaodb.db"
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
@@ -68,16 +74,16 @@ Public Class PlayerLedger
                     End If
                 End Using
 
-                ' ✅ Insert with created_by field
+                ' ✅ Insert with user-chosen date & time
                 Dim sql As String = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_created, time_created, created_by) " &
-                                "VALUES (@regid, @type, @amount, @mode, @date, @time, @createdBy)"
+                                    "VALUES (@regid, @type, @amount, @mode, @date, @time, @createdBy)"
                 Using cmd As New SQLiteCommand(sql, conn)
                     cmd.Parameters.AddWithValue("@regid", RegistrationID)
                     cmd.Parameters.AddWithValue("@type", transactionType)
                     cmd.Parameters.AddWithValue("@amount", amount)
                     cmd.Parameters.AddWithValue("@mode", cbPaymentMode.Text)
-                    cmd.Parameters.AddWithValue("@date", DateTime.Now.ToString("dddd, MMMM dd, yyyy"))
-                    cmd.Parameters.AddWithValue("@time", dtpTime.Value.ToString("hh:mm:ss tt"))
+                    cmd.Parameters.AddWithValue("@date", selectedDate)
+                    cmd.Parameters.AddWithValue("@time", selectedTime)
                     cmd.Parameters.AddWithValue("@createdBy", tbCashierName.Text.Trim())
                     cmd.ExecuteNonQuery()
                 End Using
@@ -92,12 +98,9 @@ Public Class PlayerLedger
         End Try
     End Sub
 
-
-
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.DialogResult = DialogResult.Cancel ' ✅ Notify parent that user canceled
         Me.Close()
     End Sub
-
 
 End Class
