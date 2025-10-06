@@ -14,102 +14,102 @@ Public Class Members
     Dim conn As SQLiteConnection
     Dim dt As DataTable ' Keep DataTable global for filtering
 
-    Public Sub GenerateBackID(memberID As Integer)
-        Dim lastname As String = ""
-        Dim firstname As String = ""
-        Dim middlename As String = ""
-        Dim registrationID As String = ""
-        Dim memberPhoto As Image = Nothing
+    'Public Sub GenerateBackID(memberID As Integer)
+    '    Dim lastname As String = ""
+    '    Dim firstname As String = ""
+    '    Dim middlename As String = ""
+    '    Dim registrationID As String = ""
+    '    Dim memberPhoto As Image = Nothing
 
-        ' 1️⃣ Retrieve data from DB
-        Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
-            conn.Open()
-            Dim sql As String = "SELECT lastname, firstname, middlename, registration_id, photo FROM registrations WHERE id=@id"
-            Using cmd As New SQLiteCommand(sql, conn)
-                cmd.Parameters.AddWithValue("@id", memberID)
-                Using reader = cmd.ExecuteReader()
-                    If reader.Read() Then
-                        lastname = reader("lastname").ToString().Trim().ToUpper()
-                        firstname = reader("firstname").ToString().Trim().ToUpper()
-                        middlename = reader("middlename").ToString().Trim().ToUpper()
-                        registrationID = reader("registration_id").ToString()
+    '    ' 1️⃣ Retrieve data from DB
+    '    Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+    '        conn.Open()
+    '        Dim sql As String = "SELECT lastname, firstname, middlename, registration_id, photo FROM registrations WHERE id=@id"
+    '        Using cmd As New SQLiteCommand(sql, conn)
+    '            cmd.Parameters.AddWithValue("@id", memberID)
+    '            Using reader = cmd.ExecuteReader()
+    '                If reader.Read() Then
+    '                    lastname = reader("lastname").ToString().Trim().ToUpper()
+    '                    firstname = reader("firstname").ToString().Trim().ToUpper()
+    '                    middlename = reader("middlename").ToString().Trim().ToUpper()
+    '                    registrationID = reader("registration_id").ToString()
 
-                        If Not IsDBNull(reader("photo")) Then
-                            Dim photoData As Byte() = DirectCast(reader("photo"), Byte())
-                            Using ms As New MemoryStream(photoData)
-                                memberPhoto = Image.FromStream(ms)
-                            End Using
-                        End If
-                    End If
-                End Using
-            End Using
-        End Using
+    '                    If Not IsDBNull(reader("photo")) Then
+    '                        Dim photoData As Byte() = DirectCast(reader("photo"), Byte())
+    '                        Using ms As New MemoryStream(photoData)
+    '                            memberPhoto = Image.FromStream(ms)
+    '                        End Using
+    '                    End If
+    '                End If
+    '            End Using
+    '        End Using
+    '    End Using
 
-        ' 2️⃣ Create blank C80 back layout (1016 x 638 px at 300 dpi)
-        Dim width As Integer = 1016
-        Dim height As Integer = 638
-        Dim background As New Bitmap(width, height)
-        background.SetResolution(300, 300)
+    '    ' 2️⃣ Create blank C80 back layout (1016 x 638 px at 300 dpi)
+    '    Dim width As Integer = 1016
+    '    Dim height As Integer = 638
+    '    Dim background As New Bitmap(width, height)
+    '    background.SetResolution(300, 300)
 
-        Using g As Graphics = Graphics.FromImage(background)
-            g.SmoothingMode = SmoothingMode.AntiAlias
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic
-            g.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+    '    Using g As Graphics = Graphics.FromImage(background)
+    '        g.SmoothingMode = SmoothingMode.AntiAlias
+    '        g.InterpolationMode = InterpolationMode.HighQualityBicubic
+    '        g.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
 
-            ' 🖤 Black background
-            g.Clear(Color.Black)
+    '        ' 🖤 Black background
+    '        g.Clear(Color.Black)
 
-            ' 🟠 Orange strip near top (behind name)
-            Dim orangeBrush As New SolidBrush(Color.FromArgb(220, 83, 44))
-            Dim stripRect As New Rectangle(0, 180, width, 100)
-            g.FillRectangle(orangeBrush, stripRect)
+    '        ' 🟠 Orange strip near top (behind name)
+    '        Dim orangeBrush As New SolidBrush(Color.FromArgb(220, 83, 44))
+    '        Dim stripRect As New Rectangle(0, 180, width, 100)
+    '        g.FillRectangle(orangeBrush, stripRect)
 
-            ' 🖼 Photo (Top-left)
-            If memberPhoto IsNot Nothing Then
-                Dim photoRect As New Rectangle(60, 160, 200, 200)
-                g.DrawImage(memberPhoto, photoRect)
-                g.DrawRectangle(New Pen(Color.White, 3), photoRect)
-            End If
+    '        ' 🖼 Photo (Top-left)
+    '        If memberPhoto IsNot Nothing Then
+    '            Dim photoRect As New Rectangle(60, 160, 200, 200)
+    '            g.DrawImage(memberPhoto, photoRect)
+    '            g.DrawRectangle(New Pen(Color.White, 3), photoRect)
+    '        End If
 
-            ' ✍ Full Name (Top-right on orange strip)
-            Dim fullName As String = $"{lastname}, {firstname} {middlename}".Trim()
-            Dim fontName As New Font("Arial", 28, FontStyle.Bold)
-            Dim whiteBrush As New SolidBrush(Color.White)
-            g.DrawString(fullName, fontName, whiteBrush, 300, 200)
+    '        ' ✍ Full Name (Top-right on orange strip)
+    '        Dim fullName As String = $"{lastname}, {firstname} {middlename}".Trim()
+    '        Dim fontName As New Font("Arial", 28, FontStyle.Bold)
+    '        Dim whiteBrush As New SolidBrush(Color.White)
+    '        g.DrawString(fullName, fontName, whiteBrush, 300, 200)
 
-            ' 📄 Registration ID (Top-right corner)
-            Dim fontSmall As New Font("Arial", 14, FontStyle.Regular)
-            Dim regSize = g.MeasureString(registrationID, fontSmall)
-            g.DrawString(registrationID, fontSmall, whiteBrush, width - regSize.Width - 20, 20)
+    '        ' 📄 Registration ID (Top-right corner)
+    '        Dim fontSmall As New Font("Arial", 14, FontStyle.Regular)
+    '        Dim regSize = g.MeasureString(registrationID, fontSmall)
+    '        g.DrawString(registrationID, fontSmall, whiteBrush, width - regSize.Width - 20, 20)
 
-            ' 🌐 Website + Terms (Bottom-left)
-            Dim fontBottom As New Font("Arial", 16, FontStyle.Regular)
-            g.DrawString("Terms and conditions apply.", fontBottom, whiteBrush, 60, height - 120)
-            g.DrawString("www.metrocardclub.com", fontBottom, whiteBrush, 60, height - 90)
-            g.DrawString("Customer Service: (+63) 917-532-3063", fontBottom, whiteBrush, 60, height - 60)
+    '        ' 🌐 Website + Terms (Bottom-left)
+    '        Dim fontBottom As New Font("Arial", 16, FontStyle.Regular)
+    '        g.DrawString("Terms and conditions apply.", fontBottom, whiteBrush, 60, height - 120)
+    '        g.DrawString("www.metrocardclub.com", fontBottom, whiteBrush, 60, height - 90)
+    '        g.DrawString("Customer Service: (+63) 917-532-3063", fontBottom, whiteBrush, 60, height - 60)
 
-            ' 🧾 Barcode (Bottom-center on white strip)
-            Dim barcodeDraw = BarcodeDrawFactory.Code128WithChecksum
-            Dim barcodeImg As Image = barcodeDraw.Draw(registrationID, 50)
-            Dim barcodeX As Integer = (width - barcodeImg.Width) \ 2
-            Dim barcodeY As Integer = height - barcodeImg.Height - 10
-            Dim whiteStripRect As New Rectangle(barcodeX - 10, barcodeY - 5, barcodeImg.Width + 20, barcodeImg.Height + 10)
-            g.FillRectangle(Brushes.White, whiteStripRect)
-            g.DrawImage(barcodeImg, barcodeX, barcodeY)
-        End Using
+    '        ' 🧾 Barcode (Bottom-center on white strip)
+    '        Dim barcodeDraw = BarcodeDrawFactory.Code128WithChecksum
+    '        Dim barcodeImg As Image = barcodeDraw.Draw(registrationID, 50)
+    '        Dim barcodeX As Integer = (width - barcodeImg.Width) \ 2
+    '        Dim barcodeY As Integer = height - barcodeImg.Height - 10
+    '        Dim whiteStripRect As New Rectangle(barcodeX - 10, barcodeY - 5, barcodeImg.Width + 20, barcodeImg.Height + 10)
+    '        g.FillRectangle(Brushes.White, whiteStripRect)
+    '        g.DrawImage(barcodeImg, barcodeX, barcodeY)
+    '    End Using
 
-        ' 3️⃣ Let user choose where to save the image
-        Using sfd As New SaveFileDialog()
-            sfd.Title = "Save Back ID Image"
-            sfd.Filter = "PNG Image|*.png"
-            sfd.FileName = $"ID_Back_{registrationID}.png"
+    '    ' 3️⃣ Let user choose where to save the image
+    '    Using sfd As New SaveFileDialog()
+    '        sfd.Title = "Save Back ID Image"
+    '        sfd.Filter = "PNG Image|*.png"
+    '        sfd.FileName = $"ID_Back_{registrationID}.png"
 
-            If sfd.ShowDialog() = DialogResult.OK Then
-                background.Save(sfd.FileName, ImageFormat.Png)
-                MessageBox.Show($"✅ Back ID saved to: {sfd.FileName}", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            End If
-        End Using
-    End Sub
+    '        If sfd.ShowDialog() = DialogResult.OK Then
+    '            background.Save(sfd.FileName, ImageFormat.Png)
+    '            MessageBox.Show($"✅ Back ID saved to: {sfd.FileName}", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    '        End If
+    '    End Using
+    'End Sub
     Private Sub Members_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dgvRegistrations.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         Dim dbPath As String = "metrocarddavaodb.db"
@@ -620,15 +620,74 @@ Public Class Members
     End Sub
 
     Private Sub btnPrintMember_Click(sender As Object, e As EventArgs) Handles btnPrintMember.Click
-        If dgvRegistrations.SelectedRows.Count = 0 Then
-            MessageBox.Show("Please select a member first.")
-            Return
-        End If
+        Try
+            ' ✅ Check if a row is selected
+            If dgvRegistrations.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a member first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
 
-        Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
-        If selectedRowView Is Nothing Then Return
+            ' ✅ Get selected data
+            Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+            If selectedRowView Is Nothing Then Exit Sub
 
-        Dim memberID As Integer = selectedRowView.Row("id")
-        GenerateBackID(memberID)
+            Dim selectedRow = selectedRowView.Row
+
+            ' ✅ Format and convert name to ALL CAPS: LASTNAME, FIRSTNAME MIDDLENAME
+            Dim memberName As String = $"{selectedRow("lastname")}, {selectedRow("firstname")} {selectedRow("middlename")}".ToUpper()
+
+            Dim registrationID As String = selectedRow("registration_id").ToString()
+
+            ' ✅ Load photo from DB (or from grid if already loaded)
+            Dim memberPhoto As Image = Nothing
+            If Not IsDBNull(selectedRow("photo")) Then
+                Dim photoData = DirectCast(selectedRow("photo"), Byte())
+                Using ms As New MemoryStream(photoData)
+                    memberPhoto = Image.FromStream(ms)
+                End Using
+            End If
+
+            ' ✅ Show overlay
+            Dim overlay As New OverlayForm(Me.FindForm)
+            overlay.Show()
+            overlay.Refresh()
+
+            ' ✅ Create popup
+            Dim frm As New Form With {
+                .Text = "ID Printing Preview",
+                .StartPosition = FormStartPosition.CenterScreen,
+                .FormBorderStyle = FormBorderStyle.FixedDialog,
+                .MaximizeBox = False,
+                .MinimizeBox = False,
+                .Size = New Size(800, 500),
+                .ShowInTaskbar = False
+            }
+
+            ' ✅ Create UserControl and assign values
+            Dim idPrintingControl As New IDPrinting() With {
+                .Dock = DockStyle.Fill,
+                .MemberName = memberName,
+                .MemberID = registrationID,
+                .MemberPhoto = memberPhoto
+            }
+
+            frm.Controls.Add(idPrintingControl)
+
+            ' ✅ Show modal dialog
+            frm.ShowDialog()
+
+            ' ✅ Close overlay
+            overlay.Close()
+            overlay.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("Error opening ID Printing: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
+
+
+
+
+
+
 End Class
