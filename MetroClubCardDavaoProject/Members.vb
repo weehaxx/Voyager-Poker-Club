@@ -536,7 +536,21 @@ Public Class Members
 
 
     Private Sub dgvRegistrations_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRegistrations.CellContentClick
+        If e.RowIndex >= 0 Then
+            ' Clear default selection highlight
+            dgvRegistrations.ClearSelection()
 
+            ' Reset all rows to default colors
+            For Each row As DataGridViewRow In dgvRegistrations.Rows
+                row.DefaultCellStyle.BackColor = Color.White
+                row.DefaultCellStyle.ForeColor = Color.Black
+            Next
+
+            ' Apply dark blue to the selected row
+            Dim selectedRow As DataGridViewRow = dgvRegistrations.Rows(e.RowIndex)
+            selectedRow.DefaultCellStyle.BackColor = Color.DarkBlue
+            selectedRow.DefaultCellStyle.ForeColor = Color.White
+        End If
     End Sub
 
     Private Sub btnPrintMember_Click(sender As Object, e As EventArgs) Handles btnPrintMember.Click
