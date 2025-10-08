@@ -453,6 +453,7 @@ Public Class Registration
 
     End Sub
 
+    ' ✅ Mobile Number: Max 11 digits
     Private Sub tbMobileNumber_TextChanged(sender As Object, e As EventArgs) Handles tbMobileNumber.TextChanged
         If tbMobileNumber.Text.Length > 11 Then
             tbMobileNumber.Text = tbMobileNumber.Text.Substring(0, 11)
@@ -460,10 +461,24 @@ Public Class Registration
         End If
     End Sub
 
+    Private Sub tbMobileNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbMobileNumber.KeyPress
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    ' ✅ Emergency Contact: Max 11 digits
     Private Sub tbContactEmergency_TextChanged(sender As Object, e As EventArgs) Handles tbContactEmergency.TextChanged
         If tbContactEmergency.Text.Length > 11 Then
             tbContactEmergency.Text = tbContactEmergency.Text.Substring(0, 11)
             tbContactEmergency.SelectionStart = tbContactEmergency.Text.Length
         End If
     End Sub
+
+    Private Sub tbContactEmergency_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbContactEmergency.KeyPress
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
 End Class

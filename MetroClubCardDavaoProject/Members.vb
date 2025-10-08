@@ -74,45 +74,41 @@ Public Class Members
         Try
             conn.Open()
 
+            ' ✅ Include registration_id in the SELECT
             Dim sql As String =
-            "SELECT id, lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, businessnature, employername, workname, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, photo " &
-            "FROM registrations"
+        "SELECT id, registration_id, lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, businessnature, employername, workname, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, photo " &
+        "FROM registrations"
 
             Dim da As New SQLiteDataAdapter(sql, conn)
             dt = New DataTable()
             da.Fill(dt)
 
-            ' ✅ Add computed columns if missing
-            If Not dt.Columns.Contains("registration_id") Then
-                dt.Columns.Add("registration_id", GetType(String))
-            End If
+            ' ✅ Add computed column for fullname only if missing
             If Not dt.Columns.Contains("fullname") Then
                 dt.Columns.Add("fullname", GetType(String))
             End If
 
-            ' ✅ Fill computed columns
+            ' ✅ Fill computed fullname based on existing columns
             For Each row As DataRow In dt.Rows
-                Dim rawId As Integer = Convert.ToInt32(row("id"))
-                Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & rawId.ToString()
-                row("registration_id") = regId
-
-                ' Format full name: LASTNAME, FIRSTNAME MIDDLENAME (UPPERCASE)
                 Dim lname As String = If(IsDBNull(row("lastname")), "", row("lastname").ToString())
                 Dim fname As String = If(IsDBNull(row("firstname")), "", row("firstname").ToString())
                 Dim mname As String = If(IsDBNull(row("middlename")), "", row("middlename").ToString())
                 row("fullname") = $"{lname}, {fname} {mname}".ToUpper().Trim()
             Next
 
-            ' ✅ Only show ID and Name columns
+            ' ✅ Bind DataTable to DataGridView
             dgvRegistrations.DataSource = dt
+
+            ' ✅ Hide all columns first
             For Each col As DataGridViewColumn In dgvRegistrations.Columns
                 col.Visible = False
             Next
 
+            ' ✅ Show only registration_id and fullname
             dgvRegistrations.Columns("registration_id").Visible = True
             dgvRegistrations.Columns("fullname").Visible = True
 
-            ' ✅ Set headers
+            ' ✅ Set column headers
             dgvRegistrations.Columns("registration_id").HeaderText = "ID"
             dgvRegistrations.Columns("fullname").HeaderText = "FULL NAME"
 
@@ -120,7 +116,7 @@ Public Class Members
             dgvRegistrations.AutoResizeColumns()
             dgvRegistrations.AutoResizeColumnHeadersHeight()
 
-            ' ✅ Clear auto selection
+            ' ✅ Clear selection settings
             dgvRegistrations.ClearSelection()
             dgvRegistrations.CurrentCell = Nothing
             dgvRegistrations.SelectionMode = DataGridViewSelectionMode.FullRowSelect
@@ -131,6 +127,7 @@ Public Class Members
             MessageBox.Show("Error loading registrations: " & ex.Message)
         End Try
     End Sub
+
 
 
 
