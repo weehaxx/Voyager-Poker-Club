@@ -89,7 +89,7 @@ Public Class Registration
             ' Load dropdowns
             cbIDPresented.Items.AddRange(New String() {
                 "Philippine Passport", "Driver’s License", "SSS ID", "Postal ID",
-                "Voter’s ID", "PRC ID", "National ID", "Company ID", "Senior Citizen ID"
+                "Voter’s ID", "PRC ID", "National ID", "Company ID", "Senior Citizen ID", "Other..."
             })
 
             cbCivilStatus.Items.AddRange(New String() {
@@ -99,11 +99,29 @@ Public Class Registration
             MessageBox.Show("Error initializing: " & ex.Message)
         End Try
     End Sub
+    Private Sub cbIDPresented_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbIDPresented.SelectedIndexChanged
+        If cbIDPresented.SelectedItem IsNot Nothing AndAlso cbIDPresented.SelectedItem.ToString() = "Other..." Then
+            Dim customID As String = InputBox("Please specify the type of ID:", "Other ID Type")
+
+            If Not String.IsNullOrWhiteSpace(customID) Then
+                ' Add new ID type dynamically if not already in the list
+                If Not cbIDPresented.Items.Contains(customID) Then
+                    cbIDPresented.Items.Insert(cbIDPresented.Items.Count - 1, customID)
+                End If
+
+                cbIDPresented.SelectedItem = customID
+            Else
+                ' If user cancels or leaves blank, reset selection
+                cbIDPresented.SelectedIndex = -1
+            End If
+        End If
+    End Sub
+
 
     ' -------------------- VALIDATION --------------------
     Private Sub ValidateForm()
         Dim mobileValid As Boolean = IsNumeric(tbMobileNumber.Text) AndAlso tbMobileNumber.Text.Trim() <> ""
-        Dim contactValid As Boolean = IsNumeric(tbContactEmergency.Text) AndAlso tbContactEmergency.Text.Trim() <> ""
+        Dim contactValid As Boolean = tbContactEmergency.Text.Trim() <> "" ' ✅ allow any number length
 
         Dim allFieldsFilled As Boolean =
             Not String.IsNullOrWhiteSpace(tbLastName.Text) AndAlso
@@ -138,7 +156,6 @@ Public Class Registration
         End If
 
         If tbMobileNumber.Text.Length <> 11 Then allFieldsFilled = False
-        If tbContactEmergency.Text.Length <> 11 Then allFieldsFilled = False
 
         btnSave.Enabled = allFieldsFilled
     End Sub
@@ -322,20 +339,50 @@ Public Class Registration
         End Try
     End Sub
     Private Sub ClearForm()
-        For Each ctrl As Control In Me.Controls
-            If TypeOf ctrl Is TextBox Then
-                DirectCast(ctrl, TextBox).Clear()
-            ElseIf TypeOf ctrl Is ComboBox Then
-                DirectCast(ctrl, ComboBox).SelectedIndex = -1
-            ElseIf TypeOf ctrl Is PictureBox Then
-                DirectCast(ctrl, PictureBox).Image = Nothing
-            ElseIf TypeOf ctrl Is RadioButton Then
-                DirectCast(ctrl, RadioButton).Checked = False
-            End If
-        Next
+        ' Recursively clear all input controls (including nested)
+        ClearAllControls(Me)
+
+        ' Reset other flags or buttons
         btnSave.Enabled = False
         isCaptured = False
+
+        ' Optional: reset DateTimePickers to today
+        For Each dtp As DateTimePicker In Me.Controls.OfType(Of DateTimePicker)()
+            dtp.Value = DateTime.Now
+        Next
     End Sub
+
+    ' 🧩 Recursive helper — handles nested containers (Panels, GroupBoxes, Guna2GroupBoxes, etc.)
+    Private Sub ClearAllControls(parent As Control)
+        For Each ctrl As Control In parent.Controls
+            Select Case True
+                Case TypeOf ctrl Is TextBox
+                    DirectCast(ctrl, TextBox).Clear()
+
+                Case TypeOf ctrl Is ComboBox
+                    DirectCast(ctrl, ComboBox).SelectedIndex = -1
+
+                Case TypeOf ctrl Is PictureBox
+                    DirectCast(ctrl, PictureBox).Image = Nothing
+
+                Case TypeOf ctrl Is RadioButton
+                    DirectCast(ctrl, RadioButton).Checked = False
+
+                Case TypeOf ctrl Is CheckBox
+                    DirectCast(ctrl, CheckBox).Checked = False
+
+                Case TypeOf ctrl Is DateTimePicker
+                    DirectCast(ctrl, DateTimePicker).Value = DateTime.Now
+
+                Case Else
+                    ' Recursively process child containers
+                    If ctrl.HasChildren Then
+                        ClearAllControls(ctrl)
+                    End If
+            End Select
+        Next
+    End Sub
+
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         ' 🧼 Clear all controls recursively starting from the form
@@ -522,18 +569,30 @@ Public Class Registration
         End If
     End Sub
 
-    ' ✅ Emergency Contact: Max 11 digits
-    Private Sub tbContactEmergency_TextChanged(sender As Object, e As EventArgs) Handles tbContactEmergency.TextChanged
-        If tbContactEmergency.Text.Length > 11 Then
-            tbContactEmergency.Text = tbContactEmergency.Text.Substring(0, 11)
-            tbContactEmergency.SelectionStart = tbContactEmergency.Text.Length
-        End If
-    End Sub
-
+    ' ✅ Allow only digits
     Private Sub tbContactEmergency_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tbContactEmergency.KeyPress
-        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
+        ' Allow: digits and control keys (backspace, delete, etc.)
+        If Not (Char.IsDigit(e.KeyChar) OrElse Char.IsControl(e.KeyChar)) Then
             e.Handled = True
         End If
     End Sub
+
+    Private Sub tbContactEmergency_TextChanged(sender As Object, e As EventArgs) Handles tbContactEmergency.TextChanged
+        ' Keep only digits
+        Dim filtered As String = ""
+        For Each ch As Char In tbContactEmergency.Text
+            If Char.IsDigit(ch) Then
+                filtered &= ch
+            End If
+        Next
+
+        ' If any invalid characters were removed, update the text
+        If tbContactEmergency.Text <> filtered Then
+            Dim selStart As Integer = tbContactEmergency.SelectionStart
+            tbContactEmergency.Text = filtered
+            tbContactEmergency.SelectionStart = Math.Min(selStart, tbContactEmergency.Text.Length)
+        End If
+    End Sub
+
 
 End Class
