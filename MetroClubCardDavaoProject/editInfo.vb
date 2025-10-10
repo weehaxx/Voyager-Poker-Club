@@ -8,10 +8,29 @@ Public Class EditInfo
 
     Private isDirty As Boolean = False ' Track changes
 
+    ' ✅ Safe database path inside AppData
+    Private ReadOnly dbPath As String = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "MetroCardClubDavao",
+        "metrocarddavaodb.db"
+    )
+
     Private Sub EditInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            ' ✅ Load member data from database based on SelectedMemberID
-            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+            ' Ensure folder exists
+            Dim dbFolder As String = Path.GetDirectoryName(dbPath)
+            If Not Directory.Exists(dbFolder) Then
+                Directory.CreateDirectory(dbFolder)
+            End If
+
+            If Not File.Exists(dbPath) Then
+                MessageBox.Show("Database file not found at: " & dbPath,
+                                "Database Missing", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            ' ✅ Load member data
+            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
                 Dim query As String = "SELECT * FROM registrations WHERE id=@id"
@@ -20,7 +39,6 @@ Public Class EditInfo
 
                     Using reader As SQLiteDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
-                            ' Fill your edit fields here
                             tbLastName.Text = reader("lastname").ToString()
                             tbFirstName.Text = reader("firstname").ToString()
                             tbMiddleName.Text = reader("middlename").ToString()
@@ -75,23 +93,20 @@ Public Class EditInfo
                 End Using
             End Using
 
-            ' Disable save until changes are made
             btnSave.Enabled = False
-
-            ' Attach change tracking event handlers
             AddHandlerForAllInputs(Me)
+
         Catch ex As Exception
             MessageBox.Show("Error loading member info for edit: " & ex.Message)
         End Try
     End Sub
 
-    ' 🔄 Detect changes and enable Save button
+    ' 🔄 Detect changes
     Private Sub Control_Changed(sender As Object, e As EventArgs)
         isDirty = True
         btnSave.Enabled = True
     End Sub
 
-    ' Attach change detection to all textboxes, comboboxes, etc.
     Private Sub AddHandlerForAllInputs(ctrl As Control)
         For Each c As Control In ctrl.Controls
             If TypeOf c Is TextBox Then
@@ -102,53 +117,40 @@ Public Class EditInfo
                 AddHandler DirectCast(c, RadioButton).CheckedChanged, AddressOf Control_Changed
             End If
 
-            If c.HasChildren Then
-                AddHandlerForAllInputs(c)
-            End If
+            If c.HasChildren Then AddHandlerForAllInputs(c)
         Next
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         If isDirty Then
             Dim result = MessageBox.Show("You have unsaved changes. Are you sure you want to cancel?",
-                                         "Confirm Cancel",
-                                         MessageBoxButtons.YesNo,
-                                         MessageBoxIcon.Warning)
-
-            If result = DialogResult.No Then
-                Return
-            End If
+                                         "Confirm Cancel", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            If result = DialogResult.No Then Return
         End If
-
         CloseEditInfo()
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-
         Dim confirmResult As DialogResult = MessageBox.Show(
             "Are you sure you want to save these changes?",
-            "Confirm Save",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Question
-        )
+            "Confirm Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-        If confirmResult = DialogResult.No Then
-            Exit Sub ' ❌ Cancel saving if user clicked No
-        End If
+        If confirmResult = DialogResult.No Then Exit Sub
 
         Try
-            ' ✅ Perform update in database
-            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
-                Dim query As String = "UPDATE registrations SET " &
+                Dim query As String =
+                    "UPDATE registrations SET " &
                     "lastname=@lastname, firstname=@firstname, middlename=@middlename, " &
                     "presentaddress=@presentaddress, permanentaddress=@permanentaddress, " &
                     "email=@email, mobilenumber=@mobilenumber, birthday=@birthday, " &
                     "birthplace=@birthplace, civilstatus=@civilstatus, nationality=@nationality, " &
-                    "alternativename=@alternativename, presentedid=@presentedid, " & ' ✅ New fields
+                    "alternativename=@alternativename, presentedid=@presentedid, " &
                     "employmentstatus=@employmentstatus, businessname=@businessname, businessnature=@businessnature, " &
-                    "employername=@employername, workname=@workname, polmember=@polmember, relationshippol=@relationshippol, " &
+                    "employername=@employername, workname=@workname, " &
+                    "polmember=@polmember, relationshippol=@relationshippol, " &
                     "nameemergency=@nameemergency, relationshipemergency=@relationshipemergency, contactemergency=@contactemergency " &
                     "WHERE id=@id"
 
@@ -165,7 +167,6 @@ Public Class EditInfo
                     cmd.Parameters.AddWithValue("@civilstatus", tbCivilStatus.Text)
                     cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
 
-                    ' ✅ New fields
                     cmd.Parameters.AddWithValue("@alternativename", tbAlternativeName.Text)
                     cmd.Parameters.AddWithValue("@presentedid", tbPresentedID.Text)
 
@@ -188,15 +189,14 @@ Public Class EditInfo
                     cmd.Parameters.AddWithValue("@contactemergency", tbContactEmergency.Text)
 
                     cmd.Parameters.AddWithValue("@id", SelectedMemberID)
-
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
 
-            MessageBox.Show("Member information updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            isDirty = False
+            MessageBox.Show("Member information updated successfully!", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' ✅ Close the control after saving
+            isDirty = False
             CloseEditInfo()
 
         Catch ex As Exception
@@ -205,62 +205,46 @@ Public Class EditInfo
     End Sub
 
     Private Sub CloseEditInfo()
-        ' ✅ If inside a Form, close the form
         If TypeOf Me.Parent Is Form Then
             Me.FindForm().Close()
         Else
-            ' ✅ If inside a Panel (common for UserControl), remove it and hide panel
             Dim parentPanel As Control = Me.Parent
             Me.Parent.Controls.Remove(Me)
             Me.Dispose()
-
-            If TypeOf parentPanel Is Panel Then
-                parentPanel.Visible = False
-            End If
+            If TypeOf parentPanel Is Panel Then parentPanel.Visible = False
         End If
     End Sub
 
     Private Sub rbEmployed_CheckedChanged(sender As Object, e As EventArgs) Handles rbEmployed.CheckedChanged
         If rbEmployed.Checked Then
-            ' Enable Employed fields
             tbEmployerName.Enabled = True
             tnWorkName.Enabled = True
-
-            ' Disable + clear Self-employed fields
             tnBusinessName.Enabled = False
             tbBusinessNature.Enabled = False
             tnBusinessName.Clear()
             tbBusinessNature.Clear()
         Else
-            ' If unchecked, also clear its own fields
             tbEmployerName.Clear()
             tnWorkName.Clear()
             tbEmployerName.Enabled = False
             tnWorkName.Enabled = False
         End If
-
     End Sub
 
     Private Sub rbSelfEmployed_CheckedChanged(sender As Object, e As EventArgs) Handles rbSelfEmployed.CheckedChanged
         If rbSelfEmployed.Checked Then
-            ' Enable Self-employed fields
             tnBusinessName.Enabled = True
             tbBusinessNature.Enabled = True
-
-            ' Disable + clear Employed fields
             tbEmployerName.Enabled = False
             tnWorkName.Enabled = False
             tbEmployerName.Clear()
             tnWorkName.Clear()
         Else
-            ' If unchecked, also clear its own fields
             tnBusinessName.Clear()
             tbBusinessNature.Clear()
             tnBusinessName.Enabled = False
             tbBusinessNature.Enabled = False
         End If
-
     End Sub
-
 
 End Class

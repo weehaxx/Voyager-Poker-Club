@@ -13,19 +13,66 @@ Public Class Registration
     Private isCaptured As Boolean = False ' ✅ track if capture was pressed
 
     Private Sub Registration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim dbPath As String = "metrocarddavaodb.db"
-        conn = New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
-        tbRelationshipPol.Enabled = False
-        btnSave.Enabled = False ' Start disabled
-
-        ' Disable job fields initially
-        tnBusinessName.Enabled = False
-        tbBusinessNature.Enabled = False
-        tbEmployerName.Enabled = False
-        tnWorkName.Enabled = False
-
-        ' Load webcams into ComboBox
         Try
+            ' ✅ Safe database path (AppData folder)
+            Dim dbFolder As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MetroCardClubDavao")
+            Directory.CreateDirectory(dbFolder)
+            Dim dbPath As String = Path.Combine(dbFolder, "metrocarddavaodb.db")
+
+            conn = New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
+            conn.Open()
+
+            ' ✅ Enable Write-Ahead Logging for safety
+            Using pragmaCmd As New SQLiteCommand("PRAGMA journal_mode = WAL;", conn)
+                pragmaCmd.ExecuteNonQuery()
+            End Using
+
+            ' ✅ Auto-create table if it doesn’t exist
+            Dim createTableSQL As String = "
+                CREATE TABLE IF NOT EXISTS registrations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    registration_id TEXT,
+                    lastname TEXT,
+                    firstname TEXT,
+                    middlename TEXT,
+                    alternativename TEXT,
+                    presentaddress TEXT,
+                    permanentaddress TEXT,
+                    birthday TEXT,
+                    birthplace TEXT,
+                    civilstatus TEXT,
+                    nationality TEXT,
+                    email TEXT,
+                    mobilenumber TEXT,
+                    employmentstatus TEXT,
+                    businessname TEXT,
+                    employername TEXT,
+                    businessnature TEXT,
+                    workname TEXT,
+                    presentedid TEXT,
+                    polmember TEXT,
+                    relationshippol TEXT,
+                    nameemergency TEXT,
+                    relationshipemergency TEXT,
+                    contactemergency TEXT,
+                    idimage BLOB,
+                    photo BLOB
+                );"
+            Using cmd As New SQLiteCommand(createTableSQL, conn)
+                cmd.ExecuteNonQuery()
+            End Using
+
+            conn.Close()
+
+            ' UI setup
+            tbRelationshipPol.Enabled = False
+            btnSave.Enabled = False
+            tnBusinessName.Enabled = False
+            tbBusinessNature.Enabled = False
+            tbEmployerName.Enabled = False
+            tnWorkName.Enabled = False
+
+            ' Load webcams
             videoDevices = New FilterInfoCollection(FilterCategory.VideoInputDevice)
             cbCamera.Items.Clear()
             For Each cam As FilterInfo In videoDevices
@@ -38,36 +85,19 @@ Public Class Registration
                 cbCamera.SelectedIndex = 0
                 btnWebcam.Enabled = False
             End If
+
+            ' Load dropdowns
+            cbIDPresented.Items.AddRange(New String() {
+                "Philippine Passport", "Driver’s License", "SSS ID", "Postal ID",
+                "Voter’s ID", "PRC ID", "National ID", "Company ID", "Senior Citizen ID"
+            })
+
+            cbCivilStatus.Items.AddRange(New String() {
+                "Single", "Married", "Widowed", "Divorced", "Separated", "Annulled"
+            })
         Catch ex As Exception
-            MessageBox.Show("Error loading cameras: " & ex.Message)
+            MessageBox.Show("Error initializing: " & ex.Message)
         End Try
-
-        ' Load ID options into ComboBox
-        cbIDPresented.Items.Clear()
-        cbIDPresented.Items.AddRange(New String() {
-            "Philippine Passport",
-            "Driver’s License",
-            "SSS ID",
-            "Postal ID",
-            "Voter’s ID",
-            "PRC ID",
-            "National ID",
-            "Company ID",
-            "Senior Citizen ID"
-        })
-        cbIDPresented.SelectedIndex = -1 ' none selected
-
-        cbCivilStatus.Items.Clear()
-        cbCivilStatus.Items.AddRange(New String() {
-            "Single",
-            "Married",
-            "Widowed",
-            "Divorced",
-            "Separated",
-            "Annulled"
-        })
-        cbCivilStatus.SelectedIndex = -1 ' none selected
-
     End Sub
 
     ' -------------------- VALIDATION --------------------
@@ -172,114 +202,139 @@ Public Class Registration
     ' 📌 SAVE BUTTON — Only allows save if webcam capture is done
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Try
-            ' ✅ Check if photo is captured OR uploaded before saving
+            ' 🧱 Validate
             If pbCameraDisplay.Image Is Nothing Then
-                MessageBox.Show("Please capture or upload a photo before saving the registration.",
-                            "Photo Required",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning)
+                MessageBox.Show("Please capture or upload a photo before saving.")
                 Return
             End If
 
-            Dim newId As Long
-            Dim regId As String = ""
-            Dim fullName As String = ""
+            ' ✅ Safe DB path
+            Dim dbPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MetroCardClubDavao", "metrocarddavaodb.db")
 
-            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+            ' ✅ Create backup before writing
+            Dim backupPath As String = dbPath & ".bak"
+            If File.Exists(dbPath) Then
+                File.Copy(dbPath, backupPath, True)
+            End If
+
+            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
-                Dim query As String =
-            "INSERT INTO registrations " &
-            "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency, idimage, photo) " &
-            "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency, @idimage, @photo); " &
-            "SELECT last_insert_rowid();"
-
-                Using cmd As New SQLiteCommand(query, conn)
-                    ' Text fields
-                    cmd.Parameters.AddWithValue("@lastname", tbLastName.Text)
-                    cmd.Parameters.AddWithValue("@firstname", tbFirstName.Text)
-                    cmd.Parameters.AddWithValue("@middlename", tbMiddleName.Text)
-                    cmd.Parameters.AddWithValue("@alternativename", tbAlternativeName.Text)
-                    cmd.Parameters.AddWithValue("@presentaddress", tbPresentAddress.Text)
-                    cmd.Parameters.AddWithValue("@permanentaddress", tbPermanentAddress.Text)
-                    cmd.Parameters.AddWithValue("@birthday", dtpBirthday.Value.ToString("yyyy-MM-dd"))
-                    cmd.Parameters.AddWithValue("@birthplace", tbBirthPlace.Text)
-                    cmd.Parameters.AddWithValue("@civilstatus", cbCivilStatus.Text)
-                    cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
-                    cmd.Parameters.AddWithValue("@email", tbEmail.Text)
-                    cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
-
-                    ' Employment
-                    If rbSelfEmployed.Checked Then
-                        cmd.Parameters.AddWithValue("@employmentstatus", "Self-Employed")
-                    ElseIf rbEmployed.Checked Then
-                        cmd.Parameters.AddWithValue("@employmentstatus", "Employed")
-                    Else
-                        cmd.Parameters.AddWithValue("@employmentstatus", "")
-                    End If
-                    cmd.Parameters.AddWithValue("@businessname", tnBusinessName.Text)
-                    cmd.Parameters.AddWithValue("@employername", tbEmployerName.Text)
-                    cmd.Parameters.AddWithValue("@businessnature", tbBusinessNature.Text)
-                    cmd.Parameters.AddWithValue("@workname", tnWorkName.Text)
-
-                    ' ID & Police
-                    cmd.Parameters.AddWithValue("@presentedid", cbIDPresented.Text)
-                    cmd.Parameters.AddWithValue("@polmember", If(tbYes.Checked, "Yes", "No"))
-                    cmd.Parameters.AddWithValue("@relationshippol", tbRelationshipPol.Text)
-
-                    ' Emergency
-                    cmd.Parameters.AddWithValue("@nameemergency", tbNameEmergency.Text)
-                    cmd.Parameters.AddWithValue("@relationshipemergency", tbRelationShipEmergency.Text)
-                    cmd.Parameters.AddWithValue("@contactemergency", tbContactEmergency.Text)
-
-                    ' ID Image
-                    Dim idImageBytes() As Byte = Nothing
-                    If pbIDpresented.Image IsNot Nothing Then
-                        Using ms As New MemoryStream()
-                            pbIDpresented.Image.Save(ms, Imaging.ImageFormat.Jpeg)
-                            idImageBytes = ms.ToArray()
-                        End Using
-                    End If
-                    cmd.Parameters.AddWithValue("@idimage", idImageBytes)
-
-                    ' ✅ Captured or Uploaded Photo
-                    Dim photoBytes() As Byte = Nothing
-                    If pbCameraDisplay.Image IsNot Nothing Then
-                        Using ms As New MemoryStream()
-                            pbCameraDisplay.Image.Save(ms, Imaging.ImageFormat.Jpeg)
-                            photoBytes = ms.ToArray()
-                        End Using
-                    End If
-                    cmd.Parameters.AddWithValue("@photo", photoBytes)
-
-                    newId = CLng(cmd.ExecuteScalar())
+                ' Enable WAL again (redundant but safe)
+                Using pragmaCmd As New SQLiteCommand("PRAGMA journal_mode = WAL;", conn)
+                    pragmaCmd.ExecuteNonQuery()
                 End Using
 
-                ' Create registration code
-                regId = DateTime.Now.ToString("yyyyMMdd") & newId.ToString()
+                Using trans = conn.BeginTransaction()
+                    Try
+                        ' Insert data
+                        Dim sql As String = "
+                            INSERT INTO registrations (
+                                lastname, firstname, middlename, alternativename,
+                                presentaddress, permanentaddress, birthday, birthplace,
+                                civilstatus, nationality, email, mobilenumber, employmentstatus,
+                                businessname, employername, businessnature, workname,
+                                presentedid, polmember, relationshippol,
+                                nameemergency, relationshipemergency, contactemergency,
+                                idimage, photo
+                            ) VALUES (
+                                @lastname, @firstname, @middlename, @alternativename,
+                                @presentaddress, @permanentaddress, @birthday, @birthplace,
+                                @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus,
+                                @businessname, @employername, @businessnature, @workname,
+                                @presentedid, @polmember, @relationshippol,
+                                @nameemergency, @relationshipemergency, @contactemergency,
+                                @idimage, @photo
+                            );
+                            SELECT last_insert_rowid();"
 
-                ' Update registration_id
-                Using updateCmd As New SQLiteCommand("UPDATE registrations SET registration_id=@regid WHERE id=@id", conn)
-                    updateCmd.Parameters.AddWithValue("@regid", regId)
-                    updateCmd.Parameters.AddWithValue("@id", newId)
-                    updateCmd.ExecuteNonQuery()
+                        Dim newId As Long
+                        Using cmd As New SQLiteCommand(sql, conn, trans)
+                            cmd.Parameters.AddWithValue("@lastname", tbLastName.Text)
+                            cmd.Parameters.AddWithValue("@firstname", tbFirstName.Text)
+                            cmd.Parameters.AddWithValue("@middlename", tbMiddleName.Text)
+                            cmd.Parameters.AddWithValue("@alternativename", tbAlternativeName.Text)
+                            cmd.Parameters.AddWithValue("@presentaddress", tbPresentAddress.Text)
+                            cmd.Parameters.AddWithValue("@permanentaddress", tbPermanentAddress.Text)
+                            cmd.Parameters.AddWithValue("@birthday", dtpBirthday.Value.ToString("yyyy-MM-dd"))
+                            cmd.Parameters.AddWithValue("@birthplace", tbBirthPlace.Text)
+                            cmd.Parameters.AddWithValue("@civilstatus", cbCivilStatus.Text)
+                            cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
+                            cmd.Parameters.AddWithValue("@email", tbEmail.Text)
+                            cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
+                            cmd.Parameters.AddWithValue("@employmentstatus", If(rbSelfEmployed.Checked, "Self-Employed", If(rbEmployed.Checked, "Employed", "")))
+                            cmd.Parameters.AddWithValue("@businessname", tnBusinessName.Text)
+                            cmd.Parameters.AddWithValue("@employername", tbEmployerName.Text)
+                            cmd.Parameters.AddWithValue("@businessnature", tbBusinessNature.Text)
+                            cmd.Parameters.AddWithValue("@workname", tnWorkName.Text)
+                            cmd.Parameters.AddWithValue("@presentedid", cbIDPresented.Text)
+                            cmd.Parameters.AddWithValue("@polmember", If(tbYes.Checked, "Yes", "No"))
+                            cmd.Parameters.AddWithValue("@relationshippol", tbRelationshipPol.Text)
+                            cmd.Parameters.AddWithValue("@nameemergency", tbNameEmergency.Text)
+                            cmd.Parameters.AddWithValue("@relationshipemergency", tbRelationShipEmergency.Text)
+                            cmd.Parameters.AddWithValue("@contactemergency", tbContactEmergency.Text)
+
+                            ' Convert images to bytes
+                            Dim idImgBytes As Byte() = Nothing
+                            If pbIDpresented.Image IsNot Nothing Then
+                                Using ms As New MemoryStream()
+                                    pbIDpresented.Image.Save(ms, Imaging.ImageFormat.Jpeg)
+                                    idImgBytes = ms.ToArray()
+                                End Using
+                            End If
+                            cmd.Parameters.AddWithValue("@idimage", idImgBytes)
+
+                            Dim photoBytes As Byte() = Nothing
+                            If pbCameraDisplay.Image IsNot Nothing Then
+                                Using ms As New MemoryStream()
+                                    pbCameraDisplay.Image.Save(ms, Imaging.ImageFormat.Jpeg)
+                                    photoBytes = ms.ToArray()
+                                End Using
+                            End If
+                            cmd.Parameters.AddWithValue("@photo", photoBytes)
+
+                            newId = CLng(cmd.ExecuteScalar())
+                        End Using
+
+                        ' Generate registration_id
+                        Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & newId.ToString()
+                        Using updateCmd As New SQLiteCommand("UPDATE registrations SET registration_id=@r WHERE id=@i", conn, trans)
+                            updateCmd.Parameters.AddWithValue("@r", regId)
+                            updateCmd.Parameters.AddWithValue("@i", newId)
+                            updateCmd.ExecuteNonQuery()
+                        End Using
+
+                        trans.Commit()
+
+                        MessageBox.Show("✅ Registration saved successfully!" & vbCrLf &
+                                        "Registration ID: " & regId,
+                                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                        ClearForm()
+                    Catch ex As Exception
+                        trans.Rollback()
+                        MessageBox.Show("Error saving data: " & ex.Message)
+                    End Try
                 End Using
-
-                fullName = tbLastName.Text & ", " & tbFirstName.Text & " " & tbMiddleName.Text
             End Using
-
-            MessageBox.Show("NEW MEMBER REGISTERED!" & vbCrLf &
-                        "REGISTRATION ID: " & regId & vbCrLf &
-                        "FULL NAME: " & fullName.ToUpper(),
-                        "REGISTRATION SUCCESSFUL",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
-
-            btnClear_Click(Nothing, Nothing)
-
         Catch ex As Exception
-            MessageBox.Show("Error saving data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Unexpected error: " & ex.Message)
         End Try
+    End Sub
+    Private Sub ClearForm()
+        For Each ctrl As Control In Me.Controls
+            If TypeOf ctrl Is TextBox Then
+                DirectCast(ctrl, TextBox).Clear()
+            ElseIf TypeOf ctrl Is ComboBox Then
+                DirectCast(ctrl, ComboBox).SelectedIndex = -1
+            ElseIf TypeOf ctrl Is PictureBox Then
+                DirectCast(ctrl, PictureBox).Image = Nothing
+            ElseIf TypeOf ctrl Is RadioButton Then
+                DirectCast(ctrl, RadioButton).Checked = False
+            End If
+        Next
+        btnSave.Enabled = False
+        isCaptured = False
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click

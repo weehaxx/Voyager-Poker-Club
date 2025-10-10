@@ -15,15 +15,24 @@ Public Class Ledger
         tbMemeberID.Text = SelectedRegistrationCode
         tbPlayerName.Text = SelectedFullName
 
-        Dim dbPath As String = "metrocarddavaodb.db"
+        Dim dbPath As String = GetDatabasePath()
         conn = New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
+
 
         LoadLedger()
     End Sub
+    Private Function GetDatabasePath() As String
+        Dim appDataPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MetroCardClubDavao")
+        If Not Directory.Exists(appDataPath) Then
+            Directory.CreateDirectory(appDataPath)
+        End If
+        Return Path.Combine(appDataPath, "metrocarddavaodb.db")
+    End Function
 
     Private Sub LoadLedger()
         Try
-            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+            Dim dbPath As String = GetDatabasePath()
+            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
                 Dim sql As String = "

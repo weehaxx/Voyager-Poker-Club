@@ -1,104 +1,91 @@
 ﻿Public Class Main
 
+    ' ✅ When the Main form loads, show the Members dashboard by default
+    Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ShowDashboard()
+    End Sub
 
+    ' 🔹 Dashboard Button
+    Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
+        btnDashboard.Checked = True
+        btnRegistration.Checked = False
+        btnCashFlow.Checked = False
+        btnReports.Checked = False
+        Panel3.Controls.Clear()
+        ShowDashboard()
+    End Sub
+
+    ' 🔹 Registration Button
     Private Sub btnRegistration_Click(sender As Object, e As EventArgs) Handles btnRegistration.Click
-        ' Clear any existing controls inside Panel1
         btnDashboard.Checked = False
         btnRegistration.Checked = True
         btnCashFlow.Checked = False
         btnReports.Checked = False
         Panel3.Controls.Clear()
 
-        ' Create an instance of your Registration UserControl
         Dim registrationUC As New Registration()
-        registrationUC.Dock = DockStyle.Fill ' Makes it fill the panel
-
-        ' Add the user control to the panel
+        registrationUC.Dock = DockStyle.Fill
         Panel3.Controls.Add(registrationUC)
     End Sub
 
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-        ' Create an instance of your Dashboard UserControl
-        Dim memberUC As New Members()
-        memberUC.Dock = DockStyle.Fill ' Makes it fill the panel
-
-        ' Add the user control to the panel
-        Panel3.Controls.Add(memberUC)
-    End Sub
-    Private Sub btnLogout_Click(sender As Object, e As EventArgs)
-        ' Ask user to confirm logout (optional)
-        Dim result = MessageBox.Show("Are you sure you want to log out?",
-                                                 "Logout",
-                                                 MessageBoxButtons.YesNo,
-                                                 MessageBoxIcon.Question)
-        If result = DialogResult.Yes Then
-            ' Show the login form (Form1)
-            Dim loginForm As New Form1
-            loginForm.Show()
-
-            ' Close or hide the current Main form
-            Close()
-        End If
-    End Sub
-    Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
-        ' Clear any existing controls inside Panel1
-        btnDashboard.Checked = True
-        btnRegistration.Checked = False
-        btnCashFlow.Checked = False
-        btnReports.Checked = False
-        Panel3.Controls.Clear()
-
-        ' Create an instance of your Dashboard UserControl
-        Dim memberUC As New Members()
-        memberUC.Dock = DockStyle.Fill ' Makes it fill the panel
-
-        ' Add the user control to the panel
-        Panel3.Controls.Add(memberUC)
-    End Sub
-
-
-
-
-
-
-
-    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
-        ' Create an instance of your Dashboard UserControl
-        Dim memberUC As New Members()
-        memberUC.Dock = DockStyle.Fill ' Makes it fill the panel
-
-        ' Add the user control to the panel
-        Panel3.Controls.Add(memberUC)
-    End Sub
-
-    Private Sub btnCashFlow_Click_1(sender As Object, e As EventArgs) Handles btnCashFlow.Click
+    ' 🔹 Cash Flow Button
+    Private Sub btnCashFlow_Click(sender As Object, e As EventArgs) Handles btnCashFlow.Click
         btnDashboard.Checked = False
         btnRegistration.Checked = False
         btnCashFlow.Checked = True
         btnReports.Checked = False
-
         Panel3.Controls.Clear()
 
-        ' Create an instance of your Registration UserControl
-        Dim cashFlowUC As New CashFlow
-        cashFlowUC.Dock = DockStyle.Fill ' Makes it fill the panel
-
-        ' Add the user control to the panel
+        Dim cashFlowUC As New CashFlow()
+        cashFlowUC.Dock = DockStyle.Fill
         Panel3.Controls.Add(cashFlowUC)
     End Sub
 
-    Private Sub btnReports_Click_1(sender As Object, e As EventArgs) Handles btnReports.Click
+    ' 🔹 Reports Button
+    Private Sub btnReports_Click(sender As Object, e As EventArgs) Handles btnReports.Click
         btnDashboard.Checked = False
         btnRegistration.Checked = False
         btnCashFlow.Checked = False
         btnReports.Checked = True
         Panel3.Controls.Clear()
 
-        ' Create an instance of your Registration UserControl
-        Dim reportsUC As New Reports
-        reportsUC.Dock = DockStyle.Fill ' Makes it fill the panel
-
-        ' Add the user control to the panel
+        Dim reportsUC As New Reports()
+        reportsUC.Dock = DockStyle.Fill
         Panel3.Controls.Add(reportsUC)
     End Sub
+
+    ' 🔹 Logout Button
+    Private Sub btnLogout_Click(sender As Object, e As EventArgs)
+        Dim result = MessageBox.Show("Are you sure you want to log out?",
+                                     "Logout",
+                                     MessageBoxButtons.YesNo,
+                                     MessageBoxIcon.Question)
+        If result = DialogResult.Yes Then
+            Dim loginForm As New Form1()
+            loginForm.Show()
+            Close()
+        End If
+    End Sub
+
+    ' 🔹 Show Members Dashboard
+    Private Sub ShowDashboard()
+        Dim memberUC As New Members()
+        memberUC.Dock = DockStyle.Fill
+        Panel3.Controls.Add(memberUC)
+    End Sub
+
+    ' 🔹 Optional paint events — removed duplicates to avoid multiple loads
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+        ' Do nothing here — prevent duplicate loads
+    End Sub
+
+    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
+        ' Do nothing here — handled by button events
+    End Sub
+
+    ' ✅ When closing the form, make sure the whole app shuts down properly
+    Private Sub Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        Application.Exit() ' Ensures the app fully closes (no background process)
+    End Sub
+
 End Class

@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SQLite
 Imports Guna.UI2.WinForms
+Imports System.IO
 
 Public Class PlayerLedger
     ' IMPORTANT:
@@ -10,7 +11,7 @@ Public Class PlayerLedger
     Private Sub PlayerLedger_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblFullname.Text = FullName
 
-        ' ✅ DateTimePicker for DATE selection (instead of fixed lblDateToday)
+        ' ✅ DateTimePicker for DATE selection
         dtpDate.Format = DateTimePickerFormat.Custom
         dtpDate.CustomFormat = "dddd, MMMM dd, yyyy"
         dtpDate.Value = DateTime.Now
@@ -34,6 +35,7 @@ Public Class PlayerLedger
 
     Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
         Try
+            ' 🧩 Validate required fields
             If cbTransactionType.SelectedItem Is Nothing Then
                 MessageBox.Show("Please select a transaction type.")
                 Return
@@ -49,6 +51,7 @@ Public Class PlayerLedger
                 Return
             End If
 
+            ' ✅ Parse amount safely
             Dim transactionType = cbTransactionType.SelectedItem.ToString()
             Dim amount As Decimal
             If Not Decimal.TryParse(tbAmount.Text, amount) Then
@@ -56,11 +59,26 @@ Public Class PlayerLedger
                 Return
             End If
 
+            ' ✅ Get chosen date and time
             Dim selectedDate As String = dtpDate.Value.ToString("dddd, MMMM dd, yyyy")
             Dim selectedTime As String = dtpTime.Value.ToString("hh:mm:ss tt")
 
-            Dim dbPath = "metrocarddavaodb.db"
-            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
+            ' ✅ Define AppData path for DB
+            Dim appDataPath As String = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "MetroCardClubDavao"
+            )
+
+            ' ✅ Ensure folder exists
+            If Not Directory.Exists(appDataPath) Then
+                Directory.CreateDirectory(appDataPath)
+            End If
+
+            ' ✅ Full database path (use same DB for consistency)
+            Dim dbPath As String = Path.Combine(appDataPath, "metrocarddavaodb.db")
+
+            ' ✅ Connect to database
+            Using conn As New SQLiteConnection($"Data Source={dbPath};Version=3;")
                 conn.Open()
 
                 ' ✅ Ensure player exists
@@ -74,9 +92,13 @@ Public Class PlayerLedger
                     End If
                 End Using
 
-                ' ✅ Insert with user-chosen date & time
-                Dim sql As String = "INSERT INTO cashflows (registration_id, type, amount, payment_mode, date_created, time_created, created_by) " &
-                                    "VALUES (@regid, @type, @amount, @mode, @date, @time, @createdBy)"
+                ' ✅ Insert transaction safely
+                Dim sql As String = "
+                    INSERT INTO cashflows 
+                    (registration_id, type, amount, payment_mode, date_created, time_created, created_by) 
+                    VALUES (@regid, @type, @amount, @mode, @date, @time, @createdBy)
+                "
+
                 Using cmd As New SQLiteCommand(sql, conn)
                     cmd.Parameters.AddWithValue("@regid", RegistrationID)
                     cmd.Parameters.AddWithValue("@type", transactionType)
@@ -89,7 +111,7 @@ Public Class PlayerLedger
                 End Using
             End Using
 
-            MessageBox.Show(transactionType & " saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show($"{transactionType} saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Me.DialogResult = DialogResult.OK
             Me.Close()
 

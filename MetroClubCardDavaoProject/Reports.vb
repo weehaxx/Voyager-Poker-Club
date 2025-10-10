@@ -7,9 +7,24 @@ Public Class Reports
     Private conn As SQLiteConnection
     Private rawValues As New Dictionary(Of String, Decimal) ' 🔹 Store real signed values
 
+    Private Function GetDatabasePath() As String
+        Dim appDataPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MetroCardClubDavao")
+        If Not Directory.Exists(appDataPath) Then
+            Directory.CreateDirectory(appDataPath)
+        End If
+
+        Dim dbPath As String = Path.Combine(appDataPath, "metrocarddavaodb.db")
+        If Not File.Exists(dbPath) Then
+            ' 🔹 Create an empty SQLite file if it doesn’t exist yet
+            SQLiteConnection.CreateFile(dbPath)
+        End If
+
+        Return dbPath
+    End Function
+
     Private Sub Reports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Setup DB connection
-        Dim dbPath As String = "metrocarddavaodb.db"
+        Dim dbPath As String = GetDatabasePath()
         conn = New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
 
         ' ✅ DateTimePicker setup (Month-Year only)
@@ -65,16 +80,16 @@ Public Class Reports
 
             ' 🔹 Query all transactions
             Dim sql As String = "
-            SELECT r.id AS ID,
-                   r.firstname, r.middlename, r.lastname,
-                   c.date_created,
-                   c.type,
-                   c.amount
-            FROM registrations r
-            LEFT JOIN cashflows c ON r.id = c.registration_id
-            WHERE c.date_created IS NOT NULL
-            ORDER BY r.lastname, r.firstname
-        "
+                SELECT r.id AS ID,
+                       r.firstname, r.middlename, r.lastname,
+                       c.date_created,
+                       c.type,
+                       c.amount
+                FROM registrations r
+                LEFT JOIN cashflows c ON r.id = c.registration_id
+                WHERE c.date_created IS NOT NULL
+                ORDER BY r.lastname, r.firstname
+            "
 
             Dim cmd As New SQLiteCommand(sql, conn)
             Dim reader As SQLiteDataReader = cmd.ExecuteReader()
@@ -123,27 +138,20 @@ Public Class Reports
                 For i As Integer = 0 To daysInMonth - 1
                     Dim val As Decimal = days(i)
                     If val <> 0 Then
-                        ' 🔹 Remove negative sign but keep color
                         dgvReports.Rows(rowIndex).Cells(i + 1).Value = Math.Abs(val).ToString("N0")
-
-                        ' 🔹 Red for loss, Black for win
                         dgvReports.Rows(rowIndex).Cells(i + 1).Style.ForeColor = If(val < 0, Color.Red, Color.Black)
                         dgvReports.Rows(rowIndex).Cells(i + 1).Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-
                         rawValues($"{rowIndex}_{i + 1}") = val
                         total += val
                     End If
                 Next
 
-                ' 🔹 Show total without sign but color based on value
                 dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Value = Math.Abs(total).ToString("N0")
                 dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Style.ForeColor = If(total < 0, Color.Red, Color.Black)
                 dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-
                 rawValues($"{rowIndex}_{daysInMonth + 1}") = total
             Next
 
-            ' ✅ Remove auto selection
             dgvReports.ClearSelection()
             dgvReports.CurrentCell = Nothing
 
@@ -153,7 +161,6 @@ Public Class Reports
             If conn.State = ConnectionState.Open Then conn.Close()
         End Try
     End Sub
-
 
     ' ✅ Reload on date change
     Private Sub dtpMonthYear_ValueChanged(sender As Object, e As EventArgs) Handles dtpMonthYear.ValueChanged
@@ -208,16 +215,15 @@ Public Class Reports
                 For Each row As DataGridViewRow In dgvReports.Rows
                     For colIndex As Integer = 0 To dgvReports.Columns.Count - 1
                         Dim text As String = If(row.Cells(colIndex).Value IsNot Nothing, row.Cells(colIndex).Value.ToString(), "")
-                        Dim font As iTextSharp.text.Font = FontFactory.GetFont("Arial", 7) ' 🔹 Smaller font
-
+                        Dim font As iTextSharp.text.Font = FontFactory.GetFont("Arial", 7)
                         Dim key As String = $"{row.Index}_{colIndex}"
+
                         If rawValues.ContainsKey(key) Then
                             Dim signedValue As Decimal = rawValues(key)
                             text = Math.Abs(signedValue).ToString("N0")
                             If signedValue < 0 Then font.Color = BaseColor.RED
                         End If
 
-                        ' 🔹 Align left only for fullname, center for everything else
                         Dim pdfCell As New PdfPCell(New Phrase(text, font))
                         pdfCell.HorizontalAlignment = If(colIndex = 0, Element.ALIGN_LEFT, Element.ALIGN_CENTER)
                         pdfTable.AddCell(pdfCell)

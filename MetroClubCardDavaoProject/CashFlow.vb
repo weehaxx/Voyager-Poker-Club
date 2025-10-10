@@ -7,10 +7,21 @@ Imports System.IO
 
 Public Class CashFlow
 
+    ' ✅ Safe AppData DB Path (consistent with DatabaseModule)
+    Private ReadOnly appDataPath As String = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "MetroCardClubDavao"
+    )
+    Private ReadOnly dbPath As String = Path.Combine(appDataPath, "metrocarddavaodb.db")
+
     Private Sub CashFlow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        StyleGrid()
-        dtpDate.Value = GetCasinoDate()
-        LoadCashflows(dtpDate.Value)
+        Try
+            StyleGrid()
+            dtpDate.Value = GetCasinoDate()
+            LoadCashflows(dtpDate.Value)
+        Catch ex As Exception
+            MessageBox.Show("Error initializing CashFlow form: " & ex.Message)
+        End Try
     End Sub
 
     Protected Overrides Sub OnVisibleChanged(e As EventArgs)
@@ -34,11 +45,17 @@ Public Class CashFlow
 
     Private Sub LoadCashflows(Optional baseDate As Date = Nothing, Optional searchText As String = "")
         Try
+            ' Ensure database exists
+            If Not File.Exists(dbPath) Then
+                MessageBox.Show("Database file not found in AppData. Please initialize or restart the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
             If baseDate = Nothing Then baseDate = Date.Today
             Dim startDate As DateTime = baseDate.Date
             Dim endDate As DateTime = baseDate.Date.AddDays(1)
 
-            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
                 Dim rawQuery As String =
@@ -63,7 +80,7 @@ Public Class CashFlow
                 finalTable.Columns.Add("MODE")
                 finalTable.Columns.Add("CASH-OUT")
                 finalTable.Columns.Add("MODE ")
-                finalTable.Columns.Add("CREATED BY") ' 🔹 New column here
+                finalTable.Columns.Add("CREATED BY")
                 finalTable.Columns.Add("CASHIER'S SIGNATURE")
                 finalTable.Columns.Add("REMARKS")
 
@@ -80,14 +97,14 @@ Public Class CashFlow
 
                         If parsedDate >= startDate AndAlso parsedDate < endDate Then
                             Dim fullName As String = row("firstname").ToString().Trim() &
-                            If(String.IsNullOrWhiteSpace(row("middlename").ToString()), " ", " " & row("middlename").ToString().Trim() & " ") &
-                            row("lastname").ToString().Trim()
+                                If(String.IsNullOrWhiteSpace(row("middlename").ToString()), " ", " " & row("middlename").ToString().Trim() & " ") &
+                                row("lastname").ToString().Trim()
 
                             If String.IsNullOrWhiteSpace(searchText) OrElse
-                           row("registration_id").ToString().Contains(searchText) OrElse
-                           row("firstname").ToString().ToLower().Contains(searchText.ToLower()) OrElse
-                           row("middlename").ToString().ToLower().Contains(searchText.ToLower()) OrElse
-                           row("lastname").ToString().ToLower().Contains(searchText.ToLower()) Then
+                               row("registration_id").ToString().Contains(searchText) OrElse
+                               row("firstname").ToString().ToLower().Contains(searchText.ToLower()) OrElse
+                               row("middlename").ToString().ToLower().Contains(searchText.ToLower()) OrElse
+                               row("lastname").ToString().ToLower().Contains(searchText.ToLower()) Then
 
                                 Dim newRow = finalTable.NewRow()
                                 newRow("PLAYER ID") = row("registration_id").ToString()
@@ -102,9 +119,7 @@ Public Class CashFlow
                                     newRow("MODE ") = row("payment_mode").ToString()
                                 End If
 
-                                ' 🔹 Add created_by value
                                 newRow("CREATED BY") = row("created_by").ToString()
-
                                 newRow("CASHIER'S SIGNATURE") = ""
                                 newRow("REMARKS") = ""
 
@@ -114,18 +129,19 @@ Public Class CashFlow
                     End If
                 Next
 
+                ' ✅ Sort by time
                 Dim view As DataView = finalTable.DefaultView
                 view.Sort = "TIME ASC"
                 dgvCashFlow.DataSource = view.ToTable()
 
-                ' 🟢 Adjust widths
+                ' ✅ Column widths
                 If dgvCashFlow.Columns.Contains("PLAYER ID") Then dgvCashFlow.Columns("PLAYER ID").Width = 120
                 If dgvCashFlow.Columns.Contains("FULL NAME") Then dgvCashFlow.Columns("FULL NAME").Width = 200
                 If dgvCashFlow.Columns.Contains("BUY-IN") Then dgvCashFlow.Columns("BUY-IN").Width = 120
                 If dgvCashFlow.Columns.Contains("MODE") Then dgvCashFlow.Columns("MODE").Width = 100
                 If dgvCashFlow.Columns.Contains("CASH-OUT") Then dgvCashFlow.Columns("CASH-OUT").Width = 120
                 If dgvCashFlow.Columns.Contains("MODE ") Then dgvCashFlow.Columns("MODE ").Width = 100
-                If dgvCashFlow.Columns.Contains("CREATED BY") Then dgvCashFlow.Columns("CREATED BY").Width = 150 ' 🔹 Adjust width
+                If dgvCashFlow.Columns.Contains("CREATED BY") Then dgvCashFlow.Columns("CREATED BY").Width = 150
                 If dgvCashFlow.Columns.Contains("CASHIER'S SIGNATURE") Then dgvCashFlow.Columns("CASHIER'S SIGNATURE").Width = 250
                 If dgvCashFlow.Columns.Contains("REMARKS") Then dgvCashFlow.Columns("REMARKS").Width = 80
             End Using
@@ -135,10 +151,9 @@ Public Class CashFlow
         End Try
     End Sub
 
-
     Private Sub StyleGrid()
         With dgvCashFlow
-            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None ' 🔹 Allow custom widths
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
             .ColumnHeadersHeight = 40
             .EnableHeadersVisualStyles = False
             .ColumnHeadersDefaultCellStyle.BackColor = Color.DodgerBlue
@@ -167,7 +182,7 @@ Public Class CashFlow
         LoadCashflows(dtpDate.Value, tbSearchMember.Text.Trim())
     End Sub
 
-    ' 🟢 PRINT TO PDF
+    ' ✅ PRINT TO PDF
     Private Sub btnPrintPDF_Click(sender As Object, e As EventArgs) Handles btnPrintPDF.Click
         Try
             Dim saveDialog As New SaveFileDialog()
@@ -200,16 +215,15 @@ Public Class CashFlow
                         Case "FULL NAME" : widths(i) = 3.5F
                         Case "BUY-IN", "CASH-OUT" : widths(i) = 2.2F
                         Case "MODE", "MODE " : widths(i) = 1.8F
-                        Case "CREATED BY" : widths(i) = 2.5F ' 🔹 New column
+                        Case "CREATED BY" : widths(i) = 2.5F
                         Case "CASHIER'S SIGNATURE" : widths(i) = 3.5F
                         Case "REMARKS" : widths(i) = 1.5F
                         Case Else : widths(i) = 1.5F
                     End Select
-
                 Next
                 pdfTable.SetWidths(widths)
 
-                ' Headers
+                ' ✅ Table headers
                 For Each col As DataGridViewColumn In dgvCashFlow.Columns
                     Dim cell As New PdfPCell(New Phrase(col.HeaderText, headerFont))
                     cell.BackgroundColor = BaseColor.LIGHT_GRAY
@@ -217,7 +231,7 @@ Public Class CashFlow
                     pdfTable.AddCell(cell)
                 Next
 
-                ' Rows
+                ' ✅ Table rows
                 For Each row As DataGridViewRow In dgvCashFlow.Rows
                     If Not row.IsNewRow Then
                         For Each cell As DataGridViewCell In row.Cells

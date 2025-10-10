@@ -13,7 +13,13 @@ Imports MessagingToolkit.Barcode
 Public Class Members
     Dim conn As SQLiteConnection
     Dim dt As DataTable ' Keep DataTable global for filtering
-
+    Private Function GetDatabasePath() As String
+        Dim appDataPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MetroCardClubDavao")
+        If Not Directory.Exists(appDataPath) Then
+            Directory.CreateDirectory(appDataPath)
+        End If
+        Return Path.Combine(appDataPath, "metrocarddavaodb.db")
+    End Function
     Private Sub ClearMemberDetails()
         ' Clear all textboxes
         tbLastName.Clear()
@@ -53,8 +59,9 @@ Public Class Members
 
     Private Sub Members_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dgvRegistrations.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        Dim dbPath As String = "metrocarddavaodb.db"
+        Dim dbPath As String = GetDatabasePath()
         conn = New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
+
 
         ' Disable changing of radio buttons (view-only mode)
         rbSelfEmployed.AutoCheck = False
@@ -364,7 +371,8 @@ Public Class Members
 
             ' ✅ Get idimage from DB
             Dim idImage As Image = Nothing
-            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+            Dim dbPath As String = GetDatabasePath()
+            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
                 Dim query As String = "SELECT idimage FROM registrations WHERE id=@id"
@@ -548,7 +556,8 @@ Public Class Members
             Dim memberID As Integer = selectedRowView.Row("id")
 
             ' ✅ Delete from database (cashflows first, then member)
-            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+            Dim dbPath As String = GetDatabasePath()
+            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
                 ' 🔸 Enable foreign key support (good practice)
@@ -652,7 +661,8 @@ Public Class Members
     End Sub
     Private Sub UpdateTotalMembers()
         Try
-            Using conn As New SQLiteConnection("Data Source=metrocarddavaodb.db;Version=3;")
+            Dim dbPath As String = GetDatabasePath()
+            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
                 Dim cmd As New SQLiteCommand("SELECT COUNT(*) FROM registrations", conn)
