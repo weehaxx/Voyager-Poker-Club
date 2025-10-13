@@ -1213,16 +1213,16 @@ Partial Class Members
         btnPrintMember.DisabledState.CustomBorderColor = Color.DarkGray
         btnPrintMember.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnPrintMember.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnPrintMember.Enabled = False
-        btnPrintMember.Font = New Font("Segoe UI", 9F)
-        btnPrintMember.ForeColor = Color.White
-        btnPrintMember.Location = New Point(427, 631)
+        btnPrintMember.FillColor = Color.White
+        btnPrintMember.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnPrintMember.ForeColor = Color.Black
+        btnPrintMember.Location = New Point(427, 703)
         btnPrintMember.Margin = New Padding(3, 4, 3, 4)
         btnPrintMember.Name = "btnPrintMember"
         btnPrintMember.ShadowDecoration.CustomizableEdges = CustomizableEdges62
-        btnPrintMember.Size = New Size(206, 60)
+        btnPrintMember.Size = New Size(217, 43)
         btnPrintMember.TabIndex = 74
-        btnPrintMember.Text = "PRINT"
+        btnPrintMember.Text = "CARD ID PREVIEW"
         ' 
         ' Guna2HtmlLabel13
         ' 

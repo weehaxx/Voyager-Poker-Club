@@ -44,7 +44,7 @@ Partial Class IDPrinting
         Guna2GradientPanel1.CustomizableEdges = CustomizableEdges1
         Guna2GradientPanel1.FillColor = Color.Red
         Guna2GradientPanel1.FillColor2 = Color.Black
-        Guna2GradientPanel1.Location = New Point(3, 195)
+        Guna2GradientPanel1.Location = New Point(3, 218)
         Guna2GradientPanel1.Margin = New Padding(3, 4, 3, 4)
         Guna2GradientPanel1.Name = "Guna2GradientPanel1"
         Guna2GradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges2
@@ -55,7 +55,7 @@ Partial Class IDPrinting
         ' 
         pbIDphoto.CustomizableEdges = CustomizableEdges3
         pbIDphoto.ImageRotate = 0F
-        pbIDphoto.Location = New Point(51, 59)
+        pbIDphoto.Location = New Point(51, 82)
         pbIDphoto.Margin = New Padding(3, 4, 3, 4)
         pbIDphoto.Name = "pbIDphoto"
         pbIDphoto.ShadowDecoration.CustomizableEdges = CustomizableEdges4
@@ -67,12 +67,12 @@ Partial Class IDPrinting
         ' lblName
         ' 
         lblName.BackColor = Color.Transparent
-        lblName.Font = New Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lblName.Font = New Font("Arial Narrow", 22.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         lblName.ForeColor = Color.White
-        lblName.Location = New Point(314, 119)
+        lblName.Location = New Point(314, 142)
         lblName.Margin = New Padding(3, 4, 3, 4)
         lblName.Name = "lblName"
-        lblName.Size = New Size(103, 50)
+        lblName.Size = New Size(90, 45)
         lblName.TabIndex = 2
         lblName.Text = "NAME"
         ' 
@@ -83,22 +83,23 @@ Partial Class IDPrinting
         btnPrint.DisabledState.CustomBorderColor = Color.DarkGray
         btnPrint.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnPrint.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnPrint.Font = New Font("Segoe UI", 9F)
+        btnPrint.FillColor = Color.FromArgb(CByte(0), CByte(192), CByte(0))
+        btnPrint.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnPrint.ForeColor = Color.White
-        btnPrint.Location = New Point(331, 521)
+        btnPrint.Location = New Point(331, 539)
         btnPrint.Margin = New Padding(3, 4, 3, 4)
         btnPrint.Name = "btnPrint"
         btnPrint.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        btnPrint.Size = New Size(206, 60)
+        btnPrint.Size = New Size(206, 42)
         btnPrint.TabIndex = 7
-        btnPrint.Text = "print"
+        btnPrint.Text = "PRINT"
         ' 
         ' lblMemberID
         ' 
         lblMemberID.BackColor = Color.Transparent
-        lblMemberID.Font = New Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lblMemberID.Font = New Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         lblMemberID.ForeColor = Color.White
-        lblMemberID.Location = New Point(761, 23)
+        lblMemberID.Location = New Point(751, 61)
         lblMemberID.Name = "lblMemberID"
         lblMemberID.RightToLeft = RightToLeft.Yes
         lblMemberID.Size = New Size(74, 29)
@@ -109,7 +110,7 @@ Partial Class IDPrinting
         ' Guna2CustomGradientPanel1
         ' 
         Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges7
-        Guna2CustomGradientPanel1.Location = New Point(159, 371)
+        Guna2CustomGradientPanel1.Location = New Point(139, 409)
         Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
         Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges8
         Guna2CustomGradientPanel1.Size = New Size(588, 94)
