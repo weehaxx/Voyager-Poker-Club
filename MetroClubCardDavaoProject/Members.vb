@@ -71,6 +71,8 @@ Public Class Members
 
         LoadRegistrations()
         UpdateTotalMembers()
+        tbSearch.Focus()
+
 
     End Sub
 
@@ -140,15 +142,18 @@ Public Class Members
 
     ' Live Search by firstname/lastname/middlename only
     Private Sub tbSearch_TextChanged(sender As Object, e As EventArgs) Handles tbSearch.TextChanged
+        tbSearch.Select()
+
         Try
-            If dt IsNot Nothing Then
+        If dt IsNot Nothing Then
                 Dim dv As New DataView(dt)
                 Dim keyword As String = tbSearch.Text.Replace("'", "''")
 
                 dv.RowFilter =
-                    $"lastname LIKE '%{keyword}%' OR " &
-                    $"firstname LIKE '%{keyword}%' OR " &
-                    $"middlename LIKE '%{keyword}%'"
+                $"Convert(registration_id, 'System.String') LIKE '%{keyword}%' OR " &
+                $"lastname LIKE '%{keyword}%' OR " &
+                $"firstname LIKE '%{keyword}%' OR " &
+                $"middlename LIKE '%{keyword}%'"
 
                 dgvRegistrations.DataSource = dv
             End If
@@ -156,6 +161,7 @@ Public Class Members
             MessageBox.Show("Error searching: " & ex.Message)
         End Try
     End Sub
+
 
     Private Sub dgvRegistrations_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRegistrations.CellClick
         Try

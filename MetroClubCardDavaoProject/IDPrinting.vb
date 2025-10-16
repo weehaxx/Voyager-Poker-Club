@@ -1,13 +1,16 @@
 ﻿Imports iTextSharp.text
 Imports iTextSharp.text.pdf
 Imports System.IO
-Imports IronBarCode ' ✅ Make sure you installed: BarCode by IronSoftware
+Imports ZXing ' ✅ ZXing.Net for barcode generation
+Imports ZXing.Rendering
+
 
 Public Class IDPrinting
     ' 🔹 Public properties to receive data
     Public Property MemberName As String
     Public Property MemberID As String
     Public Property MemberPhoto As System.Drawing.Image
+
 
     Private Sub IDPrinting_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Display the received data
@@ -43,22 +46,55 @@ Public Class IDPrinting
         End Using
     End Sub
 
-    ' 🔹 Generate barcode image and display it in pbBarcode
+
+    ' 🔹 Generate barcode image using ZXing.Net (robust: uses BarcodeWriterPixelData -> Bitmap)
     Private Sub GenerateBarcode(value As String)
         Try
-            ' Generate a Code128 barcode
-            Dim barcode = BarcodeWriter.CreateBarcode(value, BarcodeWriterEncoding.Code128)
+            ' create a pixel-data writer (no renderer dependency)
+            Dim pw As New ZXing.BarcodeWriterPixelData() With {
+            .Format = ZXing.BarcodeFormat.CODE_128,
+            .Options = New ZXing.Common.EncodingOptions With {
+                .Width = Math.Max(1, pbBarcode.Width),
+                .Height = Math.Max(1, pbBarcode.Height),
+                .Margin = 2,
+                .PureBarcode = True
+            }
+        }
 
-            ' Adjust look
-            barcode.SetMargins(2)
-            barcode.ResizeTo(pbBarcode.Width, pbBarcode.Height)
+            ' get the raw pixel data
+            Dim pixelData = pw.Write(value)
 
-            ' Display result
-            pbBarcode.Image = barcode.ToBitmap()
+            ' create a bitmap from the raw pixel bytes (ZXing gives BGRA-ish bytes)
+            Dim bmp As New Bitmap(pixelData.Width, pixelData.Height, Imaging.PixelFormat.Format32bppArgb)
+
+            ' copy bytes into the bitmap
+            Dim bmpData = bmp.LockBits(New System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height), Imaging.ImageLockMode.WriteOnly, bmp.PixelFormat)
+
+            Try
+                ' pixelData.Pixels is a byte() in RGBA order in many ZXing builds — copying directly usually works for 32bpp ARGB bitmaps
+                System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bmpData.Scan0, pixelData.Pixels.Length)
+            Finally
+                bmp.UnlockBits(bmpData)
+            End Try
+
+            ' optional: resize to fit PictureBox exactly (maintain aspect if you want)
+            Dim finalBmp As Bitmap = New Bitmap(bmp, pbBarcode.Width, pbBarcode.Height)
+
+            pbBarcode.Image = finalBmp
+
+            ' cleanup
+            bmp.Dispose()
+            If Not finalBmp Is bmp Then
+                ' finalBmp kept for display
+            End If
+
         Catch ex As Exception
             MessageBox.Show("Error generating barcode: " & ex.Message, "Barcode Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+
+
 
     ' 🔹 Print form to PDF (C80 size)
     Private Sub PrintToC80PDF()

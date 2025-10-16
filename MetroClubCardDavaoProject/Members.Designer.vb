@@ -178,7 +178,7 @@ Partial Class Members
         tbSearch.SelectedText = ""
         tbSearch.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         tbSearch.Size = New Size(386, 47)
-        tbSearch.TabIndex = 3
+        tbSearch.TabIndex = 0
         ' 
         ' Guna2HtmlLabel2
         ' 
