@@ -110,12 +110,13 @@ Partial Class IDPrinting
         ' 
         ' pbBarcode
         ' 
-        Guna2CustomGradientPanel1.CustomizableEdges = CustomizableEdges7
-        Guna2CustomGradientPanel1.Location = New Point(159, 371)
-        Guna2CustomGradientPanel1.Name = "Guna2CustomGradientPanel1"
-        Guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges8
-        Guna2CustomGradientPanel1.Size = New Size(588, 94)
-        Guna2CustomGradientPanel1.TabIndex = 9
+        pbBarcode.BackColor = Color.White
+        pbBarcode.Location = New Point(70, 398)
+        pbBarcode.Name = "pbBarcode"
+        pbBarcode.Size = New Size(734, 116)
+        pbBarcode.SizeMode = PictureBoxSizeMode.Zoom
+        pbBarcode.TabIndex = 9
+        pbBarcode.TabStop = False
         ' 
         ' IDPrinting
         ' 
