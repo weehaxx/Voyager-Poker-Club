@@ -42,8 +42,9 @@ Partial Class IDPrinting
         ' 
         Guna2GradientPanel1.CustomizableEdges = CustomizableEdges1
         Guna2GradientPanel1.FillColor = Color.Red
-        Guna2GradientPanel1.FillColor2 = Color.Black
-        Guna2GradientPanel1.Location = New Point(3, 164)
+        Guna2GradientPanel1.FillColor2 = Color.Red
+        Guna2GradientPanel1.Location = New Point(3, 218)
+        Guna2GradientPanel1.Margin = New Padding(3, 4, 3, 4)
         Guna2GradientPanel1.Name = "Guna2GradientPanel1"
         Guna2GradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         Guna2GradientPanel1.Size = New Size(765, 75)
@@ -64,9 +65,10 @@ Partial Class IDPrinting
         ' lblName
         ' 
         lblName.BackColor = Color.Transparent
-        lblName.Font = New Font("Microsoft Sans Serif", 22.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblName.ForeColor = Color.White
-        lblName.Location = New Point(275, 106)
+        lblName.Font = New Font("Arial Narrow", 22.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lblName.ForeColor = Color.Black
+        lblName.Location = New Point(314, 142)
+        lblName.Margin = New Padding(3, 4, 3, 4)
         lblName.Name = "lblName"
         lblName.Size = New Size(91, 38)
         lblName.TabIndex = 2
@@ -80,7 +82,7 @@ Partial Class IDPrinting
         btnPrint.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnPrint.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnPrint.FillColor = Color.FromArgb(CByte(0), CByte(192), CByte(0))
-        btnPrint.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnPrint.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnPrint.ForeColor = Color.White
         btnPrint.Location = New Point(290, 404)
         btnPrint.Name = "btnPrint"
@@ -94,7 +96,7 @@ Partial Class IDPrinting
         lblMemberID.AutoSize = True
         lblMemberID.BackColor = Color.Transparent
         lblMemberID.Font = New Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblMemberID.ForeColor = Color.White
+        lblMemberID.ForeColor = Color.Black
         lblMemberID.ImageAlign = ContentAlignment.MiddleRight
         lblMemberID.Location = New Point(706, 43)
         lblMemberID.Name = "lblMemberID"
@@ -117,9 +119,9 @@ Partial Class IDPrinting
         ' 
         ' IDPrinting
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.Black
+        BackColor = Color.White
         Controls.Add(pbBarcode)
         Controls.Add(pbIDphoto)
         Controls.Add(lblMemberID)
