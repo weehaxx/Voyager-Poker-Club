@@ -31,20 +31,22 @@ Public Class IDPrinting
     End Sub
 
     ' 🔹 Automatically adjust alignment of the ID label
-    Private Sub lblID_TextChanged(sender As Object, e As EventArgs) Handles lblMemberID.TextChanged
+    Private Sub lblID_TextChanged(sender As Object, e As EventArgs)
         AdjustIDLabel()
     End Sub
 
     Private Sub AdjustIDLabel()
         If lblMemberID Is Nothing OrElse lblMemberID.Parent Is Nothing Then Return
 
-        Dim parentWidth As Integer = lblMemberID.Parent.ClientSize.Width
         Using g As Graphics = lblMemberID.CreateGraphics()
             Dim textSize As SizeF = g.MeasureString(lblMemberID.Text, lblMemberID.Font)
             lblMemberID.Width = CInt(textSize.Width)
-            lblMemberID.Left = parentWidth - lblMemberID.Width - 40 ' adjust margin
         End Using
+
+
     End Sub
+
+
 
 
     ' 🔹 Generate barcode image using ZXing.Net (robust: uses BarcodeWriterPixelData -> Bitmap)
@@ -156,7 +158,6 @@ Public Class IDPrinting
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         PrintToC80PDF()
     End Sub
-
 
 
 End Class
