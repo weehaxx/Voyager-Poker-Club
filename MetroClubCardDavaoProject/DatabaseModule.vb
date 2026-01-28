@@ -53,7 +53,7 @@ Module DatabaseModule
 
                 ' ✅ Insert default test user (only if not already existing)
                 sql = "INSERT INTO users (username, password) " &
-                  "SELECT 'testuser', '12345' WHERE NOT EXISTS (SELECT 1 FROM users WHERE username='testuser')"
+                  "SELECT 'VoyagerAdmin', 'Voyager2026' WHERE NOT EXISTS (SELECT 1 FROM users WHERE username='VoyagerAdmin')"
                 Using insertCmd As New SQLiteCommand(sql, conn)
                     insertCmd.ExecuteNonQuery()
                 End Using

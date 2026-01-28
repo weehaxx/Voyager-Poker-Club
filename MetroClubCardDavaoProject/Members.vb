@@ -133,30 +133,54 @@ Public Class Members
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         Try
             If dgvRegistrations.SelectedRows.Count = 0 Then
-                MessageBox.Show("Please select a member to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Please select a member to delete.", "No Selection",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
             Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
             If selectedRowView Is Nothing Then Exit Sub
-            Dim memberID As Integer = selectedRowView.Row("id")
 
-            If MessageBox.Show("Are you sure you want to permanently delete this member?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
-                Exit Sub
-            End If
+            Dim memberID As Integer = CInt(selectedRowView.Row("id"))
+
+            If MessageBox.Show(
+            "Are you sure you want to permanently delete this member?" &
+            vbCrLf & "All of their transactions will also be deleted.",
+            "Confirm Deletion",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning) = DialogResult.No Then Exit Sub
 
             Dim dbPath As String = GetDatabasePath()
+
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
-                Using deleteMemberCmd As New SQLiteCommand("DELETE FROM registrations WHERE id = @id", conn)
-                    deleteMemberCmd.Parameters.AddWithValue("@id", memberID)
-                    deleteMemberCmd.ExecuteNonQuery()
+
+                Using tran = conn.BeginTransaction()
+
+                    ' 🔥 Delete ONLY this member's cashflows
+                    Using cmd As New SQLiteCommand(
+                    "DELETE FROM cashflows WHERE registration_id = @id", conn, tran)
+                        cmd.Parameters.AddWithValue("@id", memberID)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    ' 🔥 Delete the member
+                    Using cmd As New SQLiteCommand(
+                    "DELETE FROM registrations WHERE id = @id", conn, tran)
+                        cmd.Parameters.AddWithValue("@id", memberID)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    tran.Commit()
                 End Using
             End Using
 
             LoadRegistrations()
             ClearMemberDetails()
-            MessageBox.Show("Member has been deleted.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            MessageBox.Show("Member and their transactions were deleted.",
+                        "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
         Catch ex As Exception
             MessageBox.Show("Error deleting member: " & ex.Message)
         End Try
@@ -348,6 +372,167 @@ Public Class Members
 
         Catch ex As Exception
             MessageBox.Show("Error opening edit form: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnPrintMember_Click(sender As Object, e As EventArgs) Handles btnPrintMember.Click
+        Try
+            ' ✅ Check if a row is selected
+            If dgvRegistrations.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a member first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            ' ✅ Get selected data
+            Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+            If selectedRowView Is Nothing Then Exit Sub
+
+            Dim selectedRow = selectedRowView.Row
+
+            ' ✅ Format and convert name to ALL CAPS: LASTNAME, FIRSTNAME MIDDLENAME
+            Dim memberName As String = $"{selectedRow("name")}"
+
+            Dim registrationID As String = selectedRow("registration_id").ToString()
+
+            ' ✅ Load photo from DB (or from grid if already loaded)
+            Dim memberPhoto As Image = Nothing
+            If Not IsDBNull(selectedRow("photo")) Then
+                Dim photoData = DirectCast(selectedRow("photo"), Byte())
+                Using ms As New MemoryStream(photoData)
+                    memberPhoto = Image.FromStream(ms)
+                End Using
+            End If
+
+            ' ✅ Show overlay
+            Dim overlay As New OverlayForm(Me.FindForm)
+            overlay.Show()
+            overlay.Refresh()
+
+            ' ✅ Create the UserControl first (so we can read its size)
+            Dim idPrintingControl As New IDPrinting() With {
+            .MemberName = memberName,
+            .MemberID = registrationID,
+            .MemberPhoto = memberPhoto
+        }
+
+            ' ✅ Force layout to ensure proper size is calculated
+            idPrintingControl.PerformLayout()
+            idPrintingControl.Refresh()
+
+            ' ✅ Create popup form using the UserControl's preferred size
+            Dim frm As New Form With {
+            .Text = "ID Printing Preview",
+            .StartPosition = FormStartPosition.CenterScreen,
+            .FormBorderStyle = FormBorderStyle.FixedDialog,
+            .MaximizeBox = False,
+            .MinimizeBox = False,
+            .ShowInTaskbar = False,
+            .ClientSize = idPrintingControl.Size ' 👈 Match size of IDPrinting UserControl
+        }
+
+            ' ✅ Dock it and add control to form
+            idPrintingControl.Dock = DockStyle.Fill
+            frm.Controls.Add(idPrintingControl)
+
+            ' ✅ Show modal dialog
+            frm.ShowDialog()
+
+            ' ✅ Close overlay
+            overlay.Close()
+            overlay.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("Error opening ID Printing: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+    Private Sub btnViewAccount_Click(sender As Object, e As EventArgs) Handles btnViewAccount.Click
+        Try
+            ' ✅ Make sure a player is selected
+            If dgvRegistrations.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a player first before viewing the ledger.", "No Player Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+            If selectedRowView Is Nothing Then
+                MessageBox.Show("Invalid row selected.")
+                Exit Sub
+            End If
+
+            Dim selectedRow = selectedRowView.Row
+            Dim regID As Long = Convert.ToInt64(selectedRow("id"))
+            Dim regCode As String = selectedRow("registration_id").ToString()
+            Dim fullName As String = $"{selectedRow("name")}"
+
+            ' ✅ Show overlay
+            Dim overlay As New OverlayForm(Me.FindForm)
+            overlay.Show()
+            overlay.Refresh()
+
+            ' ✅ Create popup window (size 1107x738)
+            Dim popup As New Form With {
+                .FormBorderStyle = FormBorderStyle.None,
+                .StartPosition = FormStartPosition.CenterParent,
+                .Size = New Size(1107, 738),
+                .BackColor = Color.White
+            }
+
+            ' ✅ Add Ledger UserControl
+            Dim ledgerControl As New Ledger()
+            ledgerControl.Dock = DockStyle.Fill
+
+            ' ✅ Pass player data to Ledger (you need Public Properties in Ledger for these)
+            ledgerControl.SelectedRegistrationID = regID
+            ledgerControl.SelectedRegistrationCode = regCode
+            ledgerControl.SelectedFullName = fullName
+
+            popup.Controls.Add(ledgerControl)
+
+            ' ✅ Show popup
+            popup.ShowDialog()
+            overlay.Close()
+
+        Catch ex As Exception
+            MessageBox.Show("Error opening Ledger: " & ex.Message)
+        End Try
+    End Sub
+    Private Sub gbCashout_Click(sender As Object, e As EventArgs) Handles gbPlayersLedger.Click
+        Try
+            ' ✅ Check if user has selected a player
+            If dgvRegistrations.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a player first before opening the ledger.", "No Player Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
+            If selectedRowView Is Nothing Then
+                MessageBox.Show("Invalid row selected.")
+                Exit Sub
+            End If
+
+            Dim selectedRow = selectedRowView.Row
+            Dim regID = selectedRow("id") ' ⚠ Use actual DB id
+            Dim fullName = $"{selectedRow("name")}"
+
+            ' ✅ Show overlay with blur
+            Dim overlay As New OverlayForm(Me.FindForm)
+            overlay.Show()
+            overlay.Refresh() ' Ensure it draws immediately
+
+            ' Open PlayerLedger as modal
+            Dim dialog As New PlayerLedger
+            dialog.RegistrationID = Convert.ToInt64(regID)
+            dialog.FullName = fullName
+
+            If dialog.ShowDialog() = DialogResult.OK Then
+                MessageBox.Show("Buy-In/Cash-Out recorded.")
+            End If
+
+            ' ✅ Close overlay after dialog closes
+            overlay.Close()
+
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
         End Try
     End Sub
 End Class

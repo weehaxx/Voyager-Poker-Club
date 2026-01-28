@@ -59,7 +59,7 @@ Public Class CashFlow
                 conn.Open()
 
                 Dim rawQuery As String =
-"SELECT r.registration_id, r.firstname, r.middlename, r.lastname, 
+"SELECT r.registration_id, r.name, 
         c.date_created, c.time_created, c.type, c.amount, 
         c.payment_mode, c.created_by
  FROM cashflows c
@@ -96,15 +96,11 @@ Public Class CashFlow
                                           parsedDate) Then
 
                         If parsedDate >= startDate AndAlso parsedDate < endDate Then
-                            Dim fullName As String = row("firstname").ToString().Trim() &
-                                If(String.IsNullOrWhiteSpace(row("middlename").ToString()), " ", " " & row("middlename").ToString().Trim() & " ") &
-                                row("lastname").ToString().Trim()
+                            Dim fullName As String = row("name").ToString().Trim()
 
                             If String.IsNullOrWhiteSpace(searchText) OrElse
                                row("registration_id").ToString().Contains(searchText) OrElse
-                               row("firstname").ToString().ToLower().Contains(searchText.ToLower()) OrElse
-                               row("middlename").ToString().ToLower().Contains(searchText.ToLower()) OrElse
-                               row("lastname").ToString().ToLower().Contains(searchText.ToLower()) Then
+                               row("name").ToString().ToLower().Contains(searchText.ToLower()) Then
 
                                 Dim newRow = finalTable.NewRow()
                                 newRow("PLAYER ID") = row("registration_id").ToString()

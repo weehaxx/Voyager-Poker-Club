@@ -47,18 +47,17 @@ Partial Class IDPrinting
         Guna2GradientPanel1.Margin = New Padding(3, 4, 3, 4)
         Guna2GradientPanel1.Name = "Guna2GradientPanel1"
         Guna2GradientPanel1.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        Guna2GradientPanel1.Size = New Size(874, 100)
+        Guna2GradientPanel1.Size = New Size(765, 75)
         Guna2GradientPanel1.TabIndex = 0
         ' 
         ' pbIDphoto
         ' 
         pbIDphoto.CustomizableEdges = CustomizableEdges3
         pbIDphoto.ImageRotate = 0F
-        pbIDphoto.Location = New Point(51, 82)
-        pbIDphoto.Margin = New Padding(3, 4, 3, 4)
+        pbIDphoto.Location = New Point(45, 62)
         pbIDphoto.Name = "pbIDphoto"
         pbIDphoto.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        pbIDphoto.Size = New Size(227, 236)
+        pbIDphoto.Size = New Size(199, 177)
         pbIDphoto.SizeMode = PictureBoxSizeMode.StretchImage
         pbIDphoto.TabIndex = 1
         pbIDphoto.TabStop = False
@@ -71,7 +70,7 @@ Partial Class IDPrinting
         lblName.Location = New Point(314, 142)
         lblName.Margin = New Padding(3, 4, 3, 4)
         lblName.Name = "lblName"
-        lblName.Size = New Size(90, 45)
+        lblName.Size = New Size(91, 38)
         lblName.TabIndex = 2
         lblName.Text = "NAME"
         ' 
@@ -83,13 +82,12 @@ Partial Class IDPrinting
         btnPrint.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnPrint.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnPrint.FillColor = Color.FromArgb(CByte(0), CByte(192), CByte(0))
-        btnPrint.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnPrint.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnPrint.ForeColor = Color.White
-        btnPrint.Location = New Point(331, 539)
-        btnPrint.Margin = New Padding(3, 4, 3, 4)
+        btnPrint.Location = New Point(290, 404)
         btnPrint.Name = "btnPrint"
         btnPrint.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        btnPrint.Size = New Size(206, 42)
+        btnPrint.Size = New Size(180, 32)
         btnPrint.TabIndex = 7
         btnPrint.Text = "PRINT"
         ' 
@@ -100,10 +98,10 @@ Partial Class IDPrinting
         lblMemberID.Font = New Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         lblMemberID.ForeColor = Color.Black
         lblMemberID.ImageAlign = ContentAlignment.MiddleRight
-        lblMemberID.Location = New Point(807, 57)
+        lblMemberID.Location = New Point(706, 43)
         lblMemberID.Name = "lblMemberID"
         lblMemberID.RightToLeft = RightToLeft.Yes
-        lblMemberID.Size = New Size(25, 26)
+        lblMemberID.Size = New Size(21, 22)
         lblMemberID.TabIndex = 8
         lblMemberID.Text = "0"
         lblMemberID.TextAlign = ContentAlignment.MiddleCenter
@@ -111,16 +109,17 @@ Partial Class IDPrinting
         ' pbBarcode
         ' 
         pbBarcode.BackColor = Color.White
-        pbBarcode.Location = New Point(70, 398)
+        pbBarcode.Location = New Point(61, 298)
+        pbBarcode.Margin = New Padding(3, 2, 3, 2)
         pbBarcode.Name = "pbBarcode"
-        pbBarcode.Size = New Size(734, 116)
+        pbBarcode.Size = New Size(642, 87)
         pbBarcode.SizeMode = PictureBoxSizeMode.Zoom
         pbBarcode.TabIndex = 9
         pbBarcode.TabStop = False
         ' 
         ' IDPrinting
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.White
         Controls.Add(pbBarcode)
@@ -129,9 +128,8 @@ Partial Class IDPrinting
         Controls.Add(btnPrint)
         Controls.Add(lblName)
         Controls.Add(Guna2GradientPanel1)
-        Margin = New Padding(3, 4, 3, 4)
         Name = "IDPrinting"
-        Size = New Size(874, 609)
+        Size = New Size(765, 457)
         CType(pbIDphoto, ComponentModel.ISupportInitialize).EndInit()
         CType(pbBarcode, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)

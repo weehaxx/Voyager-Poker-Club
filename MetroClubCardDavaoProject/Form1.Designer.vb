@@ -32,6 +32,8 @@ Partial Class Form1
         tbUsername = New Guna.UI2.WinForms.Guna2TextBox()
         tbPassword = New Guna.UI2.WinForms.Guna2TextBox()
         btnLogin = New Guna.UI2.WinForms.Guna2Button()
+        PictureBox1 = New PictureBox()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' tbUsername
@@ -110,12 +112,25 @@ Partial Class Form1
         btnLogin.TabIndex = 2
         btnLogin.Text = "LOGIN"
         ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.BackColor = Color.Transparent
+        PictureBox1.Image = My.Resources.Resources.Voyagerlogo
+        PictureBox1.InitialImage = Nothing
+        PictureBox1.Location = New Point(104, 25)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(230, 187)
+        PictureBox1.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox1.TabIndex = 3
+        PictureBox1.TabStop = False
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.White
         ClientSize = New Size(438, 455)
+        Controls.Add(PictureBox1)
         Controls.Add(btnLogin)
         Controls.Add(tbPassword)
         Controls.Add(tbUsername)
@@ -124,11 +139,13 @@ Partial Class Form1
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "Form1"
         StartPosition = FormStartPosition.CenterScreen
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
     Friend WithEvents tbUsername As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents tbPassword As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents btnLogin As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents PictureBox1 As PictureBox
 
 End Class

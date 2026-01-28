@@ -16,7 +16,7 @@
 
     Private Sub btnProceed_Click(sender As Object, e As EventArgs) Handles btnProceed.Click
         ' ✅ Check password
-        If tbPassword.Text = "Casino2025" Then
+        If tbPassword.Text = "Voyager2026" Then
             RaiseEvent AuthSuccess()   ' 🔹 Signal success
         Else
             MessageBox.Show("Incorrect password.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Error)
