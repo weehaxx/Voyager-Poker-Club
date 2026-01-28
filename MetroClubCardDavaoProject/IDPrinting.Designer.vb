@@ -42,7 +42,7 @@ Partial Class IDPrinting
         ' 
         Guna2GradientPanel1.CustomizableEdges = CustomizableEdges1
         Guna2GradientPanel1.FillColor = Color.Red
-        Guna2GradientPanel1.FillColor2 = Color.Black
+        Guna2GradientPanel1.FillColor2 = Color.Red
         Guna2GradientPanel1.Location = New Point(3, 218)
         Guna2GradientPanel1.Margin = New Padding(3, 4, 3, 4)
         Guna2GradientPanel1.Name = "Guna2GradientPanel1"
@@ -83,7 +83,7 @@ Partial Class IDPrinting
         btnPrint.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnPrint.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnPrint.FillColor = Color.FromArgb(CByte(0), CByte(192), CByte(0))
-        btnPrint.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnPrint.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnPrint.ForeColor = Color.White
         btnPrint.Location = New Point(331, 539)
         btnPrint.Margin = New Padding(3, 4, 3, 4)
@@ -98,7 +98,7 @@ Partial Class IDPrinting
         lblMemberID.AutoSize = True
         lblMemberID.BackColor = Color.Transparent
         lblMemberID.Font = New Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblMemberID.ForeColor = Color.White
+        lblMemberID.ForeColor = Color.Black
         lblMemberID.ImageAlign = ContentAlignment.MiddleRight
         lblMemberID.Location = New Point(807, 57)
         lblMemberID.Name = "lblMemberID"
@@ -120,9 +120,9 @@ Partial Class IDPrinting
         ' 
         ' IDPrinting
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.Black
+        BackColor = Color.White
         Controls.Add(pbBarcode)
         Controls.Add(pbIDphoto)
         Controls.Add(lblMemberID)
