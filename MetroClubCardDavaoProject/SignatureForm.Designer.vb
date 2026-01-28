@@ -52,14 +52,15 @@ Partial Class SignatureForm
         btnClear.DisabledState.CustomBorderColor = Color.DarkGray
         btnClear.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnClear.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnClear.Font = New Font("Segoe UI", 9F)
+        btnClear.FillColor = Color.Red
+        btnClear.Font = New Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnClear.ForeColor = Color.White
         btnClear.Location = New Point(24, 382)
         btnClear.Name = "btnClear"
         btnClear.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         btnClear.Size = New Size(225, 56)
         btnClear.TabIndex = 1
-        btnClear.Text = "Clear"
+        btnClear.Text = "CLEAR"
         ' 
         ' btnSubmit
         ' 
@@ -68,16 +69,17 @@ Partial Class SignatureForm
         btnSubmit.DisabledState.CustomBorderColor = Color.DarkGray
         btnSubmit.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnSubmit.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnSubmit.Font = New Font("Segoe UI", 9F)
+        btnSubmit.FillColor = Color.ForestGreen
+        btnSubmit.Font = New Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnSubmit.ForeColor = Color.White
         btnSubmit.Location = New Point(534, 382)
         btnSubmit.Name = "btnSubmit"
         btnSubmit.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         btnSubmit.Size = New Size(225, 56)
         btnSubmit.TabIndex = 2
-        btnSubmit.Text = "Submit"
+        btnSubmit.Text = "SUBMIT"
         ' 
-        ' Form2
+        ' SignatureForm
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
@@ -85,8 +87,9 @@ Partial Class SignatureForm
         Controls.Add(btnSubmit)
         Controls.Add(btnClear)
         Controls.Add(pbSignature)
-        Name = "Form2"
-        Text = "Form2"
+        Name = "SignatureForm"
+        StartPosition = FormStartPosition.CenterScreen
+        Text = "SIGNATURE"
         CType(pbSignature, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
