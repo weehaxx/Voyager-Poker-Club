@@ -139,19 +139,29 @@ Public Class EditInfo
 
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        ' ✅ Confirmation before saving
+        Dim result As DialogResult = MessageBox.Show(
+        "Are you sure you want to save changes?",
+        "Confirm Save",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Question
+    )
+
+        If result = DialogResult.No Then Exit Sub
+
         Try
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
                 Dim sql As String = "
-                    UPDATE registrations SET
-                        name=@name, birthday=@birthday, birthplace=@birthplace,
-                        presentaddress=@presentaddress, permanentaddress=@permanentaddress,
-                        nationality=@nationality, mobilenumber=@mobilenumber,
-                        sourceoffund=@sourceoffund, worknature=@worknature,
-                        presentedid=@presentedid, identification_number=@identification_number,
-                        front_id=@front_id, back_id=@back_id, signature=@signature
-                    WHERE id=@id"
+                UPDATE registrations SET
+                    name=@name, birthday=@birthday, birthplace=@birthplace,
+                    presentaddress=@presentaddress, permanentaddress=@permanentaddress,
+                    nationality=@nationality, mobilenumber=@mobilenumber,
+                    sourceoffund=@sourceoffund, worknature=@worknature,
+                    presentedid=@presentedid, identification_number=@identification_number,
+                    front_id=@front_id, back_id=@back_id, signature=@signature
+                WHERE id=@id"
 
                 Using cmd As New SQLiteCommand(sql, conn)
                     cmd.Parameters.AddWithValue("@name", tbName.Text)
@@ -169,23 +179,25 @@ Public Class EditInfo
                     ' Images
                     cmd.Parameters.AddWithValue("@front_id", ImageToByte(pbFrontID.Image))
                     cmd.Parameters.AddWithValue("@back_id", ImageToByte(pbBackID.Image))
-
                     cmd.Parameters.AddWithValue("@signature", ImageToByte(pbSignaturePreview.Image))
 
                     cmd.Parameters.AddWithValue("@id", SelectedMemberID)
+
                     cmd.ExecuteNonQuery()
                 End Using
-
             End Using
 
-            MessageBox.Show("Member updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("✅ Member updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             isDirty = False
 
+            ' ✅ Close the UserControl after saving
+            CloseEditInfo()
 
         Catch ex As Exception
             MessageBox.Show("Error saving member info: " & ex.Message)
         End Try
     End Sub
+
 
     ' Helper to convert image to byte array
     Private Function ImageToByte(img As Image) As Object

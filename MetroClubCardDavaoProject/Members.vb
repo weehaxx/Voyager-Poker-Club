@@ -202,7 +202,6 @@ Public Class Members
 
     Private Sub btnViewID_Click(sender As Object, e As EventArgs) Handles btnViewID.Click
         Try
-            ' ✅ Ensure a member is selected
             If dgvRegistrations.SelectedRows.Count = 0 Then
                 MessageBox.Show("Please select a member first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
@@ -213,23 +212,23 @@ Public Class Members
 
             Dim selectedRow = selectedRowView.Row
             Dim memberID As Integer = selectedRow("id")
-            Dim registrationID As String = selectedRow("registration_id").ToString()
 
-            ' ✅ Get front_id, back_id, identification_number from DB
             Dim frontImage As Image = Nothing
             Dim backImage As Image = Nothing
             Dim idNumber As String = ""
+            Dim idPresented As String = ""
 
             Dim dbPath As String = GetDatabasePath()
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
-                Dim query As String = "SELECT front_id, back_id, identification_number FROM registrations WHERE id=@id"
+                Dim query As String = "SELECT front_id, back_id, identification_number, presentedid FROM registrations WHERE id=@id"
                 Using cmd As New SQLiteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@id", memberID)
+
                     Using reader = cmd.ExecuteReader()
                         If reader.Read() Then
-                            ' Front ID
+
                             If Not IsDBNull(reader("front_id")) Then
                                 Dim frontBytes() As Byte = DirectCast(reader("front_id"), Byte())
                                 Using ms As New MemoryStream(frontBytes)
@@ -237,7 +236,6 @@ Public Class Members
                                 End Using
                             End If
 
-                            ' Back ID
                             If Not IsDBNull(reader("back_id")) Then
                                 Dim backBytes() As Byte = DirectCast(reader("back_id"), Byte())
                                 Using ms As New MemoryStream(backBytes)
@@ -245,21 +243,23 @@ Public Class Members
                                 End Using
                             End If
 
-                            ' Identification number
                             If Not IsDBNull(reader("identification_number")) Then
                                 idNumber = reader("identification_number").ToString()
                             End If
+
+                            If Not IsDBNull(reader("presentedid")) Then
+                                idPresented = reader("presentedid").ToString()
+                            End If
+
                         End If
                     End Using
                 End Using
             End Using
 
-            ' ✅ Show overlay
             Dim overlay As New OverlayForm(Me.FindForm)
             overlay.Show()
             overlay.Refresh()
 
-            ' ✅ Popup Form (1001 x 564)
             Dim popup As New Form With {
             .FormBorderStyle = FormBorderStyle.None,
             .StartPosition = FormStartPosition.CenterScreen,
@@ -268,12 +268,12 @@ Public Class Members
             .TopMost = True
         }
 
-            ' ✅ Load ViewID user control
             Dim viewIDControl As New ViewID()
             viewIDControl.Dock = DockStyle.Fill
-            viewIDControl.FrontIDImage = frontImage    ' <-- Set front ID
-            viewIDControl.BackIDImage = backImage      ' <-- Set back ID
-            viewIDControl.IDNumber = idNumber          ' <-- Set identification number
+            viewIDControl.FrontIDImage = frontImage
+            viewIDControl.BackIDImage = backImage
+            viewIDControl.IDNumber = idNumber
+            viewIDControl.IDPresented = idPresented
 
             popup.Controls.Add(viewIDControl)
             popup.ShowDialog()
@@ -284,6 +284,7 @@ Public Class Members
             MessageBox.Show("Error displaying ID: " & ex.Message)
         End Try
     End Sub
+
 
 
     Public Class OverlayForm

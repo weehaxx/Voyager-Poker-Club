@@ -3,6 +3,9 @@
     Public Property BackIDImage As Image
     Public Property IDNumber As String
 
+    Public Property IDPresented As String
+
+
     Private Sub ViewID_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Display images and ID
         If FrontIDImage IsNot Nothing Then
@@ -17,6 +20,7 @@
 
         ' Display identification number
         tbIdentificationNumber.Text = IDNumber
+        tbIDPresented.Text = IDPresented
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
