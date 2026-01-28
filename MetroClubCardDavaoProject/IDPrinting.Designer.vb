@@ -67,7 +67,7 @@ Partial Class IDPrinting
         ' 
         lblName.BackColor = Color.Transparent
         lblName.Font = New Font("Arial Narrow", 22.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblName.ForeColor = Color.White
+        lblName.ForeColor = Color.Black
         lblName.Location = New Point(314, 142)
         lblName.Margin = New Padding(3, 4, 3, 4)
         lblName.Name = "lblName"
