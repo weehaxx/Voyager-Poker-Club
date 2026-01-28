@@ -391,7 +391,7 @@ Public Class Members
             Dim selectedRow = selectedRowView.Row
 
             ' ✅ Format and convert name to ALL CAPS: LASTNAME, FIRSTNAME MIDDLENAME
-            Dim memberName As String = $"{selectedRow("name")}"
+            Dim memberName As String = $"{selectedRow("name")}".ToUpper()
 
             Dim registrationID As String = selectedRow("registration_id").ToString()
 
@@ -411,10 +411,10 @@ Public Class Members
 
             ' ✅ Create the UserControl first (so we can read its size)
             Dim idPrintingControl As New IDPrinting() With {
-            .MemberName = memberName,
-            .MemberID = registrationID,
-            .MemberPhoto = memberPhoto
-        }
+        .MemberName = memberName,
+        .MemberID = registrationID,
+        .MemberPhoto = memberPhoto
+    }
 
             ' ✅ Force layout to ensure proper size is calculated
             idPrintingControl.PerformLayout()
@@ -422,14 +422,14 @@ Public Class Members
 
             ' ✅ Create popup form using the UserControl's preferred size
             Dim frm As New Form With {
-            .Text = "ID Printing Preview",
-            .StartPosition = FormStartPosition.CenterScreen,
-            .FormBorderStyle = FormBorderStyle.FixedDialog,
-            .MaximizeBox = False,
-            .MinimizeBox = False,
-            .ShowInTaskbar = False,
-            .ClientSize = idPrintingControl.Size ' 👈 Match size of IDPrinting UserControl
-        }
+        .Text = "ID Printing Preview",
+        .StartPosition = FormStartPosition.CenterScreen,
+        .FormBorderStyle = FormBorderStyle.FixedDialog,
+        .MaximizeBox = False,
+        .MinimizeBox = False,
+        .ShowInTaskbar = False,
+        .ClientSize = idPrintingControl.Size ' 👈 Match size of IDPrinting UserControl
+    }
 
             ' ✅ Dock it and add control to form
             idPrintingControl.Dock = DockStyle.Fill
@@ -446,6 +446,7 @@ Public Class Members
             MessageBox.Show("Error opening ID Printing: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
     Private Sub btnViewAccount_Click(sender As Object, e As EventArgs) Handles btnViewAccount.Click
         Try
             ' ✅ Make sure a player is selected

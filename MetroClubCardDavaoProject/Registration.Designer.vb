@@ -69,7 +69,6 @@ Partial Class Registration
         tbNationality = New Guna.UI2.WinForms.Guna2TextBox()
         Label12 = New Label()
         tbMobileNumber = New Guna.UI2.WinForms.Guna2TextBox()
-        tbWorkNature = New Guna.UI2.WinForms.Guna2TextBox()
         Label17 = New Label()
         Label18 = New Label()
         btnSave = New Guna.UI2.WinForms.Guna2Button()
@@ -96,6 +95,7 @@ Partial Class Registration
         Label9 = New Label()
         tbIdentificationNumber = New Guna.UI2.WinForms.Guna2TextBox()
         Label7 = New Label()
+        tbWorkNature = New Guna.UI2.WinForms.Guna2TextBox()
         CType(pbCameraDisplay, ComponentModel.ISupportInitialize).BeginInit()
         CType(pbFrontID, ComponentModel.ISupportInitialize).BeginInit()
         CType(pbBackID, ComponentModel.ISupportInitialize).BeginInit()
@@ -145,7 +145,7 @@ Partial Class Registration
         Label5.Location = New Point(17, 164)
         Label5.Name = "Label5"
         Label5.Size = New Size(180, 23)
-        Label5.TabIndex = 8
+        Label5.TabIndex = 17
         Label5.Text = "Present Address:"
         ' 
         ' tbPresentAddress
@@ -167,7 +167,7 @@ Partial Class Registration
         tbPresentAddress.SelectedText = ""
         tbPresentAddress.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         tbPresentAddress.Size = New Size(972, 45)
-        tbPresentAddress.TabIndex = 5
+        tbPresentAddress.TabIndex = 3
         ' 
         ' Label6
         ' 
@@ -200,7 +200,7 @@ Partial Class Registration
         tbPermanentAddress.SelectedText = ""
         tbPermanentAddress.ShadowDecoration.CustomizableEdges = CustomizableEdges6
         tbPermanentAddress.Size = New Size(973, 45)
-        tbPermanentAddress.TabIndex = 6
+        tbPermanentAddress.TabIndex = 4
         ' 
         ' dtpBirthday
         ' 
@@ -217,7 +217,7 @@ Partial Class Registration
         dtpBirthday.Name = "dtpBirthday"
         dtpBirthday.ShadowDecoration.CustomizableEdges = CustomizableEdges8
         dtpBirthday.Size = New Size(303, 45)
-        dtpBirthday.TabIndex = 7
+        dtpBirthday.TabIndex = 13
         dtpBirthday.Value = New Date(2025, 9, 21, 14, 41, 24, 351)
         ' 
         ' Label8
@@ -251,7 +251,7 @@ Partial Class Registration
         tbBirthPlace.SelectedText = ""
         tbBirthPlace.ShadowDecoration.CustomizableEdges = CustomizableEdges10
         tbBirthPlace.Size = New Size(237, 48)
-        tbBirthPlace.TabIndex = 8
+        tbBirthPlace.TabIndex = 2
         ' 
         ' Label10
         ' 
@@ -284,7 +284,7 @@ Partial Class Registration
         tbNationality.SelectedText = ""
         tbNationality.ShadowDecoration.CustomizableEdges = CustomizableEdges12
         tbNationality.Size = New Size(274, 45)
-        tbNationality.TabIndex = 10
+        tbNationality.TabIndex = 5
         ' 
         ' Label12
         ' 
@@ -317,28 +317,7 @@ Partial Class Registration
         tbMobileNumber.SelectedText = ""
         tbMobileNumber.ShadowDecoration.CustomizableEdges = CustomizableEdges14
         tbMobileNumber.Size = New Size(288, 44)
-        tbMobileNumber.TabIndex = 12
-        ' 
-        ' tbWorkNature
-        ' 
-        tbWorkNature.CustomizableEdges = CustomizableEdges15
-        tbWorkNature.DefaultText = ""
-        tbWorkNature.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
-        tbWorkNature.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
-        tbWorkNature.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        tbWorkNature.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        tbWorkNature.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbWorkNature.Font = New Font("Arial Rounded MT Bold", 10.2F)
-        tbWorkNature.ForeColor = Color.Black
-        tbWorkNature.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbWorkNature.Location = New Point(704, 323)
-        tbWorkNature.Margin = New Padding(7, 5, 7, 5)
-        tbWorkNature.Name = "tbWorkNature"
-        tbWorkNature.PlaceholderText = ""
-        tbWorkNature.SelectedText = ""
-        tbWorkNature.ShadowDecoration.CustomizableEdges = CustomizableEdges16
-        tbWorkNature.Size = New Size(288, 47)
-        tbWorkNature.TabIndex = 16
+        tbMobileNumber.TabIndex = 6
         ' 
         ' Label17
         ' 
@@ -369,7 +348,7 @@ Partial Class Registration
         btnSave.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         btnSave.BackColor = Color.Transparent
         btnSave.BorderRadius = 5
-        btnSave.CustomizableEdges = CustomizableEdges17
+        btnSave.CustomizableEdges = CustomizableEdges15
         btnSave.DisabledState.BorderColor = Color.DarkGray
         btnSave.DisabledState.CustomBorderColor = Color.DarkGray
         btnSave.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -380,7 +359,7 @@ Partial Class Registration
         btnSave.Location = New Point(1331, 1059)
         btnSave.Margin = New Padding(3, 4, 3, 4)
         btnSave.Name = "btnSave"
-        btnSave.ShadowDecoration.CustomizableEdges = CustomizableEdges18
+        btnSave.ShadowDecoration.CustomizableEdges = CustomizableEdges16
         btnSave.Size = New Size(167, 48)
         btnSave.TabIndex = 49
         btnSave.Text = "SAVE"
@@ -390,7 +369,7 @@ Partial Class Registration
         btnClear.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         btnClear.BackColor = Color.Transparent
         btnClear.BorderRadius = 5
-        btnClear.CustomizableEdges = CustomizableEdges19
+        btnClear.CustomizableEdges = CustomizableEdges17
         btnClear.DisabledState.BorderColor = Color.DarkGray
         btnClear.DisabledState.CustomBorderColor = Color.DarkGray
         btnClear.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -401,7 +380,7 @@ Partial Class Registration
         btnClear.Location = New Point(22, 1059)
         btnClear.Margin = New Padding(3, 4, 3, 4)
         btnClear.Name = "btnClear"
-        btnClear.ShadowDecoration.CustomizableEdges = CustomizableEdges20
+        btnClear.ShadowDecoration.CustomizableEdges = CustomizableEdges18
         btnClear.Size = New Size(167, 48)
         btnClear.TabIndex = 50
         btnClear.Text = "CLEAR"
@@ -420,12 +399,12 @@ Partial Class Registration
         ' 
         ' pbCameraDisplay
         ' 
-        pbCameraDisplay.CustomizableEdges = CustomizableEdges21
+        pbCameraDisplay.CustomizableEdges = CustomizableEdges19
         pbCameraDisplay.ImageRotate = 0F
         pbCameraDisplay.Location = New Point(1229, 96)
         pbCameraDisplay.Margin = New Padding(3, 4, 3, 4)
         pbCameraDisplay.Name = "pbCameraDisplay"
-        pbCameraDisplay.ShadowDecoration.CustomizableEdges = CustomizableEdges22
+        pbCameraDisplay.ShadowDecoration.CustomizableEdges = CustomizableEdges20
         pbCameraDisplay.Size = New Size(227, 265)
         pbCameraDisplay.SizeMode = PictureBoxSizeMode.StretchImage
         pbCameraDisplay.TabIndex = 54
@@ -445,12 +424,12 @@ Partial Class Registration
         ' 
         ' pbFrontID
         ' 
-        pbFrontID.CustomizableEdges = CustomizableEdges23
+        pbFrontID.CustomizableEdges = CustomizableEdges21
         pbFrontID.ImageRotate = 0F
         pbFrontID.Location = New Point(314, 537)
         pbFrontID.Margin = New Padding(3, 4, 3, 4)
         pbFrontID.Name = "pbFrontID"
-        pbFrontID.ShadowDecoration.CustomizableEdges = CustomizableEdges24
+        pbFrontID.ShadowDecoration.CustomizableEdges = CustomizableEdges22
         pbFrontID.Size = New Size(227, 189)
         pbFrontID.SizeMode = PictureBoxSizeMode.StretchImage
         pbFrontID.TabIndex = 57
@@ -525,7 +504,7 @@ Partial Class Registration
         ' cbIDPresented
         ' 
         cbIDPresented.BackColor = Color.Transparent
-        cbIDPresented.CustomizableEdges = CustomizableEdges25
+        cbIDPresented.CustomizableEdges = CustomizableEdges23
         cbIDPresented.DrawMode = DrawMode.OwnerDrawFixed
         cbIDPresented.DropDownStyle = ComboBoxStyle.DropDownList
         cbIDPresented.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
@@ -535,13 +514,13 @@ Partial Class Registration
         cbIDPresented.ItemHeight = 30
         cbIDPresented.Location = New Point(22, 539)
         cbIDPresented.Name = "cbIDPresented"
-        cbIDPresented.ShadowDecoration.CustomizableEdges = CustomizableEdges26
+        cbIDPresented.ShadowDecoration.CustomizableEdges = CustomizableEdges24
         cbIDPresented.Size = New Size(229, 36)
         cbIDPresented.TabIndex = 68
         ' 
         ' tbSourceOfFund
         ' 
-        tbSourceOfFund.CustomizableEdges = CustomizableEdges27
+        tbSourceOfFund.CustomizableEdges = CustomizableEdges25
         tbSourceOfFund.DefaultText = ""
         tbSourceOfFund.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbSourceOfFund.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -557,9 +536,9 @@ Partial Class Registration
         tbSourceOfFund.PlaceholderForeColor = Color.Black
         tbSourceOfFund.PlaceholderText = ""
         tbSourceOfFund.SelectedText = ""
-        tbSourceOfFund.ShadowDecoration.CustomizableEdges = CustomizableEdges28
+        tbSourceOfFund.ShadowDecoration.CustomizableEdges = CustomizableEdges26
         tbSourceOfFund.Size = New Size(274, 45)
-        tbSourceOfFund.TabIndex = 69
+        tbSourceOfFund.TabIndex = 7
         ' 
         ' Label2
         ' 
@@ -587,12 +566,12 @@ Partial Class Registration
         ' 
         ' pbBackID
         ' 
-        pbBackID.CustomizableEdges = CustomizableEdges29
+        pbBackID.CustomizableEdges = CustomizableEdges27
         pbBackID.ImageRotate = 0F
         pbBackID.Location = New Point(575, 539)
         pbBackID.Margin = New Padding(3, 4, 3, 4)
         pbBackID.Name = "pbBackID"
-        pbBackID.ShadowDecoration.CustomizableEdges = CustomizableEdges30
+        pbBackID.ShadowDecoration.CustomizableEdges = CustomizableEdges28
         pbBackID.Size = New Size(227, 189)
         pbBackID.SizeMode = PictureBoxSizeMode.StretchImage
         pbBackID.TabIndex = 71
@@ -613,11 +592,11 @@ Partial Class Registration
         ' pbSignaturePreview
         ' 
         pbSignaturePreview.BorderStyle = BorderStyle.FixedSingle
-        pbSignaturePreview.CustomizableEdges = CustomizableEdges31
+        pbSignaturePreview.CustomizableEdges = CustomizableEdges29
         pbSignaturePreview.ImageRotate = 0F
         pbSignaturePreview.Location = New Point(847, 498)
         pbSignaturePreview.Name = "pbSignaturePreview"
-        pbSignaturePreview.ShadowDecoration.CustomizableEdges = CustomizableEdges32
+        pbSignaturePreview.ShadowDecoration.CustomizableEdges = CustomizableEdges30
         pbSignaturePreview.Size = New Size(375, 250)
         pbSignaturePreview.SizeMode = PictureBoxSizeMode.StretchImage
         pbSignaturePreview.TabIndex = 74
@@ -661,7 +640,7 @@ Partial Class Registration
         ' 
         ' tbIdentificationNumber
         ' 
-        tbIdentificationNumber.CustomizableEdges = CustomizableEdges33
+        tbIdentificationNumber.CustomizableEdges = CustomizableEdges31
         tbIdentificationNumber.DefaultText = ""
         tbIdentificationNumber.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbIdentificationNumber.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -677,9 +656,9 @@ Partial Class Registration
         tbIdentificationNumber.PlaceholderForeColor = Color.Black
         tbIdentificationNumber.PlaceholderText = ""
         tbIdentificationNumber.SelectedText = ""
-        tbIdentificationNumber.ShadowDecoration.CustomizableEdges = CustomizableEdges34
+        tbIdentificationNumber.ShadowDecoration.CustomizableEdges = CustomizableEdges32
         tbIdentificationNumber.Size = New Size(229, 45)
-        tbIdentificationNumber.TabIndex = 79
+        tbIdentificationNumber.TabIndex = 9
         ' 
         ' Label7
         ' 
@@ -693,11 +672,33 @@ Partial Class Registration
         Label7.TabIndex = 12
         Label7.Text = "Birthday:"
         ' 
+        ' tbWorkNature
+        ' 
+        tbWorkNature.CustomizableEdges = CustomizableEdges33
+        tbWorkNature.DefaultText = ""
+        tbWorkNature.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
+        tbWorkNature.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
+        tbWorkNature.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        tbWorkNature.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        tbWorkNature.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        tbWorkNature.Font = New Font("Arial Rounded MT Bold", 12.0F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbWorkNature.ForeColor = Color.Black
+        tbWorkNature.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        tbWorkNature.Location = New Point(704, 325)
+        tbWorkNature.Margin = New Padding(8, 6, 8, 6)
+        tbWorkNature.Name = "tbWorkNature"
+        tbWorkNature.PlaceholderText = ""
+        tbWorkNature.SelectedText = ""
+        tbWorkNature.ShadowDecoration.CustomizableEdges = CustomizableEdges34
+        tbWorkNature.Size = New Size(288, 44)
+        tbWorkNature.TabIndex = 8
+        ' 
         ' Registration
         ' 
         AutoScaleDimensions = New SizeF(8.0F, 20.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ButtonFace
+        Controls.Add(tbWorkNature)
         Controls.Add(tbIdentificationNumber)
         Controls.Add(Label9)
         Controls.Add(btnAddSignature)
@@ -723,7 +724,6 @@ Partial Class Registration
         Controls.Add(btnSave)
         Controls.Add(Label18)
         Controls.Add(Label17)
-        Controls.Add(tbWorkNature)
         Controls.Add(tbMobileNumber)
         Controls.Add(Label12)
         Controls.Add(tbNationality)
@@ -769,7 +769,6 @@ Partial Class Registration
     Friend WithEvents tbEmployerName As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Label16 As Label
     Friend WithEvents tbBusinessNature As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents tbWorkNature As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Label17 As Label
     Friend WithEvents Label18 As Label
     Friend WithEvents btnSave As Guna.UI2.WinForms.Guna2Button
@@ -796,5 +795,6 @@ Partial Class Registration
     Friend WithEvents Label9 As Label
     Friend WithEvents tbIdentificationNumber As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Label7 As Label
+    Friend WithEvents tbWorkNature As Guna.UI2.WinForms.Guna2TextBox
 
 End Class

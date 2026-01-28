@@ -157,7 +157,6 @@ Public Class IDPrinting
         PrintToC80PDF()
     End Sub
 
-    Private Sub lblMemberID_Click(sender As Object, e As EventArgs) Handles lblMemberID.Click
 
-    End Sub
+
 End Class
