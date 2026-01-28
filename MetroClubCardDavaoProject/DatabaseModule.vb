@@ -4,9 +4,9 @@ Imports System.IO
 Module DatabaseModule
     Private appDataPath As String = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "MetroCardClubDavao"
+        "voyagerpokerclub"
     )
-    Private dbPath As String = Path.Combine(appDataPath, "metrocarddavaodb.db")
+    Private dbPath As String = Path.Combine(appDataPath, "voyagerpokerclub.db")
     Private conn As SQLiteConnection
 
     ' ✅ Initialize and create database if not exists
@@ -93,55 +93,98 @@ Module DatabaseModule
         End Try
     End Function
 
-    ' ✅ Safe save for registration data
-    Public Sub SaveRegistration(
-        lastName As String, firstName As String, middleName As String, alternativeName As String,
-        presentAddress As String, permanentAddress As String, birthday As Date, birthPlace As String,
-        civilStatus As String, nationality As String, email As String, mobileNumber As String,
-        employmentStatus As String, businessName As String, employerName As String, businessNature As String,
-        workName As String, presentedId As String, polMember As String, relationshipPol As String,
-        nameEmergency As String, relationshipEmergency As String, contactEmergency As String
-    )
+    ' ✅ Save registration with FRONT ID, BACK ID, PHOTO + auto registration_id
+    Public Function SaveRegistration(
+       name As String,
+        birthday As Date,
+        birthplace As String,
+        presentAddress As String,
+        permanentAddress As String,
+        nationality As String,
+        mobileNumber As String,
+        sourceOfFund As String,
+       identification_number As String,
+        workNature As String,
+        presentedId As String,
+        frontIdBytes As Byte(),
+        backIdBytes As Byte(),
+        photoBytes As Byte(),
+        signature As Byte()
+    ) As String
+
         Try
-            ' Use centralized db path
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
-                Dim sql As String =
-                    "INSERT INTO registrations " &
-                    "(lastname, firstname, middlename, alternativename, presentaddress, permanentaddress, birthday, birthplace, civilstatus, nationality, email, mobilenumber, employmentstatus, businessname, employername, businessnature, workname, presentedid, polmember, relationshippol, nameemergency, relationshipemergency, contactemergency) " &
-                    "VALUES (@lastname, @firstname, @middlename, @alternativename, @presentaddress, @permanentaddress, @birthday, @birthplace, @civilstatus, @nationality, @email, @mobilenumber, @employmentstatus, @businessname, @employername, @businessnature, @workname, @presentedid, @polmember, @relationshippol, @nameemergency, @relationshipemergency, @contactemergency)"
+                ' ✅ WAL for safety
+                Using walCmd As New SQLiteCommand("PRAGMA journal_mode = WAL;", conn)
+                    walCmd.ExecuteNonQuery()
+                End Using
 
-                Using cmd As New SQLiteCommand(sql, conn)
-                    cmd.Parameters.AddWithValue("@lastname", lastName)
-                    cmd.Parameters.AddWithValue("@firstname", firstName)
-                    cmd.Parameters.AddWithValue("@middlename", middleName)
-                    cmd.Parameters.AddWithValue("@alternativename", alternativeName)
-                    cmd.Parameters.AddWithValue("@presentaddress", presentAddress)
-                    cmd.Parameters.AddWithValue("@permanentaddress", permanentAddress)
-                    cmd.Parameters.AddWithValue("@birthday", birthday.ToString("yyyy-MM-dd"))
-                    cmd.Parameters.AddWithValue("@birthplace", birthPlace)
-                    cmd.Parameters.AddWithValue("@civilstatus", civilStatus)
-                    cmd.Parameters.AddWithValue("@nationality", nationality)
-                    cmd.Parameters.AddWithValue("@email", email)
-                    cmd.Parameters.AddWithValue("@mobilenumber", mobileNumber)
-                    cmd.Parameters.AddWithValue("@employmentstatus", employmentStatus)
-                    cmd.Parameters.AddWithValue("@businessname", businessName)
-                    cmd.Parameters.AddWithValue("@employername", employerName)
-                    cmd.Parameters.AddWithValue("@businessnature", businessNature)
-                    cmd.Parameters.AddWithValue("@workname", workName)
-                    cmd.Parameters.AddWithValue("@presentedid", presentedId)
-                    cmd.Parameters.AddWithValue("@polmember", polMember)
-                    cmd.Parameters.AddWithValue("@relationshippol", relationshipPol)
-                    cmd.Parameters.AddWithValue("@nameemergency", nameEmergency)
-                    cmd.Parameters.AddWithValue("@relationshipemergency", relationshipEmergency)
-                    cmd.Parameters.AddWithValue("@contactemergency", contactEmergency)
-                    cmd.ExecuteNonQuery()
+                Using trans = conn.BeginTransaction()
+                    Try
+                        ' ✅ INSERT then return new row id
+                        Dim sql As String = "
+                    INSERT INTO registrations (
+    name, birthday, birthplace, presentaddress, permanentaddress,
+    nationality, mobilenumber, sourceoffund, worknature,
+    presentedid, identification_number, front_id, back_id, photo, signature
+) VALUES (
+    @name, @birthday, @birthplace, @presentaddress, @permanentaddress,
+    @nationality, @mobilenumber, @sourceoffund, @worknature,
+    @presentedid, @identification_number, @front_id, @back_id, @photo, @signature
+);
+
+                        SELECT last_insert_rowid();
+                    "
+
+                        Dim newId As Long
+
+                        Using cmd As New SQLiteCommand(sql, conn, trans)
+                            cmd.Parameters.AddWithValue("@name", name)
+                            cmd.Parameters.AddWithValue("@birthday", birthday.ToString("yyyy-MM-dd"))
+                            cmd.Parameters.AddWithValue("@birthplace", birthplace)
+                            cmd.Parameters.AddWithValue("@presentaddress", presentAddress)
+                            cmd.Parameters.AddWithValue("@permanentaddress", permanentAddress)
+                            cmd.Parameters.AddWithValue("@nationality", nationality)
+                            cmd.Parameters.AddWithValue("@mobilenumber", mobileNumber)
+                            cmd.Parameters.AddWithValue("@sourceoffund", sourceOfFund)
+                            cmd.Parameters.AddWithValue("@worknature", workNature)
+                            cmd.Parameters.AddWithValue("@presentedid", presentedId)
+                            cmd.Parameters.AddWithValue("@identification_number", identification_number)
+                            cmd.Parameters.AddWithValue("@front_id", frontIdBytes)
+                            cmd.Parameters.AddWithValue("@back_id", backIdBytes)
+                            cmd.Parameters.AddWithValue("@photo", photoBytes)
+                            cmd.Parameters.Add("@signature", System.Data.DbType.Binary).Value =
+                                If(signature IsNot Nothing, signature, DBNull.Value)
+                            newId = CLng(cmd.ExecuteScalar())
+                        End Using
+
+                        ' ✅ Generate registration_id then update
+                        Dim regId As String = DateTime.Now.ToString("yyyyMMdd") & newId.ToString()
+
+                        Using updateCmd As New SQLiteCommand("UPDATE registrations SET registration_id=@r WHERE id=@i", conn, trans)
+                            updateCmd.Parameters.AddWithValue("@r", regId)
+                            updateCmd.Parameters.AddWithValue("@i", newId)
+                            updateCmd.ExecuteNonQuery()
+                        End Using
+
+                        trans.Commit()
+
+                        ' ✅ return generated registration id
+                        Return regId
+
+                    Catch ex As Exception
+                        trans.Rollback()
+                        Throw
+                    End Try
                 End Using
             End Using
 
         Catch ex As Exception
             MessageBox.Show("Error saving registration: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return ""
         End Try
-    End Sub
+    End Function
+
 End Module

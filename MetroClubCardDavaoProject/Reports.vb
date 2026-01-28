@@ -8,12 +8,12 @@ Public Class Reports
     Private rawValues As New Dictionary(Of String, Decimal) ' 🔹 Store real signed values
 
     Private Function GetDatabasePath() As String
-        Dim appDataPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MetroCardClubDavao")
+        Dim appDataPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "voyagerpokerclub")
         If Not Directory.Exists(appDataPath) Then
             Directory.CreateDirectory(appDataPath)
         End If
 
-        Dim dbPath As String = Path.Combine(appDataPath, "metrocarddavaodb.db")
+        Dim dbPath As String = Path.Combine(appDataPath, "voyagerpokerclub.db")
         If Not File.Exists(dbPath) Then
             ' 🔹 Create an empty SQLite file if it doesn’t exist yet
             SQLiteConnection.CreateFile(dbPath)

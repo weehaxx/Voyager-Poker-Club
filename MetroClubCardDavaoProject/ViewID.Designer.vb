@@ -22,29 +22,34 @@ Partial Class ViewID
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        PictureBox1 = New PictureBox()
+        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        pbFrontID = New PictureBox()
         btnClose = New Guna.UI2.WinForms.Guna2Button()
-        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
+        pbBackID = New PictureBox()
+        Label7 = New Label()
+        tbIdentificationNumber = New Guna.UI2.WinForms.Guna2TextBox()
+        CType(pbFrontID, ComponentModel.ISupportInitialize).BeginInit()
+        CType(pbBackID, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
-        ' PictureBox1
+        ' pbFrontID
         ' 
-        PictureBox1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        PictureBox1.Location = New Point(26, 40)
-        PictureBox1.Margin = New Padding(3, 2, 3, 2)
-        PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(826, 315)
-        PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
-        PictureBox1.TabIndex = 0
-        PictureBox1.TabStop = False
+        pbFrontID.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        pbFrontID.Location = New Point(31, 94)
+        pbFrontID.Name = "pbFrontID"
+        pbFrontID.Size = New Size(438, 392)
+        pbFrontID.SizeMode = PictureBoxSizeMode.StretchImage
+        pbFrontID.TabIndex = 0
+        pbFrontID.TabStop = False
         ' 
         ' btnClose
         ' 
         btnClose.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         btnClose.BackColor = Color.Transparent
-        btnClose.CustomizableEdges = CustomizableEdges1
+        btnClose.CustomizableEdges = CustomizableEdges5
         btnClose.DisabledState.BorderColor = Color.DarkGray
         btnClose.DisabledState.CustomBorderColor = Color.DarkGray
         btnClose.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -52,28 +57,80 @@ Partial Class ViewID
         btnClose.FillColor = Color.Red
         btnClose.Font = New Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnClose.ForeColor = SystemColors.Window
-        btnClose.Location = New Point(728, 373)
-        btnClose.Margin = New Padding(3, 2, 3, 2)
+        btnClose.Location = New Point(835, 512)
         btnClose.Name = "btnClose"
-        btnClose.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        btnClose.Size = New Size(124, 28)
+        btnClose.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        btnClose.Size = New Size(142, 37)
         btnClose.TabIndex = 83
         btnClose.Text = "Close"
         ' 
+        ' pbBackID
+        ' 
+        pbBackID.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        pbBackID.Location = New Point(539, 94)
+        pbBackID.Name = "pbBackID"
+        pbBackID.Size = New Size(438, 392)
+        pbBackID.SizeMode = PictureBoxSizeMode.StretchImage
+        pbBackID.TabIndex = 84
+        pbBackID.TabStop = False
+        ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.BackColor = Color.Transparent
+        Label7.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label7.ForeColor = Color.Black
+        Label7.Location = New Point(31, 36)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(227, 46)
+        Label7.TabIndex = 85
+        Label7.Text = "Identification Number:" & vbCrLf & " "
+        ' 
+        ' tbIdentificationNumber
+        ' 
+        tbIdentificationNumber.AutoValidate = AutoValidate.Disable
+        tbIdentificationNumber.CustomizableEdges = CustomizableEdges7
+        tbIdentificationNumber.DefaultText = ""
+        tbIdentificationNumber.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
+        tbIdentificationNumber.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
+        tbIdentificationNumber.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        tbIdentificationNumber.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        tbIdentificationNumber.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        tbIdentificationNumber.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbIdentificationNumber.ForeColor = Color.Black
+        tbIdentificationNumber.HideSelection = False
+        tbIdentificationNumber.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        tbIdentificationNumber.Location = New Point(256, 24)
+        tbIdentificationNumber.Margin = New Padding(5, 7, 5, 7)
+        tbIdentificationNumber.Name = "tbIdentificationNumber"
+        tbIdentificationNumber.PlaceholderText = ""
+        tbIdentificationNumber.ReadOnly = True
+        tbIdentificationNumber.SelectedText = ""
+        tbIdentificationNumber.ShadowDecoration.CustomizableEdges = CustomizableEdges8
+        tbIdentificationNumber.Size = New Size(381, 48)
+        tbIdentificationNumber.TabIndex = 86
+        ' 
         ' ViewID
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
+        Controls.Add(tbIdentificationNumber)
+        Controls.Add(Label7)
+        Controls.Add(pbBackID)
         Controls.Add(btnClose)
-        Controls.Add(PictureBox1)
-        Margin = New Padding(3, 2, 3, 2)
+        Controls.Add(pbFrontID)
         Name = "ViewID"
-        Size = New Size(876, 423)
-        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
+        Size = New Size(1001, 564)
+        CType(pbFrontID, ComponentModel.ISupportInitialize).EndInit()
+        CType(pbBackID, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
+        PerformLayout()
     End Sub
 
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents pbFrontID As PictureBox
     Friend WithEvents btnClose As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents pbBackID As PictureBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents tbIdentificationNumber As Guna.UI2.WinForms.Guna2TextBox
 
 End Class

@@ -1,18 +1,22 @@
 ﻿Public Class ViewID
-    Public Property IDImage As Image
+    Public Property FrontIDImage As Image
+    Public Property BackIDImage As Image
+    Public Property IDNumber As String
 
     Private Sub ViewID_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If IDImage IsNot Nothing Then
-            PictureBox1.Image = IDImage
-            PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
-        Else
-            PictureBox1.Image = Nothing
+        ' Display images and ID
+        If FrontIDImage IsNot Nothing Then
+            pbFrontID.Image = FrontIDImage
+            pbFrontID.SizeMode = PictureBoxSizeMode.StretchImage
         End If
-    End Sub
 
-    ' Optional: Close popup if user clicks the image
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        If BackIDImage IsNot Nothing Then
+            pbBackID.Image = BackIDImage
+            pbBackID.SizeMode = PictureBoxSizeMode.StretchImage
+        End If
 
+        ' Display identification number
+        tbIdentificationNumber.Text = IDNumber
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click

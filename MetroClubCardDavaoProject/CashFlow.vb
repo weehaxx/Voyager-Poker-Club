@@ -10,9 +10,9 @@ Public Class CashFlow
     ' ✅ Safe AppData DB Path (consistent with DatabaseModule)
     Private ReadOnly appDataPath As String = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "MetroCardClubDavao"
+        "voyagerpokerclub"
     )
-    Private ReadOnly dbPath As String = Path.Combine(appDataPath, "metrocarddavaodb.db")
+    Private ReadOnly dbPath As String = Path.Combine(appDataPath, "voyagerpokerclub.db")
 
     Private Sub CashFlow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try

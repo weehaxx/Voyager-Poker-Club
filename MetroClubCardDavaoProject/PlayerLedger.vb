@@ -66,7 +66,7 @@ Public Class PlayerLedger
             ' ✅ Define AppData path for DB
             Dim appDataPath As String = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "MetroCardClubDavao"
+                "voyagerpokerclub"
             )
 
             ' ✅ Ensure folder exists
@@ -75,7 +75,7 @@ Public Class PlayerLedger
             End If
 
             ' ✅ Full database path (use same DB for consistency)
-            Dim dbPath As String = Path.Combine(appDataPath, "metrocarddavaodb.db")
+            Dim dbPath As String = Path.Combine(appDataPath, "voyagerpokerclub.db")
 
             ' ✅ Connect to database
             Using conn As New SQLiteConnection($"Data Source={dbPath};Version=3;")

@@ -22,11 +22,11 @@ Public Class Ledger
         LoadLedger()
     End Sub
     Private Function GetDatabasePath() As String
-        Dim appDataPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MetroCardClubDavao")
+        Dim appDataPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "voyagerpokerclub")
         If Not Directory.Exists(appDataPath) Then
             Directory.CreateDirectory(appDataPath)
         End If
-        Return Path.Combine(appDataPath, "metrocarddavaodb.db")
+        Return Path.Combine(appDataPath, "voyagerpokerclub.db")
     End Function
 
     Private Sub LoadLedger()

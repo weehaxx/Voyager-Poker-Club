@@ -1,91 +1,80 @@
 ﻿Imports System.Data.SQLite
 Imports System.IO
+Imports System.Drawing
 
 Public Class EditInfo
-    ' ✅ Public properties to receive selected member details
     Public Property SelectedMemberID As Integer
     Public Property SelectedFullName As String
 
     Private isDirty As Boolean = False ' Track changes
-
-    ' ✅ Safe database path inside AppData
     Private ReadOnly dbPath As String = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "MetroCardClubDavao",
-        "metrocarddavaodb.db"
+        "voyagerpokerclub",
+        "voyagerpokerclub.db"
     )
+
+    ' Image placeholders
+    Private frontIDImage As Image = Nothing
+    Private backIDImage As Image = Nothing
+    Private photoImage As Image = Nothing
+    Private signatureImage As Image = Nothing
 
     Private Sub EditInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             ' Ensure folder exists
             Dim dbFolder As String = Path.GetDirectoryName(dbPath)
-            If Not Directory.Exists(dbFolder) Then
-                Directory.CreateDirectory(dbFolder)
-            End If
-
+            If Not Directory.Exists(dbFolder) Then Directory.CreateDirectory(dbFolder)
             If Not File.Exists(dbPath) Then
-                MessageBox.Show("Database file not found at: " & dbPath,
-                                "Database Missing", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Database file not found at: " & dbPath, "Database Missing", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
-            ' ✅ Load member data
+            ' Load member data
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
-
                 Dim query As String = "SELECT * FROM registrations WHERE id=@id"
                 Using cmd As New SQLiteCommand(query, conn)
                     cmd.Parameters.AddWithValue("@id", SelectedMemberID)
-
                     Using reader As SQLiteDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
-                            tbLastName.Text = reader("lastname").ToString()
-                            tbFirstName.Text = reader("firstname").ToString()
-                            tbMiddleName.Text = reader("middlename").ToString()
-                            tbPresentAddress.Text = reader("presentaddress").ToString()
-                            tbPermanentAddress.Text = reader("permanentaddress").ToString()
-                            tbEmail.Text = reader("email").ToString()
-                            tbMobileNumber.Text = reader("mobilenumber").ToString()
+                            ' Text fields
+                            tbName.Text = reader("name").ToString()
                             dtpBirthday.Text = reader("birthday").ToString()
                             tbBirthPlace.Text = reader("birthplace").ToString()
-                            tbCivilStatus.Text = reader("civilstatus").ToString()
+                            tbPresentAddress.Text = reader("presentaddress").ToString()
+                            tbPermanentAddress.Text = reader("permanentaddress").ToString()
                             tbNationality.Text = reader("nationality").ToString()
+                            tbMobileNumber.Text = reader("mobilenumber").ToString()
+                            tbSourceOfFund.Text = reader("sourceoffund").ToString()
+                            tbWorkNature.Text = reader("worknature").ToString()
+                            cbIDPresented.Text = reader("presentedid").ToString()
+                            tbIdentificationNumber.Text = reader("identification_number").ToString()
 
-                            ' ✅ New fields
-                            tbAlternativeName.Text = reader("alternativename").ToString()
-                            tbPresentedID.Text = reader("presentedid").ToString()
-
-                            ' Employment status
-                            Dim empStatus As String = reader("employmentstatus").ToString()
-                            If empStatus = "Self-Employed" Then
-                                rbSelfEmployed.Checked = True
-                                tnBusinessName.Text = reader("businessname").ToString()
-                                tbBusinessNature.Text = reader("businessnature").ToString()
-                            ElseIf empStatus = "Employed" Then
-                                rbEmployed.Checked = True
-                                tbEmployerName.Text = reader("employername").ToString()
-                                tnWorkName.Text = reader("workname").ToString()
+                            ' Images
+                            If Not IsDBNull(reader("front_id")) Then
+                                Dim bytes = DirectCast(reader("front_id"), Byte())
+                                Using ms As New MemoryStream(bytes)
+                                    frontIDImage = Image.FromStream(ms)
+                                    pbFrontID.Image = frontIDImage
+                                    pbFrontID.SizeMode = PictureBoxSizeMode.StretchImage
+                                End Using
                             End If
 
-                            ' Political membership
-                            Dim polMember As String = reader("polmember").ToString()
-                            If polMember = "Yes" Then
-                                tbYes.Checked = True
-                                tbRelationshipPol.Text = reader("relationshippol").ToString()
-                            Else
-                                tbNo.Checked = True
+                            If Not IsDBNull(reader("back_id")) Then
+                                Dim bytes = DirectCast(reader("back_id"), Byte())
+                                Using ms As New MemoryStream(bytes)
+                                    backIDImage = Image.FromStream(ms)
+                                    pbBackID.Image = backIDImage
+                                    pbBackID.SizeMode = PictureBoxSizeMode.StretchImage
+                                End Using
                             End If
 
-                            ' Emergency contact
-                            tbNameEmergency.Text = reader("nameemergency").ToString()
-                            tbRelationShipEmergency.Text = reader("relationshipemergency").ToString()
-                            tbContactEmergency.Text = reader("contactemergency").ToString()
-
-                            ' Photo
-                            If Not IsDBNull(reader("photo")) Then
-                                Dim photoData As Byte() = DirectCast(reader("photo"), Byte())
-                                Using ms As New MemoryStream(photoData)
-                                    pbCameraDisplay.Image = Image.FromStream(ms)
+                            If Not IsDBNull(reader("signature")) Then
+                                Dim bytes = DirectCast(reader("signature"), Byte())
+                                Using ms As New MemoryStream(bytes)
+                                    signatureImage = Image.FromStream(ms)
+                                    pbSignaturePreview.Image = signatureImage
+                                    pbSignaturePreview.SizeMode = PictureBoxSizeMode.StretchImage
                                 End Using
                             End If
                         End If
@@ -93,120 +82,45 @@ Public Class EditInfo
                 End Using
             End Using
 
-            btnSave.Enabled = False
+            cbIDPresented.Items.AddRange(New String() {
+                "Philippine Passport", "Driver’s License", "SSS ID", "Postal ID",
+                "Voter’s ID", "PRC ID", "National ID", "Company ID", "Senior Citizen ID", "Other..."
+            })
+
+
             AddHandlerForAllInputs(Me)
 
         Catch ex As Exception
-            MessageBox.Show("Error loading member info for edit: " & ex.Message)
+            MessageBox.Show("Error loading member info: " & ex.Message)
         End Try
     End Sub
 
-    ' 🔄 Detect changes
+    ' Track changes
     Private Sub Control_Changed(sender As Object, e As EventArgs)
         isDirty = True
-        btnSave.Enabled = True
+
     End Sub
 
     Private Sub AddHandlerForAllInputs(ctrl As Control)
         For Each c As Control In ctrl.Controls
-            If TypeOf c Is TextBox Then
-                AddHandler DirectCast(c, TextBox).TextChanged, AddressOf Control_Changed
-            ElseIf TypeOf c Is ComboBox Then
-                AddHandler DirectCast(c, ComboBox).SelectedIndexChanged, AddressOf Control_Changed
-            ElseIf TypeOf c Is RadioButton Then
-                AddHandler DirectCast(c, RadioButton).CheckedChanged, AddressOf Control_Changed
-            End If
-
+            If TypeOf c Is TextBox Then AddHandler DirectCast(c, TextBox).TextChanged, AddressOf Control_Changed
+            If TypeOf c Is ComboBox Then AddHandler DirectCast(c, ComboBox).SelectedIndexChanged, AddressOf Control_Changed
+            If TypeOf c Is RadioButton Then AddHandler DirectCast(c, RadioButton).CheckedChanged, AddressOf Control_Changed
             If c.HasChildren Then AddHandlerForAllInputs(c)
         Next
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        If isDirty Then
-            Dim result = MessageBox.Show("You have unsaved changes. Are you sure you want to cancel?",
-                                         "Confirm Cancel", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-            If result = DialogResult.No Then Return
+        If isDirty AndAlso MessageBox.Show("You have unsaved changes. Cancel anyway?", "Confirm Cancel", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
+            Return
         End If
-        CloseEditInfo()
-    End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim confirmResult As DialogResult = MessageBox.Show(
-            "Are you sure you want to save these changes?",
-            "Confirm Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-        If confirmResult = DialogResult.No Then Exit Sub
-
-        Try
-            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
-                conn.Open()
-
-                Dim query As String =
-                    "UPDATE registrations SET " &
-                    "lastname=@lastname, firstname=@firstname, middlename=@middlename, " &
-                    "presentaddress=@presentaddress, permanentaddress=@permanentaddress, " &
-                    "email=@email, mobilenumber=@mobilenumber, birthday=@birthday, " &
-                    "birthplace=@birthplace, civilstatus=@civilstatus, nationality=@nationality, " &
-                    "alternativename=@alternativename, presentedid=@presentedid, " &
-                    "employmentstatus=@employmentstatus, businessname=@businessname, businessnature=@businessnature, " &
-                    "employername=@employername, workname=@workname, " &
-                    "polmember=@polmember, relationshippol=@relationshippol, " &
-                    "nameemergency=@nameemergency, relationshipemergency=@relationshipemergency, contactemergency=@contactemergency " &
-                    "WHERE id=@id"
-
-                Using cmd As New SQLiteCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@lastname", tbLastName.Text)
-                    cmd.Parameters.AddWithValue("@firstname", tbFirstName.Text)
-                    cmd.Parameters.AddWithValue("@middlename", tbMiddleName.Text)
-                    cmd.Parameters.AddWithValue("@presentaddress", tbPresentAddress.Text)
-                    cmd.Parameters.AddWithValue("@permanentaddress", tbPermanentAddress.Text)
-                    cmd.Parameters.AddWithValue("@email", tbEmail.Text)
-                    cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
-                    cmd.Parameters.AddWithValue("@birthday", dtpBirthday.Value.ToString("yyyy-MM-dd"))
-                    cmd.Parameters.AddWithValue("@birthplace", tbBirthPlace.Text)
-                    cmd.Parameters.AddWithValue("@civilstatus", tbCivilStatus.Text)
-                    cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
-
-                    cmd.Parameters.AddWithValue("@alternativename", tbAlternativeName.Text)
-                    cmd.Parameters.AddWithValue("@presentedid", tbPresentedID.Text)
-
-                    ' Employment status
-                    Dim empStatus As String = If(rbSelfEmployed.Checked, "Self-Employed",
-                                          If(rbEmployed.Checked, "Employed", ""))
-                    cmd.Parameters.AddWithValue("@employmentstatus", empStatus)
-                    cmd.Parameters.AddWithValue("@businessname", tnBusinessName.Text)
-                    cmd.Parameters.AddWithValue("@businessnature", tbBusinessNature.Text)
-                    cmd.Parameters.AddWithValue("@employername", tbEmployerName.Text)
-                    cmd.Parameters.AddWithValue("@workname", tnWorkName.Text)
-
-                    ' Political member
-                    cmd.Parameters.AddWithValue("@polmember", If(tbYes.Checked, "Yes", "No"))
-                    cmd.Parameters.AddWithValue("@relationshippol", tbRelationshipPol.Text)
-
-                    ' Emergency contact
-                    cmd.Parameters.AddWithValue("@nameemergency", tbNameEmergency.Text)
-                    cmd.Parameters.AddWithValue("@relationshipemergency", tbRelationShipEmergency.Text)
-                    cmd.Parameters.AddWithValue("@contactemergency", tbContactEmergency.Text)
-
-                    cmd.Parameters.AddWithValue("@id", SelectedMemberID)
-                    cmd.ExecuteNonQuery()
-                End Using
-            End Using
-
-            MessageBox.Show("Member information updated successfully!", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            isDirty = False
-            CloseEditInfo()
-
-        Catch ex As Exception
-            MessageBox.Show("Error updating member info: " & ex.Message)
-        End Try
+        CloseEditInfo() ' call your existing helper
     End Sub
 
     Private Sub CloseEditInfo()
         If TypeOf Me.Parent Is Form Then
-            Me.FindForm().Close()
+            Me.FindForm().Close() ' if hosted directly in a Form
         Else
             Dim parentPanel As Control = Me.Parent
             Me.Parent.Controls.Remove(Me)
@@ -215,36 +129,108 @@ Public Class EditInfo
         End If
     End Sub
 
-    Private Sub rbEmployed_CheckedChanged(sender As Object, e As EventArgs) Handles rbEmployed.CheckedChanged
-        If rbEmployed.Checked Then
-            tbEmployerName.Enabled = True
-            tnWorkName.Enabled = True
-            tnBusinessName.Enabled = False
-            tbBusinessNature.Enabled = False
-            tnBusinessName.Clear()
-            tbBusinessNature.Clear()
-        Else
-            tbEmployerName.Clear()
-            tnWorkName.Clear()
-            tbEmployerName.Enabled = False
-            tnWorkName.Enabled = False
-        End If
+
+
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        Try
+            Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
+                conn.Open()
+
+                Dim sql As String = "
+                    UPDATE registrations SET
+                        name=@name, birthday=@birthday, birthplace=@birthplace,
+                        presentaddress=@presentaddress, permanentaddress=@permanentaddress,
+                        nationality=@nationality, mobilenumber=@mobilenumber,
+                        sourceoffund=@sourceoffund, worknature=@worknature,
+                        presentedid=@presentedid, identification_number=@identification_number,
+                        front_id=@front_id, back_id=@back_id, signature=@signature
+                    WHERE id=@id"
+
+                Using cmd As New SQLiteCommand(sql, conn)
+                    cmd.Parameters.AddWithValue("@name", tbName.Text)
+                    cmd.Parameters.AddWithValue("@birthday", dtpBirthday.Value.ToString("yyyy-MM-dd"))
+                    cmd.Parameters.AddWithValue("@birthplace", tbBirthPlace.Text)
+                    cmd.Parameters.AddWithValue("@presentaddress", tbPresentAddress.Text)
+                    cmd.Parameters.AddWithValue("@permanentaddress", tbPermanentAddress.Text)
+                    cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
+                    cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
+                    cmd.Parameters.AddWithValue("@sourceoffund", tbSourceOfFund.Text)
+                    cmd.Parameters.AddWithValue("@worknature", tbWorkNature.Text)
+                    cmd.Parameters.AddWithValue("@presentedid", cbIDPresented.Text)
+                    cmd.Parameters.AddWithValue("@identification_number", tbIdentificationNumber.Text)
+
+                    ' Images
+                    cmd.Parameters.AddWithValue("@front_id", ImageToByte(pbFrontID.Image))
+                    cmd.Parameters.AddWithValue("@back_id", ImageToByte(pbBackID.Image))
+
+                    cmd.Parameters.AddWithValue("@signature", ImageToByte(pbSignaturePreview.Image))
+
+                    cmd.Parameters.AddWithValue("@id", SelectedMemberID)
+                    cmd.ExecuteNonQuery()
+                End Using
+
+            End Using
+
+            MessageBox.Show("Member updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            isDirty = False
+
+
+        Catch ex As Exception
+            MessageBox.Show("Error saving member info: " & ex.Message)
+        End Try
     End Sub
 
-    Private Sub rbSelfEmployed_CheckedChanged(sender As Object, e As EventArgs) Handles rbSelfEmployed.CheckedChanged
-        If rbSelfEmployed.Checked Then
-            tnBusinessName.Enabled = True
-            tbBusinessNature.Enabled = True
-            tbEmployerName.Enabled = False
-            tnWorkName.Enabled = False
-            tbEmployerName.Clear()
-            tnWorkName.Clear()
-        Else
-            tnBusinessName.Clear()
-            tbBusinessNature.Clear()
-            tnBusinessName.Enabled = False
-            tbBusinessNature.Enabled = False
-        End If
+    ' Helper to convert image to byte array
+    Private Function ImageToByte(img As Image) As Object
+        If img Is Nothing Then Return DBNull.Value
+        Using ms As New MemoryStream()
+            ' Clone the image to avoid stream-lock issues
+            Using clone As Image = New Bitmap(img)
+                clone.Save(ms, Imaging.ImageFormat.Jpeg)
+            End Using
+            Return ms.ToArray()
+        End Using
+    End Function
+
+    Private Sub btnUploadFrontID_Click(sender As Object, e As EventArgs) Handles btnUploadFrontID.Click
+        Using ofd As New OpenFileDialog()
+            ofd.Title = "Select an ID Image"
+            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+            If ofd.ShowDialog() = DialogResult.OK Then
+                pbFrontID.Image = Image.FromFile(ofd.FileName)
+                pbFrontID.SizeMode = PictureBoxSizeMode.StretchImage
+
+            End If
+        End Using
     End Sub
 
+    Private Sub btnUploadBackID_Click(sender As Object, e As EventArgs) Handles btnUploadBackID.Click
+        Using ofd As New OpenFileDialog()
+            ofd.Title = "Select an ID Image"
+            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+            If ofd.ShowDialog() = DialogResult.OK Then
+                pbBackID.Image = Image.FromFile(ofd.FileName)
+                pbBackID.SizeMode = PictureBoxSizeMode.StretchImage
+
+            End If
+        End Using
+    End Sub
+
+    Private Sub btnAddSignature_Click(sender As Object, e As EventArgs) Handles btnAddSignature.Click
+        Using sigForm As New SignatureForm()
+            ' ✅ Pass existing signature from preview (if any)
+            If pbSignaturePreview.Image IsNot Nothing Then
+                sigForm.ExistingSignature = CType(pbSignaturePreview.Image.Clone(), Image)
+            End If
+
+            If sigForm.ShowDialog() = DialogResult.OK Then
+                ' Update preview
+                pbSignaturePreview.Image = CType(sigForm.SignatureImage.Clone(), Image)
+                pbSignaturePreview.SizeMode = PictureBoxSizeMode.StretchImage
+
+                ' ✅ Update the variable that will be saved to DB
+                signatureImage = CType(sigForm.SignatureImage.Clone(), Image)
+            End If
+        End Using
+    End Sub
 End Class
