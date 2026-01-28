@@ -57,7 +57,7 @@ Partial Class IDPrinting
         pbIDphoto.Location = New Point(50, 124)
         pbIDphoto.Name = "pbIDphoto"
         pbIDphoto.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        pbIDphoto.Size = New Size(199, 206)
+        pbIDphoto.Size = New Size(206, 206)
         pbIDphoto.SizeMode = PictureBoxSizeMode.StretchImage
         pbIDphoto.TabIndex = 1
         pbIDphoto.TabStop = False
