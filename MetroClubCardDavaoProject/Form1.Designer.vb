@@ -30,10 +30,8 @@ Partial Class Form1
         Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         tbUsername = New Guna.UI2.WinForms.Guna2TextBox()
-        PictureBox1 = New PictureBox()
         tbPassword = New Guna.UI2.WinForms.Guna2TextBox()
         btnLogin = New Guna.UI2.WinForms.Guna2Button()
-        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' tbUsername
@@ -53,7 +51,7 @@ Partial Class Form1
         tbUsername.IconLeftOffset = New Point(10, 0)
         tbUsername.IconLeftSize = New Size(30, 30)
         tbUsername.Location = New Point(92, 235)
-        tbUsername.Margin = New Padding(8, 8, 8, 8)
+        tbUsername.Margin = New Padding(8)
         tbUsername.Name = "tbUsername"
         tbUsername.PlaceholderForeColor = Color.DarkGray
         tbUsername.PlaceholderText = "Username"
@@ -64,16 +62,6 @@ Partial Class Form1
         tbUsername.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material
         tbUsername.TabIndex = 0
         tbUsername.TextOffset = New Point(10, 0)
-        ' 
-        ' PictureBox1
-        ' 
-        PictureBox1.Image = My.Resources.Resources.CasinoLogo
-        PictureBox1.Location = New Point(118, 36)
-        PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(219, 188)
-        PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
-        PictureBox1.TabIndex = 2
-        PictureBox1.TabStop = False
         ' 
         ' tbPassword
         ' 
@@ -113,7 +101,7 @@ Partial Class Form1
         btnLogin.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnLogin.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnLogin.FillColor = Color.Black
-        btnLogin.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnLogin.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnLogin.ForeColor = Color.White
         btnLogin.Location = New Point(92, 373)
         btnLogin.Name = "btnLogin"
@@ -130,19 +118,16 @@ Partial Class Form1
         ClientSize = New Size(438, 455)
         Controls.Add(btnLogin)
         Controls.Add(tbPassword)
-        Controls.Add(PictureBox1)
         Controls.Add(tbUsername)
         ForeColor = Color.Black
         FormBorderStyle = FormBorderStyle.FixedToolWindow
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "Form1"
         StartPosition = FormStartPosition.CenterScreen
-        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
     Friend WithEvents tbUsername As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents tbPassword As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents btnLogin As Guna.UI2.WinForms.Guna2Button
 
