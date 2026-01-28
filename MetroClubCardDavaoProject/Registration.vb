@@ -163,7 +163,22 @@ signature BLOB,
                 MessageBox.Show("Please capture or upload a photo before saving.")
                 Return
             End If
+            Dim matches = GetSimilarNames(tbName.Text.Trim())
+            If matches.Count > 0 Then
+                Dim matchList As String = String.Join(vbCrLf, matches)
+                Dim result = MessageBox.Show(
+        "A similar name already exists in the database:" & vbCrLf & vbCrLf &
+        matchList & vbCrLf & vbCrLf &
+        "Do you still wish to continue?",
+        "Possible Duplicate Name",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Warning
+    )
 
+                If result = DialogResult.No Then
+                    Exit Sub
+                End If
+            End If
             ' ✅ Safe DB path
             Dim dbPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "voyagerpokerclub", "voyagerpokerclub.db")
 
@@ -571,7 +586,44 @@ signature BLOB,
         End Using
     End Sub
 
+    Private Function GetSimilarNames(fullName As String) As List(Of String)
+        Dim dbPath As String = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "voyagerpokerclub",
+        "voyagerpokerclub.db"
+    )
 
+        Dim similarNames As New List(Of String)()
+        Dim parts = fullName.Trim().Split(" "c)
+        If parts.Length < 2 Then Return similarNames
+
+        Dim firstName As String = parts(0)
+        Dim lastName As String = parts(parts.Length - 1)
+
+        Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
+            conn.Open()
+
+            Dim sql As String = "
+            SELECT name 
+            FROM registrations
+            WHERE LOWER(name) LIKE LOWER(@fname)
+              AND LOWER(name) LIKE LOWER(@lname)
+        "
+
+            Using cmd As New SQLiteCommand(sql, conn)
+                cmd.Parameters.AddWithValue("@fname", "%" & firstName & "%")
+                cmd.Parameters.AddWithValue("@lname", "%" & lastName & "%")
+
+                Using reader = cmd.ExecuteReader()
+                    While reader.Read()
+                        similarNames.Add(reader("name").ToString())
+                    End While
+                End Using
+            End Using
+        End Using
+
+        Return similarNames
+    End Function
     Private Sub pbSignaturePreview_Click(sender As Object, e As EventArgs) Handles pbSignaturePreview.Click
 
     End Sub
