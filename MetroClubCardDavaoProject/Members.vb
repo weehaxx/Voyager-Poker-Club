@@ -317,7 +317,7 @@ Public Class Members
             Dim authForm As New Form With {
         .FormBorderStyle = FormBorderStyle.None,
         .StartPosition = FormStartPosition.CenterParent,
-        .Size = New Size(527, 309),
+        .Size = New Size(461, 232),
         .BackColor = Color.White
     }
 
