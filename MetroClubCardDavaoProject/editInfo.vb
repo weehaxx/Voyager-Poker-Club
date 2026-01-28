@@ -28,7 +28,12 @@ Public Class EditInfo
                 MessageBox.Show("Database file not found at: " & dbPath, "Database Missing", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
-
+            cbIDPresented.Items.Clear()
+            cbIDPresented.Items.AddRange(New String() {
+                "Philippine Passport", "Driver’s License", "SSS ID", "Postal ID",
+                "Voter’s ID", "PRC ID", "National ID", "Company ID",
+                "Senior Citizen ID", "Other..."
+                })
             ' Load member data
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
@@ -38,6 +43,7 @@ Public Class EditInfo
                     Using reader As SQLiteDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
                             ' Text fields
+                            Dim currentID As String = reader("presentedid").ToString()
                             tbName.Text = reader("name").ToString()
                             dtpBirthday.Text = reader("birthday").ToString()
                             tbBirthPlace.Text = reader("birthplace").ToString()
@@ -48,6 +54,13 @@ Public Class EditInfo
                             tbSourceOfFund.Text = reader("sourceoffund").ToString()
                             tbWorkNature.Text = reader("worknature").ToString()
                             cbIDPresented.Text = reader("presentedid").ToString()
+                            If cbIDPresented.Items.Contains(currentID) Then
+                                cbIDPresented.SelectedItem = currentID ' highlight existing value
+                            Else
+                                ' If DB value is custom / not in the list, select Other... but still show text
+                                cbIDPresented.SelectedItem = "Other..."
+                                cbIDPresented.Text = currentID
+                            End If
                             tbIdentificationNumber.Text = reader("identification_number").ToString()
 
                             ' Images
@@ -81,12 +94,6 @@ Public Class EditInfo
                     End Using
                 End Using
             End Using
-
-            cbIDPresented.Items.AddRange(New String() {
-                "Philippine Passport", "Driver’s License", "SSS ID", "Postal ID",
-                "Voter’s ID", "PRC ID", "National ID", "Company ID", "Senior Citizen ID", "Other..."
-            })
-
 
             AddHandlerForAllInputs(Me)
 

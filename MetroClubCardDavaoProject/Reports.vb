@@ -81,14 +81,14 @@ Public Class Reports
             ' 🔹 Query all transactions
             Dim sql As String = "
                 SELECT r.id AS ID,
-                       r.firstname, r.middlename, r.lastname,
+                       r.name,
                        c.date_created,
                        c.type,
                        c.amount
                 FROM registrations r
                 LEFT JOIN cashflows c ON r.id = c.registration_id
                 WHERE c.date_created IS NOT NULL
-                ORDER BY r.lastname, r.firstname
+                ORDER BY r.name
             "
 
             Dim cmd As New SQLiteCommand(sql, conn)
@@ -99,7 +99,7 @@ Public Class Reports
 
             While reader.Read()
                 Dim regID As Long = CLng(reader("ID"))
-                Dim fullname As String = $"{reader("firstname")} {reader("middlename")} {reader("lastname")}".Replace("  ", " ").Trim()
+                Dim fullname As String = $"{reader("name")}"
 
                 ' Create array if new player
                 If Not playerData.ContainsKey(regID) Then

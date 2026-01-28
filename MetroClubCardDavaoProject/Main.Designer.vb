@@ -28,27 +28,27 @@ Partial Class Main
         Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         PictureBox1 = New PictureBox()
         btnDashboard = New Guna.UI2.WinForms.Guna2Button()
         btnRegistration = New Guna.UI2.WinForms.Guna2Button()
         Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
+        btnReports = New Guna.UI2.WinForms.Guna2Button()
         btnCashFlow = New Guna.UI2.WinForms.Guna2Button()
         Panel1 = New Panel()
         Panel2 = New Panel()
         Panel3 = New Panel()
-        btnReports = New Guna.UI2.WinForms.Guna2Button()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Guna2Panel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' PictureBox1
         ' 
-        PictureBox1.Image = My.Resources.Resources.CasinoLogo
+        PictureBox1.Image = My.Resources.Resources.Voyagerlogo
         PictureBox1.Location = New Point(44, 12)
         PictureBox1.Name = "PictureBox1"
         PictureBox1.Size = New Size(110, 110)
@@ -69,10 +69,10 @@ Partial Class Main
         btnDashboard.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnDashboard.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnDashboard.FillColor = Color.White
-        btnDashboard.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnDashboard.Font = New Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnDashboard.ForeColor = Color.Black
         btnDashboard.HoverState.FillColor = Color.Black
-        btnDashboard.HoverState.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnDashboard.HoverState.Font = New Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnDashboard.HoverState.ForeColor = Color.White
         btnDashboard.ImageAlign = HorizontalAlignment.Left
         btnDashboard.ImageSize = New Size(0, 0)
@@ -95,7 +95,7 @@ Partial Class Main
         btnRegistration.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnRegistration.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnRegistration.FillColor = Color.White
-        btnRegistration.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnRegistration.Font = New Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnRegistration.ForeColor = Color.Black
         btnRegistration.HoverState.FillColor = Color.Black
         btnRegistration.HoverState.ForeColor = Color.White
@@ -126,6 +126,29 @@ Partial Class Main
         Guna2Panel1.Size = New Size(196, 843)
         Guna2Panel1.TabIndex = 0
         ' 
+        ' btnReports
+        ' 
+        btnReports.BackColor = Color.Transparent
+        btnReports.BorderRadius = 10
+        btnReports.CheckedState.FillColor = Color.Black
+        btnReports.CheckedState.ForeColor = Color.White
+        btnReports.CustomizableEdges = CustomizableEdges5
+        btnReports.DisabledState.BorderColor = Color.DarkGray
+        btnReports.DisabledState.CustomBorderColor = Color.DarkGray
+        btnReports.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnReports.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnReports.FillColor = Color.White
+        btnReports.Font = New Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnReports.ForeColor = Color.Black
+        btnReports.HoverState.FillColor = Color.Black
+        btnReports.HoverState.ForeColor = Color.White
+        btnReports.Location = New Point(12, 314)
+        btnReports.Name = "btnReports"
+        btnReports.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        btnReports.Size = New Size(170, 45)
+        btnReports.TabIndex = 8
+        btnReports.Text = "REPORTS"
+        ' 
         ' btnCashFlow
         ' 
         btnCashFlow.BackColor = Color.Transparent
@@ -138,7 +161,7 @@ Partial Class Main
         btnCashFlow.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnCashFlow.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnCashFlow.FillColor = Color.White
-        btnCashFlow.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnCashFlow.Font = New Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnCashFlow.ForeColor = Color.Black
         btnCashFlow.HoverState.FillColor = Color.Black
         btnCashFlow.HoverState.ForeColor = Color.White
@@ -174,29 +197,6 @@ Partial Class Main
         Panel3.Size = New Size(1384, 843)
         Panel3.TabIndex = 1
         ' 
-        ' btnReports
-        ' 
-        btnReports.BackColor = Color.Transparent
-        btnReports.BorderRadius = 10
-        btnReports.CheckedState.FillColor = Color.Black
-        btnReports.CheckedState.ForeColor = Color.White
-        btnReports.CustomizableEdges = CustomizableEdges5
-        btnReports.DisabledState.BorderColor = Color.DarkGray
-        btnReports.DisabledState.CustomBorderColor = Color.DarkGray
-        btnReports.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        btnReports.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnReports.FillColor = Color.White
-        btnReports.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        btnReports.ForeColor = Color.Black
-        btnReports.HoverState.FillColor = Color.Black
-        btnReports.HoverState.ForeColor = Color.White
-        btnReports.Location = New Point(12, 314)
-        btnReports.Name = "btnReports"
-        btnReports.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        btnReports.Size = New Size(170, 45)
-        btnReports.TabIndex = 8
-        btnReports.Text = "REPORTS"
-        ' 
         ' Main
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -210,7 +210,7 @@ Partial Class Main
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "Main"
         StartPosition = FormStartPosition.CenterScreen
-        Text = "METRO CARD CLUB DAVAO"
+        Text = "VOYAGER POKER CLUB"
         WindowState = FormWindowState.Maximized
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         Guna2Panel1.ResumeLayout(False)
