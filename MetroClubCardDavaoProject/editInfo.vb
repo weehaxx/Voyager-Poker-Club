@@ -252,4 +252,35 @@ Public Class EditInfo
             End If
         End Using
     End Sub
+    Private Sub btnUploadSignature_Click(sender As Object, e As EventArgs) Handles btnUploadSignature.Click
+        Using ofd As New OpenFileDialog()
+            ofd.Title = "Select a Signature Image"
+            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+
+            If ofd.ShowDialog() = DialogResult.OK Then
+                ' Dispose old preview image to avoid memory leaks
+                If pbSignaturePreview.Image IsNot Nothing Then
+                    pbSignaturePreview.Image.Dispose()
+                End If
+
+                ' Load uploaded image
+                Dim uploadedSignature As Image = Image.FromFile(ofd.FileName)
+
+                ' Display it
+                pbSignaturePreview.Image = CType(uploadedSignature.Clone(), Image)
+                pbSignaturePreview.SizeMode = PictureBoxSizeMode.StretchImage
+
+                ' Store for saving
+                If signatureImage IsNot Nothing Then
+                    signatureImage.Dispose()
+                End If
+                signatureImage = CType(uploadedSignature.Clone(), Image)
+
+                uploadedSignature.Dispose()
+
+                ' Mark form as changed
+                isDirty = True
+            End If
+        End Using
+    End Sub
 End Class

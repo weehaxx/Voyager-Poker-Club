@@ -26,6 +26,9 @@ Public Class Members
         pbPhoto.Image = Nothing
         dgvRegistrations.ClearSelection()
         dgvRegistrations.CurrentCell = Nothing
+        tbBirthPlace.Clear()
+        tbSourceofFund.Clear()
+        pbSignature.Image = Nothing
     End Sub
 
     Private Sub Members_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -367,6 +370,10 @@ Public Class Members
 
                 ' ✅ Refresh grid
                 LoadRegistrations()
+
+
+                ' 🧹 Clear member details on dashboard
+                ClearMemberDetails()
             End If
 
             overlay.Close()

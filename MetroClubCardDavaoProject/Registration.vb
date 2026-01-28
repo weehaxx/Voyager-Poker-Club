@@ -627,4 +627,34 @@ signature BLOB,
     Private Sub pbSignaturePreview_Click(sender As Object, e As EventArgs) Handles pbSignaturePreview.Click
 
     End Sub
+    Private Sub btnUploadSignature_Click(sender As Object, e As EventArgs) Handles btnUploadSignature.Click
+        Using ofd As New OpenFileDialog()
+            ofd.Title = "Select a Signature Image"
+            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+
+            If ofd.ShowDialog() = DialogResult.OK Then
+                ' Dispose old image if exists
+                If pbSignaturePreview.Image IsNot Nothing Then
+                    pbSignaturePreview.Image.Dispose()
+                End If
+
+                ' Load uploaded signature
+                Dim uploadedSignature As Image = Image.FromFile(ofd.FileName)
+                pbSignaturePreview.Image = CType(uploadedSignature.Clone(), Image)
+                pbSignaturePreview.SizeMode = PictureBoxSizeMode.StretchImage
+
+                ' Update the variable that will be saved to DB
+                If signatureImage IsNot Nothing Then
+                    signatureImage.Dispose()
+                End If
+                signatureImage = CType(uploadedSignature.Clone(), Image)
+
+                ' Free the original loaded image from memory
+                uploadedSignature.Dispose()
+
+                ' Re-validate form
+                ValidateForm()
+            End If
+        End Using
+    End Sub
 End Class
