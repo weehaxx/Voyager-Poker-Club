@@ -6,6 +6,7 @@ Imports Guna.UI2.WinForms
 Public Class Members
     Dim conn As SQLiteConnection
     Dim dt As DataTable ' Keep DataTable global for filtering
+    Private selectedBlindsFilter As String = ""  ' "" = none (show all)
 
     Private Function GetDatabasePath() As String
         Dim appDataPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "voyagerpokerclub")
@@ -46,7 +47,7 @@ Public Class Members
 
         Try
             conn.Open()
-            Dim sql As String = "SELECT id, registration_id, name, birthday, birthplace, presentaddress, permanentaddress, nationality, mobilenumber, worknature, sourceoffund, presentedid, front_id, back_id, photo, signature FROM registrations"
+            Dim sql As String = "SELECT id, registration_id, name, birthday, birthplace, presentaddress, permanentaddress, nationality, mobilenumber, worknature, sourceoffund, blinds, presentedid, front_id, back_id, photo, signature FROM registrations"
             Dim da As New SQLiteDataAdapter(sql, conn)
             dt = New DataTable()
             da.Fill(dt)
@@ -76,7 +77,7 @@ Public Class Members
     End Sub
 
     Private Sub tbSearch_TextChanged(sender As Object, e As EventArgs) Handles tbSearch.TextChanged
-        tbSearch.Select()
+        ApplyFilters()
         Try
             If dt IsNot Nothing Then
                 Dim dv As New DataView(dt)
@@ -103,6 +104,7 @@ Public Class Members
             tbPresentAddress.Text = If(IsDBNull(selectedRow("presentaddress")), "", selectedRow("presentaddress").ToString())
             tbPermanentAddress.Text = If(IsDBNull(selectedRow("permanentaddress")), "", selectedRow("permanentaddress").ToString())
             tbNationality.Text = If(IsDBNull(selectedRow("nationality")), "", selectedRow("nationality").ToString())
+            tbblinds.Text = If(IsDBNull(selectedRow("blinds")), "", selectedRow("blinds").ToString())
             tbMobileNum.Text = If(IsDBNull(selectedRow("mobilenumber")), "", selectedRow("mobilenumber").ToString())
             tbWorkNature.Text = If(IsDBNull(selectedRow("worknature")), "", selectedRow("worknature").ToString())
             tbSourceofFund.Text = If(IsDBNull(selectedRow("sourceoffund")), "", selectedRow("sourceoffund").ToString())
@@ -144,7 +146,7 @@ Public Class Members
             Dim selectedRowView = TryCast(dgvRegistrations.SelectedRows(0).DataBoundItem, DataRowView)
             If selectedRowView Is Nothing Then Exit Sub
 
-            Dim memberID As Integer = CInt(selectedRowView.Row("id"))
+            Dim memberID As Integer = selectedRowView.Row("id")
 
             If MessageBox.Show(
             "Are you sure you want to permanently delete this member?" &
@@ -153,12 +155,12 @@ Public Class Members
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Warning) = DialogResult.No Then Exit Sub
 
-            Dim dbPath As String = GetDatabasePath()
+            Dim dbPath = GetDatabasePath()
 
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
 
-                Using tran = conn.BeginTransaction()
+                Using tran = conn.BeginTransaction
 
                     ' 🔥 Delete ONLY this member's cashflows
                     Using cmd As New SQLiteCommand(
@@ -543,5 +545,90 @@ Public Class Members
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message)
         End Try
+    End Sub
+    Private Sub ApplyFilters()
+        Try
+            If dt Is Nothing Then Exit Sub
+
+            Dim dv As New DataView(dt)
+
+            Dim keyword As String = tbSearch.Text.Trim().Replace("'", "''")
+
+            Dim searchFilter As String = ""
+            If keyword <> "" Then
+                searchFilter = $"(Convert(registration_id, 'System.String') LIKE '%{keyword}%' OR name LIKE '%{keyword}%')"
+            End If
+
+            Dim blindsFilter As String = ""
+            If selectedBlindsFilter <> "" Then
+                blindsFilter = $"(blinds = '{selectedBlindsFilter.Replace("'", "''")}')"
+            End If
+
+            ' Combine filters
+            If blindsFilter <> "" AndAlso searchFilter <> "" Then
+                dv.RowFilter = blindsFilter & " AND " & searchFilter
+            ElseIf blindsFilter <> "" Then
+                dv.RowFilter = blindsFilter
+            ElseIf searchFilter <> "" Then
+                dv.RowFilter = searchFilter
+            Else
+                dv.RowFilter = ""
+            End If
+
+            dgvRegistrations.DataSource = dv
+
+            dgvRegistrations.ClearSelection()
+            dgvRegistrations.CurrentCell = Nothing
+
+        Catch ex As Exception
+            MessageBox.Show("Error applying filters: " & ex.Message)
+        End Try
+    End Sub
+    Private Sub UpdateBlindsButtonHighlight(activeBtn As Guna2Button)
+        Try
+            Dim buttons As Guna2Button() = {btnnone, btnone, btntwo, btnthree}
+
+            For Each b As Guna2Button In buttons
+                ' Default (inactive style)
+                b.FillColor = Color.Gainsboro
+                b.ForeColor = Color.Black
+                b.BorderThickness = 0
+            Next
+
+            ' Active style
+            If activeBtn IsNot Nothing Then
+                activeBtn.FillColor = Color.FromArgb(53, 94, 59) ' your theme green
+                activeBtn.ForeColor = Color.White
+                activeBtn.BorderThickness = 0
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error highlighting button: " & ex.Message)
+        End Try
+    End Sub
+
+
+    Private Sub btnnone_Click(sender As Object, e As EventArgs) Handles btnnone.Click
+        selectedBlindsFilter = ""
+        ApplyFilters()
+        UpdateBlindsButtonHighlight(btnnone)
+    End Sub
+
+    Private Sub btnone_Click(sender As Object, e As EventArgs) Handles btnone.Click
+        selectedBlindsFilter = "25-50"
+        ApplyFilters()
+        UpdateBlindsButtonHighlight(btnone)
+    End Sub
+
+    Private Sub btntwo_Click(sender As Object, e As EventArgs) Handles btntwo.Click
+        selectedBlindsFilter = "50-100"
+        ApplyFilters()
+        UpdateBlindsButtonHighlight(btntwo)
+    End Sub
+
+    Private Sub btnthree_Click(sender As Object, e As EventArgs) Handles btnthree.Click
+        selectedBlindsFilter = "100-200"
+        ApplyFilters()
+        UpdateBlindsButtonHighlight(btnthree)
     End Sub
 End Class

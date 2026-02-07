@@ -4,6 +4,7 @@ Imports Guna.UI2.WinForms
 Imports iTextSharp.text
 Imports iTextSharp.text.pdf
 Imports System.IO
+Imports VoyagerPokerClub.Members
 
 Public Class CashFlow
 
@@ -59,7 +60,7 @@ Public Class CashFlow
                 conn.Open()
 
                 Dim rawQuery As String =
-"SELECT r.registration_id, r.name, 
+"SELECT  c.id AS cashflow_id, r.registration_id, r.name, 
         c.date_created, c.time_created, c.type, c.amount, 
         c.payment_mode, c.created_by
  FROM cashflows c
@@ -73,6 +74,10 @@ Public Class CashFlow
                 End Using
 
                 Dim finalTable As New DataTable()
+
+                ' 🔑 HIDDEN PRIMARY KEY COLUMN
+                finalTable.Columns.Add("CASHFLOW_ID", GetType(Long))
+
                 finalTable.Columns.Add("PLAYER ID")
                 finalTable.Columns.Add("FULL NAME")
                 finalTable.Columns.Add("TIME")
@@ -103,6 +108,7 @@ Public Class CashFlow
                                row("name").ToString().ToLower().Contains(searchText.ToLower()) Then
 
                                 Dim newRow = finalTable.NewRow()
+                                newRow("CASHFLOW_ID") = CLng(row("cashflow_id")) ' 🔑 REQUIRED
                                 newRow("PLAYER ID") = row("registration_id").ToString()
                                 newRow("FULL NAME") = fullName.Trim()
                                 newRow("TIME") = parsedDate.ToString("h:mm tt")
@@ -244,5 +250,86 @@ Public Class CashFlow
             MessageBox.Show("Error exporting PDF: " & ex.Message)
         End Try
     End Sub
+
+    Private Sub dgvCashFlow_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCashFlow.CellClick
+        If e.RowIndex < 0 Then Exit Sub
+
+        Dim row As DataGridViewRow = dgvCashFlow.Rows(e.RowIndex)
+
+        If row.IsNewRow Then Exit Sub
+        If row.Cells("CASHFLOW_ID").Value Is DBNull.Value Then Exit Sub
+
+        Dim cashflowId As Long = CLng(row.Cells("CASHFLOW_ID").Value)
+
+        Dim overlay As New OverlayForm(Me.FindForm())
+        overlay.Show()
+        overlay.Refresh()
+
+        Dim popup As New Form With {
+            .FormBorderStyle = FormBorderStyle.None,
+            .StartPosition = FormStartPosition.CenterScreen,
+            .Size = New Size(637, 460),
+            .BackColor = Color.White,
+            .TopMost = True
+        }
+
+        Dim editCtrl As New editCashflow() With {
+            .Dock = DockStyle.Fill,
+            .CashflowID = cashflowId,
+            .PlayerID = row.Cells("PLAYER ID").Value.ToString(),
+            .FullName = row.Cells("FULL NAME").Value.ToString(),
+            .CreatedBy = row.Cells("CREATED BY").Value.ToString()
+        }
+
+        popup.Controls.Add(editCtrl)
+
+        Dim result As DialogResult = popup.ShowDialog()
+        overlay.Close()
+
+        ' 🔄 REFRESH GRID AFTER SAVE
+        If result = DialogResult.OK Then
+            LoadCashflows(dtpDate.Value, tbSearchMember.Text.Trim())
+        End If
+
+    End Sub
+
+    Private Sub OpenEditCashflow(row As DataGridViewRow, cashflowId As Long)
+
+        Dim overlay As New OverlayForm(Me.FindForm())
+        overlay.Show()
+        overlay.Refresh()
+
+        Dim popup As New Form With {
+        .FormBorderStyle = FormBorderStyle.None,
+        .StartPosition = FormStartPosition.CenterScreen,
+        .Size = New Size(637, 460),
+        .BackColor = Color.White,
+        .TopMost = True
+    }
+
+        Dim editCtrl As New editCashflow() With {
+        .Dock = DockStyle.Fill,
+        .CashflowID = cashflowId,
+        .PlayerID = row.Cells("PLAYER ID").Value.ToString(),
+        .FullName = row.Cells("FULL NAME").Value.ToString(),
+        .CreatedBy = row.Cells("CREATED BY").Value.ToString()
+    }
+
+        popup.Controls.Add(editCtrl)
+        popup.ShowDialog()
+
+        Dim result As DialogResult = popup.ShowDialog()
+
+        overlay.Close()
+
+        ' ✅ REFRESH IF EDIT WAS SAVED
+        If result = DialogResult.OK Then
+            LoadCashflows(dtpDate.Value, tbSearchMember.Text.Trim())
+        End If
+        overlay.Close()
+
+    End Sub
+
+
 
 End Class

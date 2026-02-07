@@ -34,6 +34,10 @@ Public Class EditInfo
                 "Voter’s ID", "PRC ID", "National ID", "Company ID",
                 "Senior Citizen ID", "Other..."
                 })
+            cbBlinds.Items.Clear()
+            cbBlinds.Items.AddRange(New String() {
+                "None", "25-50", "50-100", "100-200"
+                })
             ' Load member data
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
@@ -44,6 +48,8 @@ Public Class EditInfo
                         If reader.Read() Then
                             ' Text fields
                             Dim currentID As String = reader("presentedid").ToString()
+                            Dim currentblind As String = reader("blinds").ToString()
+
                             tbName.Text = reader("name").ToString()
                             dtpBirthday.Text = reader("birthday").ToString()
                             tbBirthPlace.Text = reader("birthplace").ToString()
@@ -53,7 +59,15 @@ Public Class EditInfo
                             tbMobileNumber.Text = reader("mobilenumber").ToString()
                             tbSourceOfFund.Text = reader("sourceoffund").ToString()
                             tbWorkNature.Text = reader("worknature").ToString()
+                            cbBlinds.Text = reader("blinds").ToString()
                             cbIDPresented.Text = reader("presentedid").ToString()
+                            If cbBlinds.Items.Contains(currentblind) Then
+                                cbBlinds.SelectedItem = currentblind ' highlight existing value
+                            Else
+                                ' If DB value is custom / not in the list, select Other... but still show text
+                                cbBlinds.SelectedItem = "None"
+                                cbBlinds.Text = currentblind
+                            End If
                             If cbIDPresented.Items.Contains(currentID) Then
                                 cbIDPresented.SelectedItem = currentID ' highlight existing value
                             Else
@@ -157,7 +171,7 @@ Public Class EditInfo
                 UPDATE registrations SET
                     name=@name, birthday=@birthday, birthplace=@birthplace,
                     presentaddress=@presentaddress, permanentaddress=@permanentaddress,
-                    nationality=@nationality, mobilenumber=@mobilenumber,
+                    nationality=@nationality, mobilenumber=@mobilenumber,blinds=@blinds,
                     sourceoffund=@sourceoffund, worknature=@worknature,
                     presentedid=@presentedid, identification_number=@identification_number,
                     front_id=@front_id, back_id=@back_id, signature=@signature
@@ -170,6 +184,7 @@ Public Class EditInfo
                     cmd.Parameters.AddWithValue("@presentaddress", tbPresentAddress.Text)
                     cmd.Parameters.AddWithValue("@permanentaddress", tbPermanentAddress.Text)
                     cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
+                    cmd.Parameters.AddWithValue("@blinds", cbBlinds.Text)
                     cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
                     cmd.Parameters.AddWithValue("@sourceoffund", tbSourceOfFund.Text)
                     cmd.Parameters.AddWithValue("@worknature", tbWorkNature.Text)

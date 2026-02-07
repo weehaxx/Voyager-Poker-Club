@@ -103,7 +103,8 @@ Module DatabaseModule
         nationality As String,
         mobileNumber As String,
         sourceOfFund As String,
-       identification_number As String,
+        blinds As String,
+        identification_number As String,
         workNature As String,
         presentedId As String,
         frontIdBytes As Byte(),
@@ -127,7 +128,7 @@ Module DatabaseModule
                         Dim sql As String = "
                     INSERT INTO registrations (
     name, birthday, birthplace, presentaddress, permanentaddress,
-    nationality, mobilenumber, sourceoffund, worknature,
+    nationality, mobilenumber, blinds,sourceoffund, worknature,
     presentedid, identification_number, front_id, back_id, photo, signature
 ) VALUES (
     @name, @birthday, @birthplace, @presentaddress, @permanentaddress,
@@ -150,6 +151,7 @@ Module DatabaseModule
                             cmd.Parameters.AddWithValue("@mobilenumber", mobileNumber)
                             cmd.Parameters.AddWithValue("@sourceoffund", sourceOfFund)
                             cmd.Parameters.AddWithValue("@worknature", workNature)
+                            cmd.Parameters.AddWithValue("@blinds", blinds)
                             cmd.Parameters.AddWithValue("@presentedid", presentedId)
                             cmd.Parameters.AddWithValue("@identification_number", identification_number)
                             cmd.Parameters.AddWithValue("@front_id", frontIdBytes)

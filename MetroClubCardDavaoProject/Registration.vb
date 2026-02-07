@@ -39,6 +39,7 @@ birthplace TEXT,
     presentaddress TEXT,
     permanentaddress TEXT,
     nationality TEXT,
+    blinds TEXT,
     mobilenumber TEXT,
     sourceoffund TEXT,
     worknature TEXT,
@@ -80,7 +81,9 @@ signature BLOB,
                 "Philippine Passport", "Driver’s License", "SSS ID", "Postal ID",
                 "Voter’s ID", "PRC ID", "National ID", "Company ID", "Senior Citizen ID", "Other..."
             })
-
+            cbBlinds.Items.AddRange(New String() {
+                "None", "25-50", "50-100", "100-200"
+            })
 
         Catch ex As Exception
             MessageBox.Show("Error initializing: " & ex.Message)
@@ -119,6 +122,7 @@ signature BLOB,
         Not String.IsNullOrWhiteSpace(tbSourceOfFund.Text) AndAlso
         Not String.IsNullOrWhiteSpace(tbWorkNature.Text) AndAlso
         Not String.IsNullOrWhiteSpace(cbIDPresented.Text) AndAlso
+        Not String.IsNullOrWhiteSpace(cbBlinds.Text) AndAlso
         Not String.IsNullOrWhiteSpace(tbIdentificationNumber.Text) AndAlso ' ✅ new field
         mobileValid AndAlso
         pbFrontID.Image IsNot Nothing AndAlso
@@ -140,6 +144,7 @@ signature BLOB,
     tbBirthPlace.TextChanged,
     tbSourceOfFund.TextChanged,
     tbWorkNature.TextChanged,
+    cbBlinds.SelectedIndexChanged,
     tbIdentificationNumber.TextChanged, ' ✅ new field
     cbIDPresented.SelectedIndexChanged
 
@@ -202,11 +207,11 @@ signature BLOB,
                         Dim sql As String = "
                        INSERT INTO registrations (
     name, birthday, birthplace, presentaddress, permanentaddress,
-    nationality, mobilenumber, sourceoffund, worknature,
-    presentedid, identification_number, front_id, back_id, photo, signature
+    nationality, mobilenumber, sourceoffund,blinds ,worknature,
+    presentedid , identification_number, front_id, back_id, photo, signature
 ) VALUES (
     @name, @birthday, @birthplace, @presentaddress, @permanentaddress,
-    @nationality, @mobilenumber, @sourceoffund, @worknature,
+    @nationality, @mobilenumber, @sourceoffund, @blinds, @worknature,
     @presentedid, @identification_number, @front_id, @back_id, @photo, @signature
 );
 
@@ -222,6 +227,7 @@ signature BLOB,
                             cmd.Parameters.AddWithValue("@nationality", tbNationality.Text)
                             cmd.Parameters.AddWithValue("@mobilenumber", tbMobileNumber.Text)
                             cmd.Parameters.AddWithValue("@sourceoffund", tbSourceOfFund.Text)
+                            cmd.Parameters.AddWithValue("@blinds", cbBlinds.Text)
                             cmd.Parameters.AddWithValue("@worknature", tbWorkNature.Text)
                             cmd.Parameters.AddWithValue("@presentedid", cbIDPresented.Text)
                             cmd.Parameters.AddWithValue("@identification_number", tbIdentificationNumber.Text)

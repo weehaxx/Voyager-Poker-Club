@@ -61,6 +61,16 @@ Partial Class Members
         Dim CustomizableEdges34 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges35 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges36 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges37 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges38 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges39 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges40 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges41 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges42 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges43 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges44 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges45 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges46 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         tbSearch = New Guna.UI2.WinForms.Guna2TextBox()
         Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         tbName = New Guna.UI2.WinForms.Guna2TextBox()
@@ -94,6 +104,12 @@ Partial Class Members
         Guna2HtmlLabel4 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         tbSourceofFund = New Guna.UI2.WinForms.Guna2TextBox()
         Guna2HtmlLabel5 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        btnnone = New Guna.UI2.WinForms.Guna2Button()
+        btnone = New Guna.UI2.WinForms.Guna2Button()
+        btntwo = New Guna.UI2.WinForms.Guna2Button()
+        btnthree = New Guna.UI2.WinForms.Guna2Button()
+        tbblinds = New Guna.UI2.WinForms.Guna2TextBox()
+        Guna2HtmlLabel6 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         CType(dgvRegistrations, ComponentModel.ISupportInitialize).BeginInit()
         CType(pbPhoto, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
@@ -401,14 +417,14 @@ Partial Class Members
         DataGridViewCellStyle3.WrapMode = DataGridViewTriState.False
         dgvRegistrations.DefaultCellStyle = DataGridViewCellStyle3
         dgvRegistrations.GridColor = Color.FromArgb(CByte(247), CByte(248), CByte(249))
-        dgvRegistrations.Location = New Point(18, 163)
+        dgvRegistrations.Location = New Point(18, 256)
         dgvRegistrations.Margin = New Padding(3, 2, 3, 2)
         dgvRegistrations.Name = "dgvRegistrations"
         dgvRegistrations.ReadOnly = True
         dgvRegistrations.RowHeadersVisible = False
         dgvRegistrations.RowHeadersWidth = 51
         dgvRegistrations.RowTemplate.Height = 29
-        dgvRegistrations.Size = New Size(338, 627)
+        dgvRegistrations.Size = New Size(338, 534)
         dgvRegistrations.TabIndex = 69
         dgvRegistrations.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.White
         dgvRegistrations.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
@@ -609,7 +625,7 @@ Partial Class Members
         ' 
         pbSignature.CustomizableEdges = CustomizableEdges33
         pbSignature.ImageRotate = 0F
-        pbSignature.Location = New Point(767, 453)
+        pbSignature.Location = New Point(767, 504)
         pbSignature.Margin = New Padding(3, 2, 3, 2)
         pbSignature.Name = "pbSignature"
         pbSignature.ShadowDecoration.CustomizableEdges = CustomizableEdges34
@@ -623,7 +639,7 @@ Partial Class Members
         Guna2HtmlLabel4.BackColor = Color.Transparent
         Guna2HtmlLabel4.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel4.ForeColor = Color.Black
-        Guna2HtmlLabel4.Location = New Point(581, 478)
+        Guna2HtmlLabel4.Location = New Point(581, 529)
         Guna2HtmlLabel4.Name = "Guna2HtmlLabel4"
         Guna2HtmlLabel4.Size = New Size(76, 22)
         Guna2HtmlLabel4.TabIndex = 81
@@ -662,10 +678,121 @@ Partial Class Members
         Guna2HtmlLabel5.TabIndex = 82
         Guna2HtmlLabel5.Text = "Source of Fund:" & vbCrLf & vbCrLf
         ' 
+        ' btnnone
+        ' 
+        btnnone.CustomizableEdges = CustomizableEdges37
+        btnnone.DisabledState.BorderColor = Color.DarkGray
+        btnnone.DisabledState.CustomBorderColor = Color.DarkGray
+        btnnone.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnnone.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnnone.FillColor = Color.Gainsboro
+        btnnone.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnnone.ForeColor = Color.Black
+        btnnone.Location = New Point(18, 163)
+        btnnone.Margin = New Padding(3, 2, 3, 2)
+        btnnone.Name = "btnnone"
+        btnnone.ShadowDecoration.CustomizableEdges = CustomizableEdges38
+        btnnone.Size = New Size(154, 32)
+        btnnone.TabIndex = 84
+        btnnone.Text = "NONE"
+        ' 
+        ' btnone
+        ' 
+        btnone.CustomizableEdges = CustomizableEdges39
+        btnone.DisabledState.BorderColor = Color.DarkGray
+        btnone.DisabledState.CustomBorderColor = Color.DarkGray
+        btnone.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnone.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnone.FillColor = Color.Gainsboro
+        btnone.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnone.ForeColor = Color.Black
+        btnone.Location = New Point(198, 163)
+        btnone.Margin = New Padding(3, 2, 3, 2)
+        btnone.Name = "btnone"
+        btnone.ShadowDecoration.CustomizableEdges = CustomizableEdges40
+        btnone.Size = New Size(156, 32)
+        btnone.TabIndex = 85
+        btnone.Text = "25-50"
+        ' 
+        ' btntwo
+        ' 
+        btntwo.CustomizableEdges = CustomizableEdges41
+        btntwo.DisabledState.BorderColor = Color.DarkGray
+        btntwo.DisabledState.CustomBorderColor = Color.DarkGray
+        btntwo.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btntwo.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btntwo.FillColor = Color.Gainsboro
+        btntwo.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btntwo.ForeColor = Color.Black
+        btntwo.Location = New Point(18, 208)
+        btntwo.Margin = New Padding(3, 2, 3, 2)
+        btntwo.Name = "btntwo"
+        btntwo.ShadowDecoration.CustomizableEdges = CustomizableEdges42
+        btntwo.Size = New Size(154, 32)
+        btntwo.TabIndex = 86
+        btntwo.Text = "50-100"
+        ' 
+        ' btnthree
+        ' 
+        btnthree.CustomizableEdges = CustomizableEdges43
+        btnthree.DisabledState.BorderColor = Color.DarkGray
+        btnthree.DisabledState.CustomBorderColor = Color.DarkGray
+        btnthree.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnthree.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnthree.FillColor = Color.Gainsboro
+        btnthree.Font = New Font("Arial Rounded MT Bold", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnthree.ForeColor = Color.Black
+        btnthree.Location = New Point(198, 208)
+        btnthree.Margin = New Padding(3, 2, 3, 2)
+        btnthree.Name = "btnthree"
+        btnthree.ShadowDecoration.CustomizableEdges = CustomizableEdges44
+        btnthree.Size = New Size(156, 32)
+        btnthree.TabIndex = 87
+        btnthree.Text = "100-200"
+        ' 
+        ' tbblinds
+        ' 
+        tbblinds.CustomizableEdges = CustomizableEdges45
+        tbblinds.DefaultText = ""
+        tbblinds.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
+        tbblinds.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
+        tbblinds.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        tbblinds.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        tbblinds.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        tbblinds.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbblinds.ForeColor = Color.Black
+        tbblinds.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        tbblinds.Location = New Point(768, 450)
+        tbblinds.Margin = New Padding(4, 5, 4, 5)
+        tbblinds.Name = "tbblinds"
+        tbblinds.PlaceholderText = ""
+        tbblinds.ReadOnly = True
+        tbblinds.SelectedText = ""
+        tbblinds.ShadowDecoration.CustomizableEdges = CustomizableEdges46
+        tbblinds.Size = New Size(154, 35)
+        tbblinds.TabIndex = 89
+        ' 
+        ' Guna2HtmlLabel6
+        ' 
+        Guna2HtmlLabel6.BackColor = Color.Transparent
+        Guna2HtmlLabel6.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel6.ForeColor = Color.Black
+        Guna2HtmlLabel6.Location = New Point(582, 460)
+        Guna2HtmlLabel6.Name = "Guna2HtmlLabel6"
+        Guna2HtmlLabel6.Size = New Size(50, 22)
+        Guna2HtmlLabel6.TabIndex = 88
+        Guna2HtmlLabel6.Text = "Blinds:"
+        ' 
         ' Members
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        Controls.Add(tbblinds)
+        Controls.Add(Guna2HtmlLabel6)
+        Controls.Add(btnthree)
+        Controls.Add(btntwo)
+        Controls.Add(btnone)
+        Controls.Add(btnnone)
         Controls.Add(tbSourceofFund)
         Controls.Add(Guna2HtmlLabel5)
         Controls.Add(Guna2HtmlLabel4)
@@ -741,5 +868,11 @@ Partial Class Members
     Friend WithEvents Guna2HtmlLabel4 As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents tbSourceofFund As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel5 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents btnnone As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnone As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btntwo As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnthree As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents tbblinds As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents Guna2HtmlLabel6 As Guna.UI2.WinForms.Guna2HtmlLabel
 
 End Class

@@ -22,40 +22,42 @@ Partial Class Registration
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges17 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges19 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges20 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges21 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges22 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges23 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges24 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges25 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges26 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges27 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges28 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges29 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges30 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges31 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges32 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges33 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges34 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges37 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges38 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges39 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges40 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges41 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges42 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges43 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges44 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges45 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges46 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges47 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges48 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges49 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges50 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges51 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges52 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges53 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges54 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges55 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges56 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges57 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges58 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges59 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges60 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges61 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges62 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges63 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges64 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges65 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges66 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges67 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges68 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges69 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges70 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges71 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges72 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         tbName = New Guna.UI2.WinForms.Guna2TextBox()
         Label1 = New Label()
         Label5 = New Label()
@@ -97,6 +99,8 @@ Partial Class Registration
         Label7 = New Label()
         tbWorkNature = New Guna.UI2.WinForms.Guna2TextBox()
         btnUploadSignature = New Button()
+        cbBlinds = New Guna.UI2.WinForms.Guna2ComboBox()
+        Label11 = New Label()
         CType(pbCameraDisplay, ComponentModel.ISupportInitialize).BeginInit()
         CType(pbFrontID, ComponentModel.ISupportInitialize).BeginInit()
         CType(pbBackID, ComponentModel.ISupportInitialize).BeginInit()
@@ -105,7 +109,7 @@ Partial Class Registration
         ' 
         ' tbName
         ' 
-        tbName.CustomizableEdges = CustomizableEdges1
+        tbName.CustomizableEdges = CustomizableEdges37
         tbName.DefaultText = ""
         tbName.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbName.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -121,7 +125,7 @@ Partial Class Registration
         tbName.PlaceholderForeColor = Color.Black
         tbName.PlaceholderText = ""
         tbName.SelectedText = ""
-        tbName.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        tbName.ShadowDecoration.CustomizableEdges = CustomizableEdges38
         tbName.Size = New Size(255, 34)
         tbName.TabIndex = 1
         ' 
@@ -151,7 +155,7 @@ Partial Class Registration
         ' 
         ' tbPresentAddress
         ' 
-        tbPresentAddress.CustomizableEdges = CustomizableEdges3
+        tbPresentAddress.CustomizableEdges = CustomizableEdges39
         tbPresentAddress.DefaultText = ""
         tbPresentAddress.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbPresentAddress.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -166,7 +170,7 @@ Partial Class Registration
         tbPresentAddress.Name = "tbPresentAddress"
         tbPresentAddress.PlaceholderText = ""
         tbPresentAddress.SelectedText = ""
-        tbPresentAddress.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        tbPresentAddress.ShadowDecoration.CustomizableEdges = CustomizableEdges40
         tbPresentAddress.Size = New Size(850, 34)
         tbPresentAddress.TabIndex = 3
         ' 
@@ -184,7 +188,7 @@ Partial Class Registration
         ' 
         ' tbPermanentAddress
         ' 
-        tbPermanentAddress.CustomizableEdges = CustomizableEdges5
+        tbPermanentAddress.CustomizableEdges = CustomizableEdges41
         tbPermanentAddress.DefaultText = ""
         tbPermanentAddress.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbPermanentAddress.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -199,14 +203,14 @@ Partial Class Registration
         tbPermanentAddress.Name = "tbPermanentAddress"
         tbPermanentAddress.PlaceholderText = ""
         tbPermanentAddress.SelectedText = ""
-        tbPermanentAddress.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        tbPermanentAddress.ShadowDecoration.CustomizableEdges = CustomizableEdges42
         tbPermanentAddress.Size = New Size(851, 34)
         tbPermanentAddress.TabIndex = 4
         ' 
         ' dtpBirthday
         ' 
         dtpBirthday.Checked = True
-        dtpBirthday.CustomizableEdges = CustomizableEdges7
+        dtpBirthday.CustomizableEdges = CustomizableEdges43
         dtpBirthday.FillColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
         dtpBirthday.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         dtpBirthday.ForeColor = Color.Black
@@ -215,7 +219,7 @@ Partial Class Registration
         dtpBirthday.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         dtpBirthday.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         dtpBirthday.Name = "dtpBirthday"
-        dtpBirthday.ShadowDecoration.CustomizableEdges = CustomizableEdges8
+        dtpBirthday.ShadowDecoration.CustomizableEdges = CustomizableEdges44
         dtpBirthday.Size = New Size(265, 34)
         dtpBirthday.TabIndex = 13
         dtpBirthday.Value = New Date(2025, 9, 21, 14, 41, 24, 351)
@@ -234,7 +238,7 @@ Partial Class Registration
         ' 
         ' tbBirthPlace
         ' 
-        tbBirthPlace.CustomizableEdges = CustomizableEdges9
+        tbBirthPlace.CustomizableEdges = CustomizableEdges45
         tbBirthPlace.DefaultText = ""
         tbBirthPlace.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbBirthPlace.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -249,7 +253,7 @@ Partial Class Registration
         tbBirthPlace.Name = "tbBirthPlace"
         tbBirthPlace.PlaceholderText = ""
         tbBirthPlace.SelectedText = ""
-        tbBirthPlace.ShadowDecoration.CustomizableEdges = CustomizableEdges10
+        tbBirthPlace.ShadowDecoration.CustomizableEdges = CustomizableEdges46
         tbBirthPlace.Size = New Size(207, 36)
         tbBirthPlace.TabIndex = 2
         ' 
@@ -267,7 +271,7 @@ Partial Class Registration
         ' 
         ' tbNationality
         ' 
-        tbNationality.CustomizableEdges = CustomizableEdges11
+        tbNationality.CustomizableEdges = CustomizableEdges47
         tbNationality.DefaultText = ""
         tbNationality.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbNationality.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -282,7 +286,7 @@ Partial Class Registration
         tbNationality.Name = "tbNationality"
         tbNationality.PlaceholderText = ""
         tbNationality.SelectedText = ""
-        tbNationality.ShadowDecoration.CustomizableEdges = CustomizableEdges12
+        tbNationality.ShadowDecoration.CustomizableEdges = CustomizableEdges48
         tbNationality.Size = New Size(240, 34)
         tbNationality.TabIndex = 5
         ' 
@@ -300,7 +304,7 @@ Partial Class Registration
         ' 
         ' tbMobileNumber
         ' 
-        tbMobileNumber.CustomizableEdges = CustomizableEdges13
+        tbMobileNumber.CustomizableEdges = CustomizableEdges49
         tbMobileNumber.DefaultText = ""
         tbMobileNumber.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbMobileNumber.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -315,7 +319,7 @@ Partial Class Registration
         tbMobileNumber.Name = "tbMobileNumber"
         tbMobileNumber.PlaceholderText = ""
         tbMobileNumber.SelectedText = ""
-        tbMobileNumber.ShadowDecoration.CustomizableEdges = CustomizableEdges14
+        tbMobileNumber.ShadowDecoration.CustomizableEdges = CustomizableEdges50
         tbMobileNumber.Size = New Size(252, 33)
         tbMobileNumber.TabIndex = 6
         ' 
@@ -348,7 +352,7 @@ Partial Class Registration
         btnSave.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
         btnSave.BackColor = Color.Transparent
         btnSave.BorderRadius = 5
-        btnSave.CustomizableEdges = CustomizableEdges15
+        btnSave.CustomizableEdges = CustomizableEdges51
         btnSave.DisabledState.BorderColor = Color.DarkGray
         btnSave.DisabledState.CustomBorderColor = Color.DarkGray
         btnSave.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -358,7 +362,7 @@ Partial Class Registration
         btnSave.ForeColor = Color.White
         btnSave.Location = New Point(1165, 794)
         btnSave.Name = "btnSave"
-        btnSave.ShadowDecoration.CustomizableEdges = CustomizableEdges16
+        btnSave.ShadowDecoration.CustomizableEdges = CustomizableEdges52
         btnSave.Size = New Size(146, 36)
         btnSave.TabIndex = 49
         btnSave.Text = "SAVE"
@@ -368,7 +372,7 @@ Partial Class Registration
         btnClear.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         btnClear.BackColor = Color.Transparent
         btnClear.BorderRadius = 5
-        btnClear.CustomizableEdges = CustomizableEdges17
+        btnClear.CustomizableEdges = CustomizableEdges53
         btnClear.DisabledState.BorderColor = Color.DarkGray
         btnClear.DisabledState.CustomBorderColor = Color.DarkGray
         btnClear.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
@@ -378,7 +382,7 @@ Partial Class Registration
         btnClear.ForeColor = Color.White
         btnClear.Location = New Point(19, 794)
         btnClear.Name = "btnClear"
-        btnClear.ShadowDecoration.CustomizableEdges = CustomizableEdges18
+        btnClear.ShadowDecoration.CustomizableEdges = CustomizableEdges54
         btnClear.Size = New Size(146, 36)
         btnClear.TabIndex = 50
         btnClear.Text = "CLEAR"
@@ -397,11 +401,11 @@ Partial Class Registration
         ' 
         ' pbCameraDisplay
         ' 
-        pbCameraDisplay.CustomizableEdges = CustomizableEdges19
+        pbCameraDisplay.CustomizableEdges = CustomizableEdges55
         pbCameraDisplay.ImageRotate = 0F
         pbCameraDisplay.Location = New Point(1075, 72)
         pbCameraDisplay.Name = "pbCameraDisplay"
-        pbCameraDisplay.ShadowDecoration.CustomizableEdges = CustomizableEdges20
+        pbCameraDisplay.ShadowDecoration.CustomizableEdges = CustomizableEdges56
         pbCameraDisplay.Size = New Size(199, 199)
         pbCameraDisplay.SizeMode = PictureBoxSizeMode.StretchImage
         pbCameraDisplay.TabIndex = 54
@@ -420,11 +424,11 @@ Partial Class Registration
         ' 
         ' pbFrontID
         ' 
-        pbFrontID.CustomizableEdges = CustomizableEdges21
+        pbFrontID.CustomizableEdges = CustomizableEdges57
         pbFrontID.ImageRotate = 0F
         pbFrontID.Location = New Point(275, 403)
         pbFrontID.Name = "pbFrontID"
-        pbFrontID.ShadowDecoration.CustomizableEdges = CustomizableEdges22
+        pbFrontID.ShadowDecoration.CustomizableEdges = CustomizableEdges58
         pbFrontID.Size = New Size(199, 142)
         pbFrontID.SizeMode = PictureBoxSizeMode.StretchImage
         pbFrontID.TabIndex = 57
@@ -497,7 +501,7 @@ Partial Class Registration
         ' cbIDPresented
         ' 
         cbIDPresented.BackColor = Color.Transparent
-        cbIDPresented.CustomizableEdges = CustomizableEdges23
+        cbIDPresented.CustomizableEdges = CustomizableEdges59
         cbIDPresented.DrawMode = DrawMode.OwnerDrawFixed
         cbIDPresented.DropDownStyle = ComboBoxStyle.DropDownList
         cbIDPresented.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
@@ -508,13 +512,13 @@ Partial Class Registration
         cbIDPresented.Location = New Point(19, 404)
         cbIDPresented.Margin = New Padding(3, 2, 3, 2)
         cbIDPresented.Name = "cbIDPresented"
-        cbIDPresented.ShadowDecoration.CustomizableEdges = CustomizableEdges24
+        cbIDPresented.ShadowDecoration.CustomizableEdges = CustomizableEdges60
         cbIDPresented.Size = New Size(201, 36)
         cbIDPresented.TabIndex = 68
         ' 
         ' tbSourceOfFund
         ' 
-        tbSourceOfFund.CustomizableEdges = CustomizableEdges25
+        tbSourceOfFund.CustomizableEdges = CustomizableEdges61
         tbSourceOfFund.DefaultText = ""
         tbSourceOfFund.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbSourceOfFund.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -530,7 +534,7 @@ Partial Class Registration
         tbSourceOfFund.PlaceholderForeColor = Color.Black
         tbSourceOfFund.PlaceholderText = ""
         tbSourceOfFund.SelectedText = ""
-        tbSourceOfFund.ShadowDecoration.CustomizableEdges = CustomizableEdges26
+        tbSourceOfFund.ShadowDecoration.CustomizableEdges = CustomizableEdges62
         tbSourceOfFund.Size = New Size(240, 34)
         tbSourceOfFund.TabIndex = 7
         ' 
@@ -560,11 +564,11 @@ Partial Class Registration
         ' 
         ' pbBackID
         ' 
-        pbBackID.CustomizableEdges = CustomizableEdges27
+        pbBackID.CustomizableEdges = CustomizableEdges63
         pbBackID.ImageRotate = 0F
         pbBackID.Location = New Point(503, 404)
         pbBackID.Name = "pbBackID"
-        pbBackID.ShadowDecoration.CustomizableEdges = CustomizableEdges28
+        pbBackID.ShadowDecoration.CustomizableEdges = CustomizableEdges64
         pbBackID.Size = New Size(199, 142)
         pbBackID.SizeMode = PictureBoxSizeMode.StretchImage
         pbBackID.TabIndex = 71
@@ -584,12 +588,12 @@ Partial Class Registration
         ' pbSignaturePreview
         ' 
         pbSignaturePreview.BorderStyle = BorderStyle.FixedSingle
-        pbSignaturePreview.CustomizableEdges = CustomizableEdges29
+        pbSignaturePreview.CustomizableEdges = CustomizableEdges65
         pbSignaturePreview.ImageRotate = 0F
         pbSignaturePreview.Location = New Point(741, 374)
         pbSignaturePreview.Margin = New Padding(3, 2, 3, 2)
         pbSignaturePreview.Name = "pbSignaturePreview"
-        pbSignaturePreview.ShadowDecoration.CustomizableEdges = CustomizableEdges30
+        pbSignaturePreview.ShadowDecoration.CustomizableEdges = CustomizableEdges66
         pbSignaturePreview.Size = New Size(328, 188)
         pbSignaturePreview.SizeMode = PictureBoxSizeMode.StretchImage
         pbSignaturePreview.TabIndex = 74
@@ -632,7 +636,7 @@ Partial Class Registration
         ' 
         ' tbIdentificationNumber
         ' 
-        tbIdentificationNumber.CustomizableEdges = CustomizableEdges31
+        tbIdentificationNumber.CustomizableEdges = CustomizableEdges67
         tbIdentificationNumber.DefaultText = ""
         tbIdentificationNumber.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbIdentificationNumber.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -648,7 +652,7 @@ Partial Class Registration
         tbIdentificationNumber.PlaceholderForeColor = Color.Black
         tbIdentificationNumber.PlaceholderText = ""
         tbIdentificationNumber.SelectedText = ""
-        tbIdentificationNumber.ShadowDecoration.CustomizableEdges = CustomizableEdges32
+        tbIdentificationNumber.ShadowDecoration.CustomizableEdges = CustomizableEdges68
         tbIdentificationNumber.Size = New Size(200, 34)
         tbIdentificationNumber.TabIndex = 9
         ' 
@@ -666,7 +670,7 @@ Partial Class Registration
         ' 
         ' tbWorkNature
         ' 
-        tbWorkNature.CustomizableEdges = CustomizableEdges33
+        tbWorkNature.CustomizableEdges = CustomizableEdges69
         tbWorkNature.DefaultText = ""
         tbWorkNature.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         tbWorkNature.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -681,7 +685,7 @@ Partial Class Registration
         tbWorkNature.Name = "tbWorkNature"
         tbWorkNature.PlaceholderText = ""
         tbWorkNature.SelectedText = ""
-        tbWorkNature.ShadowDecoration.CustomizableEdges = CustomizableEdges34
+        tbWorkNature.ShadowDecoration.CustomizableEdges = CustomizableEdges70
         tbWorkNature.Size = New Size(252, 33)
         tbWorkNature.TabIndex = 8
         ' 
@@ -696,11 +700,42 @@ Partial Class Registration
         btnUploadSignature.Text = "Upload Signature"
         btnUploadSignature.UseVisualStyleBackColor = True
         ' 
+        ' cbBlinds
+        ' 
+        cbBlinds.BackColor = Color.Transparent
+        cbBlinds.CustomizableEdges = CustomizableEdges71
+        cbBlinds.DrawMode = DrawMode.OwnerDrawFixed
+        cbBlinds.DropDownStyle = ComboBoxStyle.DropDownList
+        cbBlinds.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        cbBlinds.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        cbBlinds.Font = New Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cbBlinds.ForeColor = Color.Black
+        cbBlinds.ItemHeight = 30
+        cbBlinds.Location = New Point(882, 225)
+        cbBlinds.Name = "cbBlinds"
+        cbBlinds.ShadowDecoration.CustomizableEdges = CustomizableEdges72
+        cbBlinds.Size = New Size(166, 36)
+        cbBlinds.TabIndex = 152
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.BackColor = Color.Transparent
+        Label11.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label11.ForeColor = Color.Black
+        Label11.Location = New Point(939, 202)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(56, 20)
+        Label11.TabIndex = 151
+        Label11.Text = "Blinds:"
+        ' 
         ' Registration
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ButtonFace
+        Controls.Add(cbBlinds)
+        Controls.Add(Label11)
         Controls.Add(btnUploadSignature)
         Controls.Add(tbWorkNature)
         Controls.Add(tbIdentificationNumber)
@@ -800,5 +835,7 @@ Partial Class Registration
     Friend WithEvents Label7 As Label
     Friend WithEvents tbWorkNature As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents btnUploadSignature As Button
+    Friend WithEvents cbBlinds As Guna.UI2.WinForms.Guna2ComboBox
+    Friend WithEvents Label11 As Label
 
 End Class
