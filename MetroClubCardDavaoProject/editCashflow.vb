@@ -42,6 +42,14 @@ Public Class editCashflow
         cbPaymentMode.Items.Clear()
         cbPaymentMode.Items.AddRange({"Cash", "GCash", "Bank Transfer", "Credit Card"})
 
+        dtpDate.Enabled = True
+        dtpTime.Enabled = True
+
+        dtpDate.BringToFront()
+        dtpTime.BringToFront()
+
+
+
         LoadCashflowDetails()
     End Sub
 
@@ -50,10 +58,10 @@ Public Class editCashflow
             conn.Open()
 
             Dim sql As String = "
-                SELECT type, amount, payment_mode, date_created, time_created, created_by
-                FROM cashflows
-                WHERE id = @id
-            "
+            SELECT type, amount, payment_mode, date_created, time_created, created_by
+            FROM cashflows
+            WHERE id = @id
+        "
 
             Using cmd As New SQLiteCommand(sql, conn)
                 cmd.Parameters.AddWithValue("@id", CashflowID)
@@ -63,14 +71,37 @@ Public Class editCashflow
                         cbTransactionType.Text = reader("type").ToString()
                         tbAmount.Text = reader("amount").ToString()
                         cbPaymentMode.Text = reader("payment_mode").ToString()
-                        dtpDate.Value = DateTime.Parse(reader("date_created").ToString())
-                        dtpTime.Value = DateTime.Parse(reader("time_created").ToString())
                         tbCashierName.Text = reader("created_by").ToString()
+
+                        ' ✅ SAFE date parsing
+                        Dim parsedDate As DateTime
+                        If DateTime.TryParseExact(
+                        reader("date_created").ToString(),
+                        "dddd, MMMM dd, yyyy",
+                        Globalization.CultureInfo.InvariantCulture,
+                        Globalization.DateTimeStyles.None,
+                        parsedDate
+                    ) Then
+                            dtpDate.Value = parsedDate
+                        End If
+
+                        ' ✅ SAFE time parsing
+                        Dim parsedTime As DateTime
+                        If DateTime.TryParseExact(
+                        reader("time_created").ToString(),
+                        "hh:mm:ss tt",
+                        Globalization.CultureInfo.InvariantCulture,
+                        Globalization.DateTimeStyles.None,
+                        parsedTime
+                    ) Then
+                            dtpTime.Value = parsedTime
+                        End If
                     End If
                 End Using
             End Using
         End Using
     End Sub
+
 
     Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
         Try
@@ -174,6 +205,9 @@ Public Class editCashflow
             MessageBox.Show("Error deleting transaction: " & ex.Message)
         End Try
     End Sub
+
+
+
 
 End Class
 
