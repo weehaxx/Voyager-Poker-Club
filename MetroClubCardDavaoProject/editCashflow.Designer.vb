@@ -40,6 +40,8 @@ Partial Class editCashflow
         Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges17 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges19 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges20 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         dtpDate = New Guna.UI2.WinForms.Guna2DateTimePicker()
         tbCashierName = New Guna.UI2.WinForms.Guna2TextBox()
         Guna2HtmlLabel3 = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -55,6 +57,7 @@ Partial Class editCashflow
         tbAmount = New Guna.UI2.WinForms.Guna2TextBox()
         lblFullname = New Guna.UI2.WinForms.Guna2TextBox()
         Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        btndelete = New Guna.UI2.WinForms.Guna2Button()
         SuspendLayout()
         ' 
         ' dtpDate
@@ -62,8 +65,9 @@ Partial Class editCashflow
         dtpDate.BackColor = Color.White
         dtpDate.Checked = True
         dtpDate.CustomizableEdges = CustomizableEdges1
+        dtpDate.Enabled = False
         dtpDate.FillColor = Color.White
-        dtpDate.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        dtpDate.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         dtpDate.ForeColor = Color.Black
         dtpDate.Format = DateTimePickerFormat.Long
         dtpDate.Location = New Point(155, 50)
@@ -85,7 +89,7 @@ Partial Class editCashflow
         tbCashierName.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbCashierName.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbCashierName.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbCashierName.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbCashierName.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbCashierName.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbCashierName.Location = New Point(80, 208)
         tbCashierName.Margin = New Padding(4)
@@ -99,11 +103,11 @@ Partial Class editCashflow
         ' Guna2HtmlLabel3
         ' 
         Guna2HtmlLabel3.BackColor = Color.Transparent
-        Guna2HtmlLabel3.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel3.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel3.Location = New Point(80, 181)
         Guna2HtmlLabel3.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel3.Name = "Guna2HtmlLabel3"
-        Guna2HtmlLabel3.Size = New Size(120, 20)
+        Guna2HtmlLabel3.Size = New Size(107, 22)
         Guna2HtmlLabel3.TabIndex = 36
         Guna2HtmlLabel3.Text = "Cashier Name:"
         ' 
@@ -116,8 +120,8 @@ Partial Class editCashflow
         btnCancel.DisabledState.CustomBorderColor = Color.DarkGray
         btnCancel.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnCancel.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
-        btnCancel.FillColor = Color.Red
-        btnCancel.Font = New Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnCancel.FillColor = Color.OrangeRed
+        btnCancel.Font = New Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnCancel.ForeColor = Color.White
         btnCancel.Location = New Point(80, 369)
         btnCancel.Margin = New Padding(3, 2, 3, 2)
@@ -131,11 +135,11 @@ Partial Class editCashflow
         ' 
         Guna2HtmlLabel6.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel6.BackColor = Color.Transparent
-        Guna2HtmlLabel6.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel6.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel6.Location = New Point(381, 259)
         Guna2HtmlLabel6.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel6.Name = "Guna2HtmlLabel6"
-        Guna2HtmlLabel6.Size = New Size(144, 20)
+        Guna2HtmlLabel6.Size = New Size(131, 22)
         Guna2HtmlLabel6.TabIndex = 34
         Guna2HtmlLabel6.Text = "Mode of Payment:"
         ' 
@@ -143,11 +147,11 @@ Partial Class editCashflow
         ' 
         Guna2HtmlLabel5.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel5.BackColor = Color.Transparent
-        Guna2HtmlLabel5.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel5.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel5.Location = New Point(382, 100)
         Guna2HtmlLabel5.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel5.Name = "Guna2HtmlLabel5"
-        Guna2HtmlLabel5.Size = New Size(147, 20)
+        Guna2HtmlLabel5.Size = New Size(128, 22)
         Guna2HtmlLabel5.TabIndex = 33
         Guna2HtmlLabel5.Text = "Transaction Type:"
         ' 
@@ -156,6 +160,7 @@ Partial Class editCashflow
         dtpTime.BackColor = Color.Transparent
         dtpTime.Checked = True
         dtpTime.CustomizableEdges = CustomizableEdges7
+        dtpTime.Enabled = False
         dtpTime.FillColor = Color.White
         dtpTime.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         dtpTime.Format = DateTimePickerFormat.Long
@@ -173,11 +178,11 @@ Partial Class editCashflow
         ' 
         Guna2HtmlLabel4.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel4.BackColor = Color.Transparent
-        Guna2HtmlLabel4.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel4.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel4.Location = New Point(80, 266)
         Guna2HtmlLabel4.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel4.Name = "Guna2HtmlLabel4"
-        Guna2HtmlLabel4.Size = New Size(46, 20)
+        Guna2HtmlLabel4.Size = New Size(41, 22)
         Guna2HtmlLabel4.TabIndex = 31
         Guna2HtmlLabel4.Text = "Time:"
         ' 
@@ -185,11 +190,11 @@ Partial Class editCashflow
         ' 
         Guna2HtmlLabel8.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel8.BackColor = Color.Transparent
-        Guna2HtmlLabel8.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel8.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel8.Location = New Point(382, 181)
         Guna2HtmlLabel8.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel8.Name = "Guna2HtmlLabel8"
-        Guna2HtmlLabel8.Size = New Size(70, 20)
+        Guna2HtmlLabel8.Size = New Size(63, 22)
         Guna2HtmlLabel8.TabIndex = 30
         Guna2HtmlLabel8.Text = "Amount:"
         ' 
@@ -201,7 +206,7 @@ Partial Class editCashflow
         cbTransactionType.DropDownStyle = ComboBoxStyle.DropDownList
         cbTransactionType.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         cbTransactionType.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        cbTransactionType.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cbTransactionType.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbTransactionType.ForeColor = Color.FromArgb(CByte(68), CByte(88), CByte(112))
         cbTransactionType.ItemHeight = 30
         cbTransactionType.Location = New Point(381, 126)
@@ -221,9 +226,9 @@ Partial Class editCashflow
         btnSubmit.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
         btnSubmit.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnSubmit.FillColor = Color.FromArgb(CByte(0), CByte(192), CByte(0))
-        btnSubmit.Font = New Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnSubmit.Font = New Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnSubmit.ForeColor = Color.White
-        btnSubmit.Location = New Point(376, 369)
+        btnSubmit.Location = New Point(395, 369)
         btnSubmit.Margin = New Padding(3, 2, 3, 2)
         btnSubmit.Name = "btnSubmit"
         btnSubmit.ShadowDecoration.CustomizableEdges = CustomizableEdges12
@@ -239,7 +244,7 @@ Partial Class editCashflow
         cbPaymentMode.DropDownStyle = ComboBoxStyle.DropDownList
         cbPaymentMode.FocusedColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         cbPaymentMode.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        cbPaymentMode.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cbPaymentMode.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbPaymentMode.ForeColor = Color.FromArgb(CByte(68), CByte(88), CByte(112))
         cbPaymentMode.ItemHeight = 30
         cbPaymentMode.Location = New Point(381, 290)
@@ -258,7 +263,7 @@ Partial Class editCashflow
         tbAmount.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbAmount.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         tbAmount.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        tbAmount.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        tbAmount.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         tbAmount.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         tbAmount.Location = New Point(382, 207)
         tbAmount.Margin = New Padding(4)
@@ -279,7 +284,7 @@ Partial Class editCashflow
         lblFullname.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
         lblFullname.Enabled = False
         lblFullname.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        lblFullname.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        lblFullname.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         lblFullname.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         lblFullname.Location = New Point(80, 126)
         lblFullname.Margin = New Padding(4)
@@ -293,18 +298,39 @@ Partial Class editCashflow
         ' Guna2HtmlLabel2
         ' 
         Guna2HtmlLabel2.BackColor = Color.Transparent
-        Guna2HtmlLabel2.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel2.Font = New Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel2.Location = New Point(80, 100)
         Guna2HtmlLabel2.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
-        Guna2HtmlLabel2.Size = New Size(109, 20)
+        Guna2HtmlLabel2.Size = New Size(96, 22)
         Guna2HtmlLabel2.TabIndex = 24
         Guna2HtmlLabel2.Text = "Player Name:"
+        ' 
+        ' btndelete
+        ' 
+        btndelete.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        btndelete.BorderRadius = 10
+        btndelete.CustomizableEdges = CustomizableEdges19
+        btndelete.DisabledState.BorderColor = Color.DarkGray
+        btndelete.DisabledState.CustomBorderColor = Color.DarkGray
+        btndelete.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btndelete.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btndelete.FillColor = Color.Red
+        btndelete.Font = New Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btndelete.ForeColor = Color.White
+        btndelete.Location = New Point(239, 405)
+        btndelete.Margin = New Padding(3, 2, 3, 2)
+        btndelete.Name = "btndelete"
+        btndelete.ShadowDecoration.CustomizableEdges = CustomizableEdges20
+        btndelete.Size = New Size(144, 32)
+        btndelete.TabIndex = 38
+        btndelete.Text = "DELETE"
         ' 
         ' editCashflow
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        Controls.Add(btndelete)
         Controls.Add(dtpDate)
         Controls.Add(tbCashierName)
         Controls.Add(Guna2HtmlLabel3)
@@ -341,5 +367,6 @@ Partial Class editCashflow
     Friend WithEvents tbAmount As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents lblFullname As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Guna2HtmlLabel2 As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents btndelete As Guna.UI2.WinForms.Guna2Button
 
 End Class

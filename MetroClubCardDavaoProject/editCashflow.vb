@@ -140,5 +140,40 @@ Public Class editCashflow
             parentForm.Close()
         End If
     End Sub
+    Private Sub btndelete_Click(sender As Object, e As EventArgs) Handles btndelete.Click
+        Dim confirm = MessageBox.Show(
+        "Are you sure you want to delete this transaction?",
+        "Confirm Delete",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Warning
+    )
+
+        If confirm = DialogResult.No Then Return
+
+        Try
+            Using conn As New SQLiteConnection($"Data Source={dbPath};Version=3;")
+                conn.Open()
+
+                Dim sql As String = "DELETE FROM cashflows WHERE id=@id"
+
+                Using cmd As New SQLiteCommand(sql, conn)
+                    cmd.Parameters.AddWithValue("@id", CashflowID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+
+            MessageBox.Show("Transaction deleted successfully.", "Deleted")
+
+            Dim parentForm As Form = Me.FindForm()
+            If parentForm IsNot Nothing Then
+                parentForm.DialogResult = DialogResult.OK
+                parentForm.Close()
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error deleting transaction: " & ex.Message)
+        End Try
+    End Sub
+
 End Class
 
