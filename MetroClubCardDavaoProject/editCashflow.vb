@@ -15,6 +15,7 @@ Public Class editCashflow
     Public Property CashOut As String
     Public Property CashOutMode As String
     Public Property CreatedBy As String
+    Public Property SessionDate As String
 
     Private ReadOnly dbPath As String = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
@@ -29,8 +30,11 @@ Public Class editCashflow
         dtpDate.Format = DateTimePickerFormat.Custom
         dtpDate.CustomFormat = "dddd, MMMM dd, yyyy"
 
+        dtpSessionDate.Format = DateTimePickerFormat.Custom
+        dtpSessionDate.CustomFormat = "dddd, MMMM dd, yyyy"
+
         ' Time
-        dtpTime.Format = DateTimePickerFormat.Custom
+        dtpTIme.Format = DateTimePickerFormat.Custom
         dtpTime.CustomFormat = "hh:mm:ss tt"
         dtpTime.ShowUpDown = True
 
@@ -58,7 +62,7 @@ Public Class editCashflow
             conn.Open()
 
             Dim sql As String = "
-            SELECT type, amount, payment_mode, date_created, time_created, created_by
+            SELECT type, amount, payment_mode, date_created, time_created, created_by, session_date
             FROM cashflows
             WHERE id = @id
         "
@@ -136,7 +140,8 @@ Public Class editCashflow
                         payment_mode=@mode,
                         date_created=@date,
                         time_created=@time,
-                        created_by=@createdBy
+                        created_by=@createdBy,
+                        session_date = @session
                     WHERE id=@id
                 "
 
@@ -145,6 +150,7 @@ Public Class editCashflow
                     cmd.Parameters.AddWithValue("@amount", amount)
                     cmd.Parameters.AddWithValue("@mode", cbPaymentMode.Text)
                     cmd.Parameters.AddWithValue("@date", dtpDate.Value.ToString("dddd, MMMM dd, yyyy"))
+                    cmd.Parameters.AddWithValue("@session", dtpSessionDate.Value.ToString("dddd, MMMM dd, yyyy"))
                     cmd.Parameters.AddWithValue("@time", dtpTime.Value.ToString("hh:mm:ss tt"))
                     cmd.Parameters.AddWithValue("@createdBy", tbCashierName.Text.Trim())
                     cmd.Parameters.AddWithValue("@id", CashflowID)

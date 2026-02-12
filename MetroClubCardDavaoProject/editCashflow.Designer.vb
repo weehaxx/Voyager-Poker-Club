@@ -54,6 +54,8 @@ Partial Class editCashflow
         btndelete = New Guna.UI2.WinForms.Guna2Button()
         dtpDate = New DateTimePicker()
         dtpTIme = New DateTimePicker()
+        dtpSessionDate = New DateTimePicker()
+        Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         SuspendLayout()
         ' 
         ' tbCashierName
@@ -137,7 +139,7 @@ Partial Class editCashflow
         Guna2HtmlLabel4.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Guna2HtmlLabel4.BackColor = Color.Transparent
         Guna2HtmlLabel4.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel4.Location = New Point(80, 266)
+        Guna2HtmlLabel4.Location = New Point(80, 256)
         Guna2HtmlLabel4.Margin = New Padding(3, 2, 3, 2)
         Guna2HtmlLabel4.Name = "Guna2HtmlLabel4"
         Guna2HtmlLabel4.Size = New Size(46, 20)
@@ -298,15 +300,37 @@ Partial Class editCashflow
         ' dtpTIme
         ' 
         dtpTIme.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        dtpTIme.Location = New Point(80, 303)
+        dtpTIme.Location = New Point(80, 281)
         dtpTIme.Name = "dtpTIme"
         dtpTIme.Size = New Size(249, 26)
         dtpTIme.TabIndex = 44
+        ' 
+        ' dtpSessionDate
+        ' 
+        dtpSessionDate.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        dtpSessionDate.Location = New Point(80, 339)
+        dtpSessionDate.Name = "dtpSessionDate"
+        dtpSessionDate.Size = New Size(249, 26)
+        dtpSessionDate.TabIndex = 45
+        ' 
+        ' Guna2HtmlLabel1
+        ' 
+        Guna2HtmlLabel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        Guna2HtmlLabel1.BackColor = Color.Transparent
+        Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Guna2HtmlLabel1.Location = New Point(80, 312)
+        Guna2HtmlLabel1.Margin = New Padding(3, 2, 3, 2)
+        Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
+        Guna2HtmlLabel1.Size = New Size(113, 20)
+        Guna2HtmlLabel1.TabIndex = 46
+        Guna2HtmlLabel1.Text = "Session Date:"
         ' 
         ' editCashflow
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        Controls.Add(Guna2HtmlLabel1)
+        Controls.Add(dtpSessionDate)
         Controls.Add(dtpTIme)
         Controls.Add(dtpDate)
         Controls.Add(btndelete)
@@ -344,5 +368,7 @@ Partial Class editCashflow
     Friend WithEvents btndelete As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents dtpDate As DateTimePicker
     Friend WithEvents dtpTIme As DateTimePicker
+    Friend WithEvents dtpSessionDate As DateTimePicker
+    Friend WithEvents Guna2HtmlLabel1 As Guna.UI2.WinForms.Guna2HtmlLabel
 
 End Class
