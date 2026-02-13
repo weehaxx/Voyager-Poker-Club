@@ -43,12 +43,10 @@ Public Class Reports
 
             Dim selectedMonth As Integer = dtpMonthYear.Value.Month
             Dim selectedYear As Integer = dtpMonthYear.Value.Year
-            Dim daysInMonth As Integer = 31 ' 🔹 Always show 31 days
+            Dim daysInMonth As Integer = 31
 
-            ' 🔹 Reset raw values storage
+            ' Clear previous data
             rawValues.Clear()
-
-            ' 🔹 Setup DataGridView
             dgvReports.Columns.Clear()
             dgvReports.Rows.Clear()
             dgvReports.AllowUserToAddRows = False
@@ -61,52 +59,55 @@ Public Class Reports
             dgvReports.Font = New System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Regular)
             dgvReports.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.LightGray
 
-            ' 🔹 First column: Fullname only (narrower)
+            ' First column: Fullname
             dgvReports.Columns.Add("PlayerName", "FULLNAME")
             dgvReports.Columns(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
             dgvReports.Columns(0).Width = 110
 
-            ' 🔹 Day columns (centered for amounts)
+            ' Day columns
             For i As Integer = 1 To daysInMonth
                 dgvReports.Columns.Add($"Day{i}", i.ToString())
                 dgvReports.Columns($"Day{i}").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
                 dgvReports.Columns($"Day{i}").Width = 80
             Next
 
-            ' 🔹 Total column (centered)
+            ' Total column
             dgvReports.Columns.Add("Total", "TOTAL")
             dgvReports.Columns("Total").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             dgvReports.Columns("Total").Width = 100
 
-            ' 🔹 Query all transactions
+            ' Prepare daily totals
+            Dim dailyCashIn(daysInMonth - 1) As Decimal
+            Dim dailyCashOut(daysInMonth - 1) As Decimal
+            Dim totalCashIn As Decimal = 0
+            Dim totalCashOut As Decimal = 0
+
+            ' Query transactions
             Dim sql As String = "
-                SELECT r.id AS ID,
-                       r.name,
-                       c.date_created,
-                       c.type,
-                       c.amount
-                FROM registrations r
-                LEFT JOIN cashflows c ON r.id = c.registration_id
-                WHERE c.date_created IS NOT NULL
-                ORDER BY r.name
-            "
+            SELECT r.id AS ID,
+                   r.name,
+                   c.date_created,
+                   c.type,
+                   c.amount
+            FROM registrations r
+            LEFT JOIN cashflows c ON r.id = c.registration_id
+            WHERE c.date_created IS NOT NULL
+            ORDER BY r.name
+        "
 
             Dim cmd As New SQLiteCommand(sql, conn)
             Dim reader As SQLiteDataReader = cmd.ExecuteReader()
 
-            ' 🔹 Build dictionary
             Dim playerData As New Dictionary(Of Long, (FullName As String, Days As Decimal()))
 
             While reader.Read()
                 Dim regID As Long = CLng(reader("ID"))
                 Dim fullname As String = $"{reader("name")}"
 
-                ' Create array if new player
                 If Not playerData.ContainsKey(regID) Then
                     playerData(regID) = (fullname, New Decimal(daysInMonth - 1) {})
                 End If
 
-                ' Parse date_created
                 Dim dateStr As String = reader("date_created").ToString()
                 Dim txDate As Date
                 If Date.TryParse(dateStr, txDate) Then
@@ -115,18 +116,21 @@ Public Class Reports
                         Dim amount As Decimal = Convert.ToDecimal(reader("amount"))
                         Dim txType As String = reader("type").ToString()
 
-                        ' Buy-In = negative, Cash-Out = positive
                         If txType = "Buy-In" Then
                             playerData(regID).Days(dayIndex) -= amount
+                            dailyCashIn(dayIndex) += amount
+                            totalCashIn += amount
                         ElseIf txType = "Cash-Out" Then
                             playerData(regID).Days(dayIndex) += amount
+                            dailyCashOut(dayIndex) += amount
+                            totalCashOut += amount
                         End If
                     End If
                 End If
             End While
             reader.Close()
 
-            ' 🔹 Add rows to dgvReports
+            ' Fill dgvReports
             For Each kvp In playerData
                 Dim fullname As String = kvp.Value.FullName
                 Dim days() As Decimal = kvp.Value.Days
@@ -155,12 +159,44 @@ Public Class Reports
             dgvReports.ClearSelection()
             dgvReports.CurrentCell = Nothing
 
+            ' -------------------
+            ' Fill dgvTotals (as columns)
+            ' -------------------
+            dgvTotals.Columns.Clear()
+            dgvTotals.Rows.Clear()
+            dgvTotals.AllowUserToAddRows = False
+            dgvTotals.RowHeadersVisible = False
+
+            ' Column 1: TOTAL CASH IN
+            dgvTotals.Columns.Add("CashIn", "TOTAL CASH IN")
+            dgvTotals.Columns("CashIn").Width = 120
+            dgvTotals.Columns("CashIn").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            dgvTotals.Columns("CashIn").DefaultCellStyle.Font = New System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Bold)
+
+            ' Column 2: TOTAL CASH OUT
+            dgvTotals.Columns.Add("CashOut", "TOTAL CASH OUT")
+            dgvTotals.Columns("CashOut").Width = 120
+            dgvTotals.Columns("CashOut").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            dgvTotals.Columns("CashOut").DefaultCellStyle.Font = New System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Bold)
+
+            ' Single row for totals
+            Dim totalsRow As Integer = dgvTotals.Rows.Add()
+            dgvTotals.Rows(totalsRow).Cells("CashIn").Value = totalCashIn.ToString("N0")
+            dgvTotals.Rows(totalsRow).Cells("CashOut").Value = totalCashOut.ToString("N0")
+
+            dgvTotals.ClearSelection()
+            dgvTotals.CurrentCell = Nothing
+
+
+
+
         Catch ex As Exception
             MessageBox.Show("Error loading monthly report: " & ex.Message)
         Finally
             If conn.State = ConnectionState.Open Then conn.Close()
         End Try
     End Sub
+
 
     ' ✅ Reload on date change
     Private Sub dtpMonthYear_ValueChanged(sender As Object, e As EventArgs) Handles dtpMonthYear.ValueChanged
@@ -230,6 +266,33 @@ Public Class Reports
                     Next
                 Next
 
+                Dim totalsFont As iTextSharp.text.Font = FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)
+
+                Dim totalsTable As New PdfPTable(dgvTotals.Columns.Count)
+                totalsTable.WidthPercentage = 50 ' smaller table
+                totalsTable.HorizontalAlignment = Element.ALIGN_LEFT
+
+                ' Column headers
+                For Each col As DataGridViewColumn In dgvTotals.Columns
+                    Dim cell As New PdfPCell(New Phrase(col.HeaderText, totalsFont))
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER
+                    cell.BackgroundColor = BaseColor.LIGHT_GRAY
+                    totalsTable.AddCell(cell)
+                Next
+
+                ' Single row of totals
+                For colIndex As Integer = 0 To dgvTotals.Columns.Count - 1
+                    Dim text As String = If(dgvTotals.Rows(0).Cells(colIndex).Value IsNot Nothing,
+                             dgvTotals.Rows(0).Cells(colIndex).Value.ToString(), "")
+                    Dim cell As New PdfPCell(New Phrase(text, totalsFont))
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER
+                    totalsTable.AddCell(cell)
+                Next
+
+                ' Add some spacing before totals
+                doc.Add(New Paragraph(" "))
+                doc.Add(totalsTable)
+
                 doc.Add(pdfTable)
                 doc.Close()
 
@@ -239,5 +302,11 @@ Public Class Reports
         Catch ex As Exception
             MessageBox.Show("Error exporting report: " & ex.Message)
         End Try
+
+
+    End Sub
+
+    Private Sub dgvTotals_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTotals.CellContentClick
+
     End Sub
 End Class

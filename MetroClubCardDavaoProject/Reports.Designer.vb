@@ -27,12 +27,17 @@ Partial Class Reports
         Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim DataGridViewCellStyle4 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Guna2HtmlLabel1 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         Guna2HtmlLabel2 = New Guna.UI2.WinForms.Guna2HtmlLabel()
         dtpMonthYear = New DateTimePicker()
         dgvReports = New Guna.UI2.WinForms.Guna2DataGridView()
         btnPrintMonthly = New Guna.UI2.WinForms.Guna2Button()
+        dgvTotals = New Guna.UI2.WinForms.Guna2DataGridView()
         CType(dgvReports, ComponentModel.ISupportInitialize).BeginInit()
+        CType(dgvTotals, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Guna2HtmlLabel1
@@ -101,7 +106,7 @@ Partial Class Reports
         dgvReports.RowHeadersVisible = False
         dgvReports.RowHeadersWidth = 51
         dgvReports.RowTemplate.Height = 29
-        dgvReports.Size = New Size(1004, 454)
+        dgvReports.Size = New Size(1004, 416)
         dgvReports.TabIndex = 78
         dgvReports.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
         dgvReports.ThemeStyle.AlternatingRowsStyle.Font = Nothing
@@ -142,11 +147,70 @@ Partial Class Reports
         btnPrintMonthly.TabIndex = 79
         btnPrintMonthly.Text = "PRINT"
         ' 
+        ' dgvTotals
+        ' 
+        DataGridViewCellStyle4.BackColor = Color.White
+        dgvTotals.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        dgvTotals.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        dgvTotals.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader
+        dgvTotals.BackgroundColor = Color.WhiteSmoke
+        dgvTotals.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText
+        DataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = Color.FromArgb(CByte(100), CByte(88), CByte(255))
+        DataGridViewCellStyle5.Font = New Font("Segoe UI", 9F)
+        DataGridViewCellStyle5.ForeColor = Color.White
+        DataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = DataGridViewTriState.True
+        dgvTotals.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        dgvTotals.ColumnHeadersHeight = 4
+        dgvTotals.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
+        DataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = Color.White
+        DataGridViewCellStyle6.Font = New Font("Arial Rounded MT Bold", 10.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle6.ForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
+        DataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
+        DataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
+        DataGridViewCellStyle6.WrapMode = DataGridViewTriState.False
+        dgvTotals.DefaultCellStyle = DataGridViewCellStyle6
+        dgvTotals.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
+        dgvTotals.Location = New Point(20, 559)
+        dgvTotals.Margin = New Padding(3, 2, 3, 2)
+        dgvTotals.Name = "dgvTotals"
+        dgvTotals.ReadOnly = True
+        dgvTotals.RowHeadersVisible = False
+        dgvTotals.RowHeadersWidth = 51
+        dgvTotals.RowTemplate.Height = 29
+        dgvTotals.Size = New Size(1004, 62)
+        dgvTotals.TabIndex = 80
+        dgvTotals.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
+        dgvTotals.ThemeStyle.AlternatingRowsStyle.Font = Nothing
+        dgvTotals.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty
+        dgvTotals.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty
+        dgvTotals.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty
+        dgvTotals.ThemeStyle.BackColor = Color.WhiteSmoke
+        dgvTotals.ThemeStyle.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
+        dgvTotals.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(CByte(100), CByte(88), CByte(255))
+        dgvTotals.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None
+        dgvTotals.ThemeStyle.HeaderStyle.Font = New Font("Segoe UI", 9F)
+        dgvTotals.ThemeStyle.HeaderStyle.ForeColor = Color.White
+        dgvTotals.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing
+        dgvTotals.ThemeStyle.HeaderStyle.Height = 4
+        dgvTotals.ThemeStyle.ReadOnly = True
+        dgvTotals.ThemeStyle.RowsStyle.BackColor = Color.White
+        dgvTotals.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
+        dgvTotals.ThemeStyle.RowsStyle.Font = New Font("Segoe UI", 9F)
+        dgvTotals.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
+        dgvTotals.ThemeStyle.RowsStyle.Height = 29
+        dgvTotals.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
+        dgvTotals.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
+        ' 
         ' Reports
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.WhiteSmoke
+        Controls.Add(dgvTotals)
         Controls.Add(btnPrintMonthly)
         Controls.Add(dgvReports)
         Controls.Add(dtpMonthYear)
@@ -156,6 +220,7 @@ Partial Class Reports
         Name = "Reports"
         Size = New Size(1041, 635)
         CType(dgvReports, ComponentModel.ISupportInitialize).EndInit()
+        CType(dgvTotals, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -165,5 +230,6 @@ Partial Class Reports
     Friend WithEvents dtpMonthYear As DateTimePicker
     Friend WithEvents dgvReports As Guna.UI2.WinForms.Guna2DataGridView
     Friend WithEvents btnPrintMonthly As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents dgvTotals As Guna.UI2.WinForms.Guna2DataGridView
 
 End Class
