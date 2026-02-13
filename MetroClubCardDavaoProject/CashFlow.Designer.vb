@@ -261,9 +261,9 @@ Partial Class CashFlow
         Guna2HtmlLabel13.ForeColor = Color.White
         Guna2HtmlLabel13.Location = New Point(14, 10)
         Guna2HtmlLabel13.Name = "Guna2HtmlLabel13"
-        Guna2HtmlLabel13.Size = New Size(136, 20)
+        Guna2HtmlLabel13.Size = New Size(123, 20)
         Guna2HtmlLabel13.TabIndex = 75
-        Guna2HtmlLabel13.Text = "TOTAL CASH-IN:"
+        Guna2HtmlLabel13.Text = "TOTAL BUY-IN:"
         ' 
         ' Panel3
         ' 

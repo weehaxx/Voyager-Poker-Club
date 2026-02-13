@@ -77,28 +77,34 @@ Public Class editCashflow
                         cbPaymentMode.Text = reader("payment_mode").ToString()
                         tbCashierName.Text = reader("created_by").ToString()
 
-                        ' ✅ SAFE date parsing
+                        ' date_created
                         Dim parsedDate As DateTime
-                        If DateTime.TryParseExact(
-                        reader("date_created").ToString(),
-                        "dddd, MMMM dd, yyyy",
-                        Globalization.CultureInfo.InvariantCulture,
-                        Globalization.DateTimeStyles.None,
-                        parsedDate
-                    ) Then
+                        If DateTime.TryParseExact(reader("date_created").ToString(),
+                            "dddd, MMMM dd, yyyy",
+                            Globalization.CultureInfo.InvariantCulture,
+                            Globalization.DateTimeStyles.None,
+                            parsedDate) Then
                             dtpDate.Value = parsedDate
                         End If
 
-                        ' ✅ SAFE time parsing
+                        ' time_created
                         Dim parsedTime As DateTime
-                        If DateTime.TryParseExact(
-                        reader("time_created").ToString(),
-                        "hh:mm:ss tt",
-                        Globalization.CultureInfo.InvariantCulture,
-                        Globalization.DateTimeStyles.None,
-                        parsedTime
-                    ) Then
-                            dtpTime.Value = parsedTime
+                        If DateTime.TryParseExact(reader("time_created").ToString(),
+                            "hh:mm:ss tt",
+                            Globalization.CultureInfo.InvariantCulture,
+                            Globalization.DateTimeStyles.None,
+                            parsedTime) Then
+                            dtpTIme.Value = parsedTime
+                        End If
+
+                        ' session_date  ✅ ADD THIS
+                        Dim parsedSession As DateTime
+                        If DateTime.TryParseExact(reader("session_date").ToString(),
+                            "dddd, MMMM dd, yyyy",
+                            Globalization.CultureInfo.InvariantCulture,
+                            Globalization.DateTimeStyles.None,
+                            parsedSession) Then
+                            dtpSessionDate.Value = parsedSession
                         End If
                     End If
                 End Using
