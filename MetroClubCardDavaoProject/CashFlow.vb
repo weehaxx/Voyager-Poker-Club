@@ -132,6 +132,9 @@ Public Class CashFlow
 
             ' 🔹 Update totals based on session_date
             UpdateTotals(baseDate)
+            If dgvCashFlow.Columns.Contains("CASHFLOW_ID") Then
+                dgvCashFlow.Columns("CASHFLOW_ID").Visible = False
+            End If
 
         Catch ex As Exception
             MessageBox.Show("Error loading cashflows: " & ex.Message)
