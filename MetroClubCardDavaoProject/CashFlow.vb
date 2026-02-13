@@ -63,7 +63,17 @@ Public Class CashFlow
          c.payment_mode, c.created_by
  FROM cashflows c
  INNER JOIN registrations r ON c.registration_id = r.id
- WHERE c.session_date = @sessionDate"
+WHERE
+(
+    c.session_date = @sessionDate
+    OR
+    (
+        (c.session_date IS NULL OR TRIM(c.session_date) = '')
+        AND c.date_created = @sessionDate
+    )
+)"
+
+
 
                 ' Add search filter if any
                 If Not String.IsNullOrWhiteSpace(searchText) Then
@@ -103,8 +113,12 @@ Public Class CashFlow
                     newRow("CASHFLOW_ID") = CLng(row("cashflow_id"))
                     newRow("PLAYER ID") = row("registration_id").ToString()
                     newRow("FULL NAME") = row("name").ToString().Trim()
-                    newRow("SESSION DATE") = Convert.ToDateTime(row("session_date")).ToString("dddd, MMMM dd, yyyy")
-                    newRow("DATE CREATED") = Convert.ToDateTime(row("date_created")).ToString("dddd, MMMM dd, yyyy")
+                    If IsDBNull(row("session_date")) OrElse String.IsNullOrWhiteSpace(row("session_date").ToString()) Then
+                        newRow("SESSION DATE") = Convert.ToDateTime(row("date_created")).ToString("dddd, MMMM dd, yyyy")
+                    Else
+                        newRow("SESSION DATE") = Convert.ToDateTime(row("session_date")).ToString("dddd, MMMM dd, yyyy")
+                    End If
+
                     newRow("TIME") = row("time_created").ToString()
 
                     If row("type").ToString().Trim().ToLower() = "buy-in" Then
@@ -327,13 +341,21 @@ Public Class CashFlow
                 conn.Open()
 
                 Dim query As String =
-    "SELECT type, SUM(amount) AS totalAmount
- FROM cashflows
- WHERE session_date = @sessionDate
- GROUP BY type"
+"SELECT type, SUM(amount) AS totalAmount
+FROM cashflows
+WHERE
+(
+    session_date = @sessionDate
+    OR
+    (
+        (session_date IS NULL OR TRIM(session_date) = '')
+        AND date_created = @sessionDate
+    )
+)
+GROUP BY type"
+
 
                 Using cmd As New SQLiteCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@sessionDate", sessionDate.ToString("dddd, MMMM dd, yyyy"))
                     cmd.Parameters.AddWithValue("@sessionDate", sessionDate.ToString("dddd, MMMM dd, yyyy"))
 
                     Using reader As SQLiteDataReader = cmd.ExecuteReader()
@@ -362,4 +384,7 @@ Public Class CashFlow
         End Try
     End Sub
 
+    Private Sub dgvCashFlow_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCashFlow.CellContentClick
+
+    End Sub
 End Class
