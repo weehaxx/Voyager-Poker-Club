@@ -55,7 +55,15 @@ Public Class CashFlow
 
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
+                Dim fixQuery As String =
+"UPDATE cashflows
+ SET session_date = date_created
+ WHERE session_date IS NULL
+    OR TRIM(session_date) = ''"
 
+                Using fixCmd As New SQLiteCommand(fixQuery, conn)
+                    fixCmd.ExecuteNonQuery()
+                End Using
                 ' 🔹 Filter by session_date and optional search text
                 Dim rawQuery As String =
 "SELECT  c.id AS cashflow_id, r.registration_id, r.name, 
