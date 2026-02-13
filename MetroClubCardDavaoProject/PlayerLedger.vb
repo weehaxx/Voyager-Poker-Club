@@ -24,7 +24,7 @@ Public Class PlayerLedger
 
         ' SESSION DATE picker
         dtpSessionDate.Format = DateTimePickerFormat.Custom
-        dtpSessionDate.CustomFormat = "yyyy-MM-dd"
+        dtpSessionDate.CustomFormat = "dddd, MMMM dd, yyyy"
         dtpSessionDate.Value = DateTime.Now
 
         ' Transaction types
@@ -64,7 +64,7 @@ Public Class PlayerLedger
 
             Dim selectedDate As String = dtpDate.Value.ToString("dddd, MMMM dd, yyyy")
             Dim selectedTime As String = dtpTime.Value.ToString("hh:mm:ss tt")
-            Dim sessionDate As String = dtpSessionDate.Value.ToString("yyyy-MM-dd")
+            Dim sessionDate As String = dtpSessionDate.Value.ToString("dddd, MMMM dd, yyyy")
 
             Dim appDataPath As String = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),

@@ -72,7 +72,7 @@ Public Class CashFlow
 
                 Dim rawTable As New DataTable()
                 Using cmd As New SQLiteCommand(rawQuery, conn)
-                    cmd.Parameters.AddWithValue("@sessionDate", baseDate.ToString("yyyy-MM-dd"))
+                    cmd.Parameters.AddWithValue("@sessionDate", baseDate.ToString("dddd, MMMM dd, yyyy"))
                     If Not String.IsNullOrWhiteSpace(searchText) Then
                         cmd.Parameters.AddWithValue("@search", "%" & searchText & "%")
                     End If
@@ -103,8 +103,8 @@ Public Class CashFlow
                     newRow("CASHFLOW_ID") = CLng(row("cashflow_id"))
                     newRow("PLAYER ID") = row("registration_id").ToString()
                     newRow("FULL NAME") = row("name").ToString().Trim()
-                    newRow("SESSION DATE") = Convert.ToDateTime(row("session_date")).ToString("yyyy-MM-dd")
-                    newRow("DATE CREATED") = Convert.ToDateTime(row("date_created")).ToString("yyyy-MM-dd")
+                    newRow("SESSION DATE") = Convert.ToDateTime(row("session_date")).ToString("dddd, MMMM dd, yyyy")
+                    newRow("DATE CREATED") = Convert.ToDateTime(row("date_created")).ToString("dddd, MMMM dd, yyyy")
                     newRow("TIME") = row("time_created").ToString()
 
                     If row("type").ToString().Trim().ToLower() = "buy-in" Then
@@ -330,7 +330,8 @@ Public Class CashFlow
  GROUP BY type"
 
                 Using cmd As New SQLiteCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@sessionDate", sessionDate.ToString("yyyy-MM-dd"))
+                    cmd.Parameters.AddWithValue("@sessionDate", sessionDate.ToString("dddd, MMMM dd, yyyy"))
+                    cmd.Parameters.AddWithValue("@sessionDate", sessionDate.ToString("dddd, MMMM dd, yyyy"))
 
                     Using reader As SQLiteDataReader = cmd.ExecuteReader()
                         Dim totalCashIn As Decimal = 0
