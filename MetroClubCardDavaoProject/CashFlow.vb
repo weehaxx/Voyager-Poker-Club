@@ -55,15 +55,7 @@ Public Class CashFlow
 
             Using conn As New SQLiteConnection("Data Source=" & dbPath & ";Version=3;")
                 conn.Open()
-                Dim fixQuery As String =
-"UPDATE cashflows
- SET session_date = date_created
- WHERE session_date IS NULL
-    OR TRIM(session_date) = ''"
 
-                Using fixCmd As New SQLiteCommand(fixQuery, conn)
-                    fixCmd.ExecuteNonQuery()
-                End Using
                 ' 🔹 Filter by session_date and optional search text
                 Dim rawQuery As String =
 "SELECT  c.id AS cashflow_id, r.registration_id, r.name, 
@@ -122,10 +114,17 @@ WHERE
                     newRow("PLAYER ID") = row("registration_id").ToString()
                     newRow("FULL NAME") = row("name").ToString().Trim()
                     If IsDBNull(row("session_date")) OrElse String.IsNullOrWhiteSpace(row("session_date").ToString()) Then
-                        newRow("SESSION DATE") = Convert.ToDateTime(row("date_created")).ToString("dddd, MMMM dd, yyyy")
+                        newRow("SESSION DATE") =
+        Convert.ToDateTime(row("date_created")).ToString("dddd, MMMM dd, yyyy")
                     Else
-                        newRow("SESSION DATE") = Convert.ToDateTime(row("session_date")).ToString("dddd, MMMM dd, yyyy")
+                        newRow("SESSION DATE") =
+        Convert.ToDateTime(row("session_date")).ToString("dddd, MMMM dd, yyyy")
                     End If
+
+                    ' ✅ THIS WAS MISSING
+                    newRow("DATE CREATED") =
+    Convert.ToDateTime(row("date_created")).ToString("dddd, MMMM dd, yyyy")
+
 
                     newRow("TIME") = row("time_created").ToString()
 
