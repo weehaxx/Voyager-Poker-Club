@@ -86,14 +86,14 @@ Public Class Reports
             Dim sql As String = "
             SELECT r.id AS ID,
                    r.name,
+                   c.session_date,
                    c.date_created,
                    c.type,
                    c.amount
             FROM registrations r
             LEFT JOIN cashflows c ON r.id = c.registration_id
-            WHERE c.date_created IS NOT NULL
             ORDER BY r.name
-        "
+            "
 
             Dim cmd As New SQLiteCommand(sql, conn)
             Dim reader As SQLiteDataReader = cmd.ExecuteReader()
@@ -108,9 +108,18 @@ Public Class Reports
                     playerData(regID) = (fullname, New Decimal(daysInMonth - 1) {})
                 End If
 
-                Dim dateStr As String = reader("date_created").ToString()
+                Dim dateStr As String
+
+                If Not IsDBNull(reader("session_date")) AndAlso
+                   Not String.IsNullOrWhiteSpace(reader("session_date").ToString()) Then
+                    dateStr = reader("session_date").ToString()
+                Else
+                    dateStr = reader("date_created").ToString()
+                End If
+
                 Dim txDate As Date
                 If Date.TryParse(dateStr, txDate) Then
+
                     If txDate.Year = selectedYear AndAlso txDate.Month = selectedMonth Then
                         Dim dayIndex As Integer = txDate.Day - 1
                         Dim amount As Decimal = Convert.ToDecimal(reader("amount"))
