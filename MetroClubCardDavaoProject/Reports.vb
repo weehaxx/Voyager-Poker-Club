@@ -84,16 +84,18 @@ Public Class Reports
 
             ' Query transactions
             Dim sql As String = "
-            SELECT r.id AS ID,
-                   r.name,
-                   c.session_date,
-                   c.date_created,
-                   c.type,
-                   c.amount
-            FROM registrations r
-            LEFT JOIN cashflows c ON r.id = c.registration_id
-            ORDER BY r.name
-            "
+SELECT r.id AS ID,
+       r.name,
+       c.session_date,
+       c.type,
+       c.amount
+FROM registrations r
+INNER JOIN cashflows c 
+    ON r.id = c.registration_id
+WHERE c.session_date IS NOT NULL
+ORDER BY r.name
+"
+
 
             Dim cmd As New SQLiteCommand(sql, conn)
             Dim reader As SQLiteDataReader = cmd.ExecuteReader()
@@ -101,42 +103,40 @@ Public Class Reports
             Dim playerData As New Dictionary(Of Long, (FullName As String, Days As Decimal()))
 
             While reader.Read()
+
+                ' ❌ Must have session_date
+                If IsDBNull(reader("session_date")) Then Continue While
+
+                Dim txDate As Date
+                If Not Date.TryParse(reader("session_date").ToString(), txDate) Then Continue While
+
+                ' ❌ Must match selected month/year
+                If txDate.Year <> selectedYear OrElse txDate.Month <> selectedMonth Then Continue While
+
+                ' ✅ Only now do we touch playerData
                 Dim regID As Long = CLng(reader("ID"))
-                Dim fullname As String = $"{reader("name")}"
+                Dim fullname As String = reader("name").ToString()
 
                 If Not playerData.ContainsKey(regID) Then
                     playerData(regID) = (fullname, New Decimal(daysInMonth - 1) {})
                 End If
 
-                Dim dateStr As String
+                Dim dayIndex As Integer = txDate.Day - 1
+                Dim amount As Decimal = Convert.ToDecimal(reader("amount"))
+                Dim txType As String = reader("type").ToString()
 
-                If Not IsDBNull(reader("session_date")) AndAlso
-                   Not String.IsNullOrWhiteSpace(reader("session_date").ToString()) Then
-                    dateStr = reader("session_date").ToString()
-                Else
-                    dateStr = reader("date_created").ToString()
+                If txType = "Buy-In" Then
+                    playerData(regID).Days(dayIndex) -= amount
+                    dailyCashIn(dayIndex) += amount
+                    totalCashIn += amount
+                ElseIf txType = "Cash-Out" Then
+                    playerData(regID).Days(dayIndex) += amount
+                    dailyCashOut(dayIndex) += amount
+                    totalCashOut += amount
                 End If
 
-                Dim txDate As Date
-                If Date.TryParse(dateStr, txDate) Then
-
-                    If txDate.Year = selectedYear AndAlso txDate.Month = selectedMonth Then
-                        Dim dayIndex As Integer = txDate.Day - 1
-                        Dim amount As Decimal = Convert.ToDecimal(reader("amount"))
-                        Dim txType As String = reader("type").ToString()
-
-                        If txType = "Buy-In" Then
-                            playerData(regID).Days(dayIndex) -= amount
-                            dailyCashIn(dayIndex) += amount
-                            totalCashIn += amount
-                        ElseIf txType = "Cash-Out" Then
-                            playerData(regID).Days(dayIndex) += amount
-                            dailyCashOut(dayIndex) += amount
-                            totalCashOut += amount
-                        End If
-                    End If
-                End If
             End While
+
             reader.Close()
 
             ' Fill dgvReports
