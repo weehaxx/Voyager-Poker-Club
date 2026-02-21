@@ -164,7 +164,7 @@ WHERE
             End Using
 
             ' 🔹 Update totals based on session_date
-            UpdateTotals(baseDate)
+            UpdateTotalsFromGrid()
             If dgvCashFlow.Columns.Contains("CASHFLOW_ID") Then
                 dgvCashFlow.Columns("CASHFLOW_ID").Visible = False
             End If
@@ -406,4 +406,44 @@ GROUP BY type"
     Private Sub dgvCashFlow_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCashFlow.CellContentClick
 
     End Sub
+
+    Private Sub UpdateTotalsFromGrid()
+        Try
+            Dim totalBuyIn As Decimal = 0D
+            Dim totalCashOut As Decimal = 0D
+
+            For Each row As DataGridViewRow In dgvCashFlow.Rows
+                If row.IsNewRow Then Continue For
+
+                ' BUY-IN column
+                If row.Cells("BUY-IN").Value IsNot Nothing Then
+                    Dim value As String = row.Cells("BUY-IN").Value.ToString()
+                    If value.StartsWith("₱") Then
+                        Dim amount As Decimal
+                        If Decimal.TryParse(value.Replace("₱", "").Replace(",", ""), amount) Then
+                            totalBuyIn += amount
+                        End If
+                    End If
+                End If
+
+                ' CASH-OUT column
+                If row.Cells("CASH-OUT").Value IsNot Nothing Then
+                    Dim value As String = row.Cells("CASH-OUT").Value.ToString()
+                    If value.StartsWith("₱") Then
+                        Dim amount As Decimal
+                        If Decimal.TryParse(value.Replace("₱", "").Replace(",", ""), amount) Then
+                            totalCashOut += amount
+                        End If
+                    End If
+                End If
+            Next
+
+            lblCashIn.Text = "₱" & totalBuyIn.ToString("N2")
+            lblCashOut.Text = "₱" & totalCashOut.ToString("N2")
+
+        Catch ex As Exception
+            MessageBox.Show("Error updating totals: " & ex.Message)
+        End Try
+    End Sub
+
 End Class

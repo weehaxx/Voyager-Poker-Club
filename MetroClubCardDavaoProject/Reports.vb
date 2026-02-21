@@ -100,7 +100,8 @@ ORDER BY r.name
             Dim cmd As New SQLiteCommand(sql, conn)
             Dim reader As SQLiteDataReader = cmd.ExecuteReader()
 
-            Dim playerData As New Dictionary(Of Long, (FullName As String, Days As Decimal()))
+            Dim playerData As New Dictionary(Of Long, (FullName As String, Days As Decimal(), HasTransaction As Boolean()))
+
 
             While reader.Read()
 
@@ -118,8 +119,12 @@ ORDER BY r.name
                 Dim fullname As String = reader("name").ToString()
 
                 If Not playerData.ContainsKey(regID) Then
-                    playerData(regID) = (fullname, New Decimal(daysInMonth - 1) {})
+                    playerData(regID) =
+        (fullname,
+         New Decimal(daysInMonth - 1) {},
+         New Boolean(daysInMonth - 1) {})
                 End If
+
 
                 Dim dayIndex As Integer = txDate.Day - 1
                 Dim amount As Decimal = Convert.ToDecimal(reader("amount"))
@@ -129,41 +134,81 @@ ORDER BY r.name
                     playerData(regID).Days(dayIndex) -= amount
                     dailyCashIn(dayIndex) += amount
                     totalCashIn += amount
+                    playerData(regID).HasTransaction(dayIndex) = True
+
                 ElseIf txType = "Cash-Out" Then
                     playerData(regID).Days(dayIndex) += amount
                     dailyCashOut(dayIndex) += amount
                     totalCashOut += amount
+                    playerData(regID).HasTransaction(dayIndex) = True
                 End If
+
 
             End While
 
             reader.Close()
 
             ' Fill dgvReports
+            ' ===============================
+            ' DISPLAY PLAYER ROWS
+            ' ===============================
+
             For Each kvp In playerData
+
                 Dim fullname As String = kvp.Value.FullName
                 Dim days() As Decimal = kvp.Value.Days
+                Dim activity() As Boolean = kvp.Value.HasTransaction
 
-                Dim rowIndex As Integer = dgvReports.Rows.Add()
-                dgvReports.Rows(rowIndex).Cells(0).Value = fullname
-
-                Dim total As Decimal = 0
+                ' ✅ Check if player has ANY transaction this month
+                Dim hasAnyTransaction As Boolean = False
                 For i As Integer = 0 To daysInMonth - 1
-                    Dim val As Decimal = days(i)
-                    If val <> 0 Then
-                        dgvReports.Rows(rowIndex).Cells(i + 1).Value = Math.Abs(val).ToString("N0")
-                        dgvReports.Rows(rowIndex).Cells(i + 1).Style.ForeColor = If(val < 0, Color.Red, Color.Black)
-                        dgvReports.Rows(rowIndex).Cells(i + 1).Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-                        rawValues($"{rowIndex}_{i + 1}") = val
-                        total += val
+                    If activity(i) Then
+                        hasAnyTransaction = True
+                        Exit For
                     End If
                 Next
 
-                dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Value = Math.Abs(total).ToString("N0")
-                dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Style.ForeColor = If(total < 0, Color.Red, Color.Black)
-                dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-                rawValues($"{rowIndex}_{daysInMonth + 1}") = total
+                ' ❌ Skip player if NO transaction at all
+                If Not hasAnyTransaction Then
+                    Continue For
+                End If
+
+                ' ✅ Add new row
+                Dim rowIndex As Integer = dgvReports.Rows.Add()
+
+                ' Set player name (Column 0)
+                dgvReports.Rows(rowIndex).Cells(0).Value = fullname
+
+                Dim total As Decimal = 0
+
+                For i As Integer = 0 To daysInMonth - 1
+
+                    ' Only show value if player had transaction that day
+                    If activity(i) Then
+
+                        Dim val As Decimal = days(i)
+
+                        dgvReports.Rows(rowIndex).Cells(i + 1).Value =
+                Math.Abs(val).ToString("N0")
+
+                        dgvReports.Rows(rowIndex).Cells(i + 1).Style.ForeColor =
+                If(val < 0, Color.Red, Color.Black)
+
+                        total += val
+                    End If
+
+                Next
+
+                ' Set TOTAL column (last column)
+                dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Value =
+        Math.Abs(total).ToString("N0")
+
+                dgvReports.Rows(rowIndex).Cells(daysInMonth + 1).Style.ForeColor =
+        If(total < 0, Color.Red, Color.Black)
+
             Next
+
+
 
             dgvReports.ClearSelection()
             dgvReports.CurrentCell = Nothing
@@ -316,6 +361,10 @@ ORDER BY r.name
     End Sub
 
     Private Sub dgvTotals_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTotals.CellContentClick
+
+    End Sub
+
+    Private Sub dgvReports_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvReports.CellContentClick
 
     End Sub
 End Class

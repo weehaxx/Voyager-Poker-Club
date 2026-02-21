@@ -44,10 +44,9 @@ Partial Class Reports
         ' 
         Guna2HtmlLabel1.BackColor = Color.Transparent
         Guna2HtmlLabel1.Font = New Font("Arial Rounded MT Bold", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Guna2HtmlLabel1.Location = New Point(20, 14)
-        Guna2HtmlLabel1.Margin = New Padding(3, 2, 3, 2)
+        Guna2HtmlLabel1.Location = New Point(23, 19)
         Guna2HtmlLabel1.Name = "Guna2HtmlLabel1"
-        Guna2HtmlLabel1.Size = New Size(714, 32)
+        Guna2HtmlLabel1.Size = New Size(897, 40)
         Guna2HtmlLabel1.TabIndex = 1
         Guna2HtmlLabel1.Text = "MONTHLY SUMMARY OF PLAYER/ ACCOUNT LEDGDER"
         ' 
@@ -56,9 +55,10 @@ Partial Class Reports
         Guna2HtmlLabel2.BackColor = Color.Transparent
         Guna2HtmlLabel2.Font = New Font("Arial Rounded MT Bold", 16.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Guna2HtmlLabel2.ForeColor = Color.Black
-        Guna2HtmlLabel2.Location = New Point(20, 82)
+        Guna2HtmlLabel2.Location = New Point(23, 109)
+        Guna2HtmlLabel2.Margin = New Padding(3, 4, 3, 4)
         Guna2HtmlLabel2.Name = "Guna2HtmlLabel2"
-        Guna2HtmlLabel2.Size = New Size(93, 28)
+        Guna2HtmlLabel2.Size = New Size(113, 34)
         Guna2HtmlLabel2.TabIndex = 76
         Guna2HtmlLabel2.Text = "MONTH:"
         ' 
@@ -66,10 +66,9 @@ Partial Class Reports
         ' 
         dtpMonthYear.CalendarFont = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         dtpMonthYear.Font = New Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        dtpMonthYear.Location = New Point(124, 82)
-        dtpMonthYear.Margin = New Padding(3, 2, 3, 2)
+        dtpMonthYear.Location = New Point(142, 109)
         dtpMonthYear.Name = "dtpMonthYear"
-        dtpMonthYear.Size = New Size(206, 32)
+        dtpMonthYear.Size = New Size(235, 38)
         dtpMonthYear.TabIndex = 77
         ' 
         ' dgvReports
@@ -99,14 +98,12 @@ Partial Class Reports
         DataGridViewCellStyle3.WrapMode = DataGridViewTriState.False
         dgvReports.DefaultCellStyle = DataGridViewCellStyle3
         dgvReports.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        dgvReports.Location = New Point(20, 131)
-        dgvReports.Margin = New Padding(3, 2, 3, 2)
+        dgvReports.Location = New Point(23, 175)
         dgvReports.Name = "dgvReports"
         dgvReports.ReadOnly = True
         dgvReports.RowHeadersVisible = False
         dgvReports.RowHeadersWidth = 51
-        dgvReports.RowTemplate.Height = 29
-        dgvReports.Size = New Size(1004, 416)
+        dgvReports.Size = New Size(1147, 555)
         dgvReports.TabIndex = 78
         dgvReports.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
         dgvReports.ThemeStyle.AlternatingRowsStyle.Font = Nothing
@@ -140,10 +137,11 @@ Partial Class Reports
         btnPrintMonthly.FillColor = Color.Black
         btnPrintMonthly.Font = New Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         btnPrintMonthly.ForeColor = Color.White
-        btnPrintMonthly.Location = New Point(346, 82)
+        btnPrintMonthly.Location = New Point(395, 109)
+        btnPrintMonthly.Margin = New Padding(3, 4, 3, 4)
         btnPrintMonthly.Name = "btnPrintMonthly"
         btnPrintMonthly.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        btnPrintMonthly.Size = New Size(168, 32)
+        btnPrintMonthly.Size = New Size(192, 43)
         btnPrintMonthly.TabIndex = 79
         btnPrintMonthly.Text = "PRINT"
         ' 
@@ -174,14 +172,12 @@ Partial Class Reports
         DataGridViewCellStyle6.WrapMode = DataGridViewTriState.False
         dgvTotals.DefaultCellStyle = DataGridViewCellStyle6
         dgvTotals.GridColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
-        dgvTotals.Location = New Point(20, 559)
-        dgvTotals.Margin = New Padding(3, 2, 3, 2)
+        dgvTotals.Location = New Point(23, 745)
         dgvTotals.Name = "dgvTotals"
         dgvTotals.ReadOnly = True
         dgvTotals.RowHeadersVisible = False
         dgvTotals.RowHeadersWidth = 51
-        dgvTotals.RowTemplate.Height = 29
-        dgvTotals.Size = New Size(1004, 62)
+        dgvTotals.Size = New Size(1147, 83)
         dgvTotals.TabIndex = 80
         dgvTotals.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White
         dgvTotals.ThemeStyle.AlternatingRowsStyle.Font = Nothing
@@ -207,7 +203,7 @@ Partial Class Reports
         ' 
         ' Reports
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.WhiteSmoke
         Controls.Add(dgvTotals)
@@ -216,9 +212,8 @@ Partial Class Reports
         Controls.Add(dtpMonthYear)
         Controls.Add(Guna2HtmlLabel2)
         Controls.Add(Guna2HtmlLabel1)
-        Margin = New Padding(3, 2, 3, 2)
         Name = "Reports"
-        Size = New Size(1041, 635)
+        Size = New Size(1190, 847)
         CType(dgvReports, ComponentModel.ISupportInitialize).EndInit()
         CType(dgvTotals, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
